@@ -101,6 +101,8 @@ component Showcase {
       "Navigation" => <NavigationShowcase/>
       "Charts" => <ChartsShowcase/>
       "Code" => <CodeShowcase/>
+      "Markdown" => <MarkdownShowcase/>
+      "Table" => <TableShowcase/>
       => <div>"Select a tab"</div>
     }
   }
@@ -121,6 +123,8 @@ component Showcase {
           renderTabButton("Navigation")
           renderTabButton("Charts")
           renderTabButton("Code")
+          renderTabButton("Markdown")
+          renderTabButton("Table")
         </div>
 
         <div::tabContent>renderContent()</div>
