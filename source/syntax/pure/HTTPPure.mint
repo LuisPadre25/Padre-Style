@@ -1,7 +1,7 @@
 /* HTTP Syntax Highlighter - Pure Mint Lang */
 module HTTPPure {
-  fun highlightHTTP (line : String) : String {
-    HighlightEngine.highlight(line,
+  fun highlightHTTP (code : String) : String {
+    HighlightEngine.highlightMultiLine(code,
       [
         "GET",
         "POST",
@@ -24,6 +24,6 @@ module HTTPPure {
           "Cache-Control",
           "Cookie",
           "Set-Cookie"
-        ], [], "", "", "", ["&quot;"])
+        ], [], "", ["\""])
   }
 }

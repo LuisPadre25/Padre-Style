@@ -20,10 +20,34 @@ component CodeShowcase {
     CodeExamples.GO_EXAMPLE
   }
 
+  fun getCrystalExample : String {
+    CodeExamples.CRYSTAL_EXAMPLE
+  }
+
+  fun getBashExample : String {
+    CodeExamples.BASH_EXAMPLE
+  }
+
+  fun getHtmlCssExample : String {
+    CodeExamples.HTML_CSS_EXAMPLE
+  }
+
+  fun getJsonDeepExample : String {
+    CodeExamples.JSON_DEEP_EXAMPLE
+  }
+
+  fun getSqlExample : String {
+    CodeExamples.SQL_EXAMPLE
+  }
+
+  fun getNestedBracketsExample : String {
+    CodeExamples.NESTED_BRACKETS_EXAMPLE
+  }
+
   fun render : Html {
     <div>
-      <h2>"Code Highlighting"</h2>
-      <p>"Syntax highlighting for multiple programming languages"</p>
+      <h2>"Code Highlighting Showcase"</h2>
+      <p>"Syntax highlighting with bracket pair colorization (12+ levels)"</p>
 
       <div>
         <Card title="Mint Lang">
@@ -63,6 +87,54 @@ component CodeShowcase {
             language="go"
             title="Go Struct & Method"
             code={getGoExample()}
+          />
+        </Card>
+
+        <Card title="Crystal">
+          <CodeHighlight
+            language="crystal"
+            title="Crystal Web Framework"
+            code={getCrystalExample()}
+          />
+        </Card>
+
+        <Card title="Bash">
+          <CodeHighlight
+            language="bash"
+            title="Bash Deployment Script"
+            code={getBashExample()}
+          />
+        </Card>
+
+        <Card title="HTML/CSS">
+          <CodeHighlight
+            language="html"
+            title="HTML Dashboard Layout"
+            code={getHtmlCssExample()}
+          />
+        </Card>
+
+        <Card title="JSON (Deep Nesting)">
+          <CodeHighlight
+            language="json"
+            title="JSON API Configuration (15+ levels)"
+            code={getJsonDeepExample()}
+          />
+        </Card>
+
+        <Card title="SQL">
+          <CodeHighlight
+            language="javascript"
+            title="SQL Analytics Query"
+            code={getSqlExample()}
+          />
+        </Card>
+
+        <Card title="Extreme Bracket Nesting">
+          <CodeHighlight
+            language="javascript"
+            title="Testing 20+ Bracket Levels (HSL Colors)"
+            code={getNestedBracketsExample()}
           />
         </Card>
       </div>

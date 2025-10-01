@@ -1,7 +1,7 @@
 /* Crystal Syntax Highlighter - Pure Mint Lang */
 module CrystalPure {
-  fun highlightCrystal (line : String) : String {
-    HighlightEngine.highlight(line,
+  fun highlightCrystal (code : String) : String {
+    HighlightEngine.highlightMultiLine(code,
       [
         "abstract",
         "alias",
@@ -78,6 +78,6 @@ module CrystalPure {
           "UInt32",
           "UInt64",
           "Void"
-        ], ["true", "false", "nil"], "#", "", "", ["&quot;", "&#39;"])
+        ], ["true", "false", "nil"], "#", ["\"", "'"])
   }
 }

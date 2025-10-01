@@ -438,7 +438,7 @@ component Accordion {
   property children : Array(Html) = []
   property defaultOpen : Bool = false
 
-  state isOpen : Bool = defaultOpen
+  state isOpen : Bool = false
 
   connect ThemeStore exposing { currentTheme }
 

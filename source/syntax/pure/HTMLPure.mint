@@ -1,7 +1,7 @@
 /* HTML Syntax Highlighter - Pure Mint Lang */
 module HTMLPure {
-  fun highlightHTML (line : String) : String {
-    HighlightEngine.highlight(line,
+  fun highlightHTML (code : String) : String {
+    HighlightEngine.highlightMultiLine(code,
       [
         "DOCTYPE",
         "html",
@@ -41,6 +41,6 @@ module HTMLPure {
         "meta",
         "br",
         "hr"
-      ], [], [], "", "&lt;!--", "--&gt;", ["&quot;", "&#39;"])
+      ], [], [], "", ["\"", "'"])
   }
 }

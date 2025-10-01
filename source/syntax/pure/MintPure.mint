@@ -1,7 +1,7 @@
 /* Mint Language Syntax Highlighter - Pure Mint Lang */
 module MintPure {
-  fun highlightMint (line : String) : String {
-    HighlightEngine.highlight(line,
+  fun highlightMint (code : String) : String {
+    HighlightEngine.highlightMultiLine(code,
       [
         "as",
         "case",
@@ -60,6 +60,6 @@ module MintPure {
           "Time",
           "Tuple",
           "Void"
-        ], ["true", "false"], "//", "/*", "*/", ["&quot;"])
+        ], ["true", "false"], "//", ["\""])
   }
 }

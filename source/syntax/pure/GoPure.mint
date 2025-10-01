@@ -1,7 +1,7 @@
 /* Go Syntax Highlighter - Pure Mint Lang */
 module GoPure {
-  fun highlightGo (line : String) : String {
-    HighlightEngine.highlight(line,
+  fun highlightGo (code : String) : String {
+    HighlightEngine.highlightMultiLine(code,
       [
         "break",
         "case",
@@ -50,6 +50,6 @@ module GoPure {
           "uint32",
           "uint64",
           "uintptr"
-        ], ["true", "false", "nil", "iota"], "//", "/*", "*/", ["&quot;", "`"])
+        ], ["true", "false", "nil", "iota"], "//", ["\"", "`"])
   }
 }

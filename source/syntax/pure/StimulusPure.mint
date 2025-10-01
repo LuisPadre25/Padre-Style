@@ -1,7 +1,7 @@
 /* Stimulus Syntax Highlighter - Pure Mint Lang */
 module StimulusPure {
-  fun highlightStimulus (line : String) : String {
-    HighlightEngine.highlight(line,
+  fun highlightStimulus (code : String) : String {
+    HighlightEngine.highlightMultiLine(code,
       [
         "controller",
         "action",
@@ -16,7 +16,6 @@ module StimulusPure {
         "classes",
         "outlets"
       ], ["Controller", "Application", "Context", "Element"],
-        ["true", "false", "null", "undefined"], "//", "/*", "*/",
-          ["&quot;", "&#39;"])
+        ["true", "false", "null", "undefined"], "//", ["\"", "'"])
   }
 }

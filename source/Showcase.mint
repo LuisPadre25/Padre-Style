@@ -86,13 +86,9 @@ component Showcase {
       activeTab == label
 
     if isActive {
-      <button::activeTab onClick={() { setTab(label) }}>
-        label
-      </button>
+      <button::activeTab onClick={() { setTab(label) }}>label</button>
     } else {
-      <button::tab onClick={() { setTab(label) }}>
-        label
-      </button>
+      <button::tab onClick={() { setTab(label) }}>label</button>
     }
   }
 
@@ -127,9 +123,7 @@ component Showcase {
           renderTabButton("Code")
         </div>
 
-        <div::tabContent>
-          renderContent()
-        </div>
+        <div::tabContent>renderContent()</div>
       </div>
     </div>
   }

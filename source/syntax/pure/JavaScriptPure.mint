@@ -1,7 +1,7 @@
 /* JavaScript Syntax Highlighter - Pure Mint Lang */
 module JavaScriptPure {
-  fun highlightJavaScript (line : String) : String {
-    HighlightEngine.highlight(line,
+  fun highlightJavaScript (code : String) : String {
+    HighlightEngine.highlightMultiLine(code,
       [
         "const",
         "let",
@@ -77,7 +77,6 @@ module JavaScriptPure {
           "setInterval",
           "parseInt",
           "parseFloat"
-        ], ["true", "false", "null", "undefined", "NaN", "Infinity"], "//",
-          "/*", "*/", ["&quot;", "&#39;", "`"])
+        ], ["true", "false", "null", "undefined", "NaN", "Infinity"], "//", ["\"", "'", "`"])
   }
 }

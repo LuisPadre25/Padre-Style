@@ -1,7 +1,7 @@
 /* Python Syntax Highlighter - Pure Mint Lang */
 module PythonPure {
-  fun highlightPython (line : String) : String {
-    HighlightEngine.highlight(line,
+  fun highlightPython (code : String) : String {
+    HighlightEngine.highlightMultiLine(code,
       [
         "and",
         "as",
@@ -58,6 +58,6 @@ module PythonPure {
           "classmethod",
           "Exception",
           "BaseException"
-        ], ["True", "False", "None"], "#", "", "", ["&quot;", "&#39;"])
+        ], ["True", "False", "None"], "#", ["\"", "'"])
   }
 }

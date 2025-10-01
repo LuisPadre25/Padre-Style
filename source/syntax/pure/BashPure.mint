@@ -1,7 +1,7 @@
 /* Bash Syntax Highlighter - Pure Mint Lang */
 module BashPure {
-  fun highlightBash (line : String) : String {
-    HighlightEngine.highlight(line,
+  fun highlightBash (code : String) : String {
+    HighlightEngine.highlightMultiLine(code,
       [
         "if",
         "then",
@@ -52,6 +52,6 @@ module BashPure {
           "find",
           "chmod",
           "chown"
-        ], ["true", "false"], "#", "", "", ["&quot;", "&#39;"])
+        ], ["true", "false"], "#", ["\"", "'"])
   }
 }

@@ -36,27 +36,25 @@ component NavigationShowcase {
   }
 
   fun handlePagePrev (event : Html.Event) : Promise(Void) {
-    next
-      {
-        currentPage:
-          if currentPage > 1 {
-            currentPage - 1
-          } else {
-            1
-          }
-      }
+    next {
+      currentPage:
+        if currentPage > 1 {
+          currentPage - 1
+        } else {
+          1
+        }
+    }
   }
 
   fun handlePageNext (event : Html.Event) : Promise(Void) {
-    next
-      {
-        currentPage:
-          if currentPage < 10 {
-            currentPage + 1
-          } else {
-            10
-          }
-      }
+    next {
+      currentPage:
+        if currentPage < 10 {
+          currentPage + 1
+        } else {
+          10
+        }
+    }
   }
 
   fun render : Html {

@@ -143,16 +143,43 @@ component CodeHighlight {
     lines
   }
 
-  fun highlightLine (line : String) : Html {
-    <span>{line}</span>
+  fun highlightCode : String {
+    case language {
+      "mint" => MintPure.highlightMint(code)
+      "javascript" => JavaScriptPure.highlightJavaScript(code)
+      "typescript" => TypeScriptPure.highlightTypeScript(code)
+      "python" => PythonPure.highlightPython(code)
+      "go" => GoPure.highlightGo(code)
+      "crystal" => CrystalPure.highlightCrystal(code)
+      "json" => JSONPure.highlightJSON(code)
+      "bash" => BashPure.highlightBash(code)
+      "html" => HTMLPure.highlightHTML(code)
+      "css" => CSSPure.highlightCSS(code)
+      "http" => HTTPPure.highlightHTTP(code)
+      "haml" => HAMLPure.highlightHAML(code)
+      "stimulus" => StimulusPure.highlightStimulus(code)
+      => code
+    }
   }
 
-  fun renderLineAtIndex (index : Number, lines : Array(String)) : Html {
-    case Array.at(lines, index) {
-      Maybe.Just(line) => <div::codeLine>highlightLine(line)</div>
+  fun renderHighlightedLines : Html {
+    let highlighted =
+      highlightCode()
 
-      Maybe.Nothing => <div/>
-    }
+    let lines =
+      String.split(highlighted, "\n")
+
+    <>
+      {
+        for index of Array.range(0, Array.size(lines) - 1) {
+          case Array.at(lines, index) {
+            Maybe.Just(line) => <div::codeLine><span dangerouslySetInnerHTML={`{ __html: #{line} }`}/></div>
+
+            Maybe.Nothing => <div/>
+          }
+        }
+      }
+    </>
   }
 
   fun render : Html {
@@ -197,11 +224,7 @@ component CodeHighlight {
         }
 
         <div::codeContent>
-          {
-            for index of Array.range(0, Array.size(lines) - 1) {
-              renderLineAtIndex(index, lines)
-            }
-          }
+          renderHighlightedLines()
         </div>
       </div>
     </div>

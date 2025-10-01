@@ -1,7 +1,7 @@
 /* TypeScript Syntax Highlighter - Pure Mint Lang */
 module TypeScriptPure {
-  fun highlightTypeScript (line : String) : String {
-    HighlightEngine.highlight(line,
+  fun highlightTypeScript (code : String) : String {
+    HighlightEngine.highlightMultiLine(code,
       [
         "abstract",
         "any",
@@ -88,7 +88,6 @@ module TypeScriptPure {
           "ReturnType",
           "InstanceType",
           "Parameters"
-        ], ["true", "false", "null", "undefined"], "//", "/*", "*/",
-          ["&quot;", "&#39;", "`"])
+        ], ["true", "false", "null", "undefined"], "//", ["\"", "'", "`"])
   }
 }
