@@ -329,8 +329,23 @@ module HighlightEngine {
             let stringLength =
               String.size(stringMatch)
 
+            /* Build colored string based on string length */
             let colored =
-              colorize(stringMatch, "#CE9178")
+              if stringLength >= 2 {
+                /* Extract delimiter and content */
+                let delimiter =
+                  `#{stringMatch}.substring(0, 1)`
+
+                /* Process content for format specifiers */
+                let processedContent =
+                  processStringContent(stringMatch, 1, stringLength - 1)
+
+                /* Build colored string */
+                colorize(delimiter, "#CE9178") + processedContent + colorize(delimiter, "#CE9178")
+              } else {
+                /* String too short, just colorize as-is */
+                colorize(stringMatch, "#CE9178")
+              }
 
             processLineWithDepthReturn(line, keywords, types, booleans, stringDelimiters, index + stringLength, result + colored, bracketDepth)
           }
@@ -710,6 +725,52 @@ module HighlightEngine {
       } else {
         Maybe.Just(`#{text}.substring(0, #{position})`)
       }
+    }
+  }
+
+  /* Detect format specifier inside string (printf-style: %s, %d, %f, etc.) */
+  fun detectFormatSpecifier (text : String, position : Number) : Maybe(Number) {
+    let size = String.size(text)
+
+    if position >= size {
+      Maybe.Nothing
+    } else {
+      let char = `#{text}.substring(#{position}, #{position + 1})`
+
+      if char == "%" {
+        if position + 1 < size {
+          let nextChar = `#{text}.substring(#{position + 1}, #{position + 2})`
+
+          if nextChar == "s" || nextChar == "d" || nextChar == "f" || nextChar == "v" || nextChar == "t" || nextChar == "b" || nextChar == "o" || nextChar == "x" || nextChar == "X" || nextChar == "e" || nextChar == "E" || nextChar == "g" || nextChar == "G" || nextChar == "c" || nextChar == "p" || nextChar == "%" || nextChar == "i" || nextChar == "u" {
+            Maybe.Just(position + 2)
+          } else {
+            detectFormatSpecifier(text, position + 1)
+          }
+        } else {
+          Maybe.Nothing
+        }
+      } else {
+        detectFormatSpecifier(text, position + 1)
+      }
+    }
+  }
+
+  /* Process string content to highlight format specifiers */
+  fun processStringContent (content : String, startPos : Number, endPos : Number) : String {
+    case detectFormatSpecifier(content, startPos) {
+      Maybe.Just(formatEnd) =>
+        if formatEnd <= endPos {
+          let before = `#{content}.substring(#{startPos}, #{formatEnd - 2})`
+          let format = `#{content}.substring(#{formatEnd - 2}, #{formatEnd})`
+          let afterProcessed = processStringContent(content, formatEnd, endPos)
+
+          colorize(before, "#CE9178") + colorize(format, "#D7BA7D") + afterProcessed
+        } else {
+          colorize(`#{content}.substring(#{startPos}, #{endPos})`, "#CE9178")
+        }
+
+      Maybe.Nothing =>
+        colorize(`#{content}.substring(#{startPos}, #{endPos})`, "#CE9178")
     }
   }
 
