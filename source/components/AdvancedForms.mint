@@ -581,4 +581,3 @@ component Switch {
     </label>
   }
 }
-

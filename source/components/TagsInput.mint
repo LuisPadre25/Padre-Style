@@ -3,7 +3,9 @@ component TagsInput {
   property tags : Array(String) = []
   property placeholder : String = "Add tag..."
   property disabled : Bool = false
-  property onTagsChange = (newTags : Array(String)) : Promise(Void) { Promise.never() }
+
+  property onTagsChange =
+    (newTags : Array(String)) : Promise(Void) { Promise.never() }
 
   connect ThemeStore exposing { currentTheme }
 
@@ -86,20 +88,27 @@ component TagsInput {
   }
 
   fun handleKeyDown (event : Html.Event) : Promise(Void) {
-    /* NOTE: Enter key to add tag and Backspace to remove last tag require
+    /*
+    NOTE: Enter key to add tag and Backspace to remove last tag require
        event.key detection not fully available in pure Mint. Users can still
-       add tags by typing and using Tab, or by providing an explicit Add button. */
+       add tags by typing and using Tab, or by providing an explicit Add button.
+    */
     Promise.never()
   }
 
   fun addTag : Promise(Void) {
-    if (String.isEmpty(String.trim(inputValue))) {
+    if String.isEmpty(String.trim(inputValue)) {
       Promise.never()
     } else {
-      let trimmed = String.trim(inputValue)
-      let newTags = Array.push(tags, trimmed)
+      let trimmed =
+        String.trim(inputValue)
 
-      sequence {
+      let newTags =
+        Array.push(tags, trimmed)
+
+      sequence
+
+      {
         next { inputValue: "" }
         onTagsChange(newTags)
       }
@@ -110,20 +119,22 @@ component TagsInput {
     let newTags =
       Array.range(0, Array.size(tags) - 1)
       |> Array.select((i : Number) { i != index })
-      |> Array.map((i : Number) {
-        case Array.at(tags, i) {
-          Maybe.Just(tag) => tag
-          Maybe.Nothing => ""
-        }
-      })
+      |> Array.map(
+        (i : Number) {
+          case Array.at(tags, i) {
+            Maybe.Just(tag) => tag
+            Maybe.Nothing => ""
+          }
+        })
 
     onTagsChange(newTags)
   }
 
   fun removeLastTag : Promise(Void) {
-    let size = Array.size(tags)
+    let size =
+      Array.size(tags)
 
-    if (size > 0) {
+    if size > 0 {
       case Array.slice(tags, 0, size - 1) {
         Maybe.Just(newTags) => onTagsChange(newTags)
         Maybe.Nothing => Promise.never()
@@ -138,16 +149,17 @@ component TagsInput {
   }
 
   fun renderTagAtIndex (index : Number) : Html {
-    case (Array.at(tags, index)) {
+    case Array.at(tags, index) {
       Maybe.Just(tag) =>
         <div::tag>
           <span>tag</span>
+
           <button::removeButton onClick={(e : Html.Event) { removeTag(index) }}>
             "×"
           </button>
         </div>
 
-      Maybe.Nothing => <div></div>
+      Maybe.Nothing => <div/>
     }
   }
 
@@ -165,7 +177,8 @@ component TagsInput {
         placeholder={placeholder}
         disabled={disabled}
         onChange={handleInputChange}
-        onKeyDown={handleKeyDown}/>
+        onKeyDown={handleKeyDown}
+      />
     </div>
   }
 }

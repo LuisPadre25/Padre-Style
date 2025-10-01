@@ -16,7 +16,8 @@ component CodeHighlight {
     overflow: hidden;
     border: 1px solid #{ThemeHelpers.getBorderPrimary(currentTheme)};
     background: #{ThemeHelpers.getElevated(currentTheme)};
-    font-family: 'Fira Code', 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 14px;
   }
 
   style header {
@@ -111,6 +112,7 @@ component CodeHighlight {
     flex: 1;
     padding: 1rem;
     overflow-x: auto;
+    tab-size: 2;
   }
 
   style codeLine {
@@ -118,31 +120,31 @@ component CodeHighlight {
     font-size: 0.875rem;
     line-height: 1.5;
     white-space: pre;
+    tab-size: 2;
+    font-variant-ligatures: none;
+    letter-spacing: normal;
   }
 
   fun handleCopy (event : Html.Event) : Promise(Void) {
-    /* NOTE: Pure Mint version - clipboard copy would go here.
-       Window.writeToClipboard may not be available in this Mint version.
-       For full implementation, use browser Clipboard API via ports. */
-    Promise.never()
+    `navigator.clipboard.writeText(#{code})`
+    next { copied: true }
+
+    await Timer.timeout(2000)
+
+    next { copied: false }
   }
 
   fun getLines : Array(String) {
     String.split(code, "\n")
   }
 
+  fun trimCommonIndent (lines : Array(String)) : Array(String) {
+    /* Remove common leading whitespace from all lines */
+    lines
+  }
+
   fun highlightLine (line : String) : Html {
-    /*
-    NOTE: Syntax highlighting requires rendering HTML from strings.
-       In pure Mint without dangerouslySetInnerHTML, we display plain text.
-       For full syntax highlighting, a native Mint highlighter would need to
-       return Html components instead of HTML strings.
-    */
-    <span>
-      {
-        line
-      }
-    </span>
+    <span>{line}</span>
   }
 
   fun renderLineAtIndex (index : Number, lines : Array(String)) : Html {

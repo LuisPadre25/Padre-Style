@@ -83,7 +83,9 @@ component AutocompleteInput {
   }
 
   fun handleInputChange (event : Html.Event) : Promise(Void) {
-    let newValue = Dom.getValue(event.target)
+    let newValue =
+      Dom.getValue(event.target)
+
     next { isOpen: true, selectedIndex: -1 }
     onChange(newValue)
   }
@@ -103,14 +105,15 @@ component AutocompleteInput {
   }
 
   fun getFilteredSuggestions : Array(String) {
-    if (String.isEmpty(value)) {
+    if String.isEmpty(value) {
       []
     } else {
       suggestions
-      |> Array.select((s : String) : Bool {
-        String.toLowerCase(s)
-        |> String.contains(String.toLowerCase(value))
-      })
+      |> Array.select(
+        (s : String) : Bool {
+          String.toLowerCase(s)
+          |> String.contains(String.toLowerCase(value))
+        })
     }
   }
 
@@ -119,20 +122,26 @@ component AutocompleteInput {
   }
 
   fun renderSuggestionAtIndex (index : Number, filtered : Array(String)) : Html {
-    case (Array.at(filtered, index)) {
+    case Array.at(filtered, index) {
       Maybe.Just(suggestion) =>
         <div::suggestion
-          class={if (index == selectedIndex) { "selected" } else { "" }}
-          onClick={(e : Html.Event) { selectSuggestion(suggestion) }}>
-          suggestion
-        </div>
+          class={
+            if index == selectedIndex {
+              "selected"
+            } else {
+              ""
+            }
+          }
+          onClick={(e : Html.Event) { selectSuggestion(suggestion) }}
+        >suggestion</div>
 
-      Maybe.Nothing => <div></div>
+      Maybe.Nothing => <div/>
     }
   }
 
   fun render : Html {
-    let filtered = getFilteredSuggestions()
+    let filtered =
+      getFilteredSuggestions()
 
     <div::container style={getContainerStyles()}>
       <input::input
@@ -142,10 +151,11 @@ component AutocompleteInput {
         disabled={disabled}
         onChange={handleInputChange}
         onFocus={handleFocus}
-        onBlur={handleBlur}/>
+        onBlur={handleBlur}
+      />
 
       {
-        if (isOpen && Array.size(filtered) > 0) {
+        if isOpen && Array.size(filtered) > 0 {
           <div::dropdown>
             {
               for index of Array.range(0, Array.size(filtered) - 1) {
@@ -153,12 +163,10 @@ component AutocompleteInput {
               }
             }
           </div>
-        } else if (isOpen && !String.isEmpty(value) && Array.size(filtered) == 0) {
-          <div::dropdown>
-            <div::noResults>"No results found"</div>
-          </div>
+        } else if isOpen && !String.isEmpty(value) && Array.size(filtered) == 0 {
+          <div::dropdown><div::noResults>"No results found"</div></div>
         } else {
-          <div></div>
+          <div/>
         }
       }
     </div>

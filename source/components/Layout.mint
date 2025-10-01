@@ -44,24 +44,43 @@ component FlexItem {
 
   fun getFlexStyles : String {
     let flexValue =
-      if (!String.isEmpty(grow) || !String.isEmpty(shrink) || !String.isEmpty(basis)) {
-        let g = if (String.isEmpty(grow)) { "0" } else { grow }
-        let s = if (String.isEmpty(shrink)) { "1" } else { shrink }
-        let b = if (String.isEmpty(basis)) { "auto" } else { basis }
+      if !String.isEmpty(grow) || !String.isEmpty(shrink) || !String.isEmpty(
+        basis) {
+        let g =
+          if String.isEmpty(grow) {
+            "0"
+          } else {
+            grow
+          }
+
+        let s =
+          if String.isEmpty(shrink) {
+            "1"
+          } else {
+            shrink
+          }
+
+        let b =
+          if String.isEmpty(basis) {
+            "auto"
+          } else {
+            basis
+          }
+
         "flex: #{g} #{s} #{b};"
       } else {
         "flex: #{flex};"
       }
 
     let orderStyle =
-      if (String.isEmpty(order)) {
+      if String.isEmpty(order) {
         ""
       } else {
         "order: #{order};"
       }
 
     let alignStyle =
-      if (String.isEmpty(alignSelf)) {
+      if String.isEmpty(alignSelf) {
         ""
       } else {
         "align-self: #{alignSelf};"

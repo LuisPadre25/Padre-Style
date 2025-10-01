@@ -67,16 +67,20 @@ component DateTimeInput {
   }
 
   fun handleDateClick (event : Html.Event) : Promise(Void) {
-    /* NOTE: showPicker() is a browser API not available in pure Mint.
+    /*
+    NOTE: showPicker() is a browser API not available in pure Mint.
        The date input will still work, users just need to click twice
-       on some browsers to open the picker. */
+       on some browsers to open the picker.
+    */
     Promise.never()
   }
 
   fun handleTimeClick (event : Html.Event) : Promise(Void) {
-    /* NOTE: showPicker() is a browser API not available in pure Mint.
+    /*
+    NOTE: showPicker() is a browser API not available in pure Mint.
        The time input will still work, users just need to click twice
-       on some browsers to open the picker. */
+       on some browsers to open the picker.
+    */
     Promise.never()
   }
 

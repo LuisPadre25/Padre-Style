@@ -6,7 +6,9 @@ component RangeInput {
   property max : Number = 100
   property step : Number = 1
   property disabled : Bool = false
-  property onChange = (minVal : Number, maxVal : Number) : Promise(Void) { Promise.never() }
+
+  property onChange =
+    (minVal : Number, maxVal : Number) : Promise(Void) { Promise.never() }
 
   connect ThemeStore exposing { currentTheme }
 
@@ -102,7 +104,7 @@ component RangeInput {
       |> Number.fromString
       |> Maybe.withDefault(minValue)
 
-    if (newMin < maxValue) {
+    if newMin < maxValue {
       onChange(newMin, maxValue)
     } else {
       Promise.never()
@@ -116,7 +118,7 @@ component RangeInput {
       |> Number.fromString
       |> Maybe.withDefault(maxValue)
 
-    if (newMax > minValue) {
+    if newMax > minValue {
       onChange(minValue, newMax)
     } else {
       Promise.never()
@@ -128,10 +130,17 @@ component RangeInput {
   }
 
   fun getProgressStyles : String {
-    let range = max - min
-    let leftPercent = ((minValue - min) / range) * 100
-    let widthPercent = ((maxValue - minValue) / range) * 100
-    "left: #{Number.toString(leftPercent)}%; width: #{Number.toString(widthPercent)}%;"
+    let range =
+      max - min
+
+    let leftPercent =
+      ((minValue - min) / range) * 100
+
+    let widthPercent =
+      ((maxValue - minValue) / range) * 100
+
+    "left: #{Number.toString(leftPercent)}%; width: #{Number.toString(
+      widthPercent)}%;"
   }
 
   fun render : Html {
@@ -142,8 +151,8 @@ component RangeInput {
       </div>
 
       <div::sliderWrapper>
-        <div::track></div>
-        <div::progress style={getProgressStyles()}></div>
+        <div::track/>
+        <div::progress style={getProgressStyles()}/>
 
         <input::slider
           type="range"
@@ -153,7 +162,8 @@ component RangeInput {
           value={Number.toString(minValue)}
           disabled={disabled}
           onInput={handleMinChange}
-          onChange={handleMinChange}/>
+          onChange={handleMinChange}
+        />
 
         <input::slider
           type="range"
@@ -164,7 +174,8 @@ component RangeInput {
           disabled={disabled}
           onInput={handleMaxChange}
           onChange={handleMaxChange}
-          style="z-index: 11;"/>
+          style="z-index: 11;"
+        />
       </div>
     </div>
   }

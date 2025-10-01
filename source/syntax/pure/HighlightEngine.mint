@@ -1,5 +1,4 @@
 /* Syntax Highlighting Engine - Pure Mint Lang (Simplified) */
-
 module HighlightEngine {
   /* Main highlighting function - simplified version */
   fun highlight (

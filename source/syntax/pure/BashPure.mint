@@ -1,8 +1,7 @@
 /* Bash Syntax Highlighter - Pure Mint Lang */
 module BashPure {
   fun highlightBash (line : String) : String {
-    HighlightEngine.highlight(
-      line,
+    HighlightEngine.highlight(line,
       [
         "if",
         "then",
@@ -34,36 +33,25 @@ module BashPure {
         "shift",
         "source"
       ],
-      [
-        "echo",
-        "printf",
-        "read",
-        "cd",
-        "pwd",
-        "ls",
-        "cp",
-        "mv",
-        "rm",
-        "mkdir",
-        "touch",
-        "cat",
-        "grep",
-        "sed",
-        "awk",
-        "find",
-        "chmod",
-        "chown"
-      ],
-      [
-        "true",
-        "false"
-      ],
-      "#",
-      "",
-      "",
-      [
-        "&quot;",
-        "&#39;"
-      ])
+        [
+          "echo",
+          "printf",
+          "read",
+          "cd",
+          "pwd",
+          "ls",
+          "cp",
+          "mv",
+          "rm",
+          "mkdir",
+          "touch",
+          "cat",
+          "grep",
+          "sed",
+          "awk",
+          "find",
+          "chmod",
+          "chown"
+        ], ["true", "false"], "#", "", "", ["&quot;", "&#39;"])
   }
 }

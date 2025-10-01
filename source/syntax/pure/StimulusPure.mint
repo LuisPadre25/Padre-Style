@@ -1,40 +1,22 @@
 /* Stimulus Syntax Highlighter - Pure Mint Lang */
 module StimulusPure {
   fun highlightStimulus (line : String) : String {
-    HighlightEngine.highlight(
-      line,
+    HighlightEngine.highlight(line,
       [
-          "controller",
-          "action",
-          "target",
-          "targets",
-          "connect",
-          "disconnect",
-          "initialize",
-          "data",
-          "static",
-          "values",
-          "classes",
-          "outlets"
-        ],
-      [
-          "Controller",
-          "Application",
-          "Context",
-          "Element"
-        ],
-      [
-          "true",
-          "false",
-          "null",
-          "undefined"
-        ],
-      "//",
-      "/*",
-      "*/",
-      [
-          "&quot;",
-          "&#39;"
-        ])
+        "controller",
+        "action",
+        "target",
+        "targets",
+        "connect",
+        "disconnect",
+        "initialize",
+        "data",
+        "static",
+        "values",
+        "classes",
+        "outlets"
+      ], ["Controller", "Application", "Context", "Element"],
+        ["true", "false", "null", "undefined"], "//", "/*", "*/",
+          ["&quot;", "&#39;"])
   }
 }

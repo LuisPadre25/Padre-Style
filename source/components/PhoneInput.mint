@@ -72,52 +72,71 @@ component PhoneInput {
     /* Remove all non-digit characters */
     let cleaned =
       String.split(input, "")
-      |> Array.select((char : String) {
-        case Number.fromString(char) {
-          Maybe.Just(_) => true
-          Maybe.Nothing => false
-        }
-      })
-      |> String.join("")
-
-    let length = String.size(cleaned)
-    let chars = String.split(cleaned, "")
-
-    if (length >= 3) {
-      /* Get area code (first 3 digits) */
-      let areaIndices = Array.range(0, 2)
-      let areaDigits =
-        Array.map(areaIndices, (idx : Number) {
-          case Array.at(chars, idx) {
-            Maybe.Just(c) => c
-            Maybe.Nothing => ""
+      |> Array.select(
+        (char : String) {
+          case Number.fromString(char) {
+            Maybe.Just(_) => true
+            Maybe.Nothing => false
           }
         })
-      let areaCode = String.join(areaDigits, "")
+      |> String.join("")
 
-      if (length > 3) {
-        /* Get middle (next 3 digits) */
-        let middleIndices = Array.range(3, 5)
-        let middleDigits =
-          Array.map(middleIndices, (idx : Number) {
+    let length =
+      String.size(cleaned)
+
+    let chars =
+      String.split(cleaned, "")
+
+    if length >= 3 {
+      /* Get area code (first 3 digits) */
+      let areaIndices =
+        Array.range(0, 2)
+
+      let areaDigits =
+        Array.map(areaIndices,
+          (idx : Number) {
             case Array.at(chars, idx) {
               Maybe.Just(c) => c
               Maybe.Nothing => ""
             }
           })
-        let middle = String.join(middleDigits, "")
 
-        if (length > 6) {
-          /* Get end (last 4 digits) */
-          let endIndices = Array.range(6, 9)
-          let endDigits =
-            Array.map(endIndices, (idx : Number) {
+      let areaCode =
+        String.join(areaDigits, "")
+
+      if length > 3 {
+        /* Get middle (next 3 digits) */
+        let middleIndices =
+          Array.range(3, 5)
+
+        let middleDigits =
+          Array.map(middleIndices,
+            (idx : Number) {
               case Array.at(chars, idx) {
                 Maybe.Just(c) => c
                 Maybe.Nothing => ""
               }
             })
-          let end = String.join(endDigits, "")
+
+        let middle =
+          String.join(middleDigits, "")
+
+        if length > 6 {
+          /* Get end (last 4 digits) */
+          let endIndices =
+            Array.range(6, 9)
+
+          let endDigits =
+            Array.map(endIndices,
+              (idx : Number) {
+                case Array.at(chars, idx) {
+                  Maybe.Just(c) => c
+                  Maybe.Nothing => ""
+                }
+              })
+
+          let end =
+            String.join(endDigits, "")
 
           "(" + areaCode + ") " + middle + "-" + end
         } else {
@@ -132,8 +151,12 @@ component PhoneInput {
   }
 
   fun handleChange (event : Html.Event) : Promise(Void) {
-    let inputVal = Dom.getValue(event.target)
-    let formatted = formatPhoneNumber(inputVal)
+    let inputVal =
+      Dom.getValue(event.target)
+
+    let formatted =
+      formatPhoneNumber(inputVal)
+
     onChange(formatted)
   }
 
@@ -161,7 +184,8 @@ component PhoneInput {
         value={value}
         placeholder={placeholder}
         disabled={disabled}
-        onChange={handleChange}/>
+        onChange={handleChange}
+      />
     </div>
   }
 }

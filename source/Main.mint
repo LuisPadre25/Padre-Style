@@ -128,7 +128,7 @@ component Main {
         <DynamicThemeToggle/>
 
         <div::content>
-          <NewShowcase/>
+          <Showcase/>
 
           <div::footer>
             <div>"Padre Style"</div>

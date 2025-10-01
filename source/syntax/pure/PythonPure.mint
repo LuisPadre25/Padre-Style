@@ -1,43 +1,42 @@
 /* Python Syntax Highlighter - Pure Mint Lang */
 module PythonPure {
   fun highlightPython (line : String) : String {
-    HighlightEngine.highlight(
-      line,
+    HighlightEngine.highlight(line,
       [
-          "and",
-          "as",
-          "assert",
-          "async",
-          "await",
-          "break",
-          "class",
-          "continue",
-          "def",
-          "del",
-          "elif",
-          "else",
-          "except",
-          "finally",
-          "for",
-          "from",
-          "global",
-          "if",
-          "import",
-          "in",
-          "is",
-          "lambda",
-          "nonlocal",
-          "not",
-          "or",
-          "pass",
-          "raise",
-          "return",
-          "try",
-          "while",
-          "with",
-          "yield"
-        ],
-      [
+        "and",
+        "as",
+        "assert",
+        "async",
+        "await",
+        "break",
+        "class",
+        "continue",
+        "def",
+        "del",
+        "elif",
+        "else",
+        "except",
+        "finally",
+        "for",
+        "from",
+        "global",
+        "if",
+        "import",
+        "in",
+        "is",
+        "lambda",
+        "nonlocal",
+        "not",
+        "or",
+        "pass",
+        "raise",
+        "return",
+        "try",
+        "while",
+        "with",
+        "yield"
+      ],
+        [
           "int",
           "float",
           "str",
@@ -59,18 +58,6 @@ module PythonPure {
           "classmethod",
           "Exception",
           "BaseException"
-        ],
-      [
-          "True",
-          "False",
-          "None"
-        ],
-      "#",
-      "",
-      "",
-      [
-          "&quot;",
-          "&#39;"
-        ])
+        ], ["True", "False", "None"], "#", "", "", ["&quot;", "&#39;"])
   }
 }

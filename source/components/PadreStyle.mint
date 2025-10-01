@@ -94,7 +94,7 @@ component Card {
       transform: translateY(-6px) scale(1.02);
     }
 
-    & > * {
+    > * {
       max-width: 100%;
       box-sizing: border-box;
     }
@@ -155,15 +155,19 @@ component Grid {
 
   fun getGridStyles : String {
     let cols =
-      if (autoFit) {
+      if autoFit {
         "grid-template-columns: repeat(auto-fit, minmax(#{minColumnWidth}, 1fr));"
-      } else if (responsive) {
+      } else if responsive {
         // Responsive grid with media queries
         "
           grid-template-columns: repeat(#{Number.toString(columns)}, 1fr);
 
           @media (max-width: 768px) {
-            grid-template-columns: repeat(#{if (columns > 2) { "2" } else { Number.toString(columns) }}, 1fr);
+            grid-template-columns: repeat(#{if columns > 2 {
+          "2"
+        } else {
+          Number.toString(columns)
+        }}, 1fr);
           }
 
           @media (max-width: 480px) {
@@ -175,14 +179,14 @@ component Grid {
       }
 
     let colGap =
-      if (String.isEmpty(columnGap)) {
+      if String.isEmpty(columnGap) {
         ""
       } else {
         "column-gap: #{columnGap};"
       }
 
     let rGap =
-      if (String.isEmpty(rowGap)) {
+      if String.isEmpty(rowGap) {
         ""
       } else {
         "row-gap: #{rowGap};"

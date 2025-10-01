@@ -1,19 +1,9 @@
 /* CSS Syntax Highlighter - Pure Mint Lang */
 module CSSPure {
   fun highlightCSS (line : String) : String {
-    HighlightEngine.highlight(
-      line,
-      [
-          "important",
-          "media",
-          "keyframes",
-          "from",
-          "to",
-          "and",
-          "not",
-          "only"
-        ],
-      [
+    HighlightEngine.highlight(line,
+      ["important", "media", "keyframes", "from", "to", "and", "not", "only"],
+        [
           "color",
           "background",
           "border",
@@ -30,14 +20,6 @@ module CSSPure {
           "transform",
           "transition",
           "animation"
-        ],
-      [],
-      "",
-      "/*",
-      "*/",
-      [
-          "&quot;",
-          "&#39;"
-        ])
+        ], [], "", "/*", "*/", ["&quot;", "&#39;"])
   }
 }

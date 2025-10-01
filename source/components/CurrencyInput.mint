@@ -60,32 +60,38 @@ component CurrencyInput {
     /* Remove all characters except digits and dots */
     let cleaned =
       String.split(input, "")
-      |> Array.select((char : String) {
-        char == "." ||
-        case Number.fromString(char) {
-          Maybe.Just(_) => true
-          Maybe.Nothing => false
-        }
-      })
+      |> Array.select(
+        (char : String) {
+          char == "." || case Number.fromString(char) {
+            Maybe.Just(_) => true
+            Maybe.Nothing => false
+          }
+        })
       |> String.join("")
 
     /* Handle multiple dots - keep only first one */
-    let parts = String.split(cleaned, ".")
-    let partsSize = Array.size(parts)
+    let parts =
+      String.split(cleaned, ".")
 
-    if (partsSize > 2) {
+    let partsSize =
+      Array.size(parts)
+
+    if partsSize > 2 {
       case Array.at(parts, 0) {
         Maybe.Just(first) =>
           {
             /* Join all parts after the first with empty string */
-            let restIndices = Array.range(1, partsSize - 1)
+            let restIndices =
+              Array.range(1, partsSize - 1)
+
             let restParts =
-              Array.map(restIndices, (idx : Number) {
-                case Array.at(parts, idx) {
-                  Maybe.Just(part) => part
-                  Maybe.Nothing => ""
-                }
-              })
+              Array.map(restIndices,
+                (idx : Number) {
+                  case Array.at(parts, idx) {
+                    Maybe.Just(part) => part
+                    Maybe.Nothing => ""
+                  }
+                })
 
             first + "." + String.join(restParts, "")
           }
@@ -98,28 +104,33 @@ component CurrencyInput {
   }
 
   fun handleChange (event : Html.Event) : Promise(Void) {
-    let inputVal = Dom.getValue(event.target)
-    let cleanedValue = cleanCurrencyInput(inputVal)
+    let inputVal =
+      Dom.getValue(event.target)
 
-    case (Number.fromString(cleanedValue)) {
+    let cleanedValue =
+      cleanCurrencyInput(inputVal)
+
+    case Number.fromString(cleanedValue) {
       Maybe.Just(num) =>
-        if (num >= min && num <= max) {
+        if num >= min && num <= max {
           onChange(num)
-        } else if (num > max) {
+        } else if num > max {
           onChange(max)
         } else {
           onChange(min)
         }
 
-      Maybe.Nothing =>
-        onChange(0)
+      Maybe.Nothing => onChange(0)
     }
   }
 
   fun formatValue : String {
     /* Format to 2 decimal places */
-    let valueStr = Number.toString(value)
-    let parts = String.split(valueStr, ".")
+    let valueStr =
+      Number.toString(value)
+
+    let parts =
+      String.split(valueStr, ".")
 
     case Array.at(parts, 0) {
       Maybe.Just(integerPart) =>
@@ -128,33 +139,33 @@ component CurrencyInput {
             Maybe.Just(decimalPart) =>
               {
                 /* Ensure we have at least 2 decimal digits */
-                let padded = decimalPart + "00"
-                let size = String.size(padded)
+                let padded =
+                  decimalPart + "00"
+
+                let size =
+                  String.size(padded)
 
                 /* Get first 2 characters */
-                if (size >= 2) {
-                  let chars = String.split(padded, "")
+                if size >= 2 {
+                  let chars =
+                    String.split(padded, "")
 
                   case Array.at(chars, 0) {
                     Maybe.Just(first) =>
                       case Array.at(chars, 1) {
-                        Maybe.Just(second) =>
-                          integerPart + "." + first + second
+                        Maybe.Just(second) => integerPart + "." + first + second
 
-                        Maybe.Nothing =>
-                          integerPart + ".00"
+                        Maybe.Nothing => integerPart + ".00"
                       }
 
-                    Maybe.Nothing =>
-                      integerPart + ".00"
+                    Maybe.Nothing => integerPart + ".00"
                   }
                 } else {
                   integerPart + ".00"
                 }
               }
 
-            Maybe.Nothing =>
-              integerPart + ".00"
+            Maybe.Nothing => integerPart + ".00"
           }
         }
 
@@ -169,12 +180,14 @@ component CurrencyInput {
   fun render : Html {
     <div::container style={getContainerStyles()}>
       <span::currencySymbol>currency</span>
+
       <input::input
         type="text"
         value={formatValue()}
         placeholder={placeholder}
         disabled={disabled}
-        onChange={handleChange}/>
+        onChange={handleChange}
+      />
     </div>
   }
 }

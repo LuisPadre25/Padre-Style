@@ -1,36 +1,35 @@
 /* Go Syntax Highlighter - Pure Mint Lang */
 module GoPure {
   fun highlightGo (line : String) : String {
-    HighlightEngine.highlight(
-      line,
+    HighlightEngine.highlight(line,
       [
-          "break",
-          "case",
-          "chan",
-          "const",
-          "continue",
-          "default",
-          "defer",
-          "else",
-          "fallthrough",
-          "for",
-          "func",
-          "go",
-          "goto",
-          "if",
-          "import",
-          "interface",
-          "map",
-          "package",
-          "range",
-          "return",
-          "select",
-          "struct",
-          "switch",
-          "type",
-          "var"
-        ],
-      [
+        "break",
+        "case",
+        "chan",
+        "const",
+        "continue",
+        "default",
+        "defer",
+        "else",
+        "fallthrough",
+        "for",
+        "func",
+        "go",
+        "goto",
+        "if",
+        "import",
+        "interface",
+        "map",
+        "package",
+        "range",
+        "return",
+        "select",
+        "struct",
+        "switch",
+        "type",
+        "var"
+      ],
+        [
           "bool",
           "byte",
           "complex64",
@@ -51,19 +50,6 @@ module GoPure {
           "uint32",
           "uint64",
           "uintptr"
-        ],
-      [
-          "true",
-          "false",
-          "nil",
-          "iota"
-        ],
-      "//",
-      "/*",
-      "*/",
-      [
-          "&quot;",
-          "`"
-        ])
+        ], ["true", "false", "nil", "iota"], "//", "/*", "*/", ["&quot;", "`"])
   }
 }

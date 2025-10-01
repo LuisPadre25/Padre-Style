@@ -3,8 +3,12 @@ component DateRangePicker {
   property startDate : String = ""
   property endDate : String = ""
   property disabled : Bool = false
-  property onStartDateChange = (event : Html.Event) : Promise(Void) { Promise.never() }
-  property onEndDateChange = (event : Html.Event) : Promise(Void) { Promise.never() }
+
+  property onStartDateChange =
+    (event : Html.Event) : Promise(Void) { Promise.never() }
+
+  property onEndDateChange =
+    (event : Html.Event) : Promise(Void) { Promise.never() }
 
   connect ThemeStore exposing { currentTheme }
 
@@ -73,16 +77,20 @@ component DateRangePicker {
   }
 
   fun handleStartClick (event : Html.Event) : Promise(Void) {
-    /* NOTE: showPicker() is a browser API not available in pure Mint.
+    /*
+    NOTE: showPicker() is a browser API not available in pure Mint.
        The date input will still work, users just need to click twice
-       on some browsers to open the picker. */
+       on some browsers to open the picker.
+    */
     Promise.never()
   }
 
   fun handleEndClick (event : Html.Event) : Promise(Void) {
-    /* NOTE: showPicker() is a browser API not available in pure Mint.
+    /*
+    NOTE: showPicker() is a browser API not available in pure Mint.
        The date input will still work, users just need to click twice
-       on some browsers to open the picker. */
+       on some browsers to open the picker.
+    */
     Promise.never()
   }
 
@@ -90,25 +98,29 @@ component DateRangePicker {
     <div::container style={getContainerStyles()}>
       <div::inputWrapper>
         <label::label style={getLabelStyles()}>"From"</label>
+
         <input::input
           type="date"
           value={startDate}
           disabled={disabled}
           onChange={onStartDateChange}
-          onClick={handleStartClick}/>
+          onClick={handleStartClick}
+        />
       </div>
 
       <div::separator style={getSeparatorStyles()}>"→"</div>
 
       <div::inputWrapper>
         <label::label style={getLabelStyles()}>"To"</label>
+
         <input::input
           type="date"
           value={endDate}
           disabled={disabled}
           min={startDate}
           onChange={onEndDateChange}
-          onClick={handleEndClick}/>
+          onClick={handleEndClick}
+        />
       </div>
     </div>
   }

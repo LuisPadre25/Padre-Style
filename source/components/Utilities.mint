@@ -429,6 +429,7 @@ component FocusTrap {
 
   fun handleKeyDown (event : Html.Event) : Promise(Void) {
     /* Focus trap logic would go here in pure Mint */
+
     /* For now, just return without doing anything */
     Promise.never()
   }

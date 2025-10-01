@@ -46,12 +46,13 @@ component OTPInput {
     /* Remove non-digits and get last character */
     let digits =
       String.split(input, "")
-      |> Array.select((char : String) {
-        case Number.fromString(char) {
-          Maybe.Just(_) => true
-          Maybe.Nothing => false
-        }
-      })
+      |> Array.select(
+        (char : String) {
+          case Number.fromString(char) {
+            Maybe.Just(_) => true
+            Maybe.Nothing => false
+          }
+        })
 
     case Array.at(digits, Array.size(digits) - 1) {
       Maybe.Just(lastDigit) => lastDigit
@@ -59,54 +60,75 @@ component OTPInput {
     }
   }
 
-  fun updateValueAtIndex (currentValue : String, index : Number, digit : String) : String {
+  fun updateValueAtIndex (
+    currentValue : String,
+    index : Number,
+    digit : String
+  ) : String {
     /* Pad value to length and update at index */
     let padded =
-      if (String.size(currentValue) < length) {
+      if String.size(currentValue) < length {
         currentValue + String.repeat(" ", length - String.size(currentValue))
       } else {
         currentValue
       }
 
-    let chars = String.split(padded, "")
-    let digitToUse = if (String.isEmpty(digit)) { " " } else { digit }
+    let chars =
+      String.split(padded, "")
+
+    let digitToUse =
+      if String.isEmpty(digit) {
+        " "
+      } else {
+        digit
+      }
 
     /* Map over chars and replace at index */
     let updated =
-      Array.mapWithIndex(chars, (char : String, idx : Number) {
-        if (idx == index) {
-          digitToUse
-        } else {
-          char
-        }
-      })
+      Array.mapWithIndex(chars,
+        (char : String, idx : Number) {
+          if idx == index {
+            digitToUse
+          } else {
+            char
+          }
+        })
 
     String.join(updated, "")
   }
 
   fun handleInput (index : Number, event : Html.Event) : Promise(Void) {
-    let inputVal = Dom.getValue(event.target)
-    let digit = extractDigit(inputVal)
-    let newValue = updateValueAtIndex(value, index, digit)
+    let inputVal =
+      Dom.getValue(event.target)
+
+    let digit =
+      extractDigit(inputVal)
+
+    let newValue =
+      updateValueAtIndex(value, index, digit)
 
     next { focusedIndex: index + 1 }
     onChange(newValue)
 
-    /* NOTE: Auto-focus to next input requires DOM manipulation not available in pure Mint.
-       Users will need to manually tab or click to the next input. */
+    /*
+    NOTE: Auto-focus to next input requires DOM manipulation not available in pure Mint.
+       Users will need to manually tab or click to the next input.
+    */
     Promise.never()
   }
 
   fun handleKeyDown (index : Number, event : Html.Event) : Promise(Void) {
-    /* NOTE: Keyboard navigation (Backspace to previous, Arrow keys) requires DOM focus
+    /*
+    NOTE: Keyboard navigation (Backspace to previous, Arrow keys) requires DOM focus
        manipulation not available in pure Mint. Basic backspace to delete still works,
-       but navigation between inputs must be done manually with Tab or mouse click. */
+       but navigation between inputs must be done manually with Tab or mouse click.
+    */
     Promise.never()
   }
 
   fun getDigitAt (index : Number) : String {
     let padded =
-      if (String.size(value) < length) {
+      if String.size(value) < length {
         value + String.repeat(" ", length - String.size(value))
       } else {
         value
@@ -114,7 +136,11 @@ component OTPInput {
 
     case Array.at(String.split(padded, ""), index) {
       Maybe.Just(char) =>
-        if (char == " ") { "" } else { char }
+        if char == " " {
+          ""
+        } else {
+          char
+        }
 
       Maybe.Nothing => ""
     }
@@ -132,7 +158,8 @@ component OTPInput {
       disabled={disabled}
       data-otp-input="true"
       onInput={(e : Html.Event) { handleInput(index, e) }}
-      onKeyDown={(e : Html.Event) { handleKeyDown(index, e) }}/>
+      onKeyDown={(e : Html.Event) { handleKeyDown(index, e) }}
+    />
   }
 
   fun render : Html {
