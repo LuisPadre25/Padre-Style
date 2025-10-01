@@ -336,9 +336,9 @@ module HighlightEngine {
                 let delimiter =
                   `#{stringMatch}.substring(0, 1)`
 
-                /* Process content for format specifiers */
+                /* Process content for format specifiers and interpolations */
                 let processedContent =
-                  processStringContent(stringMatch, 1, stringLength - 1)
+                  processStringContent(stringMatch, 1, stringLength - 1, keywords, types, booleans)
 
                 /* Build colored string */
                 colorize(delimiter, "#CE9178") + processedContent + colorize(delimiter, "#CE9178")
@@ -798,25 +798,132 @@ module HighlightEngine {
     }
   }
 
-  /* Process string content to highlight format specifiers */
-  fun processStringContent (content : String, startPos : Number, endPos : Number) : String {
-    case detectFormatSpecifier(content, startPos) {
-      Maybe.Just(formatEnd) =>
-        if formatEnd <= endPos {
-          /* Find where the % starts */
-          let formatStart = findFormatStart(content, startPos, formatEnd)
+  /* Detect string interpolation ${} or #{} */
+  fun detectInterpolation (text : String, position : Number) : Maybe(Tuple(Number, Number)) {
+    let size = String.size(text)
 
-          let before = `#{content}.substring(#{startPos}, #{formatStart})`
-          let format = `#{content}.substring(#{formatStart}, #{formatEnd})`
-          let afterProcessed = processStringContent(content, formatEnd, endPos)
+    if position >= size {
+      Maybe.Nothing
+    } else {
+      let char = `#{text}.substring(#{position}, #{position + 1})`
 
-          colorize(before, "#CE9178") + colorize(format, "#D7BA7D") + afterProcessed
+      if char == "$" || char == "#" {
+        if position + 1 < size {
+          let nextChar = `#{text}.substring(#{position + 1}, #{position + 2})`
+
+          if nextChar == "{" {
+            /* Found interpolation start, now find the closing } */
+            case findClosingBrace(text, position + 2, size, 1) {
+              Maybe.Just(endPos) => Maybe.Just({position, endPos + 1})
+              Maybe.Nothing => detectInterpolation(text, position + 1)
+            }
+          } else {
+            detectInterpolation(text, position + 1)
+          }
         } else {
-          colorize(`#{content}.substring(#{startPos}, #{endPos})`, "#CE9178")
+          Maybe.Nothing
+        }
+      } else {
+        detectInterpolation(text, position + 1)
+      }
+    }
+  }
+
+  /* Find closing brace for interpolation, handling nested braces */
+  fun findClosingBrace (text : String, position : Number, size : Number, depth : Number) : Maybe(Number) {
+    if position >= size {
+      Maybe.Nothing
+    } else {
+      let char = `#{text}.substring(#{position}, #{position + 1})`
+
+      if char == "{" {
+        findClosingBrace(text, position + 1, size, depth + 1)
+      } else if char == "}" {
+        if depth == 1 {
+          Maybe.Just(position)
+        } else {
+          findClosingBrace(text, position + 1, size, depth - 1)
+        }
+      } else {
+        findClosingBrace(text, position + 1, size, depth)
+      }
+    }
+  }
+
+  /* Process interpolation content with syntax highlighting */
+  fun processInterpolationContent (
+    interp : String,
+    keywords : Array(String),
+    types : Array(String),
+    booleans : Array(String)
+  ) : String {
+    let size = String.size(interp)
+
+    if size <= 3 {
+      /* Too short (just ${} or #{}), return as-is */
+      colorize(interp, "#9CDCFE")
+    } else {
+      /* Extract delimiters and content */
+      let openDelim = `#{interp}.substring(0, 2)`
+      let closeDelim = `#{interp}.substring(#{size - 1}, #{size})`
+      let innerContent = `#{interp}.substring(2, #{size - 1})`
+
+      /* Highlight inner content recursively */
+      let highlightedInner = processLine(innerContent, keywords, types, booleans, [], 0, "", 0)
+
+      colorize(openDelim, "#9CDCFE") + highlightedInner + colorize(closeDelim, "#9CDCFE")
+    }
+  }
+
+  /* Process string content to highlight format specifiers and interpolations */
+  fun processStringContent (
+    content : String,
+    startPos : Number,
+    endPos : Number,
+    keywords : Array(String),
+    types : Array(String),
+    booleans : Array(String)
+  ) : String {
+    /* Check for interpolation first (higher priority) */
+    case detectInterpolation(content, startPos) {
+      Maybe.Just(interpTuple) =>
+        {
+          case interpTuple {
+            {interpStart, interpEnd} =>
+              if interpEnd <= endPos {
+                let before = `#{content}.substring(#{startPos}, #{interpStart})`
+                let interp = `#{content}.substring(#{interpStart}, #{interpEnd})`
+                let afterProcessed = processStringContent(content, interpEnd, endPos, keywords, types, booleans)
+
+                colorize(before, "#CE9178") + processInterpolationContent(interp, keywords, types, booleans) + afterProcessed
+              } else {
+                colorize(`#{content}.substring(#{startPos}, #{endPos})`, "#CE9178")
+              }
+          }
         }
 
       Maybe.Nothing =>
-        colorize(`#{content}.substring(#{startPos}, #{endPos})`, "#CE9178")
+        {
+          /* No interpolation found, check for format specifiers */
+          case detectFormatSpecifier(content, startPos) {
+            Maybe.Just(formatEnd) =>
+              if formatEnd <= endPos {
+                /* Find where the % starts */
+                let formatStart = findFormatStart(content, startPos, formatEnd)
+
+                let before = `#{content}.substring(#{startPos}, #{formatStart})`
+                let format = `#{content}.substring(#{formatStart}, #{formatEnd})`
+                let afterProcessed = processStringContent(content, formatEnd, endPos, keywords, types, booleans)
+
+                colorize(before, "#CE9178") + colorize(format, "#D7BA7D") + afterProcessed
+              } else {
+                colorize(`#{content}.substring(#{startPos}, #{endPos})`, "#CE9178")
+              }
+
+            Maybe.Nothing =>
+              colorize(`#{content}.substring(#{startPos}, #{endPos})`, "#CE9178")
+          }
+        }
     }
   }
 

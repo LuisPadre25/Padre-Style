@@ -44,6 +44,18 @@ component CodeShowcase {
     CodeExamples.NESTED_BRACKETS_EXAMPLE
   }
 
+  fun getScssExample : String {
+    CodeExamples.SCSS_EXAMPLE
+  }
+
+  fun getSassExample : String {
+    CodeExamples.SASS_EXAMPLE
+  }
+
+  fun getLessExample : String {
+    CodeExamples.LESS_EXAMPLE
+  }
+
   fun render : Html {
     <div>
       <h2>"Code Highlighting Showcase"</h2>
@@ -135,6 +147,30 @@ component CodeShowcase {
             language="javascript"
             title="Testing 20+ Bracket Levels (HSL Colors)"
             code={getNestedBracketsExample()}
+          />
+        </Card>
+
+        <Card title="SCSS">
+          <CodeHighlight
+            language="css"
+            title="SCSS with Mixins & Interpolation"
+            code={getScssExample()}
+          />
+        </Card>
+
+        <Card title="SASS">
+          <CodeHighlight
+            language="css"
+            title="SASS (Indented Syntax)"
+            code={getSassExample()}
+          />
+        </Card>
+
+        <Card title="LESS">
+          <CodeHighlight
+            language="css"
+            title="LESS with Variables & Operations"
+            code={getLessExample()}
           />
         </Card>
       </div>
