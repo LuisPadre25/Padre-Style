@@ -464,7 +464,7 @@ module MarkdownParser {
     parseInlineMarkdown(text, 0, [], "")
   }
 
-  /* Parse inline markdown recursively */
+  /* Parse inline markdown recursively - supports nested formatting */
   fun parseInlineMarkdown (
     text : String,
     pos : Number,
@@ -506,11 +506,17 @@ module MarkdownParser {
                     </span>)
                 }
 
+              /* Recursively parse content inside bold for nested formatting */
+              let innerParts =
+                parseInlineMarkdown(content, 0, [], "")
+
               let boldResult =
                 Array.push(newResult,
                   <strong>
                     {
-                      content
+                      for part of innerParts {
+                        part
+                      }
                     }
                   </strong>)
 
@@ -539,11 +545,17 @@ module MarkdownParser {
                     </span>)
                 }
 
+              /* Recursively parse content inside italic for nested formatting */
+              let innerParts =
+                parseInlineMarkdown(content, 0, [], "")
+
               let italicResult =
                 Array.push(newResult,
                   <em>
                     {
-                      content
+                      for part of innerParts {
+                        part
+                      }
                     }
                   </em>)
 
@@ -569,11 +581,17 @@ module MarkdownParser {
                     </span>)
                 }
 
+              /* Recursively parse content inside italic for nested formatting */
+              let innerParts =
+                parseInlineMarkdown(content, 0, [], "")
+
               let italicResult =
                 Array.push(newResult,
                   <em>
                     {
-                      content
+                      for part of innerParts {
+                        part
+                      }
                     }
                   </em>)
 
@@ -584,7 +602,7 @@ module MarkdownParser {
             parseInlineMarkdown(text, pos + 1, result, buffer + "_")
         }
 
-        /* Check for inline code (`code`) */
+        /* Check for inline code (`code`) - code does NOT support nested formatting */
       } else if String.startsWith(remaining, "`") {
         case findClosingMarker(text, pos + 1, "`") {
           Maybe.Just({content, endPos}) =>
