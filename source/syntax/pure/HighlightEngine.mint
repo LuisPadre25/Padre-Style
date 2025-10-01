@@ -728,7 +728,28 @@ module HighlightEngine {
     }
   }
 
-  /* Detect format specifier inside string (printf-style: %s, %d, %f, etc.) */
+  /* Check if character is a digit */
+  fun isFormatDigit (char : String) : Bool {
+    char == "0" || char == "1" || char == "2" || char == "3" || char == "4" ||
+    char == "5" || char == "6" || char == "7" || char == "8" || char == "9"
+  }
+
+  /* Skip format modifiers like width and precision (e.g., .2 in %.2f) */
+  fun skipFormatModifiers (text : String, position : Number, size : Number) : Number {
+    if position >= size {
+      position
+    } else {
+      let char = `#{text}.substring(#{position}, #{position + 1})`
+
+      if isFormatDigit(char) || char == "." || char == "-" || char == "+" || char == " " || char == "#" {
+        skipFormatModifiers(text, position + 1, size)
+      } else {
+        position
+      }
+    }
+  }
+
+  /* Detect format specifier inside string (printf-style: %s, %d, %.2f, etc.) */
   fun detectFormatSpecifier (text : String, position : Number) : Maybe(Number) {
     let size = String.size(text)
 
@@ -739,10 +760,17 @@ module HighlightEngine {
 
       if char == "%" {
         if position + 1 < size {
-          let nextChar = `#{text}.substring(#{position + 1}, #{position + 2})`
+          /* Skip modifiers like width and precision */
+          let modifierEnd = skipFormatModifiers(text, position + 1, size)
 
-          if nextChar == "s" || nextChar == "d" || nextChar == "f" || nextChar == "v" || nextChar == "t" || nextChar == "b" || nextChar == "o" || nextChar == "x" || nextChar == "X" || nextChar == "e" || nextChar == "E" || nextChar == "g" || nextChar == "G" || nextChar == "c" || nextChar == "p" || nextChar == "%" || nextChar == "i" || nextChar == "u" {
-            Maybe.Just(position + 2)
+          if modifierEnd < size {
+            let specifier = `#{text}.substring(#{modifierEnd}, #{modifierEnd + 1})`
+
+            if specifier == "s" || specifier == "d" || specifier == "f" || specifier == "v" || specifier == "t" || specifier == "b" || specifier == "o" || specifier == "x" || specifier == "X" || specifier == "e" || specifier == "E" || specifier == "g" || specifier == "G" || specifier == "c" || specifier == "p" || specifier == "%" || specifier == "i" || specifier == "u" {
+              Maybe.Just(modifierEnd + 1)
+            } else {
+              detectFormatSpecifier(text, position + 1)
+            }
           } else {
             detectFormatSpecifier(text, position + 1)
           }
@@ -755,13 +783,31 @@ module HighlightEngine {
     }
   }
 
+  /* Find the start position of format specifier (the % character) */
+  fun findFormatStart (text : String, position : Number, formatEnd : Number) : Number {
+    if position >= formatEnd {
+      position
+    } else {
+      let char = `#{text}.substring(#{position}, #{position + 1})`
+
+      if char == "%" {
+        position
+      } else {
+        findFormatStart(text, position + 1, formatEnd)
+      }
+    }
+  }
+
   /* Process string content to highlight format specifiers */
   fun processStringContent (content : String, startPos : Number, endPos : Number) : String {
     case detectFormatSpecifier(content, startPos) {
       Maybe.Just(formatEnd) =>
         if formatEnd <= endPos {
-          let before = `#{content}.substring(#{startPos}, #{formatEnd - 2})`
-          let format = `#{content}.substring(#{formatEnd - 2}, #{formatEnd})`
+          /* Find where the % starts */
+          let formatStart = findFormatStart(content, startPos, formatEnd)
+
+          let before = `#{content}.substring(#{startPos}, #{formatStart})`
+          let format = `#{content}.substring(#{formatStart}, #{formatEnd})`
           let afterProcessed = processStringContent(content, formatEnd, endPos)
 
           colorize(before, "#CE9178") + colorize(format, "#D7BA7D") + afterProcessed
