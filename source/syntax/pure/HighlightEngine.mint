@@ -707,21 +707,41 @@ module HighlightEngine {
       `#{text}.substring(0, 1)`
 
     if isAlpha(firstChar) {
-      extractWord(text, 1)
+      extractWord(text, 1, false)
+    } else if firstChar == "$" || firstChar == "@" {
+      /* CSS/SCSS/LESS variable - allow hyphens */
+      extractWord(text, 1, true)
+    } else if firstChar == "-" {
+      /* Vendor prefix property - allow hyphens */
+      extractWord(text, 1, true)
     } else {
       Maybe.Nothing
     }
   }
 
-  fun extractWord (text : String, position : Number) : Maybe(String) {
-    if position >= String.size(text) {
+  fun extractWord (text : String, position : Number, allowHyphens : Bool) : Maybe(String) {
+    let size =
+      String.size(text)
+
+    if position >= size {
       Maybe.Just(`#{text}.substring(0, #{position})`)
     } else {
       let char =
         `#{text}.substring(#{position}, #{position + 1})`
 
       if isWordChar(char) {
-        extractWord(text, position + 1)
+        extractWord(text, position + 1, allowHyphens)
+      } else if char == "-" && position + 1 < size {
+        /* Check if hyphen is followed by a letter (CSS property like font-size) */
+        let nextChar =
+          `#{text}.substring(#{position + 1}, #{position + 2})`
+
+        if isAlpha(nextChar) || allowHyphens {
+          /* Continue with hyphen included */
+          extractWord(text, position + 1, true)
+        } else {
+          Maybe.Just(`#{text}.substring(0, #{position})`)
+        }
       } else {
         Maybe.Just(`#{text}.substring(0, #{position})`)
       }

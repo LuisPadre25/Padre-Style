@@ -106,12 +106,8 @@ component TagsInput {
       let newTags =
         Array.push(tags, trimmed)
 
-      sequence
-
-      {
-        next { inputValue: "" }
-        onTagsChange(newTags)
-      }
+      next { inputValue: "" }
+      onTagsChange(newTags)
     }
   }
 
@@ -135,10 +131,10 @@ component TagsInput {
       Array.size(tags)
 
     if size > 0 {
-      case Array.slice(tags, 0, size - 1) {
-        Maybe.Just(newTags) => onTagsChange(newTags)
-        Maybe.Nothing => Promise.never()
-      }
+      let newTags =
+        Array.slice(tags, 0, size - 1)
+
+      onTagsChange(newTags)
     } else {
       Promise.never()
     }

@@ -152,7 +152,7 @@ component CodeShowcase {
 
         <Card title="SCSS">
           <CodeHighlight
-            language="css"
+            language="scss"
             title="SCSS with Mixins & Interpolation"
             code={getScssExample()}
           />
@@ -160,7 +160,7 @@ component CodeShowcase {
 
         <Card title="SASS">
           <CodeHighlight
-            language="css"
+            language="sass"
             title="SASS (Indented Syntax)"
             code={getSassExample()}
           />
@@ -168,7 +168,7 @@ component CodeShowcase {
 
         <Card title="LESS">
           <CodeHighlight
-            language="css"
+            language="less"
             title="LESS with Variables & Operations"
             code={getLessExample()}
           />

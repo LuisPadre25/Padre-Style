@@ -1,6 +1,6 @@
-/* CSS Syntax Highlighter - Pure Mint Lang */
-module CSSPure {
-  fun highlightCSS (code : String) : String {
+/* LESS Syntax Highlighter - Pure Mint Lang */
+module LESSPure {
+  fun highlightLESS (code : String) : String {
     HighlightEngine.highlightMultiLine(code,
       [
         "important",
@@ -10,7 +10,11 @@ module CSSPure {
         "to",
         "and",
         "not",
-        "only"
+        "only",
+        "import",
+        "when",
+        "if",
+        "each"
       ],
         [
           "color",

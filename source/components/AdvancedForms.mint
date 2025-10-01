@@ -8,7 +8,7 @@ component DatePicker {
   property onChange = (date : String) : Promise(Void) { Promise.never() }
 
   state isOpen : Bool = false
-  state selectedDate : String = value
+  state selectedDate : String = ""
   state currentMonth : Number = 12
   state currentYear : Number = 2024
 
