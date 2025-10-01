@@ -12,7 +12,7 @@ module RegexHelpers {
               String.slice(text, 0, index)
 
             let after =
-              String.dropLeft(text, index + String.size(pattern))
+              String.dropStart(text, index + String.size(pattern))
 
             before + replacement + replaceAll(after, pattern, replacement)
           }
@@ -65,7 +65,7 @@ module RegexHelpers {
                 result + before + replacement
 
               let rest =
-                String.dropLeft(remaining, index + String.size(word))
+                String.dropStart(remaining, index + String.size(word))
 
               replaceWordHelper(rest, word, replacement, newResult)
             } else {
@@ -73,7 +73,7 @@ module RegexHelpers {
                 result + before + word
 
               let rest =
-                String.dropLeft(remaining, index + String.size(word))
+                String.dropStart(remaining, index + String.size(word))
 
               replaceWordHelper(rest, word, replacement, newResult)
             }
@@ -89,7 +89,7 @@ module RegexHelpers {
     if String.isEmpty(char) {
       true
     } else {
-      !String.match(char, "[a-zA-Z0-9_$]")
+      !SyntaxHelpers.isWordChar(char) && char != "$"
     }
   }
 
@@ -97,7 +97,7 @@ module RegexHelpers {
   fun replaceWords (
     text : String,
     words : Array(String),
-    wrapper : String -> String
+    wrapper : Function(String, String)
   ) : String {
     Array.reduce(
       words,

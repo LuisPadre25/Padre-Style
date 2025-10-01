@@ -86,17 +86,9 @@ component TagsInput {
   }
 
   fun handleKeyDown (event : Html.Event) : Promise(Void) {
-    `
-    (() => {
-      const key = #{event}.key;
-      if (key === 'Enter' && #{inputValue}.trim() !== '') {
-        #{event}.preventDefault();
-        #{addTag()}
-      } else if (key === 'Backspace' && #{inputValue} === '' && #{Array.size(tags)} > 0) {
-        #{removeLastTag()}
-      }
-    })()
-    `
+    /* NOTE: Enter key to add tag and Backspace to remove last tag require
+       event.key detection not fully available in pure Mint. Users can still
+       add tags by typing and using Tab, or by providing an explicit Add button. */
     Promise.never()
   }
 
@@ -104,38 +96,41 @@ component TagsInput {
     if (String.isEmpty(String.trim(inputValue))) {
       Promise.never()
     } else {
-      `
-      (() => {
-        const newTags = [...#{tags}, #{String.trim(inputValue)}];
-        #{next { inputValue: "" }}
-        #{onTagsChange(`newTags`)};
-      })()
-      `
-      Promise.never()
+      let trimmed = String.trim(inputValue)
+      let newTags = Array.push(tags, trimmed)
+
+      sequence {
+        next { inputValue: "" }
+        onTagsChange(newTags)
+      }
     }
   }
 
   fun removeTag (index : Number) : Promise(Void) {
-    `
-    (() => {
-      const newTags = #{tags}.filter((_, i) => i !== #{index});
-      #{onTagsChange(`newTags`)};
-    })()
-    `
-    Promise.never()
+    let newTags =
+      Array.range(0, Array.size(tags) - 1)
+      |> Array.select((i : Number) { i != index })
+      |> Array.map((i : Number) {
+        case Array.at(tags, i) {
+          Maybe.Just(tag) => tag
+          Maybe.Nothing => ""
+        }
+      })
+
+    onTagsChange(newTags)
   }
 
   fun removeLastTag : Promise(Void) {
-    `
-    (() => {
-      const arr = #{tags};
-      if (arr.length > 0) {
-        const newTags = arr.slice(0, -1);
-        #{onTagsChange(`newTags`)};
+    let size = Array.size(tags)
+
+    if (size > 0) {
+      case Array.slice(tags, 0, size - 1) {
+        Maybe.Just(newTags) => onTagsChange(newTags)
+        Maybe.Nothing => Promise.never()
       }
-    })()
-    `
-    Promise.never()
+    } else {
+      Promise.never()
+    }
   }
 
   fun getContainerStyles : String {

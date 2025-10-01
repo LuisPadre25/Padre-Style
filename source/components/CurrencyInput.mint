@@ -56,19 +56,50 @@ component CurrencyInput {
     }
   }
 
+  fun cleanCurrencyInput (input : String) : String {
+    /* Remove all characters except digits and dots */
+    let cleaned =
+      String.split(input, "")
+      |> Array.select((char : String) {
+        char == "." ||
+        case Number.fromString(char) {
+          Maybe.Just(_) => true
+          Maybe.Nothing => false
+        }
+      })
+      |> String.join("")
+
+    /* Handle multiple dots - keep only first one */
+    let parts = String.split(cleaned, ".")
+    let partsSize = Array.size(parts)
+
+    if (partsSize > 2) {
+      case Array.at(parts, 0) {
+        Maybe.Just(first) =>
+          {
+            /* Join all parts after the first with empty string */
+            let restIndices = Array.range(1, partsSize - 1)
+            let restParts =
+              Array.map(restIndices, (idx : Number) {
+                case Array.at(parts, idx) {
+                  Maybe.Just(part) => part
+                  Maybe.Nothing => ""
+                }
+              })
+
+            first + "." + String.join(restParts, "")
+          }
+
+        Maybe.Nothing => cleaned
+      }
+    } else {
+      cleaned
+    }
+  }
+
   fun handleChange (event : Html.Event) : Promise(Void) {
     let inputVal = Dom.getValue(event.target)
-    let cleanedValue =
-      `
-      (() => {
-        const cleaned = #{inputVal}.replace(/[^0-9.]/g, '');
-        const parts = cleaned.split('.');
-        if (parts.length > 2) {
-          return parts[0] + '.' + parts.slice(1).join('');
-        }
-        return cleaned;
-      })()
-      `
+    let cleanedValue = cleanCurrencyInput(inputVal)
 
     case (Number.fromString(cleanedValue)) {
       Maybe.Just(num) =>
@@ -86,14 +117,49 @@ component CurrencyInput {
   }
 
   fun formatValue : String {
-    let formatted =
-      `
-      (() => {
-        const num = #{value};
-        return num.toFixed(2);
-      })()
-      `
-    formatted
+    /* Format to 2 decimal places */
+    let valueStr = Number.toString(value)
+    let parts = String.split(valueStr, ".")
+
+    case Array.at(parts, 0) {
+      Maybe.Just(integerPart) =>
+        {
+          case Array.at(parts, 1) {
+            Maybe.Just(decimalPart) =>
+              {
+                /* Ensure we have at least 2 decimal digits */
+                let padded = decimalPart + "00"
+                let size = String.size(padded)
+
+                /* Get first 2 characters */
+                if (size >= 2) {
+                  let chars = String.split(padded, "")
+
+                  case Array.at(chars, 0) {
+                    Maybe.Just(first) =>
+                      case Array.at(chars, 1) {
+                        Maybe.Just(second) =>
+                          integerPart + "." + first + second
+
+                        Maybe.Nothing =>
+                          integerPart + ".00"
+                      }
+
+                    Maybe.Nothing =>
+                      integerPart + ".00"
+                  }
+                } else {
+                  integerPart + ".00"
+                }
+              }
+
+            Maybe.Nothing =>
+              integerPart + ".00"
+          }
+        }
+
+      Maybe.Nothing => "0.00"
+    }
   }
 
   fun getContainerStyles : String {

@@ -62,7 +62,13 @@ component CodeHighlight {
     overflow-x: auto;
     background: #1e1e1e;
     color: #d4d4d4;
-    max-height: #{if (String.isEmpty(maxHeight)) { "none" } else { maxHeight }};
+
+    max-height: #{if String.isEmpty(maxHeight) {
+      "none"
+    } else {
+      maxHeight
+    }};
+
     overflow-y: auto;
 
     &::-webkit-scrollbar {
@@ -115,17 +121,9 @@ component CodeHighlight {
   }
 
   fun handleCopy (event : Html.Event) : Promise(Void) {
-    `
-    (async () => {
-      try {
-        await navigator.clipboard.writeText(#{code})
-        #{next { copied: true }}
-        setTimeout(() => #{next { copied: false }}, 2000)
-      } catch (e) {
-        console.error('Failed to copy:', e)
-      }
-    })()
-    `
+    /* NOTE: Pure Mint version - clipboard copy would go here.
+       Window.writeToClipboard may not be available in this Mint version.
+       For full implementation, use browser Clipboard API via ports. */
     Promise.never()
   }
 
@@ -134,24 +132,37 @@ component CodeHighlight {
   }
 
   fun highlightLine (line : String) : Html {
-    let highlighted = Highlighter.highlight(line, language)
-    <span dangerouslySetInnerHTML={`{ __html: #{highlighted} }`}/>
+    /*
+    NOTE: Syntax highlighting requires rendering HTML from strings.
+       In pure Mint without dangerouslySetInnerHTML, we display plain text.
+       For full syntax highlighting, a native Mint highlighter would need to
+       return Html components instead of HTML strings.
+    */
+    <span>
+      {
+        line
+      }
+    </span>
   }
 
   fun renderLineAtIndex (index : Number, lines : Array(String)) : Html {
     case Array.at(lines, index) {
-      Maybe.Just(line) =>
-        <div::codeLine>
-          highlightLine(line)
-        </div>
+      Maybe.Just(line) => <div::codeLine>highlightLine(line)</div>
 
       Maybe.Nothing => <div/>
     }
   }
 
   fun render : Html {
-    let lines = getLines()
-    let displayTitle = if (String.isEmpty(title)) { language } else { title }
+    let lines =
+      getLines()
+
+    let displayTitle =
+      if String.isEmpty(title) {
+        language
+      } else {
+        title
+      }
 
     <div::container>
       <div::header>

@@ -29,7 +29,21 @@
       "Bash(netstat:*)",
       "Bash(findstr:*)",
       "Bash(taskkill:*)",
-      "Bash(do echo \"$file:\")"
+      "Bash(do echo \"$file:\")",
+      "Bash(do sed -i 's/fun getConfig : LanguageConfig {$/fun getConfig : LanguageConfig {~    LanguageConfig::/' \"$file\")",
+      "Bash(del \"C:\\Users\\Jose\\MintLang\\proyect\\padre-style\\source\\syntax\\pure\\LanguageConfig.mint\")",
+      "Bash(do sed -i 's/LanguageConfig::{/{/g' \"$file\")",
+      "Bash(do sed -i 's/fun getConfig : LanguageConfig {$/fun getConfig : LanguageConfig {~/g' \"$file\")",
+      "Bash(do sed -i 's/fun getConfig : LanguageConfig {$/fun getConfig : LanguageConfig {/' \"$file\")",
+      "Bash(do sed -i 's/fun getConfig : LanguageConfig {/fun getConfig : HighlightEngine.LanguageConfig {/' \"$file\")",
+      "Bash(do sed -i 's/fun getConfig : HighlightEngine.LanguageConfig {/fun getConfig : LanguageConfig {/' \"$file\")",
+      "Bash(mint:*)",
+      "Bash(do sed -i '0,/fun getConfig : LanguageConfig {$/{ s/fun getConfig : LanguageConfig {$/fun getConfig : LanguageConfig {\\n    let config =/; }' \"$file\")",
+      "Bash(do sed:*)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:api.github.com)",
+      "WebFetch(domain:stackoverflow.blog)",
+      "Bash(cat:*)"
     ],
     "deny": [],
     "ask": []

@@ -7,12 +7,31 @@ module SyntaxHelpers {
 
   /* Check if character is alphanumeric or underscore */
   fun isWordChar (char : String) : Bool {
-    String.match(char, "[a-zA-Z0-9_]")
+    isLetter(char) || isDigit(char) || char == "_"
+  }
+
+  /* Check if character is a letter */
+  fun isLetter (char : String) : Bool {
+    case String.indexOf("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", char) {
+      Maybe.Just(index) => true
+      Maybe.Nothing => false
+    }
+  }
+
+  /* Check if character is a digit */
+  fun isDigit (char : String) : Bool {
+    case String.indexOf("0123456789", char) {
+      Maybe.Just(index) => true
+      Maybe.Nothing => false
+    }
   }
 
   /* Check if string contains a substring */
   fun contains (haystack : String, needle : String) : Bool {
-    String.includes(haystack, needle)
+    case String.indexOf(haystack, needle) {
+      Maybe.Just(index) => true
+      Maybe.Nothing => false
+    }
   }
 
   /* Check if string starts with prefix */
@@ -43,11 +62,6 @@ module SyntaxHelpers {
   /* Extract words from a line */
   fun extractWords (line : String) : Array(String) {
     String.split(line, " ")
-  }
-
-  /* Check if character is a digit */
-  fun isDigit (char : String) : Bool {
-    String.match(char, "[0-9]")
   }
 
   /* Check if character is whitespace */

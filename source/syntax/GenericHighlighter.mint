@@ -49,7 +49,7 @@ module GenericHighlighter {
       highlightNumberSimple(remaining, keywords, result)
     } else {
       /* Other character */
-      highlightSimple(String.dropLeft(remaining, 1), keywords, result + SyntaxHelpers.escapeHtml(String.slice(remaining, 0, 1)))
+      highlightSimple(String.dropStart(remaining, 1), keywords, result + SyntaxHelpers.escapeHtml(String.slice(remaining, 0, 1)))
     }
   }
 
@@ -57,12 +57,12 @@ module GenericHighlighter {
   fun highlightStringSimple (remaining : String, keywords : Array(String), result : String, start : Number) : String {
     let quote = String.slice(remaining, 0, 1)
 
-    case String.indexOf(String.dropLeft(remaining, start), quote) {
+    case String.indexOf(String.dropStart(remaining, start), quote) {
       Maybe.Just(endIndex) =>
         {
           let strLen = endIndex + start + 1
           let str = String.slice(remaining, 0, strLen)
-          let rest = String.dropLeft(remaining, strLen)
+          let rest = String.dropStart(remaining, strLen)
           highlightSimple(rest, keywords, result + SyntaxHelpers.wrapToken(SyntaxHelpers.escapeHtml(str), "string"))
         }
 
@@ -74,7 +74,7 @@ module GenericHighlighter {
   /* Highlight word */
   fun highlightWordSimple (remaining : String, keywords : Array(String), result : String) : String {
     let word = extractWord(remaining, "")
-    let rest = String.dropLeft(remaining, String.size(word))
+    let rest = String.dropStart(remaining, String.size(word))
 
     if Array.contains(word, keywords) {
       highlightSimple(rest, keywords, result + SyntaxHelpers.wrapToken(SyntaxHelpers.escapeHtml(word), "keyword"))
@@ -95,7 +95,7 @@ module GenericHighlighter {
       let char = String.slice(text, 0, 1)
 
       if String.match(char, "[a-zA-Z0-9_]") {
-        extractWord(String.dropLeft(text, 1), acc + char)
+        extractWord(String.dropStart(text, 1), acc + char)
       } else {
         acc
       }
@@ -105,7 +105,7 @@ module GenericHighlighter {
   /* Highlight number */
   fun highlightNumberSimple (remaining : String, keywords : Array(String), result : String) : String {
     let num = extractNumber(remaining, "")
-    let rest = String.dropLeft(remaining, String.size(num))
+    let rest = String.dropStart(remaining, String.size(num))
     highlightSimple(rest, keywords, result + SyntaxHelpers.wrapToken(SyntaxHelpers.escapeHtml(num), "number"))
   }
 
@@ -117,7 +117,7 @@ module GenericHighlighter {
       let char = String.slice(text, 0, 1)
 
       if String.match(char, "[0-9.]") {
-        extractNumber(String.dropLeft(text, 1), acc + char)
+        extractNumber(String.dropStart(text, 1), acc + char)
       } else {
         acc
       }

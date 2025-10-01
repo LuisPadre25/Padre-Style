@@ -428,12 +428,9 @@ component FocusTrap {
   }
 
   fun handleKeyDown (event : Html.Event) : Promise(Void) {
-    `
-    if (event.key === 'Tab') {
-      // Focus trap logic would go here
-      // This is a simplified implementation
-    }
-    `
+    /* Focus trap logic would go here in pure Mint */
+    /* For now, just return without doing anything */
+    Promise.never()
   }
 
   fun render : Html {

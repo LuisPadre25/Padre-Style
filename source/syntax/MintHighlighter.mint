@@ -103,12 +103,12 @@ module MintHighlighter {
         highlightNumber(remaining, result, index)
       } else if contains(char, "=>|+-*/%<>=!&|?:.,;(){}[]") {
         /* Operator or punctuation */
-        highlightLine(String.dropLeft(remaining, 1),
+        highlightLine(String.dropStart(remaining, 1),
           result + SyntaxHelpers.wrapToken(SyntaxHelpers.escapeHtml(char),
             "operator"), index + 1)
       } else {
         /* Regular character */
-        highlightLine(String.dropLeft(remaining, 1),
+        highlightLine(String.dropStart(remaining, 1),
           result + SyntaxHelpers.escapeHtml(char), index + 1)
       }
     }
@@ -121,7 +121,7 @@ module MintHighlighter {
     index : Number,
     startIndex : Number
   ) : String {
-    case String.indexOf(String.dropLeft(remaining, startIndex), "\"") {
+    case String.indexOf(String.dropStart(remaining, startIndex), "\"") {
       Maybe.Just(endIndex) =>
         highlightLine(
           String.slice(remaining, endIndex + startIndex + 1,
@@ -147,7 +147,7 @@ module MintHighlighter {
       extractWord(remaining, "")
 
     let rest =
-      String.dropLeft(remaining, String.size(word))
+      String.dropStart(remaining, String.size(word))
 
     let nextChar =
       String.slice(rest, 0, 1)
@@ -184,7 +184,7 @@ module MintHighlighter {
         String.slice(text, 0, 1)
 
       if String.match(char, "[a-zA-Z0-9_]") {
-        extractWord(String.dropLeft(text, 1), acc + char)
+        extractWord(String.dropStart(text, 1), acc + char)
       } else {
         acc
       }
@@ -201,7 +201,7 @@ module MintHighlighter {
       extractNumber(remaining, "")
 
     let rest =
-      String.dropLeft(remaining, String.size(num))
+      String.dropStart(remaining, String.size(num))
 
     highlightLine(rest,
       result + SyntaxHelpers.wrapToken(SyntaxHelpers.escapeHtml(num), "number"),
@@ -217,7 +217,7 @@ module MintHighlighter {
         String.slice(text, 0, 1)
 
       if String.match(char, "[0-9.]") {
-        extractNumber(String.dropLeft(text, 1), acc + char)
+        extractNumber(String.dropStart(text, 1), acc + char)
       } else {
         acc
       }

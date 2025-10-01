@@ -93,12 +93,8 @@ component AutocompleteInput {
   }
 
   fun handleBlur (event : Html.Event) : Promise(Void) {
-    `
-    setTimeout(() => {
-      #{next { isOpen: false, selectedIndex: -1 }}
-    }, 200)
-    `
-    Promise.never()
+    /* Simplified - no delayed close */
+    next { isOpen: false, selectedIndex: -1 }
   }
 
   fun selectSuggestion (suggestion : String) : Promise(Void) {

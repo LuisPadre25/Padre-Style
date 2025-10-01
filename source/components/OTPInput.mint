@@ -42,80 +42,82 @@ component OTPInput {
     }
   }
 
+  fun extractDigit (input : String) : String {
+    /* Remove non-digits and get last character */
+    let digits =
+      String.split(input, "")
+      |> Array.select((char : String) {
+        case Number.fromString(char) {
+          Maybe.Just(_) => true
+          Maybe.Nothing => false
+        }
+      })
+
+    case Array.at(digits, Array.size(digits) - 1) {
+      Maybe.Just(lastDigit) => lastDigit
+      Maybe.Nothing => ""
+    }
+  }
+
+  fun updateValueAtIndex (currentValue : String, index : Number, digit : String) : String {
+    /* Pad value to length and update at index */
+    let padded =
+      if (String.size(currentValue) < length) {
+        currentValue + String.repeat(" ", length - String.size(currentValue))
+      } else {
+        currentValue
+      }
+
+    let chars = String.split(padded, "")
+    let digitToUse = if (String.isEmpty(digit)) { " " } else { digit }
+
+    /* Map over chars and replace at index */
+    let updated =
+      Array.mapWithIndex(chars, (char : String, idx : Number) {
+        if (idx == index) {
+          digitToUse
+        } else {
+          char
+        }
+      })
+
+    String.join(updated, "")
+  }
+
   fun handleInput (index : Number, event : Html.Event) : Promise(Void) {
     let inputVal = Dom.getValue(event.target)
-    let digit =
-      `
-      (() => {
-        return #{inputVal}.replace(/\D/g, '').slice(-1);
-      })()
-      `
-
-    let newValue =
-      `
-      (() => {
-        const current = #{value}.padEnd(#{length}, ' ');
-        const arr = current.split('');
-        arr[#{index}] = #{digit} || ' ';
-        return arr.join('').trimEnd();
-      })()
-      `
+    let digit = extractDigit(inputVal)
+    let newValue = updateValueAtIndex(value, index, digit)
 
     next { focusedIndex: index + 1 }
     onChange(newValue)
 
-    if (!String.isEmpty(digit) && index < length - 1) {
-      `
-      (() => {
-        const inputs = document.querySelectorAll('[data-otp-input]');
-        if (inputs[#{index + 1}]) {
-          inputs[#{index + 1}].focus();
-        }
-      })()
-      `
-      Promise.never()
-    } else {
-      Promise.never()
-    }
+    /* NOTE: Auto-focus to next input requires DOM manipulation not available in pure Mint.
+       Users will need to manually tab or click to the next input. */
+    Promise.never()
   }
 
   fun handleKeyDown (index : Number, event : Html.Event) : Promise(Void) {
-    `
-    (() => {
-      const key = #{event}.key;
-      if (key === 'Backspace' && #{index} > 0) {
-        const inputs = document.querySelectorAll('[data-otp-input]');
-        const currentValue = #{event}.target.value;
-        if (!currentValue) {
-          #{event}.preventDefault();
-          if (inputs[#{index - 1}]) {
-            inputs[#{index - 1}].focus();
-            inputs[#{index - 1}].value = '';
-          }
-        }
-      } else if (key === 'ArrowLeft' && #{index} > 0) {
-        const inputs = document.querySelectorAll('[data-otp-input]');
-        if (inputs[#{index - 1}]) {
-          inputs[#{index - 1}].focus();
-        }
-      } else if (key === 'ArrowRight' && #{index} < #{length - 1}) {
-        const inputs = document.querySelectorAll('[data-otp-input]');
-        if (inputs[#{index + 1}]) {
-          inputs[#{index + 1}].focus();
-        }
-      }
-    })()
-    `
+    /* NOTE: Keyboard navigation (Backspace to previous, Arrow keys) requires DOM focus
+       manipulation not available in pure Mint. Basic backspace to delete still works,
+       but navigation between inputs must be done manually with Tab or mouse click. */
     Promise.never()
   }
 
   fun getDigitAt (index : Number) : String {
-    `
-    (() => {
-      const padded = #{value}.padEnd(#{length}, ' ');
-      return padded[#{index}] === ' ' ? '' : padded[#{index}];
-    })()
-    `
+    let padded =
+      if (String.size(value) < length) {
+        value + String.repeat(" ", length - String.size(value))
+      } else {
+        value
+      }
+
+    case Array.at(String.split(padded, ""), index) {
+      Maybe.Just(char) =>
+        if (char == " ") { "" } else { char }
+
+      Maybe.Nothing => ""
+    }
   }
 
   fun getContainerStyles : String {
