@@ -43,7 +43,8 @@ module MarkdownParser {
               } else {
                 /* Start code block - collect all lines until end */
                 let language =
-                  String.dropStart(trimmed, 3) |> String.trim
+                  String.dropStart(trimmed, 3)
+                  |> String.trim
 
                 let codeBlockResult =
                   collectCodeBlock(lines, index + 1, [])
@@ -144,8 +145,7 @@ module MarkdownParser {
             }
           }
 
-        Maybe.Nothing =>
-          collectCodeBlock(lines, index + 1, codeLines)
+        Maybe.Nothing => collectCodeBlock(lines, index + 1, codeLines)
       }
     }
   }
@@ -180,8 +180,7 @@ module MarkdownParser {
             }
           }
 
-        Maybe.Nothing =>
-          {tableLines, index}
+        Maybe.Nothing => {tableLines, index}
       }
     }
   }
@@ -189,7 +188,8 @@ module MarkdownParser {
   /* Parse table line into cells */
   fun parseTableRow (line : String) : Array(String) {
     String.split(line, "|")
-    |> Array.select((cell : String) : Bool { !String.isEmpty(String.trim(cell)) })
+    |> Array.select(
+      (cell : String) : Bool { !String.isEmpty(String.trim(cell)) })
     |> Array.map((cell : String) : String { String.trim(cell) })
   }
 
@@ -219,7 +219,8 @@ module MarkdownParser {
         pageSize={5}
         searchable={true}
         striped={true}
-        hoverable={true}/>
+        hoverable={true}
+      />
     }
   }
 
@@ -251,7 +252,8 @@ module MarkdownParser {
                 let newResult =
                   result + "</code></pre>\n"
 
-                processLines(lines, index + 1, newResult, false, inTable, inList)
+                processLines(lines, index + 1, newResult, false, inTable,
+                  inList)
               } else {
                 /* Start code block */
                 let language =
@@ -278,7 +280,8 @@ module MarkdownParser {
               let newResult =
                 result + escaped + "\n"
 
-              processLines(lines, index + 1, newResult, inCodeBlock, inTable, inList)
+              processLines(lines, index + 1, newResult, inCodeBlock, inTable,
+                inList)
             } else {
               /* Regular markdown processing */
               let processed =
@@ -287,7 +290,8 @@ module MarkdownParser {
               let newResult =
                 result + processed + "\n"
 
-              processLines(lines, index + 1, newResult, inCodeBlock, inTable, inList)
+              processLines(lines, index + 1, newResult, inCodeBlock, inTable,
+                inList)
             }
           }
 
@@ -303,59 +307,98 @@ module MarkdownParser {
       <br/>
     } else if String.startsWith(line, "######") {
       let text =
-        String.dropStart(line, 6) |> String.trim
+        String.dropStart(line, 6)
+        |> String.trim
 
       <h6>
-        processInlineToHtml(text)
+        {
+          for part of processInlineToHtml(text) {
+            part
+          }
+        }
       </h6>
     } else if String.startsWith(line, "#####") {
       let text =
-        String.dropStart(line, 5) |> String.trim
+        String.dropStart(line, 5)
+        |> String.trim
 
       <h5>
-        processInlineToHtml(text)
+        {
+          for part of processInlineToHtml(text) {
+            part
+          }
+        }
       </h5>
     } else if String.startsWith(line, "####") {
       let text =
-        String.dropStart(line, 4) |> String.trim
+        String.dropStart(line, 4)
+        |> String.trim
 
       <h4>
-        processInlineToHtml(text)
+        {
+          for part of processInlineToHtml(text) {
+            part
+          }
+        }
       </h4>
     } else if String.startsWith(line, "###") {
       let text =
-        String.dropStart(line, 3) |> String.trim
+        String.dropStart(line, 3)
+        |> String.trim
 
       <h3>
-        processInlineToHtml(text)
+        {
+          for part of processInlineToHtml(text) {
+            part
+          }
+        }
       </h3>
     } else if String.startsWith(line, "##") {
       let text =
-        String.dropStart(line, 2) |> String.trim
+        String.dropStart(line, 2)
+        |> String.trim
 
       <h2>
-        processInlineToHtml(text)
+        {
+          for part of processInlineToHtml(text) {
+            part
+          }
+        }
       </h2>
     } else if String.startsWith(line, "#") {
       let text =
-        String.dropStart(line, 1) |> String.trim
+        String.dropStart(line, 1)
+        |> String.trim
 
       <h1>
-        processInlineToHtml(text)
+        {
+          for part of processInlineToHtml(text) {
+            part
+          }
+        }
       </h1>
     } else if String.startsWith(line, ">") {
       let text =
-        String.dropStart(line, 1) |> String.trim
+        String.dropStart(line, 1)
+        |> String.trim
 
       <blockquote>
-        processInlineToHtml(text)
+        {
+          for part of processInlineToHtml(text) {
+            part
+          }
+        }
       </blockquote>
     } else if String.startsWith(line, "- ") || String.startsWith(line, "* ") {
       let text =
         String.dropStart(line, 2)
 
       <li>
-        processInlineToHtml(text)
+        {
+          for part of processInlineToHtml(text) {
+            part
+          }
+        }
       </li>
     } else if String.startsWith(line, "---") || String.startsWith(line, "***") {
       <hr/>
@@ -363,7 +406,11 @@ module MarkdownParser {
       processTableRowToHtml(line)
     } else {
       <p>
-        processInlineToHtml(line)
+        {
+          for part of processInlineToHtml(line) {
+            part
+          }
+        }
       </p>
     }
   }
@@ -373,19 +420,33 @@ module MarkdownParser {
     if String.isEmpty(line) {
       "<br>"
     } else if String.startsWith(line, "######") {
-      "<h6>" + processInline(String.dropStart(line, 6) |> String.trim) + "</h6>"
+      "<h6>" + processInline(
+        String.dropStart(line, 6)
+        |> String.trim) + "</h6>"
     } else if String.startsWith(line, "#####") {
-      "<h5>" + processInline(String.dropStart(line, 5) |> String.trim) + "</h5>"
+      "<h5>" + processInline(
+        String.dropStart(line, 5)
+        |> String.trim) + "</h5>"
     } else if String.startsWith(line, "####") {
-      "<h4>" + processInline(String.dropStart(line, 4) |> String.trim) + "</h4>"
+      "<h4>" + processInline(
+        String.dropStart(line, 4)
+        |> String.trim) + "</h4>"
     } else if String.startsWith(line, "###") {
-      "<h3>" + processInline(String.dropStart(line, 3) |> String.trim) + "</h3>"
+      "<h3>" + processInline(
+        String.dropStart(line, 3)
+        |> String.trim) + "</h3>"
     } else if String.startsWith(line, "##") {
-      "<h2>" + processInline(String.dropStart(line, 2) |> String.trim) + "</h2>"
+      "<h2>" + processInline(
+        String.dropStart(line, 2)
+        |> String.trim) + "</h2>"
     } else if String.startsWith(line, "#") {
-      "<h1>" + processInline(String.dropStart(line, 1) |> String.trim) + "</h1>"
+      "<h1>" + processInline(
+        String.dropStart(line, 1)
+        |> String.trim) + "</h1>"
     } else if String.startsWith(line, ">") {
-      "<blockquote>" + processInline(String.dropStart(line, 1) |> String.trim) + "</blockquote>"
+      "<blockquote>" + processInline(
+        String.dropStart(line, 1)
+        |> String.trim) + "</blockquote>"
     } else if String.startsWith(line, "- ") || String.startsWith(line, "* ") {
       "<li>" + processInline(String.dropStart(line, 2)) + "</li>"
     } else if String.startsWith(line, "---") || String.startsWith(line, "***") {
@@ -399,8 +460,168 @@ module MarkdownParser {
   }
 
   /* Process inline markdown to Html */
-  fun processInlineToHtml (text : String) : Html {
-    <span>{ text }</span>
+  fun processInlineToHtml (text : String) : Array(Html) {
+    parseInlineMarkdown(text, 0, [], "")
+  }
+
+  /* Parse inline markdown recursively */
+  fun parseInlineMarkdown (
+    text : String,
+    pos : Number,
+    result : Array(Html),
+    buffer : String
+  ) : Array(Html) {
+    let size =
+      String.size(text)
+
+    if pos >= size {
+      if String.isEmpty(buffer) {
+        result
+      } else {
+        Array.push(result,
+          <span>
+            {
+              buffer
+            }
+          </span>)
+      }
+    } else {
+      let remaining =
+        String.dropStart(text, pos)
+
+      /* Check for bold (**text**) */
+      if String.startsWith(remaining, "**") {
+        case findClosingMarker(text, pos + 2, "**") {
+          Maybe.Just({content, endPos}) =>
+            {
+              let newResult =
+                if String.isEmpty(buffer) {
+                  result
+                } else {
+                  Array.push(result,
+                    <span>
+                      {
+                        buffer
+                      }
+                    </span>)
+                }
+
+              let boldResult =
+                Array.push(newResult,
+                  <strong>
+                    {
+                      content
+                    }
+                  </strong>)
+
+              parseInlineMarkdown(text, endPos + 2, boldResult, "")
+            }
+
+          Maybe.Nothing =>
+            parseInlineMarkdown(text, pos + 1, result, buffer + "*")
+        }
+
+        /* Check for italic (*text* or _text_) */
+      } else if String.startsWith(remaining, "*") && !String.startsWith(
+        remaining, "**") {
+        case findClosingMarker(text, pos + 1, "*") {
+          Maybe.Just({content, endPos}) =>
+            {
+              let newResult =
+                if String.isEmpty(buffer) {
+                  result
+                } else {
+                  Array.push(result,
+                    <span>
+                      {
+                        buffer
+                      }
+                    </span>)
+                }
+
+              let italicResult =
+                Array.push(newResult,
+                  <em>
+                    {
+                      content
+                    }
+                  </em>)
+
+              parseInlineMarkdown(text, endPos + 1, italicResult, "")
+            }
+
+          Maybe.Nothing =>
+            parseInlineMarkdown(text, pos + 1, result, buffer + "*")
+        }
+      } else if String.startsWith(remaining, "_") {
+        case findClosingMarker(text, pos + 1, "_") {
+          Maybe.Just({content, endPos}) =>
+            {
+              let newResult =
+                if String.isEmpty(buffer) {
+                  result
+                } else {
+                  Array.push(result,
+                    <span>
+                      {
+                        buffer
+                      }
+                    </span>)
+                }
+
+              let italicResult =
+                Array.push(newResult,
+                  <em>
+                    {
+                      content
+                    }
+                  </em>)
+
+              parseInlineMarkdown(text, endPos + 1, italicResult, "")
+            }
+
+          Maybe.Nothing =>
+            parseInlineMarkdown(text, pos + 1, result, buffer + "_")
+        }
+
+        /* Check for inline code (`code`) */
+      } else if String.startsWith(remaining, "`") {
+        case findClosingMarker(text, pos + 1, "`") {
+          Maybe.Just({content, endPos}) =>
+            {
+              let newResult =
+                if String.isEmpty(buffer) {
+                  result
+                } else {
+                  Array.push(result,
+                    <span>
+                      {
+                        buffer
+                      }
+                    </span>)
+                }
+
+              let codeResult =
+                Array.push(newResult,
+                  <code>
+                    {
+                      content
+                    }
+                  </code>)
+
+              parseInlineMarkdown(text, endPos + 1, codeResult, "")
+            }
+
+          Maybe.Nothing =>
+            parseInlineMarkdown(text, pos + 1, result, buffer + "`")
+        }
+      } else {
+        let char =
+          `#{text}.charAt(#{pos})`
+
+        parseInlineMarkdown(text, pos + 1, result, buffer + char)
+      }
+    }
   }
 
   /* Find closing marker and return content */
@@ -416,11 +637,9 @@ module MarkdownParser {
       findMarkerPos(text, startPos, marker, markerSize, "")
 
     case result {
-      Maybe.Just({content, pos}) =>
-        Maybe.Just({content, pos})
+      Maybe.Just({content, pos}) => Maybe.Just({content, pos})
 
-      Maybe.Nothing =>
-        Maybe.Nothing
+      Maybe.Nothing => Maybe.Nothing
     }
   }
 
@@ -445,7 +664,7 @@ module MarkdownParser {
         Maybe.Just({content, pos})
       } else {
         let char =
-          String.slice(text, pos, pos + 1)
+          `#{text}.charAt(#{pos})`
 
         findMarkerPos(text, pos + 1, marker, markerSize, content + char)
       }
@@ -456,26 +675,20 @@ module MarkdownParser {
   fun processTableRowToHtml (line : String) : Html {
     let cells =
       String.split(line, "|")
-      |> Array.select((cell : String) : Bool { !String.isEmpty(String.trim(cell)) })
-
-    let cellsHtml =
-      Array.map(
-        cells,
-        (cell : String) : Html {
-          let text =
-            String.trim(cell)
-
-          <td>
-            processInlineToHtml(text)
-          </td>
-        }
-      )
+      |> Array.select(
+        (cell : String) : Bool { !String.isEmpty(String.trim(cell)) })
 
     <table>
       <tr>
         {
-          for cell of cellsHtml {
-            cell
+          for cell of cells {
+            <td>
+              {
+                for part of processInlineToHtml(String.trim(cell)) {
+                  part
+                }
+              }
+            </td>
           }
         }
       </tr>
@@ -491,15 +704,14 @@ module MarkdownParser {
   fun processTableRow (line : String) : String {
     let cells =
       String.split(line, "|")
-      |> Array.select((cell : String) : Bool { !String.isEmpty(String.trim(cell)) })
+      |> Array.select(
+        (cell : String) : Bool { !String.isEmpty(String.trim(cell)) })
 
     let processedCells =
-      Array.map(
-        cells,
+      Array.map(cells,
         (cell : String) : String {
           "<td>" + processInline(String.trim(cell)) + "</td>"
-        }
-      )
+        })
 
     let cellsHtml =
       String.join(processedCells, "")
