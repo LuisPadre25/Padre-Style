@@ -1,5 +1,6 @@
 /* Markdown Parser - Pure Mint Lang */
 module MarkdownParser {
+
   /* Parse markdown text to HTML elements */
   fun parse (markdown : String) : Html {
     let lines =
@@ -81,6 +82,30 @@ module MarkdownParser {
                 Array.push(result, tableElement)
 
               processLinesToHtml(lines, nextIndex, newResult, false)
+            } else if String.startsWith(trimmed, "- ") || String.startsWith(trimmed, "* ") {
+              /* List item - render as simple list */
+              let text =
+                if String.startsWith(trimmed, "- ") {
+                  String.dropStart(trimmed, 2)
+                } else {
+                  String.dropStart(trimmed, 2)
+                }
+
+              let htmlElement =
+                <ul>
+                  <li>
+                    {
+                      for part of processInlineToHtml(text) {
+                        part
+                      }
+                    }
+                  </li>
+                </ul>
+
+              let newResult =
+                Array.push(result, htmlElement)
+
+              processLinesToHtml(lines, index + 1, newResult, false)
             } else {
               let htmlElement =
                 processLineToHtml(trimmed)
@@ -184,6 +209,7 @@ module MarkdownParser {
       }
     }
   }
+
 
   /* Parse table line into cells */
   fun parseTableRow (line : String) : Array(String) {
@@ -602,6 +628,72 @@ module MarkdownParser {
             parseInlineMarkdown(text, pos + 1, result, buffer + "_")
         }
 
+        /* Check for images (![alt](url)) */
+      } else if String.startsWith(remaining, "![") {
+        case parseImageOrLink(text, pos, true) {
+          Maybe.Just({label, url, endPos}) =>
+            {
+              let newResult =
+                if String.isEmpty(buffer) {
+                  result
+                } else {
+                  Array.push(result,
+                    <span>
+                      {
+                        buffer
+                      }
+                    </span>)
+                }
+
+              let imageResult =
+                Array.push(newResult,
+                  <img
+                    src={url}
+                    alt={label}
+                    style="max-width: 100%; height: auto;"/>)
+
+              parseInlineMarkdown(text, endPos, imageResult, "")
+            }
+
+          Maybe.Nothing =>
+            parseInlineMarkdown(text, pos + 1, result, buffer + "!")
+        }
+
+        /* Check for links ([text](url)) */
+      } else if String.startsWith(remaining, "[") {
+        case parseImageOrLink(text, pos, false) {
+          Maybe.Just({label, url, endPos}) =>
+            {
+              let newResult =
+                if String.isEmpty(buffer) {
+                  result
+                } else {
+                  Array.push(result,
+                    <span>
+                      {
+                        buffer
+                      }
+                    </span>)
+                }
+
+              let linkResult =
+                Array.push(newResult,
+                  <a
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    {
+                      label
+                    }
+                  </a>)
+
+              parseInlineMarkdown(text, endPos, linkResult, "")
+            }
+
+          Maybe.Nothing =>
+            parseInlineMarkdown(text, pos + 1, result, buffer + "[")
+        }
+
         /* Check for inline code (`code`) - code does NOT support nested formatting */
       } else if String.startsWith(remaining, "`") {
         case findClosingMarker(text, pos + 1, "`") {
@@ -639,6 +731,59 @@ module MarkdownParser {
 
         parseInlineMarkdown(text, pos + 1, result, buffer + char)
       }
+    }
+  }
+
+  /* Parse image or link syntax: ![alt](url) or [text](url) */
+  fun parseImageOrLink (
+    text : String,
+    startPos : Number,
+    isImage : Bool
+  ) : Maybe(Tuple(String, String, Number)) {
+    /* For images, skip the ! and start at [ */
+    let bracketStart =
+      if isImage {
+        startPos + 1
+      } else {
+        startPos
+      }
+
+    /* Find closing ] for label/alt text */
+    case findClosingMarker(text, bracketStart + 1, "]") {
+      Maybe.Just(labelResult) =>
+        {
+          let label =
+            labelResult[0]
+
+          let closeBracketPos =
+            labelResult[1]
+
+          /* Check if next char is ( */
+          let afterBracket =
+            String.dropStart(text, closeBracketPos + 1)
+
+          if String.startsWith(afterBracket, "(") {
+            /* Find closing ) for URL */
+            case findClosingMarker(text, closeBracketPos + 2, ")") {
+              Maybe.Just(urlResult) =>
+                {
+                  let url =
+                    urlResult[0]
+
+                  let endPos =
+                    urlResult[1]
+
+                  Maybe.Just({label, url, endPos + 1})
+                }
+
+              Maybe.Nothing => Maybe.Nothing
+            }
+          } else {
+            Maybe.Nothing
+          }
+        }
+
+      Maybe.Nothing => Maybe.Nothing
     }
   }
 

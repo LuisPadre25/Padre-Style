@@ -35,14 +35,28 @@ component MarkdownEditor {
   - First item
   - Second item
   - Third item
-    - Nested item
-    - Another nested item
 
   ### Unordered Lists (with *)
 
   * Apple
   * Banana
   * Orange
+
+  ---
+
+  ## Links and Images
+
+  ### Links
+
+  This is a [link to Google](https://www.google.com) in a sentence.
+
+  Visit [Mint Lang](https://mint-lang.com) for more information.
+
+  ### Images
+
+  ![Mint Logo](https://mint-lang.com/images/logo.svg)
+
+  ![Sample Image](https://via.placeholder.com/400x200/667eea/ffffff?text=Sample+Image)
 
   ---
 
