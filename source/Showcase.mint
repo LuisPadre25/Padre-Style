@@ -104,6 +104,8 @@ component Showcase {
       "Markdown" => <MarkdownShowcase/>
       "Table" => <TableShowcase/>
       "Drag & Drop" => <DragDropDemo/>
+      "Color Picker" => <ColorPickerDemo/>
+      "Toast" => <ToastProDemo/>
       => <div>"Select a tab"</div>
     }
   }
@@ -127,6 +129,8 @@ component Showcase {
           renderTabButton("Markdown")
           renderTabButton("Table")
           renderTabButton("Drag & Drop")
+          renderTabButton("Color Picker")
+          renderTabButton("Toast")
         </div>
 
         <div::tabContent>renderContent()</div>
