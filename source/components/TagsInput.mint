@@ -3,13 +3,25 @@ component TagsInput {
   property tags : Array(String) = []
   property placeholder : String = "Add tag..."
   property disabled : Bool = false
+  property showAddButton : Bool = false
 
   property onTagsChange =
     (newTags : Array(String)) : Promise(Void) { Promise.never() }
 
+  property onAddTag =
+    (callback : Function(Promise(Void))) : Promise(Void) { Promise.never() }
+
   connect ThemeStore exposing { currentTheme }
 
   state inputValue : String = ""
+
+  /* Expose addTag function to parent components via onAddTag callback */
+  fun componentDidMount : Promise(Void) {
+    onAddTag(
+      () : Promise(Void) {
+        addTag()
+      })
+  }
 
   style container {
     width: 100%;
@@ -19,6 +31,7 @@ component TagsInput {
     border-radius: 8px;
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
+    box-sizing: border-box;
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
@@ -83,17 +96,42 @@ component TagsInput {
     }
   }
 
+  style addButton {
+    padding: 0.375rem 0.75rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+
+    &:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+  }
+
   fun handleInputChange (event : Html.Event) : Promise(Void) {
     next { inputValue: Dom.getValue(event.target) }
   }
 
   fun handleKeyDown (event : Html.Event) : Promise(Void) {
-    /*
-    NOTE: Enter key to add tag and Backspace to remove last tag require
-       event.key detection not fully available in pure Mint. Users can still
-       add tags by typing and using Tab, or by providing an explicit Add button.
-    */
-    Promise.never()
+    if event.keyCode == 13 {
+      addTag()
+    } else if event.keyCode == 8 && String.isEmpty(inputValue) {
+      removeLastTag()
+    } else {
+      Promise.never()
+    }
   }
 
   fun addTag : Promise(Void) {
@@ -175,6 +213,19 @@ component TagsInput {
         onChange={handleInputChange}
         onKeyDown={handleKeyDown}
       />
+
+      {
+        if showAddButton {
+          <button::addButton
+            onClick={(e : Html.Event) { addTag() }}
+            disabled={String.isEmpty(String.trim(inputValue)) || disabled}
+          >
+            "Add"
+          </button>
+        } else {
+          <div/>
+        }
+      }
     </div>
   }
 }

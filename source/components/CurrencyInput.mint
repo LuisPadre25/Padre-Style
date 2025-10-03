@@ -25,11 +25,12 @@ component CurrencyInput {
     font-weight: 600;
     pointer-events: none;
     z-index: 1;
+    white-space: nowrap;
   }
 
   style input {
     width: 100%;
-    padding: 0.75rem 1rem 0.75rem 2.5rem;
+    padding: 0.75rem 1rem;
     border: 2px solid rgba(255, 255, 255, 0.2);
     border-radius: 8px;
     background: rgba(255, 255, 255, 0.95);
@@ -39,6 +40,7 @@ component CurrencyInput {
     font-weight: 500;
     transition: all 0.3s ease;
     backdrop-filter: blur(10px);
+    box-sizing: border-box;
 
     &:focus {
       outline: none;
@@ -177,9 +179,29 @@ component CurrencyInput {
     "background: #{ThemeHelpers.getElevated(currentTheme)};"
   }
 
+  fun calculatePaddingLeft : String {
+    /* Calculate approximate width based on currency string length */
+    let baseMargin = 1.0
+    let charWidth = 0.7
+    let currencyLength = String.size(currency)
+    let symbolWidth = (Number.fromString(Number.toString(currencyLength)) |> Maybe.withDefault(1)) * charWidth
+    let totalPadding = baseMargin + symbolWidth + 0.5
+
+    Number.toString(totalPadding) + "rem"
+  }
+
+  fun getInputStyles : String {
+    "padding-left: #{calculatePaddingLeft()};"
+  }
+
+  fun getCurrencySymbolStyles : String {
+    /* Keep symbol at left: 1rem always - padding will create space after it */
+    ""
+  }
+
   fun render : Html {
     <div::container style={getContainerStyles()}>
-      <span::currencySymbol>currency</span>
+      <span::currencySymbol style={getCurrencySymbolStyles()}>currency</span>
 
       <input::input
         type="text"
@@ -187,6 +209,7 @@ component CurrencyInput {
         placeholder={placeholder}
         disabled={disabled}
         onChange={handleChange}
+        style={getInputStyles()}
       />
     </div>
   }

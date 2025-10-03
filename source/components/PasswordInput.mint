@@ -25,6 +25,7 @@ component PasswordInput {
     font-size: 1rem;
     transition: all 0.3s ease;
     backdrop-filter: blur(10px);
+    box-sizing: border-box;
 
     &:focus {
       outline: none;
@@ -83,9 +84,9 @@ component PasswordInput {
       <button::toggleButton onClick={toggleVisibility} type="button">
         {
           if showPassword {
-            "👁️"
+            "🙈"
           } else {
-            "👁️‍🗨️"
+            "👁️"
           }
         }
       </button>

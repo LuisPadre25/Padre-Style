@@ -19,16 +19,28 @@ component ToggleSwitch {
     backdrop-filter: blur(10px);
     width: 100%;
     transition: all 0.3s ease;
+    box-sizing: border-box;
+    cursor: pointer;
 
     &:hover {
       border-color: #667eea;
     }
   }
 
+  style checkedContainer {
+    border-color: #667eea;
+    background: rgba(102, 126, 234, 0.1);
+  }
+
   style label {
     color: #374151;
     font-size: 1rem;
     user-select: none;
+  }
+
+  style checkedLabel {
+    color: #667eea;
+    font-weight: 600;
   }
 
   style switchWrapper {
@@ -68,6 +80,14 @@ component ToggleSwitch {
     }
   }
 
+  style sliderChecked {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
+    &:before {
+      transform: translateX(24px);
+    }
+  }
+
   fun handleChange (event : Html.Event) : Promise(Void) {
     onChange(!checked)
   }
@@ -78,33 +98,42 @@ component ToggleSwitch {
     "
   }
 
-  fun getSliderStyles : String {
-    if checked {
-      "
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-
-        &:before {
-          transform: translateX(24px);
-        }
-      "
-    } else {
-      ""
-    }
-  }
-
   fun render : Html {
-    <div::container style={getContainerStyles()}>
-      <label::label>label</label>
+    <div::container
+      style={getContainerStyles()}
+      class={
+        if checked {
+          "checkedContainer"
+        } else {
+          ""
+        }
+      }
+      onClick={handleChange}
+    >
+      <label::label
+        class={
+          if checked {
+            "checkedLabel"
+          } else {
+            ""
+          }
+        }
+      >label</label>
 
       <div::switchWrapper>
         <input::switchInput
           type="checkbox"
           checked={checked}
           disabled={disabled}
-          onChange={handleChange}
         />
 
-        <div::slider style={getSliderStyles()}/>
+        {
+          if checked {
+            <div::slider::sliderChecked/>
+          } else {
+            <div::slider/>
+          }
+        }
       </div>
     </div>
   }

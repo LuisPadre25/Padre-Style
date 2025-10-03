@@ -8,6 +8,7 @@ component OTPInput {
   connect ThemeStore exposing { currentTheme }
 
   state focusedIndex : Number = 0
+  state inputRefs : Array(Maybe(Dom.Element)) = []
 
   style container {
     display: flex;
@@ -107,23 +108,50 @@ component OTPInput {
     let newValue =
       updateValueAtIndex(value, index, digit)
 
+    /* Focus next input if digit was entered */
+    if !String.isEmpty(digit) && index < length - 1 {
+      focusNextInput(index + 1)
+    } else {
+      Promise.never()
+    }
+
     next { focusedIndex: index + 1 }
     onChange(newValue)
+  }
 
-    /*
-    NOTE: Auto-focus to next input requires DOM manipulation not available in pure Mint.
-       Users will need to manually tab or click to the next input.
-    */
+  fun focusNextInput (index : Number) : Promise(Void) {
+    `
+    (() => {
+      const inputs = document.querySelectorAll('[data-otp-input="true"]');
+      const idx = #{index};
+      if (inputs[idx]) {
+        setTimeout(() => inputs[idx].focus(), 10);
+      }
+    })()
+    `
+    Promise.never()
+  }
+
+  fun focusPrevInput (index : Number) : Promise(Void) {
+    `
+    (() => {
+      const inputs = document.querySelectorAll('[data-otp-input="true"]');
+      const idx = #{index};
+      if (inputs[idx]) {
+        setTimeout(() => inputs[idx].focus(), 10);
+      }
+    })()
+    `
     Promise.never()
   }
 
   fun handleKeyDown (index : Number, event : Html.Event) : Promise(Void) {
-    /*
-    NOTE: Keyboard navigation (Backspace to previous, Arrow keys) requires DOM focus
-       manipulation not available in pure Mint. Basic backspace to delete still works,
-       but navigation between inputs must be done manually with Tab or mouse click.
-    */
-    Promise.never()
+    /* Backspace - focus previous input if current is empty */
+    if event.keyCode == 8 && String.isEmpty(getDigitAt(index)) && index > 0 {
+      focusPrevInput(index - 1)
+    } else {
+      Promise.never()
+    }
   }
 
   fun getDigitAt (index : Number) : String {

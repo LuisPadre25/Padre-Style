@@ -4,19 +4,12 @@ component Main {
 
   // Styles for the root element.
   style root {
-    background: var(--color-primary, linear-gradient(135deg, #667eea 0%, #764ba2 100%));
     box-sizing: border-box;
     min-height: 100vh;
-    padding: 100px;
-    display: grid;
     width: 100vw;
     font-family: Noto Sans, sans;
-    color: var(--text-primary, white);
     transition: all 0.3s ease;
-
-    @media (max-width: 600px) {
-      padding: 10px;
-    }
+    overflow-x: hidden;
 
     /* Syntax highlighting tokens - VS Code Dark+ theme */
     .token-keyword {
@@ -76,44 +69,11 @@ component Main {
     }
   }
 
-  // Styles for the content.
-  style content {
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    display: flex;
-
-    @media (max-width: 600px) {
-      background: var(--surface, rgba(255, 255, 255, 0.5));
-      backdrop-filter: blur(3px);
-
-      justify-content: space-between;
-      padding: 20px;
-    }
-  }
-
-  // Styles for the footer.
-  style footer {
-    border-top: 3px double var(--border-primary, rgba(255,255,255,0.2));
-    padding-top: 30px;
-    margin-top: 30px;
-    max-width: 72ch;
-    width: 100%;
-    text-align: center;
-    font-size: 20px;
-    color: var(--text-primary, white);
-
-    small {
-      margin-top: 5px;
-      font-size: 14px;
-      display: block;
-      opacity: 0.8;
-      color: var(--text-secondary, rgba(255, 255, 255, 0.8));
-    }
-  }
-
-  fun handleThemeToggle (mode : String) : Promise(Void) {
-    ThemeStore.setTheme(mode)
+  style themeToggleContainer {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 10000;
   }
 
   // Renders the component.
@@ -121,20 +81,15 @@ component Main {
     <DynamicThemeProvider>
       <div::root
         style="
-          background: #{ThemeHelpers.getBackgroundPrimary(currentTheme)};
+          background: #{ThemeHelpers.getBackground(currentTheme)};
           color: #{ThemeHelpers.getTextPrimary(currentTheme)};
         "
       >
-        <DynamicThemeToggle/>
-
-        <div::content>
-          <Showcase/>
-
-          <div::footer>
-            <div>"Padre Style"</div>
-            <small>"2024"</small>
-          </div>
+        <div::themeToggleContainer>
+          <DynamicThemeToggle/>
         </div>
+
+        <DocsPage/>
       </div>
     </DynamicThemeProvider>
   }

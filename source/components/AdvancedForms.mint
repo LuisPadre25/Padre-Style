@@ -29,6 +29,7 @@ component DatePicker {
     cursor: pointer;
     transition: all 0.3s ease;
     backdrop-filter: blur(10px);
+    box-sizing: border-box;
 
     &:focus {
       outline: none;

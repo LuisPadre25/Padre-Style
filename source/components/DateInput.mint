@@ -25,6 +25,7 @@ component DateInput {
     font-size: 1rem;
     transition: all 0.3s ease;
     backdrop-filter: blur(10px);
+    box-sizing: border-box;
     cursor: pointer;
 
     &:focus {

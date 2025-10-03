@@ -11,7 +11,7 @@ module ThemeHelpers {
 
   fun getElevated (currentTheme : String) : String {
     if currentTheme == "dark" {
-      "rgba(255, 255, 255, 0.1)"
+      "rgba(30, 41, 59, 0.9)"
     } else {
       "rgba(255, 255, 255, 0.95)"
     }
@@ -19,7 +19,7 @@ module ThemeHelpers {
 
   fun getSurface (currentTheme : String) : String {
     if currentTheme == "dark" {
-      "rgba(255, 255, 255, 0.05)"
+      "rgba(30, 41, 59, 0.7)"
     } else {
       "rgba(255, 255, 255, 0.8)"
     }
@@ -99,7 +99,7 @@ module ThemeHelpers {
 
   fun getGlassBg (currentTheme : String) : String {
     if currentTheme == "dark" {
-      "rgba(255, 255, 255, 0.05)"
+      "rgba(30, 41, 59, 0.6)"
     } else {
       "rgba(255, 255, 255, 0.6)"
     }
@@ -107,7 +107,7 @@ module ThemeHelpers {
 
   fun getGlassHover (currentTheme : String) : String {
     if currentTheme == "dark" {
-      "rgba(255, 255, 255, 0.1)"
+      "rgba(30, 41, 59, 0.8)"
     } else {
       "rgba(255, 255, 255, 0.8)"
     }
@@ -134,6 +134,392 @@ module ThemeHelpers {
       "0 20px 50px rgba(0, 0, 0, 0.25)"
     } else {
       "0 20px 50px rgba(15, 23, 42, 0.15)"
+    }
+  }
+
+  /* Input & Form Colors */
+  fun getInputBackground (currentTheme : String) : String {
+    if currentTheme == "dark" {
+      "rgba(30, 41, 59, 0.8)"
+    } else {
+      "rgba(255, 255, 255, 0.9)"
+    }
+  }
+
+  fun getInputBorder (currentTheme : String) : String {
+    if currentTheme == "dark" {
+      "rgba(255, 255, 255, 0.15)"
+    } else {
+      "rgba(15, 23, 42, 0.2)"
+    }
+  }
+
+  fun getInputBorderFocus (currentTheme : String) : String {
+    if currentTheme == "dark" {
+      "rgba(102, 126, 234, 0.8)"
+    } else {
+      "rgba(102, 126, 234, 0.6)"
+    }
+  }
+
+  fun getInputBorderError (currentTheme : String) : String {
+    if currentTheme == "dark" {
+      "rgba(239, 68, 68, 0.8)"
+    } else {
+      "rgba(239, 68, 68, 0.6)"
+    }
+  }
+
+  fun getInputPlaceholder (currentTheme : String) : String {
+    if currentTheme == "dark" {
+      "rgba(255, 255, 255, 0.4)"
+    } else {
+      "rgba(15, 23, 42, 0.4)"
+    }
+  }
+
+  fun getInputDisabled (currentTheme : String) : String {
+    if currentTheme == "dark" {
+      "rgba(30, 41, 59, 0.5)"
+    } else {
+      "rgba(15, 23, 42, 0.05)"
+    }
+  }
+
+  fun getInputText (currentTheme : String) : String {
+    if currentTheme == "dark" {
+      "rgba(255, 255, 255, 0.95)"
+    } else {
+      "rgba(15, 23, 42, 0.9)"
+    }
+  }
+
+  /* Interactive States */
+  fun getHoverBackground (currentTheme : String) : String {
+    if currentTheme == "dark" {
+      "rgba(51, 65, 85, 0.6)"
+    } else {
+      "rgba(102, 126, 234, 0.08)"
+    }
+  }
+
+  fun getHoverBorder (currentTheme : String) : String {
+    if currentTheme == "dark" {
+      "rgba(255, 255, 255, 0.3)"
+    } else {
+      "rgba(102, 126, 234, 0.3)"
+    }
+  }
+
+  fun getActiveBackground (currentTheme : String) : String {
+    if currentTheme == "dark" {
+      "rgba(51, 65, 85, 0.8)"
+    } else {
+      "rgba(102, 126, 234, 0.12)"
+    }
+  }
+
+  fun getActiveBorder (currentTheme : String) : String {
+    if currentTheme == "dark" {
+      "rgba(102, 126, 234, 0.8)"
+    } else {
+      "rgba(102, 126, 234, 0.5)"
+    }
+  }
+
+  fun getSelectedBackground (currentTheme : String) : String {
+    if currentTheme == "dark" {
+      "rgba(102, 126, 234, 0.2)"
+    } else {
+      "rgba(102, 126, 234, 0.15)"
+    }
+  }
+
+  fun getSelectedBorder (currentTheme : String) : String {
+    if currentTheme == "dark" {
+      "rgba(102, 126, 234, 1)"
+    } else {
+      "rgba(102, 126, 234, 0.8)"
+    }
+  }
+
+  fun getFocusRing (currentTheme : String) : String {
+    if currentTheme == "dark" {
+      "0 0 0 3px rgba(102, 126, 234, 0.4)"
+    } else {
+      "0 0 0 3px rgba(102, 126, 234, 0.3)"
+    }
+  }
+
+  /* Navigation Colors */
+  fun getNavBackground (currentTheme : String) : String {
+    if currentTheme == "dark" {
+      "rgba(30, 41, 59, 0.85)"
+    } else {
+      "rgba(255, 255, 255, 0.85)"
+    }
+  }
+
+  fun getNavText (currentTheme : String) : String {
+    if currentTheme == "dark" {
+      "rgba(255, 255, 255, 0.8)"
+    } else {
+      "rgba(15, 23, 42, 0.8)"
+    }
+  }
+
+  fun getNavActive (currentTheme : String) : String {
+    if currentTheme == "dark" {
+      "rgba(102, 126, 234, 0.3)"
+    } else {
+      "rgba(102, 126, 234, 0.15)"
+    }
+  }
+
+  fun getNavHover (currentTheme : String) : String {
+    if currentTheme == "dark" {
+      "rgba(51, 65, 85, 0.6)"
+    } else {
+      "rgba(102, 126, 234, 0.08)"
+    }
+  }
+
+  fun getNavBorder (currentTheme : String) : String {
+    if currentTheme == "dark" {
+      "rgba(255, 255, 255, 0.1)"
+    } else {
+      "rgba(15, 23, 42, 0.1)"
+    }
+  }
+
+  /* Data Display Colors */
+  fun getTableHeader (currentTheme : String) : String {
+    if currentTheme == "dark" {
+      "rgba(30, 41, 59, 0.9)"
+    } else {
+      "rgba(15, 23, 42, 0.05)"
+    }
+  }
+
+  fun getTableRow (currentTheme : String) : String {
+    if currentTheme == "dark" {
+      "rgba(30, 41, 59, 0.6)"
+    } else {
+      "rgba(255, 255, 255, 0.5)"
+    }
+  }
+
+  fun getTableRowAlt (currentTheme : String) : String {
+    if currentTheme == "dark" {
+      "rgba(51, 65, 85, 0.5)"
+    } else {
+      "rgba(15, 23, 42, 0.02)"
+    }
+  }
+
+  fun getTableHover (currentTheme : String) : String {
+    if currentTheme == "dark" {
+      "rgba(102, 126, 234, 0.1)"
+    } else {
+      "rgba(102, 126, 234, 0.08)"
+    }
+  }
+
+  fun getTableBorder (currentTheme : String) : String {
+    if currentTheme == "dark" {
+      "rgba(255, 255, 255, 0.1)"
+    } else {
+      "rgba(15, 23, 42, 0.08)"
+    }
+  }
+
+  fun getCardBackground (currentTheme : String) : String {
+    if currentTheme == "dark" {
+      "rgba(30, 41, 59, 0.85)"
+    } else {
+      "rgba(255, 255, 255, 0.9)"
+    }
+  }
+
+  fun getCardBorder (currentTheme : String) : String {
+    if currentTheme == "dark" {
+      "rgba(255, 255, 255, 0.15)"
+    } else {
+      "rgba(15, 23, 42, 0.1)"
+    }
+  }
+
+  /* Feedback Colors */
+  fun getAlertInfoBg (currentTheme : String) : String {
+    if currentTheme == "dark" {
+      "rgba(59, 130, 246, 0.15)"
+    } else {
+      "rgba(59, 130, 246, 0.1)"
+    }
+  }
+
+  fun getAlertSuccessBg (currentTheme : String) : String {
+    if currentTheme == "dark" {
+      "rgba(16, 185, 129, 0.15)"
+    } else {
+      "rgba(16, 185, 129, 0.1)"
+    }
+  }
+
+  fun getAlertWarningBg (currentTheme : String) : String {
+    if currentTheme == "dark" {
+      "rgba(245, 158, 11, 0.15)"
+    } else {
+      "rgba(245, 158, 11, 0.1)"
+    }
+  }
+
+  fun getAlertErrorBg (currentTheme : String) : String {
+    if currentTheme == "dark" {
+      "rgba(239, 68, 68, 0.15)"
+    } else {
+      "rgba(239, 68, 68, 0.1)"
+    }
+  }
+
+  fun getToastBg (currentTheme : String) : String {
+    if currentTheme == "dark" {
+      "rgba(30, 27, 75, 0.95)"
+    } else {
+      "rgba(255, 255, 255, 0.95)"
+    }
+  }
+
+  fun getModalOverlay (currentTheme : String) : String {
+    if currentTheme == "dark" {
+      "rgba(0, 0, 0, 0.8)"
+    } else {
+      "rgba(15, 23, 42, 0.6)"
+    }
+  }
+
+  fun getTooltipBg (currentTheme : String) : String {
+    if currentTheme == "dark" {
+      "rgba(30, 27, 75, 0.95)"
+    } else {
+      "rgba(15, 23, 42, 0.9)"
+    }
+  }
+
+  fun getTooltipText (currentTheme : String) : String {
+    if currentTheme == "dark" {
+      "rgba(255, 255, 255, 0.95)"
+    } else {
+      "rgba(255, 255, 255, 0.95)"
+    }
+  }
+
+  /* Effect Properties */
+  fun getTransitionSpeed (currentTheme : String) : String {
+    "0.3s"
+  }
+
+  fun getTransitionSpeedSlow (currentTheme : String) : String {
+    "0.5s"
+  }
+
+  fun getTransitionSpeedFast (currentTheme : String) : String {
+    "0.15s"
+  }
+
+  fun getAnimationCurve (currentTheme : String) : String {
+    "cubic-bezier(0.4, 0, 0.2, 1)"
+  }
+
+  fun getBorderRadius (currentTheme : String) : String {
+    "8px"
+  }
+
+  fun getBorderRadiusSmall (currentTheme : String) : String {
+    "4px"
+  }
+
+  fun getBorderRadiusMedium (currentTheme : String) : String {
+    "12px"
+  }
+
+  fun getBorderRadiusLarge (currentTheme : String) : String {
+    "16px"
+  }
+
+  fun getBorderRadiusXLarge (currentTheme : String) : String {
+    "24px"
+  }
+
+  fun getBorderRadiusFull (currentTheme : String) : String {
+    "9999px"
+  }
+
+  /* Background Variants */
+  fun getBackground (currentTheme : String) : String {
+    if currentTheme == "dark" {
+      "rgba(15, 23, 42, 1)"
+    } else {
+      "rgba(248, 250, 252, 1)"
+    }
+  }
+
+  fun getBackgroundAlt (currentTheme : String) : String {
+    if currentTheme == "dark" {
+      "rgba(30, 41, 59, 1)"
+    } else {
+      "rgba(241, 245, 249, 1)"
+    }
+  }
+
+  /* Divider Colors */
+  fun getDivider (currentTheme : String) : String {
+    if currentTheme == "dark" {
+      "rgba(255, 255, 255, 0.12)"
+    } else {
+      "rgba(15, 23, 42, 0.12)"
+    }
+  }
+
+  fun getDividerLight (currentTheme : String) : String {
+    if currentTheme == "dark" {
+      "rgba(255, 255, 255, 0.08)"
+    } else {
+      "rgba(15, 23, 42, 0.08)"
+    }
+  }
+
+  /* Scrollbar Colors */
+  fun getScrollbarThumb (currentTheme : String) : String {
+    if currentTheme == "dark" {
+      "rgba(255, 255, 255, 0.2)"
+    } else {
+      "rgba(15, 23, 42, 0.2)"
+    }
+  }
+
+  fun getScrollbarTrack (currentTheme : String) : String {
+    if currentTheme == "dark" {
+      "rgba(30, 41, 59, 0.5)"
+    } else {
+      "rgba(15, 23, 42, 0.05)"
+    }
+  }
+
+  /* Overlay & Backdrop */
+  fun getOverlay (currentTheme : String) : String {
+    if currentTheme == "dark" {
+      "rgba(0, 0, 0, 0.6)"
+    } else {
+      "rgba(15, 23, 42, 0.4)"
+    }
+  }
+
+  fun getOverlayHeavy (currentTheme : String) : String {
+    if currentTheme == "dark" {
+      "rgba(0, 0, 0, 0.85)"
+    } else {
+      "rgba(15, 23, 42, 0.7)"
     }
   }
 }

@@ -18,12 +18,18 @@ component CheckboxInput {
     cursor: pointer;
     transition: all 0.3s ease;
     backdrop-filter: blur(10px);
+    box-sizing: border-box;
     width: 100%;
 
     &:hover {
       border-color: #667eea;
       transform: translateX(4px);
     }
+  }
+
+  style checkedContainer {
+    border-color: #667eea;
+    background: rgba(102, 126, 234, 0.1);
   }
 
   style checkbox {
@@ -41,6 +47,11 @@ component CheckboxInput {
     user-select: none;
   }
 
+  style checkedLabel {
+    color: #667eea;
+    font-weight: 600;
+  }
+
   fun handleChange (event : Html.Event) : Promise(Void) {
     onChange(!checked)
   }
@@ -52,15 +63,32 @@ component CheckboxInput {
   }
 
   fun render : Html {
-    <div::container style={getContainerStyles()}>
+    <div::container
+      style={getContainerStyles()}
+      class={
+        if checked {
+          "checkedContainer"
+        } else {
+          ""
+        }
+      }
+      onClick={handleChange}
+    >
       <input::checkbox
         type="checkbox"
         checked={checked}
         disabled={disabled}
-        onChange={handleChange}
       />
 
-      <label::label>label</label>
+      <label::label
+        class={
+          if checked {
+            "checkedLabel"
+          } else {
+            ""
+          }
+        }
+      >label</label>
     </div>
   }
 }

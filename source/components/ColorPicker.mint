@@ -41,6 +41,7 @@ component ColorPicker {
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease;
+    box-sizing: border-box;
 
     &:hover {
       border-color: #667eea;

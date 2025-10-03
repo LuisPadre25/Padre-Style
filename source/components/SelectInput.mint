@@ -26,6 +26,7 @@ component SelectInput {
     backdrop-filter: blur(10px);
     cursor: pointer;
     appearance: none;
+    box-sizing: border-box;
 
     &:focus {
       outline: none;

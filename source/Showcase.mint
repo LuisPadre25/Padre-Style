@@ -100,6 +100,7 @@ component Showcase {
       "Feedback" => <FeedbackShowcase/>
       "Navigation" => <NavigationShowcase/>
       "Charts" => <ChartsShowcase/>
+      "Media" => <MediaShowcase/>
       "Code" => <CodeShowcase/>
       "Markdown" => <MarkdownShowcase/>
       "Table" => <TableShowcase/>
@@ -125,6 +126,7 @@ component Showcase {
           renderTabButton("Feedback")
           renderTabButton("Navigation")
           renderTabButton("Charts")
+          renderTabButton("Media")
           renderTabButton("Code")
           renderTabButton("Markdown")
           renderTabButton("Table")

@@ -23,6 +23,7 @@ component Input {
     font-size: 1rem;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     backdrop-filter: blur(10px);
+    box-sizing: border-box;
 
     &:focus {
       outline: none;
@@ -367,6 +368,7 @@ component Textarea {
     backdrop-filter: blur(10px);
     resize: vertical;
     min-height: 100px;
+    box-sizing: border-box;
 
     &:focus {
       outline: none;

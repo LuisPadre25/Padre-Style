@@ -1781,6 +1781,48 @@ component NewShowcase {
     <div::tabContent>
       <h3::sectionTitle style={getSectionTitleStyles()}>"Media Components"</h3>
 
+      <h4
+        style="color: #{ThemeHelpers.getTextPrimary(currentTheme)}; margin: 2rem 0 1rem 0; font-size: 1.25rem; font-weight: 600;"
+      >"🖼️ Advanced Image Components"</h4>
+
+      <div::demoGrid>
+        <Card title="Image Carousel">
+          <ImageCarousel
+            images={[
+              "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800",
+              "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800",
+              "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=800"
+            ]}
+            alts={["Montañas", "Bosque", "Naturaleza"]}
+            showThumbnails={true}
+            enableZoom={true}
+            autoPlay={false}
+          />
+        </Card>
+
+        <Card title="Image Zoom">
+          <ImageZoom
+            src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200"
+            alt="Imagen con zoom"
+            height="400px"
+            zoomLevel={2}
+          />
+        </Card>
+
+        <Card title="Image Comparison">
+          <ImageComparison
+            beforeImage="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200"
+            afterImage="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&sat=-100"
+            beforeLabel="Original"
+            afterLabel="B&W"
+          />
+        </Card>
+      </div>
+
+      <h4
+        style="color: #{ThemeHelpers.getTextPrimary(currentTheme)}; margin: 2rem 0 1rem 0; font-size: 1.25rem; font-weight: 600;"
+      >"👤 Basic Media Components"</h4>
+
       <div::demoGrid>
         <Card title="Avatars">
           <div
@@ -1804,6 +1846,27 @@ component NewShowcase {
             <Icon name="star" size="large" color="#fbbf24"/>
             <Icon name="user" size="large" color="#667eea"/>
           </div>
+        </Card>
+
+        <Card title="Image Gallery">
+          <ImageGallery
+            images={[
+              "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800",
+              "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800",
+              "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=800"
+            ]}
+            alts={["Imagen 1", "Imagen 2", "Imagen 3"]}
+          />
+        </Card>
+
+        <Card title="Video Player">
+          <Video
+            src=""
+            poster="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800"
+            width="100%"
+            height="300px"
+            controls={true}
+          />
         </Card>
       </div>
     </div>

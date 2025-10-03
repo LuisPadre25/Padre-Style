@@ -33,6 +33,11 @@ component RadioGroup {
     }
   }
 
+  style selectedOption {
+    border-color: #667eea;
+    background: rgba(102, 126, 234, 0.1);
+  }
+
   style radioInput {
     width: 20px;
     height: 20px;
@@ -48,6 +53,11 @@ component RadioGroup {
     user-select: none;
   }
 
+  style selectedLabel {
+    color: #667eea;
+    font-weight: 600;
+  }
+
   fun handleChange (value : String) : Promise(Void) {
     onChange(value)
   }
@@ -59,17 +69,36 @@ component RadioGroup {
   }
 
   fun renderOption (option : String) : Html {
-    <div::radioOption>
+    let isSelected =
+      option == selectedValue
+
+    <div::radioOption
+      class={
+        if isSelected {
+          "selectedOption"
+        } else {
+          ""
+        }
+      }
+      onClick={(event : Html.Event) : Promise(Void) { handleChange(option) }}
+    >
       <input::radioInput
         type="radio"
         name={name}
         value={option}
-        checked={option == selectedValue}
+        checked={isSelected}
         disabled={disabled}
-        onChange={(event : Html.Event) : Promise(Void) { handleChange(option) }}
       />
 
-      <label::radioLabel>option</label>
+      <label::radioLabel
+        class={
+          if isSelected {
+            "selectedLabel"
+          } else {
+            ""
+          }
+        }
+      >option</label>
     </div>
   }
 
