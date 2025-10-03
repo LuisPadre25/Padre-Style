@@ -363,6 +363,7 @@ ThemeHelpers.getBackground(currentTheme)"
       "Data Display" => <DataDisplayDocsPage/>
       "Navigation" => <NavigationDocsPage/>
       "Feedback" => <FeedbackDocsPage/>
+      "Toast" => <ToastDocsPage/>
       => <div>"Select a category"</div>
     }
   }
@@ -385,7 +386,8 @@ ThemeHelpers.getBackground(currentTheme)"
         renderNavItem("🖼️ Media", "Media")
         renderNavItem("📋 Data Display", "Data Display")
         renderNavItem("🧭 Navigation", "Navigation")
-        renderNavItem("🔔 Feedback", "Feedback")
+        renderNavItem("🔔 Toast", "Toast")
+        renderNavItem("💬 Feedback", "Feedback")
         renderNavItem("💻 Code", "Code")
 
         <div::categoryTitle>"Examples"</div>
