@@ -58,7 +58,7 @@ component UserProfile {
 
   fun render : Html {
     <div::container style={getContainerStyles()}>
-      <Avatar size="large" fallback={avatar}/>
+      <Avatar size="lg" initials={avatar}/>
 
       <div::info>
         <div::name style={getNameStyles()}>name</div>

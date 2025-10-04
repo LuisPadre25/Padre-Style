@@ -279,7 +279,7 @@ component MediaShowcase {
 
           <Flex justify="center" align="center" gap="1.5rem">
             <div style="text-align: center;">
-              <Avatar size="small" fallback="JS"/>
+              <Avatar size="sm" initials="JS"/>
               <p
                 style="margin-top: 0.5rem; font-size: 0.75rem; color: #{ThemeHelpers.getTextSecondary(
                   currentTheme)};"
@@ -287,7 +287,7 @@ component MediaShowcase {
             </div>
 
             <div style="text-align: center;">
-              <Avatar size="medium" fallback="PD"/>
+              <Avatar size="md" initials="PD"/>
               <p
                 style="margin-top: 0.5rem; font-size: 0.75rem; color: #{ThemeHelpers.getTextSecondary(
                   currentTheme)};"
@@ -295,7 +295,7 @@ component MediaShowcase {
             </div>
 
             <div style="text-align: center;">
-              <Avatar size="large" fallback="MT"/>
+              <Avatar size="lg" initials="MT"/>
               <p
                 style="margin-top: 0.5rem; font-size: 0.75rem; color: #{ThemeHelpers.getTextSecondary(
                   currentTheme)};"
@@ -303,7 +303,7 @@ component MediaShowcase {
             </div>
 
             <div style="text-align: center;">
-              <Avatar size="xlarge" fallback="XL"/>
+              <Avatar size="xl" initials="XL"/>
               <p
                 style="margin-top: 0.5rem; font-size: 0.75rem; color: #{ThemeHelpers.getTextSecondary(
                   currentTheme)};"
@@ -317,19 +317,19 @@ component MediaShowcase {
             <Avatar
               src="https://i.pravatar.cc/150?img=1"
               alt="User 1"
-              size="medium"
+              size="md"
               shape="circle"
             />
             <Avatar
               src="https://i.pravatar.cc/150?img=2"
               alt="User 2"
-              size="medium"
+              size="md"
               shape="square"
             />
             <Avatar
               src="https://i.pravatar.cc/150?img=3"
               alt="User 3"
-              size="medium"
+              size="md"
               shape="rounded"
             />
           </Flex>
@@ -363,18 +363,18 @@ component MediaShowcase {
           >"Iconos en diferentes tamaños y colores"</p>
 
           <Flex justify="center" align="center" gap="1.5rem">
-            <Icon name="heart" size="large" color="#ef4444"/>
-            <Icon name="star" size="large" color="#fbbf24"/>
-            <Icon name="user" size="large" color="#667eea"/>
-            <Icon name="home" size="large" color="#10b981"/>
-            <Icon name="check" size="large" color="#06b6d4"/>
+            <Icon name="heart" size="lg" color="#ef4444"/>
+            <Icon name="star" size="lg" color="#fbbf24"/>
+            <Icon name="user" size="lg" color="#667eea"/>
+            <Icon name="home" size="lg" color="#10b981"/>
+            <Icon name="check" size="lg" color="#06b6d4"/>
           </Flex>
 
           <Flex justify="center" align="center" gap="1rem">
-            <Icon name="heart" size="small"/>
-            <Icon name="star" size="medium"/>
-            <Icon name="user" size="large"/>
-            <Icon name="home" size="xlarge"/>
+            <Icon name="heart" size="sm"/>
+            <Icon name="star" size="md"/>
+            <Icon name="user" size="lg"/>
+            <Icon name="home" size="xl"/>
           </Flex>
         </Card>
 

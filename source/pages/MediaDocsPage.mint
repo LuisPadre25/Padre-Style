@@ -463,6 +463,110 @@ component MediaDocsPage {
           />
         </div>
       </div>
+
+      <div::section>
+        <h2::sectionTitle style={getSectionTitleStyles()}>"Barcode & QR Codes"</h2>
+
+        <div::componentCard style={getComponentCardStyles()}>
+          <h3::componentName>
+            "QRCode & Barcode"
+            <span::badge style={getBadgeStyles("new")}>"New"</span>
+          </h3>
+
+          <p::componentDescription>
+            "Generate QR codes and barcodes in multiple formats with extensive customization options."
+          </p>
+
+          <div::exampleContainer style={getExampleContainerStyles()}>
+            <BarcodeDemo/>
+          </div>
+
+          <CodeHighlight
+            language="mint"
+            code="// QR Code
+<QRCode
+  data=\"https://mint-lang.com\"
+  size={200}
+  foregroundColor=\"#667eea\"
+  showLabel={true}
+  label=\"Scan me!\"
+/>
+
+// Barcode
+<Barcode
+  data=\"1234567890\"
+  format=\"CODE128\"
+  width={2}
+  height={80}
+  displayValue={true}
+/>
+
+// Supported Barcode Formats:
+// - CODE128, CODE39
+// - EAN13, EAN8
+// - UPC, ITF14
+// - MSI, Pharmacode, Codabar"
+          />
+        </div>
+      </div>
+
+      <div::section>
+        <h2::sectionTitle style={getSectionTitleStyles()}>"Avatars"</h2>
+
+        <div::componentCard style={getComponentCardStyles()}>
+          <h3::componentName>
+            "Avatar & AvatarGroup"
+            <span::badge style={getBadgeStyles("new")}>"New"</span>
+          </h3>
+
+          <p::componentDescription>
+            "Flexible avatar components with images, initials, status indicators, sizes, shapes, and groups."
+          </p>
+
+          <div::exampleContainer style={getExampleContainerStyles()}>
+            <AvatarDemo/>
+          </div>
+
+          <CodeHighlight
+            language="mint"
+            code="// Simple avatar with image
+<Avatar
+  src=\\\"https://i.pravatar.cc/150?img=1\\\"
+  size=\\\"lg\\\"
+  shape=\\\"circle\\\"
+/>
+
+// Avatar with initials
+<Avatar
+  initials=\\\"JD\\\"
+  size=\\\"xl\\\"
+  bgColor=\\\"#667eea\\\"
+/>
+
+// Avatar with status
+<Avatar
+  src=\\\"https://i.pravatar.cc/150?img=2\\\"
+  size=\\\"lg\\\"
+  showStatus={true}
+  status=\\\"online\\\"
+  bordered={true}
+/>
+
+// Avatar group
+<AvatarGroup
+  avatars={[\\\"url1.jpg\\\", \\\"url2.jpg\\\", \\\"url3.jpg\\\"]}
+  size=\\\"md\\\"
+  max={5}
+/>
+
+// Properties:
+// - size: xs, sm, md, lg, xl, 2xl
+// - shape: circle, rounded, square
+// - status: online, offline, away, busy
+// - spacing: tight, normal, loose"
+          />
+        </div>
+      </div>
     </div>
   }
 }

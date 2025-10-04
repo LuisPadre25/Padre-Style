@@ -1704,17 +1704,87 @@ component NewShowcase {
 
   fun renderNavigationTab : Html {
     <div::tabContent>
-      <h3::sectionTitle style={getSectionTitleStyles()}>"Navigation & Layout"</h3>
+      <h3::sectionTitle style={getSectionTitleStyles()}>"Navigation Components"</h3>
 
       <div::demoGrid>
-        <Card title="Tabs Demo">
-          <div style="text-align: center;">
-            <p>"Estas son las pestañas que estás usando ahora"</p>
-            <Badge variant="primary">"Tab: #{activeTab}"</Badge>
+        <Card title="Breadcrumbs">
+          <Breadcrumbs
+            items={[
+              "Home",
+              "Products",
+              "Category",
+              "Item"
+            ]}
+            separator="/"
+          />
+
+          <div style="margin-top: 1rem;">
+            <p
+              style="font-size: 0.875rem; color: #{ThemeHelpers.getTextSecondary(currentTheme)};"
+            >"Navegación con breadcrumbs para mostrar la jerarquía"</p>
           </div>
         </Card>
 
-        <Card title="Progress">
+        <Card title="Top Navigation">
+          <TopNav
+            items={["Home", "About", "Services", "Contact"]}
+            activeItem={selectedTopNavItem}
+            onItemClick={handleTopNavClick}
+          />
+
+          <div style="margin-top: 1rem; text-align: center;">
+            <Badge variant="primary">"Selected: #{selectedTopNavItem}"</Badge>
+          </div>
+        </Card>
+
+        <Card title="Vertical Navigation">
+          <VerticalNav
+            items={["Dashboard", "Analytics", "Settings", "Profile"]}
+            activeItem={selectedVerticalNavItem}
+            onItemClick={handleVerticalNavClick}
+          />
+        </Card>
+
+        <Card title="Menu Dropdown">
+          <div style="display: flex; justify-content: center;">
+            <MenuDropdown
+              label="User Menu"
+              items={["Profile", "Settings", "Logout"]}
+              onSelect={handleMenuDropdownClick}
+            />
+          </div>
+
+          if String.isEmpty(selectedMenuDropdownItem) == false {
+            <div style="margin-top: 1rem; text-align: center;">
+              <Badge variant="success">"Clicked: #{selectedMenuDropdownItem}"</Badge>
+            </div>
+          } else {
+            <span/>
+          }
+        </Card>
+
+        <Card title="Tab Bar">
+          <TabBar
+            tabs={["Overview", "Details", "Analytics", "Settings"]}
+            activeTab={selectedTabBarTab}
+            onTabChange={handleTabBarClick}
+          />
+
+          <div style="margin-top: 1.5rem; padding: 1rem; border-radius: 8px; background: #{ThemeHelpers.getElevated(currentTheme)};">
+            <p style="text-align: center; color: #{ThemeHelpers.getTextPrimary(currentTheme)};">
+              "Current Tab: #{selectedTabBarTab}"
+            </p>
+          </div>
+        </Card>
+
+        <Card title="Tabs Demo">
+          <div style="text-align: center;">
+            <p>"Estas son las pestañas principales que estás usando ahora"</p>
+            <Badge variant="primary">"Active Tab: #{activeTab}"</Badge>
+          </div>
+        </Card>
+
+        <Card title="Progress Stepper">
           <div style="display: flex; flex-direction: column; gap: 1rem;">
             <div style="text-align: center;">
               <p>"Paso actual: #{Number.toString(currentStep + 1)}/4"</p>
@@ -1723,7 +1793,7 @@ component NewShowcase {
           </div>
         </Card>
 
-        <Card title="Page Navigation">
+        <Card title="Pagination">
           <div style="text-align: center;">
             <p>"Página actual: #{Number.toString(currentPage)}/10"</p>
 
@@ -1828,9 +1898,9 @@ component NewShowcase {
           <div
             style="display: flex; gap: 1rem; align-items: center; justify-content: center;"
           >
-            <Avatar size="small" fallback="JS"/>
-            <Avatar size="medium" fallback="PD"/>
-            <Avatar size="large" fallback="MT"/>
+            <Avatar size="sm" initials="JS"/>
+            <Avatar size="md" initials="PD"/>
+            <Avatar size="lg" initials="MT"/>
           </div>
         </Card>
 
@@ -1842,9 +1912,9 @@ component NewShowcase {
           <div
             style="display: flex; gap: 1rem; justify-content: center; align-items: center;"
           >
-            <Icon name="heart" size="large" color="#ef4444"/>
-            <Icon name="star" size="large" color="#fbbf24"/>
-            <Icon name="user" size="large" color="#667eea"/>
+            <Icon name="heart" size="lg" color="#ef4444"/>
+            <Icon name="star" size="lg" color="#fbbf24"/>
+            <Icon name="user" size="lg" color="#667eea"/>
           </div>
         </Card>
 
@@ -2187,7 +2257,7 @@ component NewShowcase {
           change="+12.5%"
           changeType="positive"
           icon="👥"
-          size="medium"
+          size="md"
         />
 
         <ComparisonCard
@@ -2203,7 +2273,7 @@ component NewShowcase {
           change="+18.5%"
           trend="up"
           label="Revenue"
-          size="medium"
+          size="md"
         />
 
         <ScoreCard
@@ -2261,7 +2331,7 @@ component NewShowcase {
               value={12847}
               label="Total Sales"
               prefix="$"
-              size="large"
+              size="lg"
               color="#667eea"
             />
           </div>
@@ -2269,7 +2339,7 @@ component NewShowcase {
 
         <Card title="Progress Ring (Existing)">
           <div style="text-align: center;">
-            <ProgressRing value={68} max={100} size="large"/>
+            <ProgressRing value={68} max={100} size="lg"/>
           </div>
         </Card>
 
@@ -2400,7 +2470,7 @@ component NewShowcase {
         <Card title="Toggle Switch">
           <div style="display: flex; flex-direction: column; gap: 1rem;">
             <Switch checked={true} label="Notificaciones"/>
-            <Switch checked={false} label="Modo oscuro" size="large"/>
+            <Switch checked={false} label="Modo oscuro" size="lg"/>
           </div>
         </Card>
 
@@ -2431,7 +2501,15 @@ component NewShowcase {
     next { selectedMenuDropdownItem: item }
   }
 
+  fun handleMenuDropdownClick (item : String) : Promise(Void) {
+    next { selectedMenuDropdownItem: item }
+  }
+
   fun handleTabBarChange (tab : String) : Promise(Void) {
+    next { selectedTabBarTab: tab }
+  }
+
+  fun handleTabBarClick (tab : String) : Promise(Void) {
     next { selectedTabBarTab: tab }
   }
 
@@ -2578,19 +2656,19 @@ component NewShowcase {
           <div style="display: flex; flex-direction: column; gap: 1rem;">
             <SimpleSearchBar
               placeholder="Search anything..."
-              size="small"
+              size="sm"
               onSearch={handleSearch}
             />
 
             <SimpleSearchBar
               placeholder="Medium size (default)"
-              size="medium"
+              size="md"
               onSearch={handleSearch}
             />
 
             <SimpleSearchBar
               placeholder="Large search bar"
-              size="large"
+              size="lg"
               onSearch={handleSearch}
             />
 
@@ -3101,7 +3179,7 @@ export default class extends Controller {
 
         <Card title="Price Tag">
           <div style="text-align: center;">
-            <PriceTag price="299" currency="$" size="large" discount="399"/>
+            <PriceTag price="299" currency="$" size="lg" discount="399"/>
           </div>
         </Card>
 
