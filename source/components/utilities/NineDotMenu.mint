@@ -17,9 +17,13 @@ component NineDotMenu {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     padding: 8px;
+
+    &:hover {
+      transform: scale(1.05);
+    }
   }
 
   style dotsGrid {
@@ -35,7 +39,7 @@ component NineDotMenu {
     width: 4px;
     height: 4px;
     border-radius: 50%;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   style overlay {
@@ -45,21 +49,67 @@ component NineDotMenu {
     right: 0;
     bottom: 0;
     z-index: 999;
+    background: rgba(0, 0, 0, 0);
+    animation: overlayFadeIn 0.2s ease forwards;
+
+    @keyframes overlayFadeIn {
+      to {
+        background: rgba(0, 0, 0, 0.3);
+      }
+    }
   }
 
   style menu {
     position: absolute;
-    border-radius: 12px;
+    border-radius: 50%;
     border: 1px solid;
     z-index: 1000;
-    padding: 1rem;
-    min-width: 300px;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    opacity: 0;
+    animation: menuGrow 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+
+    @keyframes menuGrow {
+      0% {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        padding: 0;
+        opacity: 0;
+        overflow: hidden;
+      }
+      50% {
+        opacity: 1;
+        border-radius: 20px;
+        overflow: hidden;
+      }
+      70% {
+        overflow: visible;
+      }
+      100% {
+        width: 320px;
+        height: auto;
+        border-radius: 12px;
+        padding: 1rem;
+        opacity: 1;
+        overflow: visible;
+      }
+    }
   }
 
   style menuGrid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 0.5rem;
+    opacity: 0;
+    animation: gridShow 0.2s ease 0.3s forwards;
+
+    @keyframes gridShow {
+      to {
+        opacity: 1;
+      }
+    }
   }
 
   style menuItem {
@@ -71,18 +121,37 @@ component NineDotMenu {
     border-radius: 8px;
     cursor: pointer;
     border: 1px solid transparent;
-    transition: all 0.2s ease;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    transform: scale(0.3) rotate(-180deg);
+    animation: itemEnter 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+
+    @keyframes itemEnter {
+      to {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+      }
+    }
+
+    &:hover {
+      transform: scale(1.05) translateY(-2px) !important;
+      opacity: 1 !important;
+    }
   }
 
   style menuIcon {
     font-size: 1.5rem;
     margin-bottom: 0.5rem;
+    line-height: 1;
+    display: block;
   }
 
   style menuLabel {
     font-size: 0.75rem;
     font-weight: 500;
     text-align: center;
+    line-height: 1.2;
+    display: block;
   }
 
   fun getButtonStyles : String {
@@ -144,8 +213,36 @@ component NineDotMenu {
     "background: #{ThemeHelpers.getSurface(currentTheme)}; border-color: #{ThemeHelpers.getBorderPrimary(currentTheme)}; box-shadow: #{ThemeHelpers.getShadowHeavy(currentTheme)}; #{getMenuPlacementStyles()}"
   }
 
-  fun getMenuItemStyles : String {
-    "color: #{ThemeHelpers.getTextPrimary(currentTheme)}; &:hover { background: #{ThemeHelpers.getElevated(currentTheme)}; border-color: #{ThemeHelpers.getAccent(currentTheme)}; }"
+  fun getMenuItemStyles (index : Number) : String {
+    let animationOrder =
+      case index {
+        4 => 0
+        1 => 1
+        3 => 1
+        5 => 1
+        7 => 1
+        0 => 2
+        2 => 2
+        6 => 2
+        8 => 2
+        => 3
+      }
+
+    let delay =
+      Number.toString(0.4 + (animationOrder * 0.1))
+
+    "
+      color: #{ThemeHelpers.getTextPrimary(currentTheme)};
+      animation-delay: #{delay}s;
+    "
+  }
+
+  fun getMenuItemHoverStyles : String {
+    "
+      background: #{ThemeHelpers.getElevated(currentTheme)};
+      border-color: #{ThemeHelpers.getAccent(currentTheme)};
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    "
   }
 
   fun toggle (event : Html.Event) : Promise(Void) {
@@ -164,7 +261,7 @@ component NineDotMenu {
   fun renderMenuItem (item : MenuItem, index : Number) : Html {
     <div::menuItem
       onClick={(event : Html.Event) : Promise(Void) { handleClick(item, event) }}
-      style={getMenuItemStyles()}
+      style={getMenuItemStyles(index)}
     >
       <div::menuIcon>{item.icon}</div>
       <div::menuLabel>{item.label}</div>
