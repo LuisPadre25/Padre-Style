@@ -616,6 +616,22 @@ component UtilitiesDocsPage {
 
       <div::section>
         <h2::sectionTitle style={getSectionTitleStyles()}>
+          "Transfer"
+        </h2>
+
+        <div::componentCard style={getComponentCardStyles()}>
+          <h3::componentName>"Transfer - Dual List Selector"</h3>
+
+          <p::componentDescription>
+            "A dual-list transfer component for moving items between two lists with search and selection capabilities."
+          </p>
+
+          <TransferDocsPage/>
+        </div>
+      </div>
+
+      <div::section>
+        <h2::sectionTitle style={getSectionTitleStyles()}>
           "Advanced Features"
         </h2>
 
