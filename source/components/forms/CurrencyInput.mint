@@ -3,6 +3,8 @@ component CurrencyInput {
   property value : Number = 0
   property currency : String = "$"
   property placeholder : String = "0.00"
+  property label : String = ""
+  property helperText : String = ""
   property disabled : Bool = false
   property min : Number = 0
   property max : Number = 999999
@@ -11,6 +13,19 @@ component CurrencyInput {
   connect ThemeStore exposing { currentTheme }
 
   style container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+  }
+
+  style label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+
+  style inputWrapper {
     position: relative;
     width: 100%;
     display: flex;
@@ -20,7 +35,6 @@ component CurrencyInput {
   style currencySymbol {
     position: absolute;
     left: 1rem;
-    color: #667eea;
     font-size: 1.125rem;
     font-weight: 600;
     pointer-events: none;
@@ -31,21 +45,18 @@ component CurrencyInput {
   style input {
     width: 100%;
     padding: 0.75rem 1rem;
-    border: 2px solid rgba(255, 255, 255, 0.2);
+    border: 2px solid;
     border-radius: 8px;
-    background: rgba(255, 255, 255, 0.95);
-    color: #374151;
     font-family: inherit;
     font-size: 1rem;
     font-weight: 500;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    outline: none;
+    background: transparent;
     box-sizing: border-box;
 
     &:focus {
       outline: none;
-      border-color: #667eea;
-      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
     }
 
     &:disabled {
@@ -58,8 +69,12 @@ component CurrencyInput {
     }
   }
 
+  style helper {
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
+  }
+
   fun cleanCurrencyInput (input : String) : String {
-    /* Remove all characters except digits and dots */
     let cleaned =
       String.split(input, "")
       |> Array.select(
@@ -71,7 +86,6 @@ component CurrencyInput {
         })
       |> String.join("")
 
-    /* Handle multiple dots - keep only first one */
     let parts =
       String.split(cleaned, ".")
 
@@ -82,7 +96,6 @@ component CurrencyInput {
       case Array.at(parts, 0) {
         Maybe.Just(first) =>
           {
-            /* Join all parts after the first with empty string */
             let restIndices =
               Array.range(1, partsSize - 1)
 
@@ -127,7 +140,6 @@ component CurrencyInput {
   }
 
   fun formatValue : String {
-    /* Format to 2 decimal places */
     let valueStr =
       Number.toString(value)
 
@@ -140,14 +152,12 @@ component CurrencyInput {
           case Array.at(parts, 1) {
             Maybe.Just(decimalPart) =>
               {
-                /* Ensure we have at least 2 decimal digits */
                 let padded =
                   decimalPart + "00"
 
                 let size =
                   String.size(padded)
 
-                /* Get first 2 characters */
                 if size >= 2 {
                   let chars =
                     String.split(padded, "")
@@ -175,12 +185,7 @@ component CurrencyInput {
     }
   }
 
-  fun getContainerStyles : String {
-    "background: #{ThemeHelpers.getElevated(currentTheme)};"
-  }
-
   fun calculatePaddingLeft : String {
-    /* Calculate approximate width based on currency string length */
     let baseMargin = 1.0
     let charWidth = 0.7
     let currencyLength = String.size(currency)
@@ -190,27 +195,62 @@ component CurrencyInput {
     Number.toString(totalPadding) + "rem"
   }
 
-  fun getInputStyles : String {
-    "padding-left: #{calculatePaddingLeft()};"
+  fun getLabelStyles : String {
+    "color: #{ThemeHelpers.getTextPrimary(currentTheme)};"
   }
 
   fun getCurrencySymbolStyles : String {
-    /* Keep symbol at left: 1rem always - padding will create space after it */
-    ""
+    "color: #{ThemeHelpers.getAccent(currentTheme)};"
+  }
+
+  fun getInputStyles : String {
+    "
+      background: #{ThemeHelpers.getSurface(currentTheme)};
+      color: #{ThemeHelpers.getTextPrimary(currentTheme)};
+      border-color: #{ThemeHelpers.getBorderPrimary(currentTheme)};
+      padding-left: #{calculatePaddingLeft()};
+
+      &:focus {
+        border-color: #{ThemeHelpers.getAccent(currentTheme)};
+        box-shadow: #{ThemeHelpers.getFocusRing(currentTheme)};
+      }
+    "
+  }
+
+  fun getHelperStyles : String {
+    "color: #{ThemeHelpers.getTextSecondary(currentTheme)};"
   }
 
   fun render : Html {
-    <div::container style={getContainerStyles()}>
-      <span::currencySymbol style={getCurrencySymbolStyles()}>currency</span>
+    <div::container>
+      if String.size(label) > 0 {
+        <div::label style={getLabelStyles()}>
+          {label}
+        </div>
+      } else {
+        <></>
+      }
 
-      <input::input
-        type="text"
-        value={formatValue()}
-        placeholder={placeholder}
-        disabled={disabled}
-        onChange={handleChange}
-        style={getInputStyles()}
-      />
+      <div::inputWrapper>
+        <span::currencySymbol style={getCurrencySymbolStyles()}>{currency}</span>
+
+        <input::input
+          type="text"
+          value={formatValue()}
+          placeholder={placeholder}
+          disabled={disabled}
+          onChange={handleChange}
+          style={getInputStyles()}
+        />
+      </div>
+
+      if String.size(helperText) > 0 {
+        <div::helper style={getHelperStyles()}>
+          {helperText}
+        </div>
+      } else {
+        <></>
+      }
     </div>
   }
 }

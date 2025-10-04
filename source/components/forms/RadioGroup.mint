@@ -3,12 +3,27 @@ component RadioGroup {
   property options : Array(String) = []
   property selectedValue : String = ""
   property name : String = "radio-group"
+  property label : String = ""
+  property helperText : String = ""
   property disabled : Bool = false
   property onChange = (value : String) : Promise(Void) { Promise.never() }
 
   connect ThemeStore exposing { currentTheme }
 
   style container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+  }
+
+  style groupLabel {
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+
+  style optionsContainer {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
@@ -20,17 +35,20 @@ component RadioGroup {
     align-items: center;
     gap: 0.75rem;
     padding: 0.75rem 1rem;
-    border: 2px solid rgba(255, 255, 255, 0.2);
+    border: 2px solid;
     border-radius: 8px;
-    background: rgba(255, 255, 255, 0.95);
     cursor: pointer;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: transparent;
 
     &:hover {
-      border-color: #667eea;
       transform: translateX(4px);
     }
+  }
+
+  style helper {
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
   }
 
   style selectedOption {
@@ -62,10 +80,36 @@ component RadioGroup {
     onChange(value)
   }
 
-  fun getContainerStyles : String {
+  fun getLabelStyles : String {
+    "color: #{ThemeHelpers.getTextPrimary(currentTheme)};"
+  }
+
+  fun getOptionStyles (isSelected : Bool) : String {
+    let borderColor =
+      if isSelected {
+        ThemeHelpers.getAccent(currentTheme)
+      } else {
+        ThemeHelpers.getBorderPrimary(currentTheme)
+      }
+
+    let bgColor =
+      if isSelected {
+        "background: rgba(102, 126, 234, 0.1);"
+      } else {
+        "background: #{ThemeHelpers.getSurface(currentTheme)};"
+      }
+
     "
-      background: #{ThemeHelpers.getElevated(currentTheme)};
+      border-color: #{borderColor};
+      #{bgColor}
+      &:hover {
+        border-color: #{ThemeHelpers.getAccent(currentTheme)};
+      }
     "
+  }
+
+  fun getHelperStyles : String {
+    "color: #{ThemeHelpers.getTextSecondary(currentTheme)};"
   }
 
   fun renderOption (option : String) : Html {
@@ -73,13 +117,7 @@ component RadioGroup {
       option == selectedValue
 
     <div::radioOption
-      class={
-        if isSelected {
-          "selectedOption"
-        } else {
-          ""
-        }
-      }
+      style={getOptionStyles(isSelected)}
       onClick={(event : Html.Event) : Promise(Void) { handleChange(option) }}
     >
       <input::radioInput
@@ -98,16 +136,34 @@ component RadioGroup {
             ""
           }
         }
-      >option</label>
+      >{option}</label>
     </div>
   }
 
   fun render : Html {
-    <div::container style={getContainerStyles()}>
-      {
-        for option of options {
-          renderOption(option)
+    <div::container>
+      if String.size(label) > 0 {
+        <div::groupLabel style={getLabelStyles()}>
+          {label}
+        </div>
+      } else {
+        <></>
+      }
+
+      <div::optionsContainer>
+        {
+          for option of options {
+            renderOption(option)
+          }
         }
+      </div>
+
+      if String.size(helperText) > 0 {
+        <div::helper style={getHelperStyles()}>
+          {helperText}
+        </div>
+      } else {
+        <></>
       }
     </div>
   }

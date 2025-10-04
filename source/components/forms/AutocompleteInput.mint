@@ -3,6 +3,8 @@ component AutocompleteInput {
   property value : String = ""
   property suggestions : Array(String) = []
   property placeholder : String = "Type to search..."
+  property label : String = ""
+  property helperText : String = ""
   property disabled : Bool = false
   property minChars : Number = 2
   property onChange = (newValue : String) : Promise(Void) { Promise.never() }
@@ -14,6 +16,19 @@ component AutocompleteInput {
   state selectedIndex : Number = -1
 
   style container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+  }
+
+  style label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+
+  style inputWrapper {
     position: relative;
     width: 100%;
   }
@@ -21,20 +36,17 @@ component AutocompleteInput {
   style input {
     width: 100%;
     padding: 0.75rem 1rem;
-    border: 2px solid rgba(255, 255, 255, 0.2);
+    border: 2px solid;
     border-radius: 8px;
-    background: rgba(255, 255, 255, 0.95);
-    color: #374151;
     font-family: inherit;
     font-size: 1rem;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    outline: none;
+    background: transparent;
     box-sizing: border-box;
 
     &:focus {
       outline: none;
-      border-color: #667eea;
-      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
     }
 
     &:disabled {
@@ -45,6 +57,11 @@ component AutocompleteInput {
     &::placeholder {
       color: #9ca3af;
     }
+  }
+
+  style helper {
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
   }
 
   style dropdown {
@@ -190,8 +207,25 @@ component AutocompleteInput {
     isOpen && valueLength >= minChars
   }
 
-  fun getContainerStyles : String {
-    "background: #{ThemeHelpers.getElevated(currentTheme)};"
+  fun getLabelStyles : String {
+    "color: #{ThemeHelpers.getTextPrimary(currentTheme)};"
+  }
+
+  fun getInputStyles : String {
+    "
+      background: #{ThemeHelpers.getSurface(currentTheme)};
+      color: #{ThemeHelpers.getTextPrimary(currentTheme)};
+      border-color: #{ThemeHelpers.getBorderPrimary(currentTheme)};
+
+      &:focus {
+        border-color: #{ThemeHelpers.getAccent(currentTheme)};
+        box-shadow: #{ThemeHelpers.getFocusRing(currentTheme)};
+      }
+    "
+  }
+
+  fun getHelperStyles : String {
+    "color: #{ThemeHelpers.getTextSecondary(currentTheme)};"
   }
 
   fun renderSuggestionAtIndex (index : Number, filtered : Array(String)) : Html {
@@ -217,33 +251,52 @@ component AutocompleteInput {
     let filtered =
       getFilteredSuggestions()
 
-    <div::container style={getContainerStyles()} data-autocomplete="true">
-      <input::input
-        type="text"
-        value={value}
-        placeholder={placeholder}
-        disabled={disabled}
-        onInput={handleInputChange}
-        onChange={handleInputChange}
-        onFocus={handleFocus}
-        onClick={handleClick}
-        onKeyDown={handleKeyDown}
-      />
+    <div::container data-autocomplete="true">
+      if String.size(label) > 0 {
+        <div::label style={getLabelStyles()}>
+          {label}
+        </div>
+      } else {
+        <></>
+      }
 
-      {
-        if shouldShowDropdown() && Array.size(filtered) > 0 {
-          <div::dropdown>
-            {
-              for index of Array.range(0, Array.size(filtered) - 1) {
-                renderSuggestionAtIndex(index, filtered)
+      <div::inputWrapper>
+        <input::input
+          type="text"
+          value={value}
+          placeholder={placeholder}
+          disabled={disabled}
+          style={getInputStyles()}
+          onInput={handleInputChange}
+          onChange={handleInputChange}
+          onFocus={handleFocus}
+          onClick={handleClick}
+          onKeyDown={handleKeyDown}
+        />
+
+        {
+          if shouldShowDropdown() && Array.size(filtered) > 0 {
+            <div::dropdown>
+              {
+                for index of Array.range(0, Array.size(filtered) - 1) {
+                  renderSuggestionAtIndex(index, filtered)
+                }
               }
-            }
-          </div>
-        } else if shouldShowDropdown() && Array.size(filtered) == 0 {
-          <div::dropdown><div::noResults>"No results found"</div></div>
-        } else {
-          <div/>
+            </div>
+          } else if shouldShowDropdown() && Array.size(filtered) == 0 {
+            <div::dropdown><div::noResults>"No results found"</div></div>
+          } else {
+            <div/>
+          }
         }
+      </div>
+
+      if String.size(helperText) > 0 {
+        <div::helper style={getHelperStyles()}>
+          {helperText}
+        </div>
+      } else {
+        <></>
       }
     </div>
   }

@@ -2,7 +2,8 @@
 component FormsDocsPage {
   connect ThemeStore exposing { currentTheme }
 
-  state inputValue : String = ""
+  state textInputValue : String = ""
+  state textAreaValue : String = ""
   state autocompleteValue : String = ""
   state selectValue : String = "option1"
   state checkboxValue : Bool = false
@@ -120,10 +121,6 @@ component FormsDocsPage {
     }
   }
 
-  fun handleInputChange (value : String) : Promise(Void) {
-    next { inputValue: value }
-  }
-
   fun handleAutocompleteChange (value : String) : Promise(Void) {
     next { autocompleteValue: value }
   }
@@ -169,37 +166,109 @@ component FormsDocsPage {
         All components follow WCAG guidelines and support keyboard navigation."
       </p>
 
-      // Input Component
+      // Basic Text Inputs
       <div::section>
-        <h2::sectionTitle style={getSectionTitleStyles()}>"Text Input"</h2>
+        <h2::sectionTitle style={getSectionTitleStyles()}>"Basic Inputs"</h2>
 
         <div::componentCard style={getComponentCardStyles()}>
           <h3::componentName>
-            "Input"
-            <span::badge style={getBadgeStyles("form")}>"Form"</span>
+            "TextInput"
+            <span::badge style={getBadgeStyles("new")}>"NEW"</span>
           </h3>
 
           <p::componentDescription>
-            "Standard text input with label, placeholder, error states, and icons.
-            Supports all HTML input types (text, email, password, etc.)."
+            "Basic text input component with label, error states, and helper text. Supports different sizes and full width layout."
           </p>
 
           <div::exampleContainer style={getExampleContainerStyles()}>
-            <Input
-              placeholder="Enter your email"
-              value={inputValue}
-              type="email"
-              onChange={(e : Html.Event) { next { inputValue: Dom.getValue(e.target) } }}
+            <TextInput
+              label="Email Address"
+              value={textInputValue}
+              onValueChange={(value : String) { next { textInputValue: value } }}
+              helperText="We'll never share your email"
+              fullWidth={true}
+            />
+
+            <TextInput
+              label="Username"
+              value=""
+              size="medium"
+              helperText="Choose a unique username"
+            />
+
+            <TextInput
+              label="Phone Number"
+              value=""
+              size="small"
             />
           </div>
 
           <CodeHighlight
             language="mint"
-            code="<Input
-  placeholder=\"Enter your email\"
-  value={inputValue}
-  type=\"email\"
-  onChange={handleInputChange}
+            code="<TextInput
+  label=\"Email Address\"
+  value={textInputValue}
+  onValueChange={handleChange}
+  helperText=\"We'll never share your email\"
+  fullWidth={true}
+/>
+
+// Different sizes: small, medium, large
+<TextInput
+  label=\"Phone\"
+  value=\"\"
+  size=\"small\"
+/>"
+          />
+        </div>
+
+        <div::componentCard style={getComponentCardStyles()}>
+          <h3::componentName>
+            "TextArea"
+            <span::badge style={getBadgeStyles("new")}>"NEW"</span>
+          </h3>
+
+          <p::componentDescription>
+            "Multiline text input with character counter, resize control, and validation support."
+          </p>
+
+          <div::exampleContainer style={getExampleContainerStyles()}>
+            <TextArea
+              label="Description"
+              value={textAreaValue}
+              onChange={(value : String) { next { textAreaValue: value } }}
+              rows={4}
+              maxLength={200}
+              helperText="Maximum 200 characters"
+              fullWidth={true}
+            />
+
+            <TextArea
+              label="No Resize"
+              value=""
+              resize="none"
+              rows={3}
+            />
+          </div>
+
+          <CodeHighlight
+            language="mint"
+            code="<TextArea
+  label=\"Description\"
+  value={textAreaValue}
+  onChange={handleChange}
+  rows={4}
+  maxLength={200}
+  helperText=\"Maximum 200 characters\"
+  fullWidth={true}
+/>
+
+// Control resize behavior: vertical, horizontal, both, none
+<TextArea
+  label=\"No Resize\"
+  value=\"\"
+  resize=\"none\"
+  rows={3}
 />"
           />
         </div>
@@ -222,10 +291,12 @@ component FormsDocsPage {
 
           <div::exampleContainer style={getExampleContainerStyles()}>
             <AutocompleteInput
-              placeholder="Search countries..."
+              label="Search Country"
+              placeholder="Type to search countries..."
               value={autocompleteValue}
               suggestions={["Spain", "France", "Germany", "Italy", "Portugal"]}
               onChange={handleAutocompleteChange}
+              helperText="Start typing to see suggestions"
               minChars={2}
             />
           </div>
@@ -233,10 +304,12 @@ component FormsDocsPage {
           <CodeHighlight
             language="mint"
             code="<AutocompleteInput
-  placeholder=\"Search countries...\"
+  label=\"Search Country\"
+  placeholder=\"Type to search countries...\"
   value={autocompleteValue}
   suggestions={[\"Spain\", \"France\", \"Germany\"]}
   onChange={handleAutocompleteChange}
+  helperText=\"Start typing to see suggestions\"
   minChars={2}
 />"
           />
@@ -260,17 +333,20 @@ component FormsDocsPage {
 
           <div::exampleContainer style={getExampleContainerStyles()}>
             <PasswordInput
-              placeholder="Enter password"
+              label="Password"
               value={passwordValue}
               onChange={handlePasswordChange}
+              helperText="Must be at least 8 characters"
             />
           </div>
 
           <CodeHighlight
             language="mint"
             code="<PasswordInput
-  placeholder=\"Enter password\"
-  value=\"\"
+  label=\"Password\"
+  value={passwordValue}
+  onChange={handleChange}
+  helperText=\"Must be at least 8 characters\"
 />"
           />
         </div>
@@ -292,17 +368,21 @@ component FormsDocsPage {
 
           <div::exampleContainer style={getExampleContainerStyles()}>
             <SelectInput
-              placeholder="Choose an option"
-              options={["Option 1", "Option 2", "Option 3"]}
+              label="Select Country"
+              placeholder="Choose a country"
+              options={["United States", "Canada", "Mexico", "Spain"]}
               value=""
+              helperText="Select your country of residence"
             />
           </div>
 
           <CodeHighlight
             language="mint"
             code="<SelectInput
-  placeholder=\"Choose an option\"
-  options={[\"Option 1\", \"Option 2\", \"Option 3\"]}
+  label=\"Select Country\"
+  placeholder=\"Choose a country\"
+  options={[\"United States\", \"Canada\", \"Mexico\"]}
+  helperText=\"Select your country of residence\"
   value=\"\"
 />"
           />
@@ -357,19 +437,24 @@ component FormsDocsPage {
 
           <div::exampleContainer style={getExampleContainerStyles()}>
             <RadioGroup
+              label="Payment Method"
               name="payment"
               options={["Credit Card", "PayPal", "Cryptocurrency"]}
               selectedValue={radioValue}
               onChange={handleRadioChange}
+              helperText="Choose your preferred payment method"
             />
           </div>
 
           <CodeHighlight
             language="mint"
             code="<RadioGroup
+  label=\"Payment Method\"
   name=\"payment\"
   options={[\"Credit Card\", \"PayPal\", \"Cryptocurrency\"]}
-  selectedValue=\"\"
+  selectedValue={radioValue}
+  onChange={handleChange}
+  helperText=\"Choose your preferred payment method\"
 />"
           />
         </div>
@@ -424,16 +509,20 @@ component FormsDocsPage {
 
           <div::exampleContainer style={getExampleContainerStyles()}>
             <DateInput
-              placeholder="Select date"
+              label="Birth Date"
+              placeholder="Select your birth date"
               value={dateValue}
+              helperText="Your date of birth is required"
             />
           </div>
 
           <CodeHighlight
             language="mint"
             code="<DateInput
-  placeholder=\"Select date\"
+  label=\"Birth Date\"
+  placeholder=\"Select your birth date\"
   value={dateValue}
+  helperText=\"Your date of birth is required\"
 />"
           />
         </div>
@@ -486,20 +575,24 @@ component FormsDocsPage {
 
           <div::exampleContainer style={getExampleContainerStyles()}>
             <NumberInput
+              label="Quantity"
               value={numberValue}
               min={0}
               max={100}
               step={1}
+              helperText="Select a quantity between 0 and 100"
             />
           </div>
 
           <CodeHighlight
             language="mint"
             code="<NumberInput
+  label=\"Quantity\"
   value={numberValue}
   min={0}
   max={100}
   step={1}
+  helperText=\"Select a quantity between 0 and 100\"
 />"
           />
         </div>
@@ -560,18 +653,22 @@ component FormsDocsPage {
 
           <div::exampleContainer style={getExampleContainerStyles()}>
             <CurrencyInput
-              placeholder="Enter price"
-              currency="USD"
+              label="Product Price"
+              placeholder="0.00"
+              currency="$"
               value={0}
+              helperText="Enter the price in USD"
             />
           </div>
 
           <CodeHighlight
             language="mint"
             code="<CurrencyInput
-  placeholder=\"Enter price\"
-  currency=\"USD\"
+  label=\"Product Price\"
+  placeholder=\"0.00\"
+  currency=\"$\"
   value={0}
+  helperText=\"Enter the price in USD\"
 />"
           />
         </div>

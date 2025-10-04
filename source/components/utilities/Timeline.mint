@@ -20,15 +20,15 @@ component Timeline {
     position: absolute;
     left: -2rem;
     top: 0.25rem;
-    width: 0.75rem;
-    height: 0.75rem;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
   }
 
   style line {
     position: absolute;
-    left: -1.625rem;
-    top: 1rem;
+    left: calc(-2rem + 5px);
+    top: calc(0.25rem + 12px);
     width: 2px;
     height: calc(100% + 1.5rem);
   }
