@@ -72,10 +72,22 @@ component EnterExitPage {
       }/>
   }
 
+  /* Get animation label by id */
+  fun getAnimationLabel (id : String) : String {
+    getAnimations()
+    |> Array.find((item : AnimationItem) : Bool { item.id == id })
+    |> Maybe.map((item : AnimationItem) : String { item.label })
+    |> Maybe.withDefault("Unknown")
+  }
+
   /* Get controls content */
   fun getControlsContent : Html {
     <div>
       <h3::controlsTitle>"Animation Controls"</h3>
+
+      <div::activeAnimationBadge>
+        "Active: " <strong>{getAnimationLabel(selectedAnimation)}</strong>
+      </div>
 
       <div::controlGroup>
         <label::controlLabel>
@@ -108,11 +120,14 @@ component EnterExitPage {
       <div::controlGroup>
         <label::controlLabel>"Easing Function"</label>
         <select::select value={easing} onChange={(event : Html.Event) : Promise(Void) { handleEasingChange(Dom.getValue(event.target)) }}>
-          <option value="ease-out">"ease-out"</option>
+          <option value="ease-out">"ease-out (recommended)"</option>
           <option value="ease-in">"ease-in"</option>
           <option value="ease-in-out">"ease-in-out"</option>
           <option value="linear">"linear"</option>
-          <option value="cubic-bezier(0.4, 0, 0.2, 1)">"cubic-bezier (smooth)"</option>
+          <option value="cubic-bezier(0.4, 0, 0.2, 1)">"cubic-bezier: smooth"</option>
+          <option value="cubic-bezier(0.34, 1.56, 0.64, 1)">"cubic-bezier: bouncy ⭐"</option>
+          <option value="cubic-bezier(0.68, -0.55, 0.265, 1.55)">"cubic-bezier: back"</option>
+          <option value="cubic-bezier(0.175, 0.885, 0.32, 1.275)">"cubic-bezier: anticipate"</option>
         </select>
       </div>
 
@@ -287,7 +302,7 @@ component EnterExitPage {
             <tr>
               <td::tableCell><code::codeInline>"ease-out"</code></td>
               <td::tableCell>"Starts fast, ends slow"</td>
-              <td::tableCell>"Entering elements (recommended)"</td>
+              <td::tableCell>"Entering elements ⭐ recommended"</td>
             </tr>
             <tr>
               <td::tableCell><code::codeInline>"ease-in"</code></td>
@@ -304,15 +319,48 @@ component EnterExitPage {
               <td::tableCell>"Constant speed"</td>
               <td::tableCell>"Loading indicators"</td>
             </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div::docCard>
+        <h3::docTitle>"Custom Cubic-Bezier Functions"</h3>
+        <p::docText>
+          "Try these pre-made cubic-bezier curves in the preview above:"
+        </p>
+        <table::apiTable>
+          <thead>
             <tr>
-              <td::tableCell><code::codeInline>"cubic-bezier()"</code></td>
-              <td::tableCell>"Custom curve"</td>
-              <td::tableCell>"Advanced animations"</td>
+              <th::tableHeader>"Name"</th>
+              <th::tableHeader>"Cubic-Bezier"</th>
+              <th::tableHeader>"Effect"</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td::tableCell>"Smooth"</td>
+              <td::tableCell><code::codeInline>"cubic-bezier(0.4, 0, 0.2, 1)"</code></td>
+              <td::tableCell>"Smooth acceleration"</td>
+            </tr>
+            <tr>
+              <td::tableCell>"Bouncy ⭐"</td>
+              <td::tableCell><code::codeInline>"cubic-bezier(0.34, 1.56, 0.64, 1)"</code></td>
+              <td::tableCell>"Playful bounce effect"</td>
+            </tr>
+            <tr>
+              <td::tableCell>"Back"</td>
+              <td::tableCell><code::codeInline>"cubic-bezier(0.68, -0.55, 0.265, 1.55)"</code></td>
+              <td::tableCell>"Goes back before moving forward"</td>
+            </tr>
+            <tr>
+              <td::tableCell>"Anticipate"</td>
+              <td::tableCell><code::codeInline>"cubic-bezier(0.175, 0.885, 0.32, 1.275)"</code></td>
+              <td::tableCell>"Slight overshoot at the end"</td>
             </tr>
           </tbody>
         </table>
         <p::docText>
-          "Example custom: " <code::codeInline>"cubic-bezier(0.34, 1.56, 0.64, 1)"</code> " creates a bouncy effect"
+          "💡 Tip: Use " <code::codeInline>"cubic-bezier: bouncy"</code> " from the easing selector to see the effect in real-time!"
         </p>
       </div>
     </div>
@@ -360,8 +408,23 @@ component EnterExitPage {
   style controlsTitle {
     font-size: 15px;
     font-weight: 600;
-    margin: 0 0 16px;
+    margin: 0 0 12px;
     color: #323233;
+  }
+
+  style activeAnimationBadge {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    margin-bottom: 16px;
+    text-align: center;
+    font-weight: 500;
+
+    strong {
+      font-weight: 700;
+    }
   }
 
   style controlGroup {

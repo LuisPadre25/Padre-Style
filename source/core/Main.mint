@@ -39,20 +39,25 @@ component Main {
   style content {
     justify-content: flex-start;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     display: flex;
-    padding: 32px;
+    padding: 40px;
     background-color: var(--card-bg, #ffffff);
     margin: 20px;
     border-radius: 20px;
     min-height: calc(100vh - 104px);
     transition: background-color 0.3s ease;
+    width: 100%;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
 
     @media (max-width: 768px) {
       background: rgba(255, 255, 255, 0.5);
       backdrop-filter: blur(3px);
       padding: 20px;
       margin: 10px;
+      max-width: 100%;
     }
   }
 
