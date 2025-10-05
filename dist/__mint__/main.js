@@ -1,1 +1,0 @@
-import Program from "./index.js";Program()
