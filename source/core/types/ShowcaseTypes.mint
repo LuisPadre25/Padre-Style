@@ -18,7 +18,9 @@ type CodeSnippet {
 type UsageExample {
   title : String,
   description : String,
-  snippet : CodeSnippet
+  snippet : CodeSnippet,
+  previewContent : Html,
+  showReplay : Bool
 }
 
 /* Showcase tab configuration */

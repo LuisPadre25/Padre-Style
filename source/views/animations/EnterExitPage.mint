@@ -151,7 +151,19 @@ component EnterExitPage {
                 "    <div>\"Hello World\"</div>\n" +
                 "  }/>",
           language: "mint"
-        }
+        },
+        previewContent: <ExamplePreviewWithReplay
+          content={
+            <EnterExit
+              animation="fadeIn"
+              duration={0.6}
+              content={
+                <div::previewElement>
+                  "Hello World"
+                </div>
+              }/>
+          }/>,
+        showReplay: true
       },
       {
         title: "With Replay Control",
@@ -165,10 +177,8 @@ component EnterExitPage {
                 "  fun render : Html {\n" +
                 "    <>\n" +
                 "      <EnterExit\n" +
-                "        animation=\"#{selectedAnimation}\"\n" +
-                "        duration={#{Number.toString(duration)}}\n" +
-                "        easing=\"#{easing}\"\n" +
-                "        delay={#{Number.toString(delay)}}\n" +
+                "        animation=\"slideInRight\"\n" +
+                "        duration={0.6}\n" +
                 "        key={Number.toString(key)}\n" +
                 "        content={\n" +
                 "          <div>\"Your content here\"</div>\n" +
@@ -178,7 +188,19 @@ component EnterExitPage {
                 "  }\n" +
                 "}",
           language: "mint"
-        }
+        },
+        previewContent: <ExamplePreviewWithReplay
+          content={
+            <EnterExit
+              animation="slideInRight"
+              duration={0.6}
+              content={
+                <div::previewElement>
+                  "Slide In Animation"
+                </div>
+              }/>
+          }/>,
+        showReplay: true
       },
       {
         title: "Advanced: Multiple Elements",
@@ -202,7 +224,42 @@ component EnterExitPage {
                 "    content={<button>\"Action\"</button>}/>\n" +
                 "</div>",
           language: "mint"
-        }
+        },
+        previewContent: <ExamplePreviewWithReplay
+          content={
+            <div style="display: flex; flex-direction: column; gap: 16px; align-items: center;">
+              <EnterExit
+                animation="fadeInUp"
+                duration={0.5}
+                delay={0}
+                content={
+                  <div::previewElement style="font-size: 24px; font-weight: bold;">
+                    "Title"
+                  </div>
+                }/>
+
+              <EnterExit
+                animation="fadeInUp"
+                duration={0.5}
+                delay={0.2}
+                content={
+                  <div::previewElement style="font-size: 16px;">
+                    "Subtitle"
+                  </div>
+                }/>
+
+              <EnterExit
+                animation="fadeInUp"
+                duration={0.5}
+                delay={0.4}
+                content={
+                  <div::previewElement>
+                    "Action Button"
+                  </div>
+                }/>
+            </div>
+          }/>,
+        showReplay: true
       },
       {
         title: "Custom Timing Function",
@@ -216,7 +273,20 @@ component EnterExitPage {
                 "    <div class=\"card\">\"Bouncy animation\"</div>\n" +
                 "  }/>",
           language: "mint"
-        }
+        },
+        previewContent: <ExamplePreviewWithReplay
+          content={
+            <EnterExit
+              animation="scaleIn"
+              duration={0.8}
+              easing="cubic-bezier(0.34, 1.56, 0.64, 1)"
+              content={
+                <div::previewElement>
+                  "🎉 Bouncy!"
+                </div>
+              }/>
+          }/>,
+        showReplay: true
       }
     ]
   }

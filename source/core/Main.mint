@@ -16,6 +16,7 @@ component Main {
     color: var(--text-color, #333);
     position: relative;
     transition: background-color 0.3s ease, color 0.3s ease;
+    overflow-x: hidden;
   }
 
   style layout {
@@ -28,10 +29,12 @@ component Main {
     flex: 1;
     margin-left: 220px;
     box-sizing: border-box;
+    overflow-x: hidden;
 
     @media (max-width: 768px) {
       margin-left: 0;
-      padding: 10px;
+      padding: 0;
+      width: 100%;
     }
   }
 
@@ -47,17 +50,20 @@ component Main {
     border-radius: 20px;
     min-height: calc(100vh - 104px);
     transition: background-color 0.3s ease;
-    width: 100%;
+    width: calc(100% - 40px);
     max-width: 1400px;
     margin-left: auto;
     margin-right: auto;
+    box-sizing: border-box;
 
     @media (max-width: 768px) {
       background: rgba(255, 255, 255, 0.5);
       backdrop-filter: blur(3px);
-      padding: 20px;
-      margin: 10px;
+      padding: 16px;
+      margin: 8px;
+      width: calc(100% - 16px);
       max-width: 100%;
+      border-radius: 12px;
     }
   }
 

@@ -33,6 +33,8 @@ component ComponentShowcase {
 
   /* State */
   state activeTab : String = "preview"
+  state modalOpen : Bool = false
+  state activeExampleIndex : Number = -1
 
   /* Get tabs based on enabled tabs */
   fun getTabs : Array(TabItem) {
@@ -79,10 +81,80 @@ component ComponentShowcase {
     next { activeTab: event.name }
   }
 
+  /* Modal handlers */
+  fun openModal : Promise(Void) {
+    next { modalOpen: true, activeExampleIndex: -1 }
+  }
+
+  fun openExampleModal (index : Number) : Promise(Void) {
+    next { modalOpen: true, activeExampleIndex: index }
+  }
+
+  fun closeModal : Promise(Void) {
+    next { modalOpen: false, activeExampleIndex: -1 }
+  }
+
+  fun stopPropagation (event : Html.Event) : Promise(Void) {
+    `#{event}.stopPropagation()`
+    Promise.resolve(void)
+  }
+
+  /* Get the preview content for the modal */
+  fun getModalPreviewContent : Html {
+    if activeExampleIndex >= 0 {
+      /* Show example-specific preview */
+      Array.at(codeExamples, activeExampleIndex)
+      |> Maybe.map((example : UsageExample) : Html { example.previewContent })
+      |> Maybe.withDefault(Html.empty())
+    } else {
+      /* Show main preview content */
+      previewContent
+    }
+  }
+
+  /* Check if current example should show replay button */
+  fun shouldShowReplay : Bool {
+    if activeExampleIndex >= 0 {
+      Array.at(codeExamples, activeExampleIndex)
+      |> Maybe.map((example : UsageExample) : Bool { example.showReplay })
+      |> Maybe.withDefault(false)
+    } else {
+      false
+    }
+  }
+
+  /* Render code example with index */
+  fun renderCodeExample (example : UsageExample, index : Number) : Html {
+    <div::codeSection>
+      <div::codeHeader>
+        <div>
+          <h3::codeTitle>{example.title}</h3>
+          if !String.isEmpty(example.description) {
+            <p::exampleDescription>{example.description}</p>
+          } else {
+            <></>
+          }
+        </div>
+        <button::previewButton onClick={(event : Html.Event) : Promise(Void) { openExampleModal(index) }}>
+          "👁️ Preview"
+        </button>
+      </div>
+      <CodeBlock
+        code={example.snippet.code}
+        language={example.snippet.language}
+        showCopyButton={true}/>
+    </div>
+  }
+
   /* Styles */
   style container {
     width: 100%;
     max-width: 1200px;
+
+    @media (max-width: 768px) {
+      max-width: 100%;
+      padding: 0;
+    }
   }
 
   style pageTitle {
@@ -91,6 +163,10 @@ component ComponentShowcase {
     margin: 0 0 12px;
     line-height: 1.5;
     color: #333;
+
+    @media (max-width: 768px) {
+      font-size: 24px;
+    }
   }
 
   style pageSubtitle {
@@ -130,6 +206,13 @@ component ComponentShowcase {
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
     position: relative;
     transition: all 0.3s ease;
+
+    @media (max-width: 768px) {
+      min-width: 280px;
+      max-width: 100%;
+      border-radius: 24px;
+      padding: 8px;
+    }
   }
 
   style simulatorNotch {
@@ -187,6 +270,11 @@ component ComponentShowcase {
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
     background: #2a2a2a;
     overflow: hidden;
+
+    @media (max-width: 768px) {
+      max-width: 100%;
+      border-radius: 8px;
+    }
   }
 
   style browserBar {
@@ -236,6 +324,18 @@ component ComponentShowcase {
     grid-template-columns: 1.2fr 0.8fr;
     gap: 60px;
     align-items: center;
+
+    @media (max-width: 1024px) {
+      padding: 40px;
+      gap: 40px;
+    }
+
+    @media (max-width: 768px) {
+      padding: 20px;
+      gap: 20px;
+      grid-template-columns: 1fr;
+      min-height: auto;
+    }
   }
 
   style desktopPreviewArea {
@@ -247,6 +347,17 @@ component ComponentShowcase {
     align-items: center;
     justify-content: center;
     min-height: 480px;
+
+    @media (max-width: 1024px) {
+      padding: 40px;
+      min-height: 300px;
+    }
+
+    @media (max-width: 768px) {
+      padding: 24px;
+      min-height: 200px;
+      border-radius: 12px;
+    }
     position: relative;
   }
 
@@ -256,6 +367,11 @@ component ComponentShowcase {
     padding: 32px;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
     margin-top: 0;
+
+    @media (max-width: 768px) {
+      padding: 20px;
+      border-radius: 8px;
+    }
   }
 
   /* Documentation Styles */
@@ -265,6 +381,11 @@ component ComponentShowcase {
     padding: 32px;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
     margin-bottom: 24px;
+
+    @media (max-width: 768px) {
+      padding: 20px;
+      border-radius: 12px;
+    }
   }
 
   style docTitle {
@@ -285,6 +406,12 @@ component ComponentShowcase {
     width: 100%;
     border-collapse: collapse;
     margin: 16px 0;
+    overflow-x: auto;
+    display: block;
+
+    @media (max-width: 768px) {
+      font-size: 13px;
+    }
   }
 
   style tableHeader {
@@ -338,6 +465,142 @@ component ComponentShowcase {
     color: #646566;
     margin: 4px 0 0;
     line-height: 1.5;
+  }
+
+  style previewButton {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+
+  /* Modal Styles */
+  style modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    animation: fadeIn 0.2s ease;
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+  }
+
+  style modalContent {
+    background: white;
+    border-radius: 20px;
+    max-width: 1200px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    position: relative;
+    animation: slideUp 0.3s ease;
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(30px);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @media (max-width: 768px) {
+      max-width: 100%;
+      max-height: 95vh;
+      border-radius: 16px;
+    }
+  }
+
+  style modalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 32px;
+    border-bottom: 1px solid #ebedf0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 20px 20px 0 0;
+
+    @media (max-width: 768px) {
+      padding: 20px;
+      border-radius: 16px 16px 0 0;
+    }
+  }
+
+  style modalTitle {
+    font-size: 20px;
+    font-weight: 600;
+    color: white;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  style modalCloseButton {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: rotate(90deg);
+    }
+  }
+
+  style modalBody {
+    padding: 32px;
+
+    @media (max-width: 768px) {
+      padding: 20px;
+    }
   }
 
   /* Render */
@@ -452,6 +715,9 @@ component ComponentShowcase {
             <div::codeSection>
               <div::codeHeader>
                 <h3::codeTitle>"Code Example"</h3>
+                <button::previewButton onClick={openModal}>
+                  "👁️ Preview"
+                </button>
               </div>
               <CodeBlock
                 code={usageCode.code}
@@ -463,23 +729,10 @@ component ComponentShowcase {
           }
 
           /* Multiple code examples */
-          for example of codeExamples {
-            <div::codeSection>
-              <div::codeHeader>
-                <div>
-                  <h3::codeTitle>{example.title}</h3>
-                  if !String.isEmpty(example.description) {
-                    <p::exampleDescription>{example.description}</p>
-                  } else {
-                    <></>
-                  }
-                </div>
-              </div>
-              <CodeBlock
-                code={example.snippet.code}
-                language={example.snippet.language}
-                showCopyButton={true}/>
-            </div>
+          {
+            Array.mapWithIndex(
+              codeExamples,
+              (example : UsageExample, index : Number) : Html { renderCodeExample(example, index) })
           }
 
           {additionalDocs}
@@ -608,6 +861,32 @@ component ComponentShowcase {
         <div>
           {additionalDocs}
         </div>
+      }
+
+      /* Preview Modal */
+      if modalOpen {
+        <div::modalOverlay onClick={closeModal}>
+          <div::modalContent onClick={stopPropagation}>
+            <div::modalHeader>
+              <h3::modalTitle>
+                "👁️ Live Preview"
+              </h3>
+              <button::modalCloseButton onClick={closeModal}>
+                "×"
+              </button>
+            </div>
+            <div::modalBody>
+              /* Simple preview without simulator - just the component */
+              <div::playgroundSection>
+                <div style="background: linear-gradient(135deg, #f5f7fa 0%, #e4e9f2 100%); padding: 40px; border-radius: 16px; display: flex; align-items: center; justify-content: center; min-height: 400px;">
+                  {getModalPreviewContent()}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      } else {
+        <></>
       }
     </div>
   }

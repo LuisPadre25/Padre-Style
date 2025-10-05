@@ -60,15 +60,15 @@ component Sidebar {
   }
 
   style nav {
+    position: fixed;
+    top: 64px;
     left: 0;
-    top: 0;
     z-index: 50;
     width: 220px;
     min-width: 220px;
     max-width: 220px;
     background-color: var(--sidebar-bg, #ffffff);
     padding: 16px 0 32px 0;
-    position: relative;
     height: calc(100vh - 64px);
     overflow-y: auto;
     overflow-x: hidden;
@@ -91,21 +91,9 @@ component Sidebar {
       background-color: rgba(69, 90, 100, 0.2);
     }
 
-    &.fixed {
-      position: fixed;
-      top: 64px;
-      left: 0;
-      height: calc(100vh - 64px);
-    }
-
     @media (max-width: 768px) {
-      position: fixed;
-      top: 64px;
       left: -220px;
-      width: 220px;
-      height: calc(100vh - 64px);
       z-index: 1000;
-      background-color: var(--sidebar-bg, #ffffff);
       box-shadow: 2px 0 20px var(--shadow-color, rgba(0, 0, 0, 0.15));
       transition: transform 0.3s ease, visibility 0.3s;
       visibility: hidden;
