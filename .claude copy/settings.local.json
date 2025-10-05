@@ -1,0 +1,61 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run dev:*)",
+      "Bash(tree:*)",
+      "Bash(mint build)",
+      "Bash(find:*)",
+      "Bash(for:*)",
+      "Bash(head:*)",
+      "Bash(done)",
+      "Bash(xargs:*)",
+      "Bash(del \"source\\NavTypes.mint\")",
+      "Read(//c/Users/Administrator/Documents/GitHub/Padre-Style/source/libraries/**)",
+      "Bash(do echo \"=== $dir ===\")",
+      "Bash(del \"source\\data\\sidebar-config.json\")",
+      "WebFetch(domain:vant-ui.github.io)",
+      "WebSearch",
+      "Bash(dir:*)",
+      "Bash(mint:*)",
+      "WebFetch(domain:motion.dev)"
+    ],
+    "deny": []
+  },
+  "customCommands": {
+    "enabled": true,
+    "autoActivation": true,
+    "commands": [
+      "analyze",
+      "analyze-patterns",
+      "architect",
+      "build",
+      "document",
+      "dominate",
+      "exploit",
+      "git",
+      "implement",
+      "improve",
+      "infiltrate",
+      "psychoanalyze",
+      "review",
+      "stream",
+      "test",
+      "transcend"
+    ]
+  },
+  "personas": {
+    "enabled": true,
+    "autoActivation": true,
+    "available": [
+      "neural-hacker",
+      "paranoid-security",
+      "shadow-architect"
+    ]
+  },
+  "agentIntegration": {
+    "useCustomCommands": true,
+    "autoSelectPersona": true,
+    "enhancedAnalysis": true,
+    "parallelProcessing": true
+  }
+}
