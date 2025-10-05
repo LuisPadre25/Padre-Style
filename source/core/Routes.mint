@@ -31,6 +31,10 @@ routes {
     NavigationStore.setPageAndSection("changelog", "Essentials")
   }
 
+  /avatar {
+    NavigationStore.setPageAndSection("avatar", "Basic Components")
+  }
+
   /button {
     NavigationStore.setPageAndSection("button", "Basic Components")
   }
@@ -73,6 +77,10 @@ routes {
 
   /badge {
     NavigationStore.setPageAndSection("badge", "Display Components")
+  }
+
+  /status-dot {
+    NavigationStore.setPageAndSection("status-dot", "Display Components")
   }
 
   /circle {

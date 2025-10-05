@@ -77,6 +77,7 @@ module SidebarConfig {
         icon: "🎨",
         items: [
           { id: "badge", label: "Badge", route: "/badge", subtitle: "", badge: "" },
+          { id: "status-dot", label: "StatusDot", route: "/status-dot", subtitle: "Presence", badge: "New" },
           { id: "circle", label: "Circle", route: "/circle", subtitle: "Progress", badge: "" },
           { id: "collapse", label: "Collapse", route: "/collapse", subtitle: "", badge: "" },
           { id: "countdown", label: "CountDown", route: "/countdown", subtitle: "", badge: "" },
