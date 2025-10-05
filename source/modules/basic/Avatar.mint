@@ -131,26 +131,16 @@ component Avatar {
     !shouldShowImage() && String.isEmpty(icon) && String.isEmpty(displayInitials)
   }
 
-  fun getStatusColor : String {
-    case (status) {
-      "online" => "#10b981"
-      "offline" => "#6b7280"
-      "away" => "#f59e0b"
-      "busy" => "#ef4444"
-      => "#10b981"
-    }
-  }
-
-  fun getStatusSize : String {
+  fun getStatusDotSize : String {
     case (size) {
-      "xs" => "8px"
-      "sm" => "10px"
-      "md" => "12px"
-      "lg" => "14px"
-      "xl" => "18px"
-      "xxl" => "22px"
-      "xxxl" => "26px"
-      => "12px"
+      "xs" => "small"
+      "sm" => "small"
+      "md" => "default"
+      "lg" => "default"
+      "xl" => "large"
+      "xxl" => "large"
+      "xxxl" => "large"
+      => "default"
     }
   }
 
@@ -259,18 +249,11 @@ component Avatar {
     user-select: none;
   }
 
-  style statusIndicator {
+  style statusWrapper {
     position: absolute;
     bottom: 2%;
     right: 2%;
-    width: #{getStatusSize()};
-    height: #{getStatusSize()};
-    background: #{getStatusColor()};
-    border-radius: 50%;
-    border: 2.5px solid #fff;
-    box-sizing: border-box;
     z-index: 10;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   }
 
   style placeholder {
@@ -340,7 +323,9 @@ component Avatar {
       }
 
       if showStatus {
-        <div::statusIndicator/>
+        <div::statusWrapper>
+          <StatusDot status={status} size={getStatusDotSize()} bordered={true}/>
+        </div>
       }
     </div>
   }

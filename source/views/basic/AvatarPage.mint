@@ -256,13 +256,16 @@ component AvatarPage {
             "🟢 Online"
           </button>
           <button::button(status == "offline") onClick={(e : Html.Event) { handleStatusChange("offline") }}>
-            "⚫ Offline"
+            "⚪ Offline"
           </button>
           <button::button(status == "away") onClick={(e : Html.Event) { handleStatusChange("away") }}>
             "🟡 Away"
           </button>
           <button::button(status == "busy") onClick={(e : Html.Event) { handleStatusChange("busy") }}>
             "🔴 Busy"
+          </button>
+          <button::button(status == "dnd") onClick={(e : Html.Event) { handleStatusChange("dnd") }}>
+            "🟣 DND"
           </button>
         </div>
       </div>
@@ -366,7 +369,7 @@ component AvatarPage {
       },
       {
         title: "With Status Indicator",
-        description: "Avatar with semantic status colors (online, offline, away, busy)",
+        description: "Avatar with status indicator using StatusDot component (online, offline, away, busy, dnd)",
         snippet: {
           code: "<Avatar\n" +
                 "  src=\"https://i.pravatar.cc/150?img=2\"\n" +
@@ -374,25 +377,57 @@ component AvatarPage {
                 "  showStatus={true}\n" +
                 "  status=\"online\"/>\n\n" +
                 "<Avatar\n" +
-                "  text=\"AB\"\n" +
+                "  text=\"OF\"\n" +
                 "  size=\"lg\"\n" +
                 "  showStatus={true}\n" +
-                "  status=\"busy\"\n" +
-                "  bgColor=\"#f5222d\"/>",
+                "  status=\"offline\"/>\n\n" +
+                "<Avatar\n" +
+                "  text=\"AW\"\n" +
+                "  size=\"lg\"\n" +
+                "  showStatus={true}\n" +
+                "  status=\"away\"/>\n\n" +
+                "<Avatar\n" +
+                "  text=\"BS\"\n" +
+                "  size=\"lg\"\n" +
+                "  showStatus={true}\n" +
+                "  status=\"busy\"/>\n\n" +
+                "<Avatar\n" +
+                "  text=\"DN\"\n" +
+                "  size=\"lg\"\n" +
+                "  showStatus={true}\n" +
+                "  status=\"dnd\"/>",
           language: "mint"
         },
-        previewContent: <div style="display: flex; gap: 24px;">
+        previewContent: <div style="display: flex; gap: 24px; flex-wrap: wrap;">
           <Avatar
             src="https://i.pravatar.cc/150?img=2"
             size="lg"
             showStatus={true}
             status="online"/>
           <Avatar
-            text="AB"
+            text="OF"
+            size="lg"
+            showStatus={true}
+            status="offline"
+            bgColor="#8c8c8c"/>
+          <Avatar
+            text="AW"
+            size="lg"
+            showStatus={true}
+            status="away"
+            bgColor="#faad14"/>
+          <Avatar
+            text="BS"
             size="lg"
             showStatus={true}
             status="busy"
             bgColor="#f5222d"/>
+          <Avatar
+            text="DN"
+            size="lg"
+            showStatus={true}
+            status="dnd"
+            bgColor="#722ed1"/>
         </div>,
         showReplay: false
       },
@@ -686,13 +721,13 @@ component AvatarPage {
       },
       {
         name: "showStatus",
-        description: "Show status indicator with semantic colors (replaces deprecated dot)",
+        description: "Show status indicator (uses StatusDot component)",
         type: "Bool",
         defaultValue: "false"
       },
       {
         name: "status",
-        description: "Status type: online (#10b981), offline (#6b7280), away (#f59e0b), busy (#ef4444)",
+        description: "Status type: online | offline | away | busy | dnd (uses StatusDot)",
         type: "String",
         defaultValue: "\"online\""
       },
