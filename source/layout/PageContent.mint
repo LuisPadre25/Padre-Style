@@ -129,6 +129,9 @@ component PageContent {
       "enter-exit" =>
         <EnterExitPage/>
 
+      "dialog" =>
+        <DialogPage/>
+
       "gestures" =>
         <>
           <h1::pageTitle>"Gestures Animations"</h1>

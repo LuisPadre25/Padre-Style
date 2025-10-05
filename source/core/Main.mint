@@ -3,7 +3,15 @@ component Main {
   connect ThemeStore exposing { theme }
 
   fun componentDidMount : Promise(Void) {
-    ThemeStore.initialize()
+    `
+    (() => {
+      #{ThemeStore.initialize}();
+      const path = window.location.pathname;
+      const page = path.replace('/', '') || 'home';
+      #{NavigationStore.setPage}(page);
+    })()
+    `
+    Promise.resolve(void)
   }
 
   // Styles for the root element.
