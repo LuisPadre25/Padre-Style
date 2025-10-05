@@ -1,8 +1,7 @@
 component Navbar {
   connect ViewModeStore exposing { viewMode }
   connect NavigationStore exposing { sidebarOpen }
-
-  state darkMode : Bool = false
+  connect ThemeStore exposing { theme }
 
   style header {
     background: var(--navbar-bg, #fff);
@@ -52,6 +51,10 @@ component Navbar {
     color: #969799;
     font-weight: 400;
     margin-left: 4px;
+
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
 
   style topNav {
@@ -61,11 +64,21 @@ component Navbar {
     list-style: none;
     margin: 0;
     padding: 0;
+
+    @media (max-width: 768px) {
+      gap: 8px;
+    }
   }
 
   style navItem {
     display: flex;
     align-items: center;
+
+    @media (max-width: 768px) {
+      &.hideOnMobile {
+        display: none;
+      }
+    }
   }
 
   style link {
@@ -200,7 +213,11 @@ component Navbar {
   }
 
   fun toggleDarkMode : Promise(Void) {
-    next { darkMode: !darkMode }
+    if theme == "dark" {
+      ThemeStore.setTheme("default")
+    } else {
+      ThemeStore.setTheme("dark")
+    }
   }
 
   fun toggleViewMode : Promise(Void) {
@@ -251,7 +268,7 @@ component Navbar {
           </a>
 
           <ul::topNav>
-            <li::navItem>
+            <li::navItem class="hideOnMobile">
               <div::viewModeToggle
                 class={
                   if viewMode == "mobile" {
@@ -290,7 +307,7 @@ component Navbar {
               </div>
             </li>
 
-            <li::navItem>
+            <li::navItem class="hideOnMobile">
               <a::link
                 target="_blank"
                 href="https://github.com/mint-lang/mint">
@@ -305,11 +322,11 @@ component Navbar {
               </a>
             </li>
 
-            <li::navItem>
+            <li::navItem class="hideOnMobile">
               <span::cube::version>"v0.28.0"</span>
             </li>
 
-            <li::navItem>
+            <li::navItem class="hideOnMobile">
               <a::cube href="https://mint-lang.com" target="_blank">
                 "Docs"
               </a>

@@ -67,10 +67,11 @@ component Sidebar {
     min-width: 220px;
     max-width: 220px;
     background-color: var(--sidebar-bg, #ffffff);
-    padding: 8px 0;
+    padding: 16px 0 32px 0;
     position: relative;
     height: calc(100vh - 64px);
     overflow-y: auto;
+    overflow-x: hidden;
     scroll-behavior: smooth;
     box-shadow: 2px 0 8px var(--shadow-color, rgba(0, 0, 0, 0.05));
     transition: all 0.3s ease;
@@ -100,39 +101,49 @@ component Sidebar {
     @media (max-width: 768px) {
       position: fixed;
       top: 64px;
+      left: -220px;
       width: 220px;
       height: calc(100vh - 64px);
       z-index: 1000;
       background-color: var(--sidebar-bg, #ffffff);
       box-shadow: 2px 0 20px var(--shadow-color, rgba(0, 0, 0, 0.15));
-      transition: left 0.3s ease;
+      transition: transform 0.3s ease, visibility 0.3s;
+      visibility: hidden;
+      transform: translateX(0);
     }
-  }
 
-  style sidebarOpen {
-    @media (max-width: 768px) {
-      left: 0;
+    &.sidebarOpen {
+      @media (max-width: 768px) {
+        transform: translateX(220px);
+        visibility: visible;
+      }
     }
-  }
 
-  style sidebarClosed {
-    @media (max-width: 768px) {
-      left: -220px;
+    &.sidebarClosed {
+      @media (max-width: 768px) {
+        transform: translateX(0);
+        visibility: hidden;
+      }
     }
   }
 
 
   style navGroup {
-    margin-bottom: 16px;
-    padding-left: 6px;
+    margin-bottom: 20px;
+
+    &:first-child {
+      .navTitle {
+        padding-top: 0;
+      }
+    }
   }
 
   style navTitle {
-    padding: 24px 0 8px 32px;
+    padding: 16px 16px 8px 16px;
     color: var(--heading-color, rgba(51, 51, 51, 0.9));
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 600;
-    line-height: 28px;
+    line-height: 24px;
     cursor: pointer;
     user-select: none;
     display: flex;
@@ -175,49 +186,65 @@ component Sidebar {
   }
 
   style link {
-    padding: 8px 12px 8px 32px;
+    padding: 10px 16px;
     color: var(--sidebar-text, rgba(52, 73, 94, 1));
-    margin: 2px 6px;
+    margin: 2px 12px;
     font-size: 14px;
     line-height: 20px;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
     display: flex;
     align-items: center;
     text-decoration: none;
     cursor: pointer;
     border-radius: 8px;
-    border-left: 4px solid transparent;
     position: relative;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 3px;
+      height: 0;
+      background: var(--primary-color, #1989fa);
+      border-radius: 0 3px 3px 0;
+      transition: height 0.2s ease;
+    }
 
     &:hover {
       color: var(--primary-color, #1989fa);
-      background-color: color-mix(in srgb, var(--primary-color, #1989fa) 5%, transparent);
+      background-color: rgba(25, 137, 250, 0.08);
     }
 
     &.active {
       color: var(--primary-color, #1989fa);
-      font-weight: 700;
-      background-color: color-mix(in srgb, var(--primary-color, #1989fa) 10%, transparent);
-      border-left-color: var(--primary-color, #1989fa);
-      box-shadow: 0 2px 8px color-mix(in srgb, var(--primary-color, #1989fa) 15%, transparent);
+      font-weight: 600;
+      background-color: rgba(25, 137, 250, 0.12);
+
+      &::before {
+        height: 20px;
+      }
     }
   }
 
   style subtitle {
-    font-size: 12px;
+    font-size: 11px;
     margin-left: 4px;
     color: #969799;
+    font-weight: 400;
   }
 
   style badge {
     margin-left: auto;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
-    padding: 2px 6px;
-    border-radius: 8px;
-    font-size: 10px;
-    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 9px;
+    font-weight: 700;
     text-transform: uppercase;
+    letter-spacing: 0.5px;
   }
 
 
@@ -294,28 +321,27 @@ component Sidebar {
   }
 
   style overlay {
-    display: none;
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.5);
-    z-index: 999;
+    z-index: 998;
     transition: opacity 0.3s ease;
+    display: none;
 
     @media (max-width: 768px) {
-      display: block;
+      &.overlayVisible {
+        display: block;
+        opacity: 1;
+      }
+
+      &.overlayHidden {
+        display: none;
+        opacity: 0;
+      }
     }
-  }
-
-  style overlayVisible {
-    opacity: 1;
-  }
-
-  style overlayHidden {
-    opacity: 0;
-    pointer-events: none;
   }
 
   fun render : Html {
