@@ -16,6 +16,9 @@ source/
 │   └── PageContent.mint           # Contenedor de contenido dinámico
 │
 ├── modules/                       # Componentes CORE reutilizables
+│   ├── animations/                # Módulo Animations
+│   │   └── EnterExit.mint         # Componente de animaciones enter/exit
+│   │
 │   ├── qrcode/                    # Módulo QR Code
 │   │   ├── QRCodeCanvas.mint      # Componente visual de QR
 │   │   └── QREncoder.mint         # Lógica de codificación QR
@@ -29,6 +32,9 @@ source/
 │       └── ButtonGroup.mint       # Grupo de botones
 │
 ├── views/                         # PÁGINAS con ejemplos de uso
+│   ├── animations/                # Vista de Animaciones
+│   │   └── EnterExitPage.mint     # Página de showcase con documentación
+│   │
 │   ├── codes/                     # Vista de QR & Barcodes
 │   │   ├── CodesPage.mint         # Página de ejemplos
 │   │   ├── CodeStore.mint         # Store específico de la vista

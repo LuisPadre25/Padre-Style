@@ -1,0 +1,51 @@
+/* Mint Syntax Highlighter */
+module MintPure {
+  fun highlightMint (code : String) : String {
+    HighlightEngine.highlightMultiLine(
+      code,
+      [
+        "module",
+        "component",
+        "fun",
+        "property",
+        "state",
+        "const",
+        "if",
+        "else",
+        "case",
+        "for",
+        "of",
+        "do",
+        "next",
+        "let",
+        "try",
+        "catch",
+        "where",
+        "return",
+        "await",
+        "encode",
+        "decode",
+        "style",
+        "connect",
+        "exposing",
+        "use",
+        "provider",
+        "subscription",
+        "sequence"
+      ],
+      [
+        "String",
+        "Number",
+        "Bool",
+        "Array",
+        "Maybe",
+        "Result",
+        "Promise",
+        "Html",
+        "Void",
+        "Time",
+        "Tuple"
+      ]
+    )
+  }
+}
