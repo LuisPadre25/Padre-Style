@@ -80,6 +80,9 @@ component PageContent {
           </p>
         </>
 
+      "avatar" =>
+        <AvatarPage/>
+
       "button" =>
         <>
           <h1::pageTitle>"Button Component"</h1>
@@ -101,12 +104,10 @@ component PageContent {
         </>
 
       "badge" =>
-        <>
-          <h1::pageTitle>"Badge Component"</h1>
-          <p::pageText>
-            "Badge is used to display notification counts or status."
-          </p>
-        </>
+        <BadgePage/>
+
+      "status-dot" =>
+        <StatusDotPage/>
 
       "codes" =>
         <CodesPage/>
