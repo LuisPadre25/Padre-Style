@@ -56,8 +56,12 @@ component Tabs {
     `
     (() => {
       if (#{currentActive} !== #{active}) {
+        console.log('Tabs: Updating from', #{currentActive}, 'to', #{active});
         #{next { currentActive: active }}
-        #{updateLinePosition()}
+        setTimeout(() => {
+          console.log('Tabs: Calling updateLinePosition');
+          #{updateLinePosition()}
+        }, 150);
       }
     })()
     `
@@ -124,17 +128,34 @@ component Tabs {
         const lineHeight = #{lineHeight};
         const shrink = #{shrink};
 
+        console.log('updateLinePosition: currentActive =', currentActive);
+
         const index = tabs.findIndex(tab => tab.name === currentActive);
-        if (index < 0) return;
+        console.log('updateLinePosition: index =', index);
+        if (index < 0) {
+          console.log('updateLinePosition: index < 0, returning');
+          return;
+        }
 
         const navElement = document.querySelector('[role="tablist"]');
-        if (!navElement) return;
+        console.log('updateLinePosition: navElement =', navElement);
+        if (!navElement) {
+          console.log('updateLinePosition: no navElement found');
+          return;
+        }
 
         const tabElements = navElement.querySelectorAll('[role="tab"]');
-        if (index >= tabElements.length) return;
+        console.log('updateLinePosition: tabElements =', tabElements);
+        if (index >= tabElements.length) {
+          console.log('updateLinePosition: index >= tabElements.length');
+          return;
+        }
 
         const currentTab = tabElements[index];
-        if (!currentTab) return;
+        if (!currentTab) {
+          console.log('updateLinePosition: no currentTab');
+          return;
+        }
 
         const tabRect = currentTab.getBoundingClientRect();
         const navRect = navElement.getBoundingClientRect();
@@ -150,6 +171,7 @@ component Tabs {
         const lineLeft = tabCenter - (lineWidthPx / 2);
 
         const newStyle = "transform: translateX(" + lineLeft + "px); width: " + lineWidth + "; height: " + lineHeight + ";";
+        console.log('updateLinePosition: newStyle =', newStyle);
         #{next { lineStyle: `newStyle` }}
 
         // Auto-scroll to center active tab in shrink mode
@@ -216,6 +238,8 @@ component Tabs {
         })
 
       next { currentActive: tab.name }
+
+      updateLinePosition()
 
       onChange(
         {
