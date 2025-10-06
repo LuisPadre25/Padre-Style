@@ -79,6 +79,10 @@ routes {
     NavigationStore.setPageAndSection("badge", "Display Components")
   }
 
+  /chip {
+    NavigationStore.setPageAndSection("chip", "Display Components")
+  }
+
   /status-dot {
     NavigationStore.setPageAndSection("status-dot", "Display Components")
   }

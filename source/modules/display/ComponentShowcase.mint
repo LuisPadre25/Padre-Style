@@ -318,12 +318,13 @@ component ComponentShowcase {
 
   style desktopScreen {
     background: linear-gradient(135deg, #f5f7fa 0%, #e4e9f2 100%);
-    min-height: 600px;
+    height: 720px;
+    overflow: hidden;
     padding: 60px;
     display: grid;
     grid-template-columns: 1.2fr 0.8fr;
     gap: 60px;
-    align-items: center;
+    align-items: start;
 
     @media (max-width: 1024px) {
       padding: 40px;
@@ -347,18 +348,41 @@ component ComponentShowcase {
     align-items: center;
     justify-content: center;
     min-height: 480px;
+    max-height: 600px;
+    overflow: auto;
+    position: relative;
 
     @media (max-width: 1024px) {
       padding: 40px;
       min-height: 300px;
+      max-height: 500px;
     }
 
     @media (max-width: 768px) {
       padding: 24px;
       min-height: 200px;
+      max-height: 400px;
       border-radius: 12px;
     }
-    position: relative;
+
+    &::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #1989fa;
+      border-radius: 4px;
+
+      &:hover {
+        background: #1570d1;
+      }
+    }
   }
 
   style desktopControlsCard {

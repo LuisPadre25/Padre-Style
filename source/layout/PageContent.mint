@@ -95,6 +95,9 @@ component PageContent {
           </div>
         </>
 
+      "layout" =>
+        <LayoutPage/>
+
       "calendar" =>
         <>
           <h1::pageTitle>"Calendar Component"</h1>
@@ -105,6 +108,9 @@ component PageContent {
 
       "badge" =>
         <BadgePage/>
+
+      "chip" =>
+        <ChipPage/>
 
       "status-dot" =>
         <StatusDotPage/>
