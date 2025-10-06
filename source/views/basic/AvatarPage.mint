@@ -2,6 +2,7 @@
 
 component AvatarPage {
   /* State for component controls */
+  state componentType : String = "avatar"
   state selectedSize : String = "md"
   state selectedShape : String = "circle"
   state showBorder : Bool = false
@@ -12,6 +13,12 @@ component AvatarPage {
   state animated : Bool = true
   state animation : String = "scaleIn"
   state contentType : String = "initials"
+  state avatarContentType : String = "images"
+
+  /* AvatarGroup specific state */
+  state groupMax : Number = 5
+  state groupSpacing : String = "normal"
+  state groupBordered : Bool = true
 
   /* Event handlers */
   fun handleSizeChange (size : String) : Promise(Void) {
@@ -54,132 +61,227 @@ component AvatarPage {
     next { status: newStatus }
   }
 
+  fun handleGroupMaxChange (newMax : Number) : Promise(Void) {
+    next { groupMax: newMax }
+  }
+
+  fun handleGroupSpacingChange (newSpacing : String) : Promise(Void) {
+    next { groupSpacing: newSpacing }
+  }
+
+  fun toggleGroupBordered : Promise(Void) {
+    next { groupBordered: !groupBordered }
+  }
+
+  fun handleAvatarContentTypeChange (newType : String) : Promise(Void) {
+    next { avatarContentType: newType }
+  }
+
+  /* Get component type tabs */
+  fun getComponentTypeTabs : Array(TabItem) {
+    [
+      {
+        name: "avatar",
+        title: "Avatar",
+        disabled: false,
+        dot: false,
+        badge: "",
+        titleStyle: "",
+        icon: "",
+        content: ""
+      },
+      {
+        name: "group",
+        title: "Avatar Group",
+        disabled: false,
+        dot: false,
+        badge: "",
+        titleStyle: "",
+        icon: "",
+        content: ""
+      }
+    ]
+  }
+
+  /* Handle component type tab change */
+  fun handleComponentTypeTabChange (event : TabChangeEvent) : Promise(Void) {
+    next { componentType: event.name }
+  }
+
+  /* Get array of avatar URLs for group */
+  fun getGroupAvatars : Array(String) {
+    if avatarContentType == "initials" {
+      [
+        "JD",
+        "AB",
+        "CD",
+        "EF",
+        "GH",
+        "IJ",
+        "KL",
+        "MN"
+      ]
+    } else {
+      [
+        "https://i.pravatar.cc/150?img=1",
+        "https://i.pravatar.cc/150?img=2",
+        "https://i.pravatar.cc/150?img=3",
+        "https://i.pravatar.cc/150?img=4",
+        "https://i.pravatar.cc/150?img=5",
+        "https://i.pravatar.cc/150?img=6",
+        "https://i.pravatar.cc/150?img=7",
+        "https://i.pravatar.cc/150?img=8"
+      ]
+    }
+  }
+
   /* Get preview content */
   fun getPreviewContent : Html {
     <div::previewWrapper>
-      if contentType == "initials" {
-        <Avatar
-          text="JD"
-          size={selectedSize}
-          shape={selectedShape}
-          border={showBorder}
-          ring={showRing}
-          badge={
-            if showBadge {
-              "99"
-            } else {
-              ""
-            }
+      if componentType == "avatar" {
+        <>
+          if contentType == "initials" {
+            <Avatar
+              text="JD"
+              size={selectedSize}
+              shape={selectedShape}
+              border={showBorder}
+              ring={showRing}
+              badge={
+                if showBadge {
+                  "99"
+                } else {
+                  ""
+                }
+              }
+              showStatus={showStatus}
+              status={status}
+              animated={animated}
+              animation={animation}
+              bgColor="#1989fa"/>
           }
-          showStatus={showStatus}
-          status={status}
-          animated={animated}
-          animation={animation}
-          bgColor="#1989fa"/>
+
+          if contentType == "image" {
+            <Avatar
+              src="https://i.pravatar.cc/150?img=1"
+              alt="User Avatar"
+              size={selectedSize}
+              shape={selectedShape}
+              border={showBorder}
+              ring={showRing}
+              badge={
+                if showBadge {
+                  "5"
+                } else {
+                  ""
+                }
+              }
+              showStatus={showStatus}
+              status={status}
+              animated={animated}
+              animation={animation}/>
+          }
+
+          if contentType == "icon" {
+            <Avatar
+              icon="👤"
+              size={selectedSize}
+              shape={selectedShape}
+              border={showBorder}
+              ring={showRing}
+              badge={
+                if showBadge {
+                  "3"
+                } else {
+                  ""
+                }
+              }
+              showStatus={showStatus}
+              status={status}
+              animated={animated}
+              animation={animation}
+              bgColor="#52c41a"/>
+          }
+
+          if contentType == "placeholder" {
+            <Avatar
+              size={selectedSize}
+              shape={selectedShape}
+              border={showBorder}
+              ring={showRing}
+              showStatus={showStatus}
+              status={status}
+              animated={animated}
+              animation={animation}
+              bgColor="#94a3b8"/>
+          }
+
+          if contentType == "shapes" {
+            <>
+              <Avatar
+                text="C"
+                size={selectedSize}
+                shape="circle"
+                showStatus={showStatus}
+                status={status}
+                badge={
+                  if showBadge {
+                    "3"
+                  } else {
+                    ""
+                  }
+                }
+                bgColor="#1989fa"/>
+
+              <Avatar
+                text="S"
+                size={selectedSize}
+                shape="square"
+                showStatus={showStatus}
+                status={status}
+                badge={
+                  if showBadge {
+                    "7"
+                  } else {
+                    ""
+                  }
+                }
+                bgColor="#52c41a"/>
+
+              <Avatar
+                text="R"
+                size={selectedSize}
+                shape="rounded"
+                showStatus={showStatus}
+                status={status}
+                badge={
+                  if showBadge {
+                    "12"
+                  } else {
+                    ""
+                  }
+                }
+                bgColor="#f59e0b"/>
+            </>
+          }
+        </>
       }
 
-      if contentType == "image" {
-        <Avatar
-          src="https://i.pravatar.cc/150?img=1"
-          alt="User Avatar"
+      if componentType == "group" {
+        <AvatarGroup
+          avatars={getGroupAvatars()}
+          useInitials={avatarContentType == "initials"}
           size={selectedSize}
+          max={groupMax}
+          spacing={groupSpacing}
           shape={selectedShape}
-          border={showBorder}
+          bordered={groupBordered}
           ring={showRing}
-          badge={
-            if showBadge {
-              "5"
-            } else {
-              ""
-            }
-          }
           showStatus={showStatus}
           status={status}
+          showBadge={showBadge}
           animated={animated}
           animation={animation}/>
-      }
-
-      if contentType == "icon" {
-        <Avatar
-          icon="👤"
-          size={selectedSize}
-          shape={selectedShape}
-          border={showBorder}
-          ring={showRing}
-          badge={
-            if showBadge {
-              "3"
-            } else {
-              ""
-            }
-          }
-          showStatus={showStatus}
-          status={status}
-          animated={animated}
-          animation={animation}
-          bgColor="#52c41a"/>
-      }
-
-      if contentType == "placeholder" {
-        <Avatar
-          size={selectedSize}
-          shape={selectedShape}
-          border={showBorder}
-          ring={showRing}
-          showStatus={showStatus}
-          status={status}
-          animated={animated}
-          animation={animation}
-          bgColor="#94a3b8"/>
-      }
-
-      if contentType == "shapes" {
-        <>
-          <Avatar
-            text="C"
-            size={selectedSize}
-            shape="circle"
-            showStatus={showStatus}
-            status={status}
-            badge={
-              if showBadge {
-                "3"
-              } else {
-                ""
-              }
-            }
-            bgColor="#1989fa"/>
-
-          <Avatar
-            text="S"
-            size={selectedSize}
-            shape="square"
-            showStatus={showStatus}
-            status={status}
-            badge={
-              if showBadge {
-                "7"
-              } else {
-                ""
-              }
-            }
-            bgColor="#52c41a"/>
-
-          <Avatar
-            text="R"
-            size={selectedSize}
-            shape="rounded"
-            showStatus={showStatus}
-            status={status}
-            badge={
-              if showBadge {
-                "12"
-              } else {
-                ""
-              }
-            }
-            bgColor="#f59e0b"/>
-        </>
       }
     </div>
   }
@@ -187,7 +289,25 @@ component AvatarPage {
   /* Get controls content */
   fun getControlsContent : Html {
     <div>
-      <h3::controlsTitle>"Avatar Controls"</h3>
+      <h3::controlsTitle>
+        if componentType == "avatar" {
+          "Avatar Controls"
+        } else {
+          "Avatar Group Controls"
+        }
+      </h3>
+
+      <div::controlGroup>
+        <div::controlLabel>"Component Type"</div>
+        <Tabs
+          tabs={getComponentTypeTabs()}
+          active={componentType}
+          type="line"
+          color="#1989fa"
+          titleActiveColor="#1989fa"
+          border={true}
+          onChange={handleComponentTypeTabChange}/>
+      </div>
 
       <div::controlGroup>
         <div::controlLabel>"Size"</div>
@@ -210,6 +330,9 @@ component AvatarPage {
           <button::button(selectedSize == "xxl") onClick={(e : Html.Event) { handleSizeChange("xxl") }}>
             "XXL"
           </button>
+          <button::button(selectedSize == "xxxl") onClick={(e : Html.Event) { handleSizeChange("xxxl") }}>
+            "XXXL"
+          </button>
         </div>
       </div>
 
@@ -228,83 +351,197 @@ component AvatarPage {
         </div>
       </div>
 
-      <div::controlGroup>
-        <div::controlLabel>"Content Type"</div>
-        <div::buttonGroup>
-          <button::button(contentType == "initials") onClick={(e : Html.Event) { handleContentTypeChange("initials") }}>
-            "Initials"
-          </button>
-          <button::button(contentType == "image") onClick={(e : Html.Event) { handleContentTypeChange("image") }}>
-            "Image"
-          </button>
-          <button::button(contentType == "icon") onClick={(e : Html.Event) { handleContentTypeChange("icon") }}>
-            "Icon"
-          </button>
-          <button::button(contentType == "placeholder") onClick={(e : Html.Event) { handleContentTypeChange("placeholder") }}>
-            "Placeholder"
-          </button>
-          <button::button(contentType == "shapes") onClick={(e : Html.Event) { handleContentTypeChange("shapes") }}>
-            "All Shapes"
-          </button>
+      if componentType == "group" {
+        <div::controlGroup>
+          <div::controlLabel>"Content Type"</div>
+          <div::buttonGroup>
+            <button::button(avatarContentType == "images") onClick={(e : Html.Event) { handleAvatarContentTypeChange("images") }}>
+              "Images"
+            </button>
+            <button::button(avatarContentType == "initials") onClick={(e : Html.Event) { handleAvatarContentTypeChange("initials") }}>
+              "Initials"
+            </button>
+          </div>
         </div>
-      </div>
+      }
 
-      <div::controlGroup>
-        <div::controlLabel>"Status Indicator"</div>
-        <div::buttonGroup>
-          <button::button(status == "online") onClick={(e : Html.Event) { handleStatusChange("online") }}>
-            "🟢 Online"
-          </button>
-          <button::button(status == "offline") onClick={(e : Html.Event) { handleStatusChange("offline") }}>
-            "⚪ Offline"
-          </button>
-          <button::button(status == "away") onClick={(e : Html.Event) { handleStatusChange("away") }}>
-            "🟡 Away"
-          </button>
-          <button::button(status == "busy") onClick={(e : Html.Event) { handleStatusChange("busy") }}>
-            "🔴 Busy"
-          </button>
-          <button::button(status == "dnd") onClick={(e : Html.Event) { handleStatusChange("dnd") }}>
-            "🟣 DND"
-          </button>
+      if componentType == "avatar" {
+        <div::controlGroup>
+          <div::controlLabel>"Content Type"</div>
+          <div::buttonGroup>
+            <button::button(contentType == "initials") onClick={(e : Html.Event) { handleContentTypeChange("initials") }}>
+              "Initials"
+            </button>
+            <button::button(contentType == "image") onClick={(e : Html.Event) { handleContentTypeChange("image") }}>
+              "Image"
+            </button>
+            <button::button(contentType == "icon") onClick={(e : Html.Event) { handleContentTypeChange("icon") }}>
+              "Icon"
+            </button>
+            <button::button(contentType == "placeholder") onClick={(e : Html.Event) { handleContentTypeChange("placeholder") }}>
+              "Placeholder"
+            </button>
+            <button::button(contentType == "shapes") onClick={(e : Html.Event) { handleContentTypeChange("shapes") }}>
+              "All Shapes"
+            </button>
+          </div>
         </div>
-      </div>
 
-      <div::controlGroup>
-        <div::controlLabel>"Animation"</div>
-        <div::buttonGroup>
-          <button::button(animation == "scaleIn") onClick={(e : Html.Event) { handleAnimationChange("scaleIn") }}>
-            "Scale"
-          </button>
-          <button::button(animation == "fadeIn") onClick={(e : Html.Event) { handleAnimationChange("fadeIn") }}>
-            "Fade"
-          </button>
-          <button::button(animation == "slideInLeft") onClick={(e : Html.Event) { handleAnimationChange("slideInLeft") }}>
-            "Slide"
-          </button>
+        <div::controlGroup>
+          <div::controlLabel>"Status Indicator"</div>
+          <div::buttonGroup>
+            <button::button(status == "online") onClick={(e : Html.Event) { handleStatusChange("online") }}>
+              "🟢 Online"
+            </button>
+            <button::button(status == "offline") onClick={(e : Html.Event) { handleStatusChange("offline") }}>
+              "⚪ Offline"
+            </button>
+            <button::button(status == "away") onClick={(e : Html.Event) { handleStatusChange("away") }}>
+              "🟡 Away"
+            </button>
+            <button::button(status == "busy") onClick={(e : Html.Event) { handleStatusChange("busy") }}>
+              "🔴 Busy"
+            </button>
+            <button::button(status == "dnd") onClick={(e : Html.Event) { handleStatusChange("dnd") }}>
+              "🟣 DND"
+            </button>
+          </div>
         </div>
-      </div>
 
-      <div::controlGroup>
-        <div::controlLabel>"Options"</div>
-        <div::buttonGroup>
-          <button::toggleButton(showBorder) onClick={(e : Html.Event) { toggleBorder() }}>
-            "Border"
-          </button>
-          <button::toggleButton(showRing) onClick={(e : Html.Event) { toggleRing() }}>
-            "Ring"
-          </button>
-          <button::toggleButton(showBadge) onClick={(e : Html.Event) { toggleBadge() }}>
-            "Badge"
-          </button>
-          <button::toggleButton(showStatus) onClick={(e : Html.Event) { toggleStatus() }}>
-            "Status"
-          </button>
-          <button::toggleButton(animated) onClick={(e : Html.Event) { toggleAnimated() }}>
-            "Animated"
-          </button>
+        <div::controlGroup>
+          <div::controlLabel>"Animation"</div>
+          <div::buttonGroup>
+            <button::button(animation == "scaleIn") onClick={(e : Html.Event) { handleAnimationChange("scaleIn") }}>
+              "Scale"
+            </button>
+            <button::button(animation == "fadeIn") onClick={(e : Html.Event) { handleAnimationChange("fadeIn") }}>
+              "Fade"
+            </button>
+            <button::button(animation == "slideInLeft") onClick={(e : Html.Event) { handleAnimationChange("slideInLeft") }}>
+              "Slide"
+            </button>
+          </div>
         </div>
-      </div>
+
+        <div::controlGroup>
+          <div::controlLabel>"Options"</div>
+          <div::buttonGroup>
+            <button::toggleButton(showBorder) onClick={(e : Html.Event) { toggleBorder() }}>
+              "Border"
+            </button>
+            <button::toggleButton(showRing) onClick={(e : Html.Event) { toggleRing() }}>
+              "Ring"
+            </button>
+            <button::toggleButton(showBadge) onClick={(e : Html.Event) { toggleBadge() }}>
+              "Badge"
+            </button>
+            <button::toggleButton(showStatus) onClick={(e : Html.Event) { toggleStatus() }}>
+              "Status"
+            </button>
+            <button::toggleButton(animated) onClick={(e : Html.Event) { toggleAnimated() }}>
+              "Animated"
+            </button>
+          </div>
+        </div>
+      }
+
+      if componentType == "group" {
+        <div::controlGroup>
+          <div::controlLabel>"Max Avatars"</div>
+          <div::buttonGroup>
+            <button::button(groupMax == 3) onClick={(e : Html.Event) { handleGroupMaxChange(3) }}>
+              "3"
+            </button>
+            <button::button(groupMax == 4) onClick={(e : Html.Event) { handleGroupMaxChange(4) }}>
+              "4"
+            </button>
+            <button::button(groupMax == 5) onClick={(e : Html.Event) { handleGroupMaxChange(5) }}>
+              "5"
+            </button>
+            <button::button(groupMax == 6) onClick={(e : Html.Event) { handleGroupMaxChange(6) }}>
+              "6"
+            </button>
+            <button::button(groupMax == 7) onClick={(e : Html.Event) { handleGroupMaxChange(7) }}>
+              "7"
+            </button>
+            <button::button(groupMax == 8) onClick={(e : Html.Event) { handleGroupMaxChange(8) }}>
+              "8"
+            </button>
+          </div>
+        </div>
+
+        <div::controlGroup>
+          <div::controlLabel>"Spacing"</div>
+          <div::buttonGroup>
+            <button::button(groupSpacing == "tight") onClick={(e : Html.Event) { handleGroupSpacingChange("tight") }}>
+              "Tight"
+            </button>
+            <button::button(groupSpacing == "normal") onClick={(e : Html.Event) { handleGroupSpacingChange("normal") }}>
+              "Normal"
+            </button>
+            <button::button(groupSpacing == "loose") onClick={(e : Html.Event) { handleGroupSpacingChange("loose") }}>
+              "Loose"
+            </button>
+          </div>
+        </div>
+
+        <div::controlGroup>
+          <div::controlLabel>"Status Indicator"</div>
+          <div::buttonGroup>
+            <button::button(status == "online") onClick={(e : Html.Event) { handleStatusChange("online") }}>
+              "🟢 Online"
+            </button>
+            <button::button(status == "offline") onClick={(e : Html.Event) { handleStatusChange("offline") }}>
+              "⚪ Offline"
+            </button>
+            <button::button(status == "away") onClick={(e : Html.Event) { handleStatusChange("away") }}>
+              "🟡 Away"
+            </button>
+            <button::button(status == "busy") onClick={(e : Html.Event) { handleStatusChange("busy") }}>
+              "🔴 Busy"
+            </button>
+            <button::button(status == "dnd") onClick={(e : Html.Event) { handleStatusChange("dnd") }}>
+              "🟣 DND"
+            </button>
+          </div>
+        </div>
+
+        <div::controlGroup>
+          <div::controlLabel>"Animation"</div>
+          <div::buttonGroup>
+            <button::button(animation == "scaleIn") onClick={(e : Html.Event) { handleAnimationChange("scaleIn") }}>
+              "Scale"
+            </button>
+            <button::button(animation == "fadeIn") onClick={(e : Html.Event) { handleAnimationChange("fadeIn") }}>
+              "Fade"
+            </button>
+            <button::button(animation == "slideInLeft") onClick={(e : Html.Event) { handleAnimationChange("slideInLeft") }}>
+              "Slide"
+            </button>
+          </div>
+        </div>
+
+        <div::controlGroup>
+          <div::controlLabel>"Options"</div>
+          <div::buttonGroup>
+            <button::toggleButton(groupBordered) onClick={(e : Html.Event) { toggleGroupBordered() }}>
+              "Border"
+            </button>
+            <button::toggleButton(showRing) onClick={(e : Html.Event) { toggleRing() }}>
+              "Ring"
+            </button>
+            <button::toggleButton(showBadge) onClick={(e : Html.Event) { toggleBadge() }}>
+              "Badge"
+            </button>
+            <button::toggleButton(showStatus) onClick={(e : Html.Event) { toggleStatus() }}>
+              "Status"
+            </button>
+            <button::toggleButton(animated) onClick={(e : Html.Event) { toggleAnimated() }}>
+              "Animated"
+            </button>
+          </div>
+        </div>
+      }
     </div>
   }
 

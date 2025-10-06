@@ -47,7 +47,35 @@ component Avatar {
   }
 
   fun getInitials (text : String, alt : String) : String {
-    ""
+    if String.isEmpty(text) {
+      if String.isEmpty(alt) {
+        ""
+      } else {
+        `
+        (() => {
+          const words = #{alt}.trim().split(/\\s+/);
+          if (words.length >= 2) {
+            return words[0][0] + words[1][0];
+          } else if (words.length === 1 && words[0].length > 0) {
+            return words[0].substring(0, 2);
+          }
+          return '';
+        })()
+        `
+      }
+    } else {
+      `
+      (() => {
+        const words = #{text}.trim().split(/\\s+/);
+        if (words.length >= 2) {
+          return words[0][0] + words[1][0];
+        } else if (words.length === 1 && words[0].length > 0) {
+          return words[0].substring(0, 2);
+        }
+        return '';
+      })()
+      `
+    }
   }
 
   fun handleImageLoad (event : Html.Event) : Promise(Void) {
@@ -136,11 +164,38 @@ component Avatar {
       "xs" => "small"
       "sm" => "small"
       "md" => "default"
-      "lg" => "default"
+      "lg" => "large"
       "xl" => "large"
       "xxl" => "large"
       "xxxl" => "large"
       => "default"
+    }
+  }
+
+  fun getStatusScale : String {
+    case (size) {
+      "xs" => "1"
+      "sm" => "1"
+      "md" => "1"
+      "lg" => "1.2"
+      "xl" => "1.5"
+      "xxl" => "2"
+      "xxxl" => "2.5"
+      => "1"
+    }
+  }
+
+  fun getStatusOffset : String {
+    /* El status va DENTRO para todos los shapes */
+    case (size) {
+      "xs" => "0px"
+      "sm" => "1px"
+      "md" => "2px"
+      "lg" => "3px"
+      "xl" => "4px"
+      "xxl" => "5px"
+      "xxxl" => "6px"
+      => "2px"
     }
   }
 
@@ -155,6 +210,12 @@ component Avatar {
     !String.isEmpty(badge)
   }
 
+
+  style avatarWrapper {
+    position: relative;
+    display: inline-flex;
+    /* Importante: NO overflow hidden aquí para que el status sea visible */
+  }
 
   style container {
     position: relative;
@@ -196,15 +257,32 @@ component Avatar {
       transform: scale(0.95);
     }
 
+    /* Mobile: Avatares más pequeños para pantallas móviles */
     @media (max-width: 640px) {
       min-width: max(#{getSizeValue()}, 44px);
       min-height: max(#{getSizeValue()}, 44px);
+
+      if (size == "xl" || size == "xxl" || size == "xxxl") {
+        width: 48px;
+        height: 48px;
+        min-width: 48px;
+        min-height: 48px;
+      }
     }
 
+    /* Tablet: Tamaño intermedio */
     @media (min-width: 641px) and (max-width: 1024px) {
       transform-origin: center;
+
+      if (size == "xxl" || size == "xxxl") {
+        width: 64px;
+        height: 64px;
+        min-width: 64px;
+        min-height: 64px;
+      }
     }
 
+    /* Desktop: Tamaño completo */
     @media (min-width: 1025px) {
       &:hover {
         transform: scale(1.08);
@@ -251,9 +329,25 @@ component Avatar {
 
   style statusWrapper {
     position: absolute;
-    bottom: 2%;
-    right: 2%;
+    bottom: #{getStatusOffset()};
+    right: #{getStatusOffset()};
     z-index: 10;
+
+    /* Asegurar que siempre sea visible */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* Escalar el status para avatares grandes */
+    transform: scale(#{getStatusScale()});
+    /* El status crece desde el centro para todos los shapes */
+    transform-origin: center;
+
+    /* Sombra para mayor visibilidad */
+    filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.3));
+
+    /* Asegurar que esté completamente visible sobre el avatar */
+    pointer-events: auto;
   }
 
   style placeholder {
@@ -271,56 +365,58 @@ component Avatar {
   }
 
   fun renderAvatarContent : Html {
-    <div::container onClick={handleClick}>
-      if shouldShowImage() {
-        <img::image
-          src={src}
-          alt={alt}
-          loading={
-            if lazy {
-              "lazy"
-            } else {
-              "eager"
+    <div::avatarWrapper>
+      <div::container onClick={handleClick}>
+        if shouldShowImage() {
+          <img::image
+            src={src}
+            alt={alt}
+            loading={
+              if lazy {
+                "lazy"
+              } else {
+                "eager"
+              }
             }
-          }
-          draggable={
-            if draggable {
-              "true"
-            } else {
-              "false"
+            draggable={
+              if draggable {
+                "true"
+              } else {
+                "false"
+              }
             }
-          }
-          onLoad={handleImageLoad}
-          onError={handleImageError}/>
-      }
+            onLoad={handleImageLoad}
+            onError={handleImageError}/>
+        }
 
-      if shouldShowInitials() {
-        <div::initials>
-          {displayInitials}
-        </div>
-      }
+        if shouldShowInitials() {
+          <div::initials>
+            {displayInitials}
+          </div>
+        }
 
-      if shouldShowIcon() {
-        <div::icon>
-          {icon}
-        </div>
-      }
+        if shouldShowIcon() {
+          <div::icon>
+            {icon}
+          </div>
+        }
 
-      if shouldShowPlaceholder() {
-        <div::placeholder>
-          <svg::placeholderSvg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round">
+        if shouldShowPlaceholder() {
+          <div::placeholder>
+            <svg::placeholderSvg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round">
 
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-            <circle cx="12" cy="7" r="4"/>
-          </svg>
-        </div>
-      }
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+              <circle cx="12" cy="7" r="4"/>
+            </svg>
+          </div>
+        }
+      </div>
 
       if showStatus {
         <div::statusWrapper>

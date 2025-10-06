@@ -2,11 +2,20 @@
 
 component AvatarGroup {
   property avatars : Array(String) = []
+  property useInitials : Bool = false
   property size : String = "md"
   property max : Number = 5
   property spacing : String = "normal"
   property shape : String = "circle"
   property bordered : Bool = true
+  property ring : Bool = false
+  property ringColor : String = "#1989fa"
+  property ringWidth : String = "2px"
+  property showStatus : Bool = false
+  property status : String = "online"
+  property showBadge : Bool = false
+  property animated : Bool = false
+  property animation : String = "scaleIn"
 
   fun getOverlapOffset : String {
     case (spacing) {
@@ -22,28 +31,22 @@ component AvatarGroup {
       Array.size(avatars)
 
     let remaining =
-      total - Number.toInteger(max)
+      total - max
 
     "+" + Number.toString(remaining)
   }
 
   fun hasMoreAvatars : Bool {
-    Array.size(avatars) > Number.toInteger(max)
+    Array.size(avatars) > max
   }
 
   fun getVisibleAvatars : Array(String) {
     avatars
-    |> Array.slice(0, Number.toInteger(max))
+    |> Array.slice(0, max)
   }
 
   fun getZIndex (index : Number) : String {
-    let maxInt =
-      Number.toInteger(max)
-
-    let indexInt =
-      Number.toInteger(index)
-
-    Number.toString(maxInt - indexInt)
+    Number.toString(max - index)
   }
 
   style container {
@@ -62,42 +65,89 @@ component AvatarGroup {
       z-index: 100;
     }
 
-    &:first-child {
+    &:last-child {
       margin-left: 0;
     }
-  }
-
-  style countAvatar {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    font-weight: 600;
-    font-size: 13px;
-    border: 2px solid #fff;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   }
 
   fun render : Html {
     <div::container>
       if hasMoreAvatars() {
-        <div::avatarWrapper style={"z-index: 0;"}>
-          <div::countAvatar>
-            {getRemainingCount()}
-          </div>
+        <div::avatarWrapper style={"z-index: " + Number.toString(max + 1) + ";"}>
+          <Avatar
+            text={getRemainingCount()}
+            size={size}
+            shape={shape}
+            border={bordered}
+            borderColor="#fff"
+            borderWidth="2px"
+            ring={ring}
+            ringColor={ringColor}
+            ringWidth={ringWidth}
+            showStatus={showStatus}
+            status={status}
+            badge={
+              if showBadge {
+                "∞"
+              } else {
+                ""
+              }
+            }
+            animated={animated}
+            animation={animation}
+            bgColor="#667eea"
+            textColor="#fff"/>
         </div>
       }
 
       for avatar, index of getVisibleAvatars() {
         <div::avatarWrapper style={"z-index: " + getZIndex(index) + ";"}>
-          <Avatar
-            src={avatar}
-            size={size}
-            shape={shape}
-            border={bordered}
-            borderColor="#fff"
-            borderWidth="2px"/>
+          if useInitials {
+            <Avatar
+              text={avatar}
+              size={size}
+              shape={shape}
+              border={bordered}
+              borderColor="#fff"
+              borderWidth="2px"
+              ring={ring}
+              ringColor={ringColor}
+              ringWidth={ringWidth}
+              showStatus={showStatus}
+              status={status}
+              badge={
+                if showBadge {
+                  Number.toString(index + 1)
+                } else {
+                  ""
+                }
+              }
+              animated={animated}
+              animation={animation}
+              bgColor="#1989fa"/>
+          } else {
+            <Avatar
+              src={avatar}
+              size={size}
+              shape={shape}
+              border={bordered}
+              borderColor="#fff"
+              borderWidth="2px"
+              ring={ring}
+              ringColor={ringColor}
+              ringWidth={ringWidth}
+              showStatus={showStatus}
+              status={status}
+              badge={
+                if showBadge {
+                  Number.toString(index + 1)
+                } else {
+                  ""
+                }
+              }
+              animated={animated}
+              animation={animation}/>
+          }
         </div>
       }
     </div>
