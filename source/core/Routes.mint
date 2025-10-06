@@ -83,8 +83,8 @@ routes {
     NavigationStore.setPageAndSection("status-dot", "Display Components")
   }
 
-  /circle {
-    NavigationStore.setPageAndSection("circle", "Display Components")
+  /circle-progress {
+    NavigationStore.setPageAndSection("circle-progress", "Display Components")
   }
 
   /collapse {

@@ -109,6 +109,9 @@ component PageContent {
       "status-dot" =>
         <StatusDotPage/>
 
+      "circle-progress" =>
+        <CircleProgressPage/>
+
       "codes" =>
         <CodesPage/>
 
