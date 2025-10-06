@@ -1,15 +1,17 @@
-/* TabsPage - Demonstration page for Tabs component */
+/* TabsPage - Professional showcase for Tabs component */
 
 component TabsPage {
   connect ViewModeStore exposing { viewMode }
 
   state activeBasic : String = "tab1"
-  state activeMatch : String = "a"
+  state activeIcons : String = "home"
   state activeCard : String = "card1"
   state activeBadge : String = "badge1"
+  state activeAnimated : String = "animate1"
+  state animationDirection : String = "right"
 
-  /* Sample tabs data */
-  fun basicTabs : Array(TabItem) {
+  /* Tab Data */
+  fun getBasicTabs : Array(TabItem) {
     [
       {
         name: "tab1",
@@ -54,83 +56,103 @@ component TabsPage {
     ]
   }
 
-  fun matchTabs : Array(TabItem) {
+  fun getIconTabs : Array(TabItem) {
     [
       {
-        name: "a",
-        title: "Tab A",
+        name: "home",
+        title: "Home",
         disabled: false,
         dot: false,
         badge: "",
         titleStyle: "",
-        icon: "",
+        icon: "🏠",
         content: ""
       },
       {
-        name: "b",
-        title: "Tab B",
-        disabled: false,
-        dot: false,
-        badge: "",
-        titleStyle: "",
-        icon: "",
-        content: ""
-      },
-      {
-        name: "c",
-        title: "Tab C",
-        disabled: false,
-        dot: false,
-        badge: "",
-        titleStyle: "",
-        icon: "",
-        content: ""
-      }
-    ]
-  }
-
-  fun badgeTabs : Array(TabItem) {
-    [
-      {
-        name: "badge1",
-        title: "Tab",
+        name: "profile",
+        title: "Profile",
         disabled: false,
         dot: true,
         badge: "",
         titleStyle: "",
-        icon: "",
+        icon: "👤",
         content: ""
       },
       {
-        name: "badge2",
-        title: "Tab",
+        name: "messages",
+        title: "Messages",
         disabled: false,
         dot: false,
         badge: "5",
         titleStyle: "",
-        icon: "",
+        icon: "💬",
         content: ""
       },
       {
-        name: "badge3",
-        title: "Tab",
+        name: "settings",
+        title: "Settings",
         disabled: false,
         dot: false,
-        badge: "99+",
+        badge: "",
         titleStyle: "",
-        icon: "",
+        icon: "⚙️",
         content: ""
       }
     ]
   }
 
-  /* Event handlers */
+  fun getBadgeTabs : Array(TabItem) {
+    [
+      {
+        name: "badge1",
+        title: "Dot",
+        disabled: false,
+        dot: true,
+        badge: "",
+        titleStyle: "",
+        icon: "🔴",
+        content: ""
+      },
+      {
+        name: "badge2",
+        title: "Count",
+        disabled: false,
+        dot: false,
+        badge: "5",
+        titleStyle: "",
+        icon: "📬",
+        content: ""
+      },
+      {
+        name: "badge3",
+        title: "Max",
+        disabled: false,
+        dot: false,
+        badge: "150",
+        titleStyle: "",
+        icon: "🔔",
+        content: ""
+      },
+      {
+        name: "badge4",
+        title: "Zero",
+        disabled: false,
+        dot: false,
+        badge: "0",
+        titleStyle: "",
+        icon: "✅",
+        content: ""
+      }
+    ]
+  }
+
+  /* Event Handlers */
   fun handleBasicChange (event : TabChangeEvent) : Promise(Void) {
     next { activeBasic: event.name }
   }
 
-  fun handleMatchChange (event : TabChangeEvent) : Promise(Void) {
-    next { activeMatch: event.name }
+  fun handleIconsChange (event : TabChangeEvent) : Promise(Void) {
+    next { activeIcons: event.name }
   }
 
   fun handleCardChange (event : TabChangeEvent) : Promise(Void) {
@@ -141,9 +163,25 @@ component TabsPage {
     next { activeBadge: event.name }
   }
 
+  fun handleAnimatedChange (event : TabChangeEvent) : Promise(Void) {
+    next { activeAnimated: event.name }
+  }
+
+  fun handleDirectionChange (direction : String) : Promise(Void) {
+    next { animationDirection: direction }
+  }
+
+  fun getAnimationType : String {
+    case animationDirection {
+      "left" => "slideInLeft"
+      "right" => "slideInRight"
+      => "fadeIn"
+    }
+  }
+
   /* Styles */
   style container {
-    background: var(--mint-background, #f7f8fa);
+    background: #f7f8fa;
     min-height: 100vh;
     padding: 20px;
 
@@ -198,7 +236,7 @@ component TabsPage {
   style simulatorScreen {
     width: 100%;
     height: 100%;
-    background: var(--mint-background, #f7f8fa);
+    background: #f7f8fa;
     border-radius: 28px;
     overflow-y: auto;
     overflow-x: hidden;
@@ -230,14 +268,14 @@ component TabsPage {
     padding: 16px;
     font-size: 14px;
     font-weight: 500;
-    color: var(--mint-text-color-2, #646566);
-    background: var(--mint-background, #f7f8fa);
+    color: #646566;
+    background: #f7f8fa;
   }
 
   style tabContent {
     padding: 24px;
     font-size: 14px;
-    color: var(--mint-text-color, #323233);
+    color: #323233;
     text-align: center;
     background: #fff;
   }
@@ -258,7 +296,7 @@ component TabsPage {
   }
 
   style pageText {
-    color: rgba(52, 73, 94, 1);
+    color: #34495e;
     margin-top: 16px;
     font-size: 15px;
     line-height: 26px;
@@ -272,12 +310,31 @@ component TabsPage {
 
   style badge {
     display: inline-block;
-    padding: 2px 6px;
-    background: var(--mint-primary-color, #1989fa);
+    padding: 2px 8px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: #fff;
     font-size: 12px;
-    border-radius: 3px;
+    border-radius: 4px;
     margin-left: 8px;
+    font-weight: 500;
+  }
+
+  style animatedContent {
+    padding: 20px;
+    text-align: center;
+  }
+
+  style contentTitle {
+    font-size: 18px;
+    font-weight: 600;
+    color: #323233;
+    margin-bottom: 8px;
+  }
+
+  style contentText {
+    font-size: 14px;
+    color: #646566;
+    line-height: 1.6;
   }
 
   /* Render */
@@ -289,15 +346,20 @@ component TabsPage {
       </h1>
 
       <p::pageText>
-        "Used to switch between different content areas."
+        "Professional mobile-first tabs navigation component."
       </p>
 
       <div::section>
-        <div::sectionTitle>"Basic Usage"</div>
+        <div::sectionTitle>"Basic Line Type"</div>
 
         <Tabs
-          tabs={basicTabs()}
+          tabs={getBasicTabs()}
           active={activeBasic}
+          type="line"
+          color="#667eea"
+          titleActiveColor="#667eea"
+          titleInactiveColor="#646566"
+          border={true}
           onChange={handleBasicChange}/>
 
         <div::tabContent>
@@ -314,63 +376,114 @@ component TabsPage {
       </div>
 
       <div::section>
-        <div::sectionTitle>"Match by name"</div>
+        <div::sectionTitle>"With Icons & Badges"</div>
 
         <Tabs
-          tabs={matchTabs()}
-          active={activeMatch}
-          onChange={handleMatchChange}/>
+          tabs={getIconTabs()}
+          active={activeIcons}
+          type="line"
+          color="#10b981"
+          titleActiveColor="#10b981"
+          border={true}
+          onChange={handleIconsChange}/>
 
         <div::tabContent>
-          if activeMatch == "a" {
-            "Content of Tab A"
-          } else if activeMatch == "b" {
-            "Content of Tab B"
-          } else {
-            "Content of Tab C"
-          }
+          "Selected: " {activeIcons}
         </div>
       </div>
 
       <div::section>
-        <div::sectionTitle>"Card Style"</div>
+        <div::sectionTitle>"Card Type"</div>
 
         <Tabs
-          tabs={basicTabs()}
+          tabs={getBasicTabs()}
           active={activeCard}
           type="card"
+          color="#8b5cf6"
           onChange={handleCardChange}/>
 
         <div::tabContent>
           if activeCard == "tab1" {
-            "Card Style Tab 1"
+            "Card Tab 1"
           } else if activeCard == "tab2" {
-            "Card Style Tab 2"
+            "Card Tab 2"
           } else if activeCard == "tab3" {
-            "Card Style Tab 3"
+            "Card Tab 3"
           } else {
-            "Card Style Tab 4"
+            "Card Tab 4"
           }
         </div>
       </div>
 
       <div::section>
-        <div::sectionTitle>"Badge & Dot"</div>
+        <div::sectionTitle>"Badge & Dot Indicators"</div>
 
         <Tabs
-          tabs={badgeTabs()}
+          tabs={getBadgeTabs()}
           active={activeBadge}
+          type="line"
+          color="#f59e0b"
+          titleActiveColor="#f59e0b"
+          border={true}
           onChange={handleBadgeChange}/>
 
         <div::tabContent>
           if activeBadge == "badge1" {
             "Tab with dot indicator"
           } else if activeBadge == "badge2" {
-            "Tab with badge count (5)"
+            "Tab with badge (5)"
           } else {
             "Tab with 99+ badge"
           }
         </div>
+      </div>
+
+      <div::section>
+        <div::sectionTitle>"Native Swipe Experience 👆"</div>
+
+        <Tabs
+          tabs={getBasicTabs()}
+          active={activeAnimated}
+          type="line"
+          color="#667eea"
+          titleActiveColor="#667eea"
+          border={true}
+          swipeable={false}
+          onChange={handleAnimatedChange}/>
+
+        <TabsSwipeContent
+          tabs={getBasicTabs()}
+          activeTab={activeAnimated}>
+
+          <div::tabContent>
+            <div::animatedContent>
+              <div::contentTitle>"Tab 1 Content"</div>
+              <div::contentText>"Swipe left/right! Content moves with your finger 👆"</div>
+            </div>
+          </div>
+
+          <div::tabContent>
+            <div::animatedContent>
+              <div::contentTitle>"Tab 2 Content"</div>
+              <div::contentText>"Native app feeling - drag to see next/previous ✨"</div>
+            </div>
+          </div>
+
+          <div::tabContent>
+            <div::animatedContent>
+              <div::contentTitle>"Tab 3 Content"</div>
+              <div::contentText>"Like Instagram Stories or ViewPager 🚀"</div>
+            </div>
+          </div>
+
+          <div::tabContent>
+            <div::animatedContent>
+              <div::contentTitle>"Tab 4 Content"</div>
+              <div::contentText>"Pure Mint Lang carousel magic 💚"</div>
+            </div>
+          </div>
+
+        </TabsSwipeContent>
       </div>
     </div>
   }

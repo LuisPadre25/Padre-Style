@@ -109,11 +109,11 @@ component PageContent {
       "status-dot" =>
         <StatusDotPage/>
 
-      "circle-progress" =>
-        <CircleProgressPage/>
+      /* "circle-progress" =>
+        <CircleProgressPage/> */
 
       "codes" =>
-        <CodesPage/>
+        <CodesPageNew/>
 
       "themes" =>
         <ThemePage/>
