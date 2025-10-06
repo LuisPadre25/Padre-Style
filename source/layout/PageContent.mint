@@ -112,6 +112,9 @@ component PageContent {
       "circle-progress" =>
         <CircleProgressPage/>
 
+      "collapse" =>
+        <CollapsePage/>
+
       "codes" =>
         <CodesPageNew/>
 
