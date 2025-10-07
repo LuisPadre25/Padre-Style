@@ -11,6 +11,8 @@ component Collapse {
   property border : Bool = true
   property animated : Bool = true
   property animationDuration : Number = 0.3
+  property width : String = "100%"  // "auto", "100%", "500px", etc.
+  property minWidth : String = "420px"  // Minimum width
 
   /* Events */
   property onChange : Function(CollapseChangeEvent, Promise(Void)) = (event : CollapseChangeEvent) : Promise(Void) { Promise.never() }
@@ -135,7 +137,9 @@ component Collapse {
 
   /* Styles */
   style container {
-    width: 100%;
+    display: block;
+    width: #{width};
+    min-width: #{minWidth};
     border-radius: 8px;
     overflow: hidden;
     box-sizing: border-box;
@@ -147,8 +151,11 @@ component Collapse {
   }
 
   style item (showBorder : Bool) {
+    display: block;
     background: #fff;
     position: relative;
+    width: 100%;
+    box-sizing: border-box;
 
     if showBorder {
       border-bottom: 1px solid #d9d9d9;
@@ -165,6 +172,8 @@ component Collapse {
     user-select: none;
     position: relative;
     background: #fff;
+    width: 100%;
+    box-sizing: border-box;
 
     if animated {
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -307,10 +316,13 @@ component Collapse {
   }
 
   style contentWrapper (active : Bool) {
+    display: block;
     max-height: 0;
     overflow: hidden;
     opacity: 0;
     background: #fafafa;
+    width: 100%;
+    box-sizing: border-box;
 
     if animated {
       transition: max-height #{Number.toString(animationDuration)}s cubic-bezier(0.4, 0, 0.2, 1), opacity #{Number.toString(animationDuration)}s ease;
@@ -325,11 +337,14 @@ component Collapse {
   }
 
   style content {
+    display: block;
     padding: 0 16px 20px 46px;
     color: #595959;
     font-size: 14px;
     line-height: 1.8;
     background: #fff;
+    width: 100%;
+    box-sizing: border-box;
 
     @media (min-width: 768px) {
       padding: 0 20px 24px 50px;

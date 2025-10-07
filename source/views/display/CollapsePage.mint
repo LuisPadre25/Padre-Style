@@ -13,6 +13,7 @@ component CollapsePage {
   state animated : Bool = true
   state animationDuration : Number = 0.3
   state previewTab : String = "faqs"
+  state width : String = "100%"
 
   /* Handlers */
   fun handleBasicChange (event : CollapseChangeEvent) : Promise(Void) {
@@ -66,6 +67,10 @@ component CollapsePage {
 
   fun handleDurationChange (duration : Number) : Promise(Void) {
     next { animationDuration: duration }
+  }
+
+  fun handleWidthChange (newWidth : String) : Promise(Void) {
+    next { width: newWidth }
   }
 
   fun expandAll : Promise(Void) {
@@ -216,7 +221,7 @@ component CollapsePage {
         onChange={handlePreviewTabChange}/>
 
       if previewTab == "faqs" {
-        <div style="margin-top: 24px;">
+        <div style="margin-top: 24px; width: 100%;">
           <Collapse
             items={getAccordionItems()}
             active={activeAccordion}
@@ -224,10 +229,14 @@ component CollapsePage {
             border={border}
             animated={animated}
             animationDuration={animationDuration}
+            width={width}
+            minWidth="0"
             onChange={handleAccordionChange}/>
+
+          <div style="height: 60px; margin-top: 16px;"/>
         </div>
       } else if previewTab == "forms" {
-        <div style="margin-top: 24px;">
+        <div style="margin-top: 24px; width: 100%;">
           <Collapse
             items={getUserItems()}
             active={activeUsers}
@@ -235,6 +244,8 @@ component CollapsePage {
             border={border}
             animated={animated}
             animationDuration={animationDuration}
+            width={width}
+            minWidth="0"
             onChange={handleUsersChange}
             onRemove={handleRemoveUser}/>
 
@@ -279,6 +290,27 @@ component CollapsePage {
   fun getControlsContent : Html {
     <div>
       <h3::controlsTitle>"Collapse Controls"</h3>
+
+      <div::controlGroup>
+        <div::controlLabel>"Width"</div>
+        <div::buttonGroup>
+          <button::button(width == "300px") onClick={(e : Html.Event) { handleWidthChange("300px") }}>
+            "300px"
+          </button>
+          <button::button(width == "auto") onClick={(e : Html.Event) { handleWidthChange("auto") }}>
+            "Auto"
+          </button>
+          <button::button(width == "100%") onClick={(e : Html.Event) { handleWidthChange("100%") }}>
+            "100%"
+          </button>
+          <button::button(width == "450px") onClick={(e : Html.Event) { handleWidthChange("450px") }}>
+            "450px"
+          </button>
+          <button::button(width == "500px") onClick={(e : Html.Event) { handleWidthChange("500px") }}>
+            "500px"
+          </button>
+        </div>
+      </div>
 
       <div::controlGroup>
         <div::controlLabel>"Animation Duration"</div>
@@ -332,12 +364,18 @@ component CollapsePage {
     display: flex;
     flex-direction: column;
     gap: 14px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   style formGroup {
     display: flex;
     flex-direction: column;
     gap: 6px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   style formLabel {
@@ -588,7 +626,7 @@ component CollapsePage {
       badge="Display"
       previewContent={getPreviewContent()}
       controlsContent={getControlsContent()}
-      usageText="Collapse organiza contenido en paneles expandibles con animaciones suaves. Ideal para FAQs, formularios dinámicos, y secciones de contenido. Controla la velocidad de animación, expande/colapsa todos, y usa modo acordeón para mostrar solo un panel a la vez."
+      usageText="Collapse organiza contenido en paneles expandibles con animaciones suaves. Ideal para FAQs, formularios dinámicos, y secciones de contenido. Controla el ancho con la propiedad width (min 420px), velocidad de animación, expande/colapsa todos, y usa modo acordeón para mostrar solo un panel a la vez. Perfecto para interfaces móviles y desktop."
       codeExamples={
         [
           {
@@ -598,7 +636,7 @@ component CollapsePage {
               code: "state active : Array(String) = []\n\nfun handleChange (event : CollapseChangeEvent) : Promise(Void) {\n  next { active: event.active }\n}\n\n<Collapse\n  items={[\n    {\n      name: \"item1\",\n      title: \"What is Mint Lang?\",\n      content: <div>\"A refreshing language for front-end web\"</div>,\n      disabled: false,\n      icon: \"\",\n      badge: \"\",\n      removable: false,\n      extraData: \"\"\n    },\n    {\n      name: \"item2\",\n      title: \"Disabled Panel\",\n      content: <div>\"This panel cannot be opened\"</div>,\n      disabled: true,\n      icon: \"\",\n      badge: \"\",\n      removable: false,\n      extraData: \"\"\n    }\n  ]}\n  active={active}\n  accordion={false}\n  border={true}\n  animated={true}\n  onChange={handleChange}/>",
               language: "mint"
             },
-            previewContent: <div>
+            previewContent: <div style="width: 100%;">
               <Collapse
                 items={getBasicItems()}
                 active={activeBasic}
@@ -615,7 +653,7 @@ component CollapsePage {
               code: "state activeAccordion : Array(String) = [\"faq1\"]\n\nfun handleAccordionChange (event : CollapseChangeEvent) : Promise(Void) {\n  next { activeAccordion: event.active }\n}\n\n<Collapse\n  items={[\n    {\n      name: \"faq1\",\n      title: \"How does accordion mode work?\",\n      content: <div>\"Only one panel open at a time\"</div>,\n      disabled: false,\n      icon: \"\",\n      badge: \"\",\n      removable: false,\n      extraData: \"\"\n    },\n    {\n      name: \"faq2\",\n      title: \"Is it responsive?\",\n      content: <div>\"Yes! Mobile-first design\"</div>,\n      disabled: false,\n      icon: \"\",\n      badge: \"Popular\",\n      removable: false,\n      extraData: \"\"\n    }\n  ]}\n  active={activeAccordion}\n  accordion={true}\n  border={true}\n  animated={true}\n  animationDuration={0.3}\n  onChange={handleAccordionChange}/>",
               language: "mint"
             },
-            previewContent: <div>
+            previewContent: <div style="width: 100%;">
               <Collapse
                 items={getAccordionItems()}
                 active={activeAccordion}
@@ -632,7 +670,7 @@ component CollapsePage {
               code: "state users : Array(Number) = [1]\nstate activeUsers : Array(String) = [\"user-1\"]\n\n// Contenido del formulario (puedes personalizarlo)\nfun getUserFormContent (userId : Number) : Html {\n  <div>\n    <label>\"Nombre\"</label>\n    <input type=\"text\" placeholder=\"Juan Pérez\"/>\n    \n    <label>\"Email\"</label>\n    <input type=\"email\" placeholder=\"email@ejemplo.com\"/>\n    \n    <label>\"Teléfono\"</label>\n    <input type=\"tel\" placeholder=\"+52 123 456 7890\"/>\n  </div>\n}\n\n// Mapear state users a CollapseItems con JS\nfun getUserItems : Array(CollapseItem) {\n  // Usa JavaScript inline para mapear dinámicamente\n  // cada userId se convierte en un CollapseItem\n  // badge: index > 0 ? 'Adicional' : ''\n  // removable: users.length > 1\n}\n\n<Collapse\n  items={getUserItems()}\n  active={activeUsers}\n  onChange={handleUsersChange}\n  onRemove={handleRemoveUser}/>\n\n<button onClick={addUser}>\n  \"+ Agregar Usuario\"\n</button>",
               language: "mint"
             },
-            previewContent: <div>
+            previewContent: <div style="width: 100%;">
               <Collapse
                 items={getUserItems()}
                 active={activeUsers}
@@ -655,7 +693,9 @@ component CollapsePage {
           { name: "accordion", description: "Only allow one panel open at a time", type: "Bool", defaultValue: "false" },
           { name: "border", description: "Show borders around the collapse", type: "Bool", defaultValue: "true" },
           { name: "animated", description: "Enable smooth animations", type: "Bool", defaultValue: "true" },
-          { name: "animationDuration", description: "Duration of expand/collapse animation in seconds", type: "Number", defaultValue: "0.3" }
+          { name: "animationDuration", description: "Duration of expand/collapse animation in seconds", type: "Number", defaultValue: "0.3" },
+          { name: "width", description: "Width of the collapse component (auto, 100%, 300px, 500px, etc.)", type: "String", defaultValue: "\"100%\"" },
+          { name: "minWidth", description: "Minimum width of the collapse component (0, 420px, etc.). Set to 0 to allow smaller widths", type: "String", defaultValue: "\"420px\"" }
         ]
       }
       events={
