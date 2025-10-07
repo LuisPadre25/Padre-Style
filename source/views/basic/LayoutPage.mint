@@ -11,7 +11,6 @@ component LayoutPage {
   state flexGap : String = "1.5rem"
   state gridColumns : String = "repeat(3, 1fr)"
   state gridGap : String = "1.5rem"
-  state containerSize : String = "lg"
   state itemCount : Number = 3
   state flexWrap : String = "nowrap"
 
@@ -38,10 +37,6 @@ component LayoutPage {
 
   fun handleGridColumnsChange (columns : String) : Promise(Void) {
     next { gridColumns: columns }
-  }
-
-  fun handleContainerSizeChange (size : String) : Promise(Void) {
-    next { containerSize: size }
   }
 
   fun handleFlexWrapChange (wrap : String) : Promise(Void) {
@@ -103,19 +98,21 @@ component LayoutPage {
     `
     |> Array.map(
       (i : Number) : Html {
-        <Box
-          background={getItemColor(i)}
-          padding="1.25rem 2rem"
-          borderRadius="6px"
-          minWidth="100px"
-          height="100%"
-          display="flex"
+        <div
+          style={
+            "background: " + getItemColor(i) + "; " +
+            "padding: 1.25rem 2rem; " +
+            "border-radius: 6px; " +
+            "min-width: 100px; " +
+            "height: 100%; " +
+            "display: flex; " +
+            "align-items: center; " +
+            "justify-content: center;"
+          }
           key={"item-" + Number.toString(i)}>
 
-          <Center width="100%" height="100%">
-            <span style="color: white; font-weight: 600; font-size: 16px;">{Number.toString(i + 1)}</span>
-          </Center>
-        </Box>
+          <span style="color: white; font-weight: 600; font-size: 16px;">{Number.toString(i + 1)}</span>
+        </div>
       })
   }
 
@@ -123,11 +120,7 @@ component LayoutPage {
   fun getComponentTabs : Array(TabItem) {
     [
       { name: "flex", title: "Flex", disabled: false, dot: false, badge: "", titleStyle: "", icon: "", content: "" },
-      { name: "grid", title: "Grid", disabled: false, dot: false, badge: "", titleStyle: "", icon: "", content: "" },
-      { name: "stack", title: "Stack", disabled: false, dot: false, badge: "", titleStyle: "", icon: "", content: "" },
-      { name: "box", title: "Box", disabled: false, dot: false, badge: "", titleStyle: "", icon: "", content: "" },
-      { name: "container", title: "Container", disabled: false, dot: false, badge: "", titleStyle: "", icon: "", content: "" },
-      { name: "divider", title: "Divider", disabled: false, dot: false, badge: "", titleStyle: "", icon: "", content: "" }
+      { name: "grid", title: "Grid", disabled: false, dot: false, badge: "", titleStyle: "", icon: "", content: "" }
     ]
   }
 
@@ -185,80 +178,24 @@ component LayoutPage {
             `
             |> Array.map(
               (i : Number) : Html {
-                <Box
-                  background={getItemColor(i)}
-                  padding="1.5rem"
-                  borderRadius="6px"
-                  height="90px"
-                  display="flex"
-                  width="100%"
+                <div
+                  style={
+                    "background: " + getItemColor(i) + "; " +
+                    "padding: 1.5rem; " +
+                    "border-radius: 6px; " +
+                    "height: 90px; " +
+                    "display: flex; " +
+                    "width: 100%; " +
+                    "align-items: center; " +
+                    "justify-content: center;"
+                  }
                   key={"grid-item-" + Number.toString(i)}>
 
-                  <Center width="100%">
-                    <span style="color: white; font-weight: 600; font-size: 16px;">{Number.toString(i + 1)}</span>
-                  </Center>
-                </Box>
+                  <span style="color: white; font-weight: 600; font-size: 16px;">{Number.toString(i + 1)}</span>
+                </div>
               })
           }
         </Grid>
-
-      "stack" =>
-        <Stack
-          spacing="1.5rem"
-          align="stretch"
-          background="#f0f2f5"
-          borderRadius="8px"
-          padding="1.5rem"
-          width="auto">
-
-          {generateItems()}
-        </Stack>
-
-      "box" =>
-        <Box
-          background="linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
-          padding="2rem"
-          borderRadius="12px"
-          boxShadow="0 10px 30px rgba(0,0,0,0.2)"
-          maxWidth="400px">
-
-          <span style="color: white; font-size: 18px; font-weight: 600;">"Styled Box Component"</span>
-        </Box>
-
-      "container" =>
-        <Container size={containerSize} background="#f0f2f5" borderRadius="8px" padding="2rem">
-          <h3 style="margin: 0 0 1rem 0;">"Responsive Container"</h3>
-          <p style="margin: 0; color: #666;">"Max-width: " + {
-            case containerSize {
-              "sm" => "640px"
-              "md" => "768px"
-              "lg" => "1024px"
-              "xl" => "1280px"
-              => "1024px"
-            }
-          }</p>
-        </Container>
-
-      "divider" =>
-        <VStack spacing="2rem" width="400px">
-          <Box>
-            <p>"Content above divider"</p>
-            <Divider/>
-            <p>"Content below divider"</p>
-          </Box>
-
-          <Box>
-            <p>"Content above"</p>
-            <Divider label="OR"/>
-            <p>"Content below"</p>
-          </Box>
-
-          <HStack spacing="1rem">
-            <p>"Left"</p>
-            <Divider orientation="vertical" length="50px" margin="0"/>
-            <p>"Right"</p>
-          </HStack>
-        </VStack>
 
       => <div>"Select a component"</div>
     }
@@ -281,23 +218,21 @@ component LayoutPage {
           onChange={handleComponentTabChange}/>
       </div>
 
-      if selectedComponent != "box" && selectedComponent != "container" && selectedComponent != "divider" {
-        <div::controlGroup>
-          <div::controlLabel>"Items: " + Number.toString(itemCount)</div>
-          <div::itemControls>
-            <button::itemButton(false) onClick={(e : Html.Event) { decreaseItems() }} disabled={itemCount <= 1}>
-              "−"
-            </button>
-            <span::itemCount>{Number.toString(itemCount)}</span>
-            <button::itemButton(false) onClick={(e : Html.Event) { increaseItems() }} disabled={itemCount >= 12}>
-              "+"
-            </button>
-            <button::resetButton onClick={(e : Html.Event) { resetItems() }}>
-              "Reset"
-            </button>
-          </div>
+      <div::controlGroup>
+        <div::controlLabel>"Items: " + Number.toString(itemCount)</div>
+        <div::itemControls>
+          <button::itemButton(false) onClick={(e : Html.Event) { decreaseItems() }} disabled={itemCount <= 1}>
+            "−"
+          </button>
+          <span::itemCount>{Number.toString(itemCount)}</span>
+          <button::itemButton(false) onClick={(e : Html.Event) { increaseItems() }} disabled={itemCount >= 12}>
+            "+"
+          </button>
+          <button::resetButton onClick={(e : Html.Event) { resetItems() }}>
+            "Reset"
+          </button>
         </div>
-      }
+      </div>
 
       {
         case selectedComponent {
@@ -383,25 +318,6 @@ component LayoutPage {
               </div>
             </div>
 
-          "container" =>
-            <div::controlGroup>
-              <div::controlLabel>"Size"</div>
-              <div::buttonGroup>
-                <button::button(containerSize == "sm") onClick={(e : Html.Event) { handleContainerSizeChange("sm") }}>
-                  "Small"
-                </button>
-                <button::button(containerSize == "md") onClick={(e : Html.Event) { handleContainerSizeChange("md") }}>
-                  "Medium"
-                </button>
-                <button::button(containerSize == "lg") onClick={(e : Html.Event) { handleContainerSizeChange("lg") }}>
-                  "Large"
-                </button>
-                <button::button(containerSize == "xl") onClick={(e : Html.Event) { handleContainerSizeChange("xl") }}>
-                  "XL"
-                </button>
-              </div>
-            </div>
-
           => <div/>
         }
       }
@@ -412,133 +328,122 @@ component LayoutPage {
   fun getCodeExamples : Array(UsageExample) {
     [
       {
-        title: "Flex Layout",
-        description: "Flexible box layout with gap and alignment",
+        title: "Flex - Horizontal Layout",
+        description: "One-dimensional layout with space-between alignment",
         snippet: {
-          code: "<Flex direction=\"row\" justify=\"space-between\" align=\"center\" gap=\"1rem\">\n" +
-                "  <Box>Item 1</Box>\n" +
-                "  <Box>Item 2</Box>\n" +
-                "  <Box>Item 3</Box>\n" +
+          code: "<Flex \n" +
+                "  direction=\"row\" \n" +
+                "  justify=\"space-between\" \n" +
+                "  align=\"center\" \n" +
+                "  gap=\"1rem\">\n" +
+                "  <div>Item 1</div>\n" +
+                "  <div>Item 2</div>\n" +
+                "  <div>Item 3</div>\n" +
                 "</Flex>",
           language: "mint"
         },
         previewContent: <Flex direction="row" justify="space-between" align="center" gap="1rem" background="#f0f2f5" padding="1rem" borderRadius="8px">
-          <Box background="#1989fa" padding="0.5rem 1rem" borderRadius="4px">
+          <div style="background: #1989fa; padding: 0.5rem 1rem; border-radius: 4px;">
             <span style="color: white;">"Item 1"</span>
-          </Box>
-          <Box background="#52c41a" padding="0.5rem 1rem" borderRadius="4px">
+          </div>
+          <div style="background: #52c41a; padding: 0.5rem 1rem; border-radius: 4px;">
             <span style="color: white;">"Item 2"</span>
-          </Box>
-          <Box background="#faad14" padding="0.5rem 1rem" borderRadius="4px">
+          </div>
+          <div style="background: #faad14; padding: 0.5rem 1rem; border-radius: 4px;">
             <span style="color: white;">"Item 3"</span>
-          </Box>
+          </div>
         </Flex>,
         showReplay: false
       },
       {
-        title: "Grid Layout",
-        description: "CSS Grid with responsive columns",
+        title: "Flex - Vertical Stack",
+        description: "Column direction with stretch alignment",
         snippet: {
-          code: "<Grid columns=\"repeat(3, 1fr)\" gap=\"1rem\">\n" +
-                "  <Box>1</Box>\n" +
-                "  <Box>2</Box>\n" +
-                "  <Box>3</Box>\n" +
+          code: "<Flex \n" +
+                "  direction=\"column\" \n" +
+                "  align=\"stretch\" \n" +
+                "  gap=\"1rem\">\n" +
+                "  <div>First</div>\n" +
+                "  <div>Second</div>\n" +
+                "  <div>Third</div>\n" +
+                "</Flex>",
+          language: "mint"
+        },
+        previewContent: <Flex direction="column" align="stretch" gap="1rem" background="#f0f2f5" padding="1rem" borderRadius="8px" width="200px">
+          <div style="background: #1989fa; padding: 0.75rem; border-radius: 4px; text-align: center;">
+            <span style="color: white;">"First"</span>
+          </div>
+          <div style="background: #52c41a; padding: 0.75rem; border-radius: 4px; text-align: center;">
+            <span style="color: white;">"Second"</span>
+          </div>
+          <div style="background: #faad14; padding: 0.75rem; border-radius: 4px; text-align: center;">
+            <span style="color: white;">"Third"</span>
+          </div>
+        </Flex>,
+        showReplay: false
+      },
+      {
+        title: "Grid - 3 Columns",
+        description: "Two-dimensional grid with equal columns",
+        snippet: {
+          code: "<Grid \n" +
+                "  columns=\"repeat(3, 1fr)\" \n" +
+                "  gap=\"1rem\">\n" +
+                "  <div>1</div>\n" +
+                "  <div>2</div>\n" +
+                "  <div>3</div>\n" +
+                "  <div>4</div>\n" +
+                "  <div>5</div>\n" +
+                "  <div>6</div>\n" +
                 "</Grid>",
           language: "mint"
         },
         previewContent: <Grid columns="repeat(3, 1fr)" gap="1rem" background="#f0f2f5" padding="1rem" borderRadius="8px">
-          <Box background="#1989fa" padding="1rem" borderRadius="4px" height="60px">
+          <div style="background: #1989fa; padding: 1rem; border-radius: 4px; height: 60px; display: flex; align-items: center; justify-content: center;">
             <span style="color: white;">"1"</span>
-          </Box>
-          <Box background="#52c41a" padding="1rem" borderRadius="4px" height="60px">
+          </div>
+          <div style="background: #52c41a; padding: 1rem; border-radius: 4px; height: 60px; display: flex; align-items: center; justify-content: center;">
             <span style="color: white;">"2"</span>
-          </Box>
-          <Box background="#faad14" padding="1rem" borderRadius="4px" height="60px">
+          </div>
+          <div style="background: #faad14; padding: 1rem; border-radius: 4px; height: 60px; display: flex; align-items: center; justify-content: center;">
             <span style="color: white;">"3"</span>
-          </Box>
+          </div>
+          <div style="background: #722ed1; padding: 1rem; border-radius: 4px; height: 60px; display: flex; align-items: center; justify-content: center;">
+            <span style="color: white;">"4"</span>
+          </div>
+          <div style="background: #13c2c2; padding: 1rem; border-radius: 4px; height: 60px; display: flex; align-items: center; justify-content: center;">
+            <span style="color: white;">"5"</span>
+          </div>
+          <div style="background: #eb2f96; padding: 1rem; border-radius: 4px; height: 60px; display: flex; align-items: center; justify-content: center;">
+            <span style="color: white;">"6"</span>
+          </div>
         </Grid>,
         showReplay: false
       },
       {
-        title: "Stack (Vertical)",
-        description: "Vertical layout with consistent spacing",
+        title: "Grid - Custom Columns",
+        description: "Asymmetric grid with custom column sizes",
         snippet: {
-          code: "<Stack spacing=\"1rem\">\n" +
-                "  <Box>First</Box>\n" +
-                "  <Box>Second</Box>\n" +
-                "  <Box>Third</Box>\n" +
-                "</Stack>",
+          code: "<Grid \n" +
+                "  columns=\"2fr 1fr 1fr\" \n" +
+                "  gap=\"1rem\">\n" +
+                "  <div>Wide</div>\n" +
+                "  <div>Small</div>\n" +
+                "  <div>Small</div>\n" +
+                "</Grid>",
           language: "mint"
         },
-        previewContent: <Stack spacing="1rem" width="200px" background="#f0f2f5" padding="1rem" borderRadius="8px">
-          <Box background="#1989fa" padding="0.75rem" borderRadius="4px">
-            <span style="color: white;">"First"</span>
-          </Box>
-          <Box background="#52c41a" padding="0.75rem" borderRadius="4px">
-            <span style="color: white;">"Second"</span>
-          </Box>
-          <Box background="#faad14" padding="0.75rem" borderRadius="4px">
-            <span style="color: white;">"Third"</span>
-          </Box>
-        </Stack>,
-        showReplay: false
-      },
-      {
-        title: "HStack & Spacer",
-        description: "Horizontal stack with spacer pushing items apart",
-        snippet: {
-          code: "<HStack>\n" +
-                "  <Box>Left</Box>\n" +
-                "  <Spacer/>\n" +
-                "  <Box>Right</Box>\n" +
-                "</HStack>",
-          language: "mint"
-        },
-        previewContent: <HStack spacing="0" background="#f0f2f5" padding="1rem" borderRadius="8px">
-          <Box background="#1989fa" padding="0.5rem 1rem" borderRadius="4px">
-            <span style="color: white;">"Left"</span>
-          </Box>
-          <Spacer/>
-          <Box background="#52c41a" padding="0.5rem 1rem" borderRadius="4px">
-            <span style="color: white;">"Right"</span>
-          </Box>
-        </HStack>,
-        showReplay: false
-      },
-      {
-        title: "Center Component",
-        description: "Perfect centering horizontally and vertically",
-        snippet: {
-          code: "<Center minHeight=\"200px\">\n" +
-                "  <Box>Centered Content</Box>\n" +
-                "</Center>",
-          language: "mint"
-        },
-        previewContent: <Center minHeight="150px" background="#f0f2f5" borderRadius="8px">
-          <Box background="#1989fa" padding="1rem" borderRadius="4px">
-            <span style="color: white;">"Centered"</span>
-          </Box>
-        </Center>,
-        showReplay: false
-      },
-      {
-        title: "Divider",
-        description: "Visual separator with optional label",
-        snippet: {
-          code: "<Divider/>\n" +
-                "<Divider label=\"OR\"/>\n" +
-                "<Divider orientation=\"vertical\" length=\"50px\"/>",
-          language: "mint"
-        },
-        previewContent: <VStack spacing="1.5rem" width="300px">
-          <Divider/>
-          <Divider label="OR"/>
-          <HStack>
-            <span>"Left"</span>
-            <Divider orientation="vertical" length="30px" margin="0"/>
-            <span>"Right"</span>
-          </HStack>
-        </VStack>,
+        previewContent: <Grid columns="2fr 1fr 1fr" gap="1rem" background="#f0f2f5" padding="1rem" borderRadius="8px">
+          <div style="background: #1989fa; padding: 1rem; border-radius: 4px; height: 60px; display: flex; align-items: center; justify-content: center;">
+            <span style="color: white;">"Wide"</span>
+          </div>
+          <div style="background: #52c41a; padding: 1rem; border-radius: 4px; height: 60px; display: flex; align-items: center; justify-content: center;">
+            <span style="color: white;">"Small"</span>
+          </div>
+          <div style="background: #faad14; padding: 1rem; border-radius: 4px; height: 60px; display: flex; align-items: center; justify-content: center;">
+            <span style="color: white;">"Small"</span>
+          </div>
+        </Grid>,
         showReplay: false
       }
     ]
@@ -548,64 +453,52 @@ component LayoutPage {
   fun getApiProperties : Array(ApiProperty) {
     [
       {
-        name: "Flex",
-        description: "Flexbox layout: direction, justify, align, wrap, gap",
-        type: "Component",
-        defaultValue: "direction=\"row\""
+        name: "direction",
+        description: "Flex direction: row, column, row-reverse, column-reverse",
+        type: "String",
+        defaultValue: "\"row\""
       },
       {
-        name: "Grid",
-        description: "CSS Grid layout: columns, rows, gap, autoFlow",
-        type: "Component",
-        defaultValue: "columns=\"1fr\""
+        name: "justify",
+        description: "Main axis alignment: flex-start, center, flex-end, space-between, space-around, space-evenly",
+        type: "String",
+        defaultValue: "\"flex-start\""
       },
       {
-        name: "Stack/VStack",
-        description: "Vertical layout: spacing, align, justify, divider",
-        type: "Component",
-        defaultValue: "spacing=\"1rem\""
+        name: "align",
+        description: "Cross axis alignment: flex-start, center, flex-end, stretch, baseline",
+        type: "String",
+        defaultValue: "\"stretch\""
       },
       {
-        name: "HStack",
-        description: "Horizontal layout: spacing, align, justify, wrap",
-        type: "Component",
-        defaultValue: "spacing=\"1rem\""
+        name: "wrap",
+        description: "Flex wrap: nowrap, wrap, wrap-reverse",
+        type: "String",
+        defaultValue: "\"nowrap\""
       },
       {
-        name: "Box",
-        description: "Layout primitive: padding, margin, size, background, borders",
-        type: "Component",
-        defaultValue: "padding=\"0\""
+        name: "gap",
+        description: "Space between items (Flex/Grid)",
+        type: "String",
+        defaultValue: "\"1rem\""
       },
       {
-        name: "Container",
-        description: "Responsive container: size (sm|md|lg|xl), fluid, centerContent",
-        type: "Component",
-        defaultValue: "size=\"lg\""
+        name: "columns",
+        description: "Grid template columns: e.g. \"repeat(3, 1fr)\", \"1fr 2fr 1fr\"",
+        type: "String",
+        defaultValue: "\"1fr\""
       },
       {
-        name: "Center",
-        description: "Perfect centering: minHeight, inline",
-        type: "Component",
-        defaultValue: "minHeight=\"auto\""
+        name: "rows",
+        description: "Grid template rows: e.g. \"auto\", \"100px 200px\"",
+        type: "String",
+        defaultValue: "\"auto\""
       },
       {
-        name: "Spacer",
-        description: "Flex spacer: takes available space, optional fixed size",
-        type: "Component",
-        defaultValue: "size=\"\""
-      },
-      {
-        name: "Divider",
-        description: "Visual separator: orientation, color, thickness, label",
-        type: "Component",
-        defaultValue: "orientation=\"horizontal\""
-      },
-      {
-        name: "AspectRatio",
-        description: "Maintains aspect ratio: ratio (width/height)",
-        type: "Component",
-        defaultValue: "ratio=1"
+        name: "autoFlow",
+        description: "Grid auto flow: row, column, dense, row dense, column dense",
+        type: "String",
+        defaultValue: "\"row\""
       }
     ]
   }
@@ -728,11 +621,11 @@ component LayoutPage {
   fun render : Html {
     <ComponentShowcase
       title="Layout"
-      description="Powerful layout components for building modern, responsive interfaces. Includes Flex, Grid, Stack, Box, Container, and more."
+      description="Pure layout components for building modern, responsive interfaces using Flexbox and CSS Grid."
       badge="Components"
       previewContent={getPreviewContent()}
       controlsContent={getControlsContent()}
-      usageText="Layout components provide the building blocks for creating complex, responsive layouts. Use Flex for one-dimensional layouts, Grid for two-dimensional layouts, Stack for vertical/horizontal spacing, Box for styled containers, and Container for responsive max-width wrappers."
+      usageText="Layout components provide powerful, flexible systems for arranging content. Use Flex for one-dimensional layouts with full flexbox control (direction, justify, align, wrap, gap). Use Grid for two-dimensional layouts with template columns, rows, and advanced positioning."
       codeExamples={getCodeExamples()}
       apiProperties={getApiProperties()}
       events={[]}
