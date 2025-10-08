@@ -55,6 +55,14 @@ routes {
     NavigationStore.setPageAndSection("layout", "Basic Components")
   }
 
+  /grid-layout {
+    NavigationStore.setPageAndSection("grid-layout", "Layout Utilities")
+  }
+
+  /flex {
+    NavigationStore.setPageAndSection("flex", "Layout Utilities")
+  }
+
   /calendar {
     NavigationStore.setPageAndSection("calendar", "Form Components")
   }
