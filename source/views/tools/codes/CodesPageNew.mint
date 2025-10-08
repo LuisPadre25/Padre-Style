@@ -162,7 +162,9 @@ component CodesPageNew {
 
       if activeCodeType == "qr" {
         <>
-          <h3::controlsTitle>"Enter Data"</h3>
+          <div::controlsTitleWrapper>
+            <Heading level="4" margin="0 0 12px">"Enter Data"</Heading>
+          </div>
 
           <div::controlGroup>
             <div::controlLabel>"QR Code Content:"</div>
@@ -183,7 +185,9 @@ component CodesPageNew {
             </select>
           </div>
 
-          <h3::controlsTitle>"Quick Examples"</h3>
+          <div::controlsTitleWrapper>
+            <Heading level="4" margin="0 0 12px">"Quick Examples"</Heading>
+          </div>
 
           <div::controlGroup>
             <div::examplesList>
@@ -204,7 +208,9 @@ component CodesPageNew {
         </>
       } else {
         <>
-          <h3::controlsTitle>"Enter Data"</h3>
+          <div::controlsTitleWrapper>
+            <Heading level="4" margin="0 0 12px">"Enter Data"</Heading>
+          </div>
 
           <div::controlGroup>
             <div::controlLabel>"Barcode Content:"</div>
@@ -223,7 +229,9 @@ component CodesPageNew {
             <div::formatNote>"📝 More formats coming soon"</div>
           </div>
 
-          <h3::controlsTitle>"Quick Examples"</h3>
+          <div::controlsTitleWrapper>
+            <Heading level="4" margin="0 0 12px">"Quick Examples"</Heading>
+          </div>
 
           <div::controlGroup>
             <div::examplesList>
@@ -350,12 +358,7 @@ component CodesPageNew {
     min-height: 300px;
   }
 
-  style controlsTitle {
-    font-size: 16px;
-    font-weight: 600;
-    color: #323233;
-    margin: 0 0 12px;
-
+  style controlsTitleWrapper {
     &:not(:first-child) {
       margin-top: 24px;
     }
