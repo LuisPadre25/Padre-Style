@@ -1,5 +1,4 @@
 /* Matrix Types */
-
 type MatrixCell {
   x : Number,
   y : Number,

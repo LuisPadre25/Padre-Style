@@ -1,8 +1,8 @@
 /* Barcode Component - Professional CODE128 barcode generator */
-
 component Barcode {
   /* Properties */
   property data : String = ""
+
   property format : String = "CODE128"
   property width : Number = 2
   property height : Number = 100
@@ -165,7 +165,10 @@ component Barcode {
       if String.isEmpty(barcodeDataUrl) == false {
         <>
           <div::formatLabel style={getFormatLabelStyles()}>
-            {format}
+            {
+              format
+            }
+
             <span::badge>"SCANNABLE"</span>
           </div>
 
@@ -174,9 +177,7 @@ component Barcode {
           </div>
         </>
       } else {
-        <div::placeholder style={getPlaceholderStyles()}>
-          "No data provided"
-        </div>
+        <div::placeholder style={getPlaceholderStyles()}>"No data provided"</div>
       }
     </div>
   }

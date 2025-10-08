@@ -1,8 +1,8 @@
 /* Heading - Typography component for headings */
-
 component Heading {
   /* Properties */
   property children : Array(Html) = []
+
   property level : String = "1"
   property color : String = ""
   property weight : String = "600"

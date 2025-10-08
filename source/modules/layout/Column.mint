@@ -1,20 +1,21 @@
 /* Column - Individual column component for Columns layout */
-
 component Column {
   /* Properties */
   property size : String = "auto"
+
   property customSize : String = ""
   property offset : String = "0"
   property children : Array(Html) = []
 
   /* Responsive sizes */
   property sizeTablet : String = ""
+
   property sizeDesktop : String = ""
   property offsetTablet : String = ""
   property offsetDesktop : String = ""
 
   /* Get flex basis based on size */
-  fun getFlexBasis(sizeValue : String) : String {
+  fun getFlexBasis (sizeValue : String) : String {
     case sizeValue {
       "auto" => "0"
       "1" => "10%"
@@ -33,7 +34,7 @@ component Column {
   }
 
   /* Get flex grow based on size */
-  fun getFlexGrow(sizeValue : String) : String {
+  fun getFlexGrow (sizeValue : String) : String {
     if sizeValue == "auto" {
       "1"
     } else {
@@ -42,7 +43,7 @@ component Column {
   }
 
   /* Get flex shrink based on size */
-  fun getFlexShrink(sizeValue : String) : String {
+  fun getFlexShrink (sizeValue : String) : String {
     if sizeValue == "auto" {
       "1"
     } else {
@@ -51,7 +52,7 @@ component Column {
   }
 
   /* Get margin left for offset */
-  fun getOffset(offsetValue : String) : String {
+  fun getOffset (offsetValue : String) : String {
     case offsetValue {
       "0" => "0"
       "1" => "10%"

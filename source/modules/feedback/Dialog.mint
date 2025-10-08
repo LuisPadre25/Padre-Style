@@ -1,7 +1,12 @@
 /* Dialog - Mobile-first modal dialog component */
-
 component Dialog {
-  connect DialogStore exposing { isOpen, options, handleConfirm, handleCancel, handleOverlayClick }
+  connect DialogStore exposing {
+    isOpen,
+    options,
+    handleConfirm,
+    handleCancel,
+    handleOverlayClick
+  }
 
   /* Prevent click propagation on content */
   fun stopPropagation (event : Html.Event) : Promise(Void) {
@@ -196,7 +201,6 @@ component Dialog {
     }
   }
 
-
   /* Get message alignment class */
   fun getMessageAlignClass : String {
     if options.messageAlign == "left" {
@@ -215,12 +219,16 @@ component Dialog {
         <>
           if options.showCancelButton {
             <button::buttonRound::buttonCancelRound onClick={handleCancel}>
-              {options.cancelButtonText}
+              {
+                options.cancelButtonText
+              }
             </button>
           }
 
           <button::buttonRound::buttonConfirmRound onClick={handleConfirm}>
-            {options.confirmButtonText}
+            {
+              options.confirmButtonText
+            }
           </button>
         </>
       </div>
@@ -229,12 +237,16 @@ component Dialog {
         <>
           if options.showCancelButton {
             <button::button::buttonCancel onClick={handleCancel}>
-              {options.cancelButtonText}
+              {
+                options.cancelButtonText
+              }
             </button>
           }
 
           <button::button::buttonConfirm onClick={handleConfirm}>
-            {options.confirmButtonText}
+            {
+              options.confirmButtonText
+            }
           </button>
         </>
       </div>
@@ -249,18 +261,24 @@ component Dialog {
             if String.isNotEmpty(options.title) {
               <div::header>
                 <h3::title>
-                  {options.title}
+                  {
+                    options.title
+                  }
                 </h3>
               </div>
             }
 
             <div::content>
               <p class={getMessageAlignClass()}>
-                {options.message}
+                {
+                  options.message
+                }
               </p>
             </div>
 
-            {renderFooter()}
+            {
+              renderFooter()
+            }
           </>
         </div>
       </div>

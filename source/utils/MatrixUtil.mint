@@ -1,23 +1,23 @@
 /* Matrix Utilities - Translated from uxcore-matrix util.js */
-
 module MatrixUtil {
-  /**
+  /*
+  *
    * Generate array from start with given length
    * (1, 3) => [1, 2, 3]
    * (0, 2) => [0, 1]
-   */
+  */
   fun makeArray (start : Number, length : Number) : Array(Number) {
     Array.range(start, start + length)
   }
 
-  /**
+  /*
+  *
    * Get subtotal of heights/widths
    * Supports both array and single number
-   */
+  */
   fun getSubTotal (sizes : Array(Number), start : Number, end : Number) : Number {
     Array.range(0, end - start)
-    |> Array.reduce(
-      0,
+    |> Array.reduce(0,
       (total : Number, i : Number) : Number {
         sizes[start + i]
         |> Maybe.withDefault(
@@ -27,13 +27,13 @@ module MatrixUtil {
       })
   }
 
-  /**
+  /*
+  *
    * Get the largest array from a 2d array
-   */
+  */
   fun getLargestArr (arr : Array(Array(Number))) : Array(Number) {
     arr
-    |> Array.reduce(
-      [],
+    |> Array.reduce([],
       (largest : Array(Number), item : Array(Number)) : Array(Number) {
         if Array.size(item) > Array.size(largest) {
           item
@@ -43,10 +43,11 @@ module MatrixUtil {
       })
   }
 
-  /**
+  /*
+  *
    * Generate a virtual matrix used to generate real matrix with conflict detect
    * Returns VirtualMatrix with numData and vm, or error message if conflict detected
-   */
+  */
   fun generateVM (data : Array(MatrixCell)) : VirtualMatrix {
     `
     (() => {

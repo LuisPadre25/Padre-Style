@@ -1,8 +1,8 @@
 /* CodeBlock - Reusable syntax-highlighted code display component */
-
 component CodeBlock {
   /* Props */
   property code : String = ""
+
   property language : String = "mint"
   property showCopyButton : Bool = false
 
@@ -60,9 +60,9 @@ component CodeBlock {
   fun render : Html {
     <div::container>
       if showCopyButton {
-        <button::copyButton onClick={(event : Html.Event) : Promise(Void) { copyToClipboard() }}>
-          "📋 Copy"
-        </button>
+        <button::copyButton
+          onClick={(event : Html.Event) : Promise(Void) { copyToClipboard() }}
+        >"📋 Copy"</button>
       } else {
         <></>
       }

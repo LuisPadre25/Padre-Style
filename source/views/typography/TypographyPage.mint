@@ -1,5 +1,4 @@
 /* TypographyPage - Typography Components Showcase */
-
 component TypographyPage {
   connect NavigationStore exposing { setPage }
   connect ViewModeStore exposing { viewMode }
@@ -10,6 +9,7 @@ component TypographyPage {
 
   /* State */
   state headingLevel : String = "1"
+
   state textSize : String = "base"
   state textWeight : String = "400"
   state textAlign : String = "left"
@@ -80,12 +80,22 @@ component TypographyPage {
       badge="Typography"
       previewContent={
         <div style="width: 100%; padding: 20px;">
-          <Heading level={headingLevel} align={textAlign} fontFamily={fontFamily}>
-            "This is a Heading"
-          </Heading>
-          <Text size={textSize} weight={textWeight} align={textAlign} margin="16px 0" fontFamily={fontFamily}>
+          <Heading
+            level={headingLevel}
+            align={textAlign}
+            fontFamily={fontFamily}
+          >"This is a Heading"</Heading>
+
+          <Text
+            size={textSize}
+            weight={textWeight}
+            align={textAlign}
+            margin="16px 0"
+            fontFamily={fontFamily}
+          >
             "This is body text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
           </Text>
+
           <Caption align={textAlign} fontFamily={fontFamily}>
             "This is a caption or small text"
           </Caption>
@@ -95,7 +105,11 @@ component TypographyPage {
         <div>
           <div::controlGroup>
             <label::label>"Heading Level"</label>
-            <select::select value={headingLevel} onChange={handleHeadingLevelChange}>
+
+            <select::select
+              value={headingLevel}
+              onChange={handleHeadingLevelChange}
+            >
               <option value="1">"H1 (34px)"</option>
               <option value="2">"H2 (28px)"</option>
               <option value="3">"H3 (24px)"</option>
@@ -107,6 +121,7 @@ component TypographyPage {
 
           <div::controlGroup>
             <label::label>"Text Size"</label>
+
             <select::select value={textSize} onChange={handleTextSizeChange}>
               <option value="xs">"XS (12px)"</option>
               <option value="sm">"SM (14px)"</option>
@@ -118,6 +133,7 @@ component TypographyPage {
 
           <div::controlGroup>
             <label::label>"Font Weight"</label>
+
             <select::select value={textWeight} onChange={handleTextWeightChange}>
               <option value="300">"Light (300)"</option>
               <option value="400">"Regular (400)"</option>
@@ -129,6 +145,7 @@ component TypographyPage {
 
           <div::controlGroup>
             <label::label>"Text Align"</label>
+
             <select::select value={textAlign} onChange={handleTextAlignChange}>
               <option value="left">"Left"</option>
               <option value="center">"Center"</option>
@@ -139,6 +156,7 @@ component TypographyPage {
 
           <div::controlGroup>
             <label::label>"Font Family"</label>
+
             <select::select value={fontFamily} onChange={handleFontFamilyChange}>
               <option value="">"Default (Sans-serif)"</option>
               <option value="var(--font-serif)">"Serif"</option>
@@ -158,13 +176,12 @@ component TypographyPage {
           {
             title: "Headings",
             description: "Different heading levels",
-            snippet: {
-              code:
-                "<Heading level=\"1\">Main Title</Heading>\n" +
-                "<Heading level=\"2\">Section Title</Heading>\n" +
-                "<Heading level=\"3\" color=\"#60A5FA\">Colored Heading</Heading>",
-              language: "mint"
-            },
+            snippet:
+              {
+                code:
+                  "<Heading level=\"1\">Main Title</Heading>\n" + "<Heading level=\"2\">Section Title</Heading>\n" + "<Heading level=\"3\" color=\"#60A5FA\">Colored Heading</Heading>",
+                language: "mint"
+              },
             previewContent:
               <div::demoContainer>
                 <Heading level="1">"Main Title"</Heading>
@@ -176,13 +193,12 @@ component TypographyPage {
           {
             title: "Body Text",
             description: "Different text sizes and weights",
-            snippet: {
-              code:
-                "<Text size=\"lg\" weight=\"600\">Large bold text</Text>\n" +
-                "<Text size=\"base\">Regular body text</Text>\n" +
-                "<Text size=\"sm\" color=\"#60A5FA\">Small colored text</Text>",
-              language: "mint"
-            },
+            snippet:
+              {
+                code:
+                  "<Text size=\"lg\" weight=\"600\">Large bold text</Text>\n" + "<Text size=\"base\">Regular body text</Text>\n" + "<Text size=\"sm\" color=\"#60A5FA\">Small colored text</Text>",
+                language: "mint"
+              },
             previewContent:
               <div::demoContainer>
                 <Text size="lg" weight="600">"Large bold text"</Text>
@@ -194,13 +210,12 @@ component TypographyPage {
           {
             title: "Captions",
             description: "Small text for labels and hints",
-            snippet: {
-              code:
-                "<Caption>Default caption</Caption>\n" +
-                "<Caption weight=\"600\">Bold caption</Caption>\n" +
-                "<Caption align=\"center\">Centered caption</Caption>",
-              language: "mint"
-            },
+            snippet:
+              {
+                code:
+                  "<Caption>Default caption</Caption>\n" + "<Caption weight=\"600\">Bold caption</Caption>\n" + "<Caption align=\"center\">Centered caption</Caption>",
+                language: "mint"
+              },
             previewContent:
               <div::demoContainer>
                 <Caption>"Default caption"</Caption>
@@ -212,17 +227,22 @@ component TypographyPage {
           {
             title: "Font Families",
             description: "Different font families for varied styles",
-            snippet: {
-              code:
-                "<Heading level=\"2\" fontFamily=\"var(--font-serif)\">Serif Heading</Heading>\n" +
-                "<Text fontFamily=\"var(--font-mono)\">Monospace text for code</Text>\n" +
-                "<Text fontFamily=\"Georgia, serif\">Georgia serif text</Text>",
-              language: "mint"
-            },
+            snippet:
+              {
+                code:
+                  "<Heading level=\"2\" fontFamily=\"var(--font-serif)\">Serif Heading</Heading>\n" + "<Text fontFamily=\"var(--font-mono)\">Monospace text for code</Text>\n" + "<Text fontFamily=\"Georgia, serif\">Georgia serif text</Text>",
+                language: "mint"
+              },
             previewContent:
               <div::demoContainer>
-                <Heading level="2" fontFamily="var(--font-serif)">"Serif Heading"</Heading>
-                <Text fontFamily="var(--font-mono)" margin="12px 0">"Monospace text for code"</Text>
+                <Heading level="2" fontFamily="var(--font-serif)">
+                  "Serif Heading"
+                </Heading>
+
+                <Text fontFamily="var(--font-mono)" margin="12px 0">
+                  "Monospace text for code"
+                </Text>
+
                 <Text fontFamily="Georgia, serif">"Georgia serif text"</Text>
               </div>,
             showReplay: false
@@ -263,7 +283,8 @@ component TypographyPage {
           },
           {
             name: "fontFamily",
-            description: "Font family (CSS font-family or empty for theme default)",
+            description:
+              "Font family (CSS font-family or empty for theme default)",
             type: "String",
             defaultValue: "\"\""
           },
@@ -299,7 +320,8 @@ component TypographyPage {
           },
           {
             name: "fontFamily",
-            description: "Font family (CSS font-family or empty for theme default)",
+            description:
+              "Font family (CSS font-family or empty for theme default)",
             type: "String",
             defaultValue: "\"\""
           },
@@ -323,11 +345,13 @@ component TypographyPage {
           },
           {
             name: "fontFamily",
-            description: "Font family (CSS font-family or empty for theme default)",
+            description:
+              "Font family (CSS font-family or empty for theme default)",
             type: "String",
             defaultValue: "\"\""
           }
         ]
-      }/>
+      }
+    />
   }
 }

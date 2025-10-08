@@ -11,6 +11,7 @@ component Main {
       #{NavigationStore.setPage}(page);
     })()
     `
+
     Promise.resolve(void)
   }
 

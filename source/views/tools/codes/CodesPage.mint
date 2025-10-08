@@ -183,21 +183,55 @@ component CodesPage {
 
   fun renderQRExample (example : CodeExample) : Html {
     <div::exampleCard
-      onClick={(event : Html.Event) : Promise(Void) { loadQRExample(example.content) }}>
+      onClick={
+        (event : Html.Event) : Promise(Void) { loadQRExample(example.content) }
+      }
+    >
+      <div::exampleTitle>
+        {
+          example.title
+        }
+      </div>
 
-      <div::exampleTitle>{example.title}</div>
-      <div::exampleDesc>{example.description}</div>
-      <code::exampleCode>{example.content}</code>
+      <div::exampleDesc>
+        {
+          example.description
+        }
+      </div>
+
+      <code::exampleCode>
+        {
+          example.content
+        }
+      </code>
     </div>
   }
 
   fun renderBarcodeExample (example : CodeExample) : Html {
     <div::exampleCard
-      onClick={(event : Html.Event) : Promise(Void) { loadBarcodeExample(example.content) }}>
+      onClick={
+        (event : Html.Event) : Promise(Void) {
+          loadBarcodeExample(example.content)
+        }
+      }
+    >
+      <div::exampleTitle>
+        {
+          example.title
+        }
+      </div>
 
-      <div::exampleTitle>{example.title}</div>
-      <div::exampleDesc>{example.description}</div>
-      <code::exampleCode>{example.content}</code>
+      <div::exampleDesc>
+        {
+          example.description
+        }
+      </div>
+
+      <code::exampleCode>
+        {
+          example.content
+        }
+      </code>
     </div>
   }
 
@@ -205,6 +239,7 @@ component CodesPage {
     <div::container>
       <div::header>
         <Heading level="1" margin="0 0 24px">"QR Codes & Barcodes"</Heading>
+
         <Text size="lg" margin="0 0 40px">
           "Generate scannable QR codes and CODE128 barcodes in real-time"
         </Text>
@@ -221,7 +256,10 @@ component CodesPage {
           <div>
             <Text size="sm" margin="16px 0 0">
               "📋 Current Content: "
-              {qrText}
+
+              {
+                qrText
+              }
             </Text>
 
             <div::sectionSubtitle>"📚 Click an example to load:"</div>
@@ -233,9 +271,7 @@ component CodesPage {
             </div>
           </div>
 
-          <div::preview>
-            <QRCodeCanvas moduleSize={6} quietZone={4}/>
-          </div>
+          <div::preview><QRCodeCanvas moduleSize={6} quietZone={4}/></div>
         </div>
       </div>
 
@@ -250,7 +286,10 @@ component CodesPage {
           <div>
             <Text size="sm" margin="16px 0 0">
               "📋 Current Text: "
-              {barcodeText}
+
+              {
+                barcodeText
+              }
             </Text>
 
             <div::sectionSubtitle>"📚 Click an example to load:"</div>
@@ -262,9 +301,7 @@ component CodesPage {
             </div>
           </div>
 
-          <div::preview>
-            <BarcodeCanvas barHeight={120} barWidth={3}/>
-          </div>
+          <div::preview><BarcodeCanvas barHeight={120} barWidth={3}/></div>
         </div>
       </div>
     </div>

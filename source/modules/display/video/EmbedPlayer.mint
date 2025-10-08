@@ -67,26 +67,16 @@ component EmbedPlayer {
   }
 
   fun detectPlatform (videoUrl : String) : PlatformInfo {
-    if String.contains(videoUrl, "youtube.com") || String.contains(videoUrl, "youtu.be") {
-      {
-        platform: "youtube",
-        videoId: extractYouTubeId(videoUrl)
-      }
+    if String.contains(videoUrl, "youtube.com") || String.contains(videoUrl,
+      "youtu.be") {
+      { platform: "youtube", videoId: extractYouTubeId(videoUrl) }
     } else if String.contains(videoUrl, "vimeo.com") {
-      {
-        platform: "vimeo",
-        videoId: extractVimeoId(videoUrl)
-      }
-    } else if String.contains(videoUrl, "dailymotion.com") || String.contains(videoUrl, "dai.ly") {
-      {
-        platform: "dailymotion",
-        videoId: extractDailymotionId(videoUrl)
-      }
+      { platform: "vimeo", videoId: extractVimeoId(videoUrl) }
+    } else if String.contains(videoUrl, "dailymotion.com") || String.contains(
+      videoUrl, "dai.ly") {
+      { platform: "dailymotion", videoId: extractDailymotionId(videoUrl) }
     } else {
-      {
-        platform: "unknown",
-        videoId: ""
-      }
+      { platform: "unknown", videoId: "" }
     }
   }
 
@@ -185,8 +175,7 @@ component EmbedPlayer {
       "dailymotion" =>
         "https://www.dailymotion.com/embed/video/" + videoId + "?autoplay=" + autoplayParam + "&mute=" + mutedParam + "&controls=" + controlsParam
 
-      =>
-        ""
+      => ""
     }
   }
 
@@ -223,12 +212,14 @@ component EmbedPlayer {
           <iframe::iframe
             src={getEmbedUrl()}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen="true"/>
+            allowfullscreen="true"
+          />
         </>
       } else if String.isEmpty(url) {
         <div::placeholder>
           <div::icon>"🎬"</div>
           <div::message>"Enter a video URL to start"</div>
+
           <div style="font-size: 12px; color: var(--text-color, #999);">
             "Supports YouTube, Vimeo, and Dailymotion"
           </div>
@@ -237,6 +228,7 @@ component EmbedPlayer {
         <div::placeholder>
           <div::icon>"⚠️"</div>
           <div::message>"Unsupported video platform"</div>
+
           <div style="font-size: 12px; color: var(--text-color, #999);">
             "Please use YouTube, Vimeo, or Dailymotion URLs"
           </div>

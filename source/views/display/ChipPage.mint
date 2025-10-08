@@ -1,10 +1,10 @@
 /* ChipPage - Showcase for Chip component */
-
 component ChipPage {
   connect NavigationStore exposing { setPage }
 
   /* State for component controls */
   state variant : String = "default"
+
   state size : String = "md"
   state closable : Bool = false
   state disabled : Bool = false
@@ -90,7 +90,8 @@ component ChipPage {
         animated={animated}
         animation={animation}
         onClick={handleChipClick}
-        onClose={handleChipClose}/>
+        onClose={handleChipClose}
+      />
     </div>
   }
 
@@ -101,79 +102,97 @@ component ChipPage {
 
       <div::controlGroup>
         <div::controlLabel>"Variant"</div>
+
         <div::buttonGroup>
-          <button::button(variant == "default") onClick={(e : Html.Event) { handleVariantChange("default") }}>
-            "Default"
-          </button>
-          <button::button(variant == "primary") onClick={(e : Html.Event) { handleVariantChange("primary") }}>
-            "Primary"
-          </button>
-          <button::button(variant == "success") onClick={(e : Html.Event) { handleVariantChange("success") }}>
-            "Success"
-          </button>
-          <button::button(variant == "warning") onClick={(e : Html.Event) { handleVariantChange("warning") }}>
-            "Warning"
-          </button>
-          <button::button(variant == "error") onClick={(e : Html.Event) { handleVariantChange("error") }}>
-            "Error"
-          </button>
-          <button::button(variant == "info") onClick={(e : Html.Event) { handleVariantChange("info") }}>
-            "Info"
-          </button>
+          <button::button(variant == "default")
+            onClick={(e : Html.Event) { handleVariantChange("default") }}
+          >"Default"</button>
+
+          <button::button(variant == "primary")
+            onClick={(e : Html.Event) { handleVariantChange("primary") }}
+          >"Primary"</button>
+
+          <button::button(variant == "success")
+            onClick={(e : Html.Event) { handleVariantChange("success") }}
+          >"Success"</button>
+
+          <button::button(variant == "warning")
+            onClick={(e : Html.Event) { handleVariantChange("warning") }}
+          >"Warning"</button>
+
+          <button::button(variant == "error")
+            onClick={(e : Html.Event) { handleVariantChange("error") }}
+          >"Error"</button>
+
+          <button::button(variant == "info")
+            onClick={(e : Html.Event) { handleVariantChange("info") }}
+          >"Info"</button>
         </div>
       </div>
 
       <div::controlGroup>
         <div::controlLabel>"Size"</div>
+
         <div::buttonGroup>
-          <button::button(size == "sm") onClick={(e : Html.Event) { handleSizeChange("sm") }}>
-            "Small"
-          </button>
-          <button::button(size == "md") onClick={(e : Html.Event) { handleSizeChange("md") }}>
-            "Medium"
-          </button>
-          <button::button(size == "lg") onClick={(e : Html.Event) { handleSizeChange("lg") }}>
-            "Large"
-          </button>
+          <button::button(size == "sm")
+            onClick={(e : Html.Event) { handleSizeChange("sm") }}
+          >"Small"</button>
+
+          <button::button(size == "md")
+            onClick={(e : Html.Event) { handleSizeChange("md") }}
+          >"Medium"</button>
+
+          <button::button(size == "lg")
+            onClick={(e : Html.Event) { handleSizeChange("lg") }}
+          >"Large"</button>
         </div>
       </div>
 
       <div::controlGroup>
         <div::controlLabel>"Animation"</div>
+
         <div::buttonGroup>
-          <button::button(animation == "scaleIn") onClick={(e : Html.Event) { handleAnimationChange("scaleIn") }}>
-            "Scale"
-          </button>
-          <button::button(animation == "fadeIn") onClick={(e : Html.Event) { handleAnimationChange("fadeIn") }}>
-            "Fade"
-          </button>
-          <button::button(animation == "slideInUp") onClick={(e : Html.Event) { handleAnimationChange("slideInUp") }}>
-            "Slide Up"
-          </button>
+          <button::button(animation == "scaleIn")
+            onClick={(e : Html.Event) { handleAnimationChange("scaleIn") }}
+          >"Scale"</button>
+
+          <button::button(animation == "fadeIn")
+            onClick={(e : Html.Event) { handleAnimationChange("fadeIn") }}
+          >"Fade"</button>
+
+          <button::button(animation == "slideInUp")
+            onClick={(e : Html.Event) { handleAnimationChange("slideInUp") }}
+          >"Slide Up"</button>
         </div>
       </div>
 
       <div::controlGroup>
         <div::controlLabel>"Options"</div>
+
         <div::buttonGroup>
-          <button::toggleButton(closable) onClick={(e : Html.Event) { toggleClosable() }}>
-            "Closable"
-          </button>
-          <button::toggleButton(disabled) onClick={(e : Html.Event) { toggleDisabled() }}>
-            "Disabled"
-          </button>
-          <button::toggleButton(clickable) onClick={(e : Html.Event) { toggleClickable() }}>
-            "Clickable"
-          </button>
-          <button::toggleButton(withIcon) onClick={(e : Html.Event) { toggleIcon() }}>
-            "With Icon"
-          </button>
-          <button::toggleButton(withAvatar) onClick={(e : Html.Event) { toggleAvatar() }}>
-            "With Avatar"
-          </button>
-          <button::toggleButton(animated) onClick={(e : Html.Event) { toggleAnimated() }}>
-            "Animated"
-          </button>
+          <button::toggleButton(closable)
+            onClick={(e : Html.Event) { toggleClosable() }}
+          >"Closable"</button>
+
+          <button::toggleButton(disabled)
+            onClick={(e : Html.Event) { toggleDisabled() }}
+          >"Disabled"</button>
+
+          <button::toggleButton(clickable)
+            onClick={(e : Html.Event) { toggleClickable() }}
+          >"Clickable"</button>
+
+          <button::toggleButton(withIcon)
+            onClick={(e : Html.Event) { toggleIcon() }}
+          >"With Icon"</button>
+
+          <button::toggleButton(withAvatar)
+            onClick={(e : Html.Event) { toggleAvatar() }}
+          >"With Avatar"</button>
+
+          <button::toggleButton(animated)
+            onClick={(e : Html.Event) { toggleAnimated() }}
+          >"Animated"</button>
         </div>
       </div>
     </div>
@@ -185,125 +204,131 @@ component ChipPage {
       {
         title: "Basic Chip",
         description: "Simple chip with label",
-        snippet: {
-          code: "<Chip label=\"Basic Chip\"/>",
-          language: "mint"
-        },
+        snippet: { code: "<Chip label=\"Basic Chip\"/>", language: "mint" },
         previewContent: <Chip label="Basic Chip"/>,
         showReplay: false
       },
       {
         title: "Colored Variants",
         description: "Chips with different semantic colors",
-        snippet: {
-          code: "<Chip label=\"Primary\" variant=\"primary\"/>\n" +
-                "<Chip label=\"Success\" variant=\"success\"/>\n" +
-                "<Chip label=\"Warning\" variant=\"warning\"/>\n" +
-                "<Chip label=\"Error\" variant=\"error\"/>",
-          language: "mint"
-        },
-        previewContent: <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-          <Chip label="Primary" variant="primary"/>
-          <Chip label="Success" variant="success"/>
-          <Chip label="Warning" variant="warning"/>
-          <Chip label="Error" variant="error"/>
-        </div>,
+        snippet:
+          {
+            code:
+              "<Chip label=\"Primary\" variant=\"primary\"/>\n" + "<Chip label=\"Success\" variant=\"success\"/>\n" + "<Chip label=\"Warning\" variant=\"warning\"/>\n" + "<Chip label=\"Error\" variant=\"error\"/>",
+            language: "mint"
+          },
+        previewContent:
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <Chip label="Primary" variant="primary"/>
+            <Chip label="Success" variant="success"/>
+            <Chip label="Warning" variant="warning"/>
+            <Chip label="Error" variant="error"/>
+          </div>,
         showReplay: false
       },
       {
         title: "With Icons",
         description: "Chips with emoji or icon prefixes",
-        snippet: {
-          code: "<Chip label=\"Star\" icon=\"⭐\" variant=\"primary\"/>\n" +
-                "<Chip label=\"Heart\" icon=\"❤️\" variant=\"error\"/>\n" +
-                "<Chip label=\"Check\" icon=\"✓\" variant=\"success\"/>",
-          language: "mint"
-        },
-        previewContent: <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-          <Chip label="Star" icon="⭐" variant="primary"/>
-          <Chip label="Heart" icon="❤️" variant="error"/>
-          <Chip label="Check" icon="✓" variant="success"/>
-        </div>,
+        snippet:
+          {
+            code:
+              "<Chip label=\"Star\" icon=\"⭐\" variant=\"primary\"/>\n" + "<Chip label=\"Heart\" icon=\"❤️\" variant=\"error\"/>\n" + "<Chip label=\"Check\" icon=\"✓\" variant=\"success\"/>",
+            language: "mint"
+          },
+        previewContent:
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <Chip label="Star" icon="⭐" variant="primary"/>
+            <Chip label="Heart" icon="❤️" variant="error"/>
+            <Chip label="Check" icon="✓" variant="success"/>
+          </div>,
         showReplay: false
       },
       {
         title: "With Avatar",
         description: "Chips with user avatars",
-        snippet: {
-          code: "<Chip\n" +
-                "  label=\"John Doe\"\n" +
-                "  avatar=\"https://i.pravatar.cc/150?img=1\"\n" +
-                "  variant=\"primary\"/>",
-          language: "mint"
-        },
-        previewContent: <Chip
-          label="John Doe"
-          avatar="https://i.pravatar.cc/150?img=1"
-          variant="primary"/>,
+        snippet:
+          {
+            code:
+              "<Chip\n" + "  label=\"John Doe\"\n" + "  avatar=\"https://i.pravatar.cc/150?img=1\"\n" + "  variant=\"primary\"/>",
+            language: "mint"
+          },
+        previewContent:
+          <Chip
+            label="John Doe"
+            avatar="https://i.pravatar.cc/150?img=1"
+            variant="primary"
+          />,
         showReplay: false
       },
       {
         title: "Closable Chips",
         description: "Chips with close button",
-        snippet: {
-          code: "<Chip\n" +
-                "  label=\"Removable\"\n" +
-                "  variant=\"primary\"\n" +
-                "  closable={true}\n" +
-                "  onClose={handleClose}/>",
-          language: "mint"
-        },
-        previewContent: <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-          <Chip label="Tag 1" variant="primary" closable={true}/>
-          <Chip label="Tag 2" variant="success" closable={true}/>
-          <Chip label="Tag 3" variant="warning" closable={true}/>
-        </div>,
+        snippet:
+          {
+            code:
+              "<Chip\n" + "  label=\"Removable\"\n" + "  variant=\"primary\"\n" + "  closable={true}\n" + "  onClose={handleClose}/>",
+            language: "mint"
+          },
+        previewContent:
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <Chip label="Tag 1" variant="primary" closable={true}/>
+            <Chip label="Tag 2" variant="success" closable={true}/>
+            <Chip label="Tag 3" variant="warning" closable={true}/>
+          </div>,
         showReplay: false
       },
       {
         title: "Sizes",
         description: "Chips in different sizes",
-        snippet: {
-          code: "<Chip label=\"Small\" size=\"sm\" variant=\"primary\"/>\n" +
-                "<Chip label=\"Medium\" size=\"md\" variant=\"primary\"/>\n" +
-                "<Chip label=\"Large\" size=\"lg\" variant=\"primary\"/>",
-          language: "mint"
-        },
-        previewContent: <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
-          <Chip label="Small" size="sm" variant="primary"/>
-          <Chip label="Medium" size="md" variant="primary"/>
-          <Chip label="Large" size="lg" variant="primary"/>
-        </div>,
+        snippet:
+          {
+            code:
+              "<Chip label=\"Small\" size=\"sm\" variant=\"primary\"/>\n" + "<Chip label=\"Medium\" size=\"md\" variant=\"primary\"/>\n" + "<Chip label=\"Large\" size=\"lg\" variant=\"primary\"/>",
+            language: "mint"
+          },
+        previewContent:
+          <div
+            style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;"
+          >
+            <Chip label="Small" size="sm" variant="primary"/>
+            <Chip label="Medium" size="md" variant="primary"/>
+            <Chip label="Large" size="lg" variant="primary"/>
+          </div>,
         showReplay: false
       },
       {
         title: "Clickable Chips",
         description: "Interactive chips with click handlers",
-        snippet: {
-          code: "<Chip\n" +
-                "  label=\"Click me\"\n" +
-                "  variant=\"primary\"\n" +
-                "  clickable={true}\n" +
-                "  onClick={handleClick}/>",
-          language: "mint"
-        },
-        previewContent: <Chip
-          label="Click me"
-          variant="primary"
-          clickable={true}/>,
+        snippet:
+          {
+            code:
+              "<Chip\n" + "  label=\"Click me\"\n" + "  variant=\"primary\"\n" + "  clickable={true}\n" + "  onClick={handleClick}/>",
+            language: "mint"
+          },
+        previewContent:
+          <Chip label="Click me" variant="primary" clickable={true}/>,
         showReplay: false
       },
       {
         title: "Disabled State",
         description: "Non-interactive disabled chips",
-        snippet: {
-          code: "<Chip label=\"Disabled\" variant=\"primary\" disabled={true}/>",
-          language: "mint"
-        },
-        previewContent: <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-          <Chip label="Disabled" variant="primary" disabled={true}/>
-          <Chip label="Disabled" variant="success" disabled={true} closable={true}/>
-        </div>,
+        snippet:
+          {
+            code:
+              "<Chip label=\"Disabled\" variant=\"primary\" disabled={true}/>",
+            language: "mint"
+          },
+        previewContent:
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <Chip label="Disabled" variant="primary" disabled={true}/>
+
+            <Chip
+              label="Disabled"
+              variant="success"
+              disabled={true}
+              closable={true}
+            />
+          </div>,
         showReplay: false
       }
     ]
@@ -320,7 +345,8 @@ component ChipPage {
       },
       {
         name: "variant",
-        description: "Color variant: default | primary | success | warning | error | info",
+        description:
+          "Color variant: default | primary | success | warning | error | info",
         type: "String",
         defaultValue: "\"default\""
       },
@@ -427,7 +453,6 @@ component ChipPage {
     padding: 20px;
   }
 
-
   style controlGroup {
     margin-bottom: 20px;
   }
@@ -506,6 +531,7 @@ component ChipPage {
       codeExamples={getCodeExamples()}
       apiProperties={getApiProperties()}
       events={getApiEvents()}
-      enabledTabs={["preview", "usage", "api"]}/>
+      enabledTabs={["preview", "usage", "api"]}
+    />
   }
 }

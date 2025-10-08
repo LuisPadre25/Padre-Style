@@ -1,8 +1,8 @@
 /* Flex - Flexbox Layout Component */
-
 component Flex {
   /* Properties */
   property direction : String = "row"
+
   property justify : String = "flex-start"
   property align : String = "stretch"
   property gap : String = "0"
@@ -16,7 +16,13 @@ component Flex {
     justify-content: #{justify};
     align-items: #{align};
     gap: #{gap};
-    flex-wrap: #{if wrap { "wrap" } else { "nowrap" }};
+
+    flex-wrap: #{if wrap {
+      "wrap"
+    } else {
+      "nowrap"
+    }};
+
     width: 100%;
   }
 

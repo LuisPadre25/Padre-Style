@@ -1,8 +1,8 @@
 /* QRCode Component - Professional QR Code generator */
-
 component QRCode {
   /* Properties */
   property data : String = ""
+
   property size : Number = 256
   property backgroundColor : String = "#ffffff"
   property foregroundColor : String = "#000000"
@@ -150,12 +150,14 @@ component QRCode {
             <span::badge>"SCANNABLE"</span>
           </div>
 
-          <div::qrWrapper>
-            <img::qrImage src={qrCodeDataUrl} alt="QR Code"/>
-          </div>
+          <div::qrWrapper><img::qrImage src={qrCodeDataUrl} alt="QR Code"/></div>
 
           if showLabel && String.isEmpty(label) == false {
-            <div::label style={getLabelStyles()}>{label}</div>
+            <div::label style={getLabelStyles()}>
+              {
+                label
+              }
+            </div>
           } else {
             <span/>
           }

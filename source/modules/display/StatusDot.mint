@@ -1,22 +1,33 @@
-/* StatusDot - Professional status indicator component
+/*
+StatusDot - Professional status indicator component
  * Mobile-first and fully responsive
  * Based on Ant Design and Material UI standards
- */
-
+*/
 component StatusDot {
   /* Core properties */
-  property status : String = "default"  // online, offline, away, busy, dnd, processing, success, error, warning, default
-  property size : String = "default"  // small, default, large
+  property status : String = "default"
+
+  // online, offline, away, busy, dnd, processing, success, error, warning, default
+  property size : String = "default"
+
+  // small, default, large
   property pulse : Bool = false
-  property animation : String = "none"  // none, pulse, ping, bounce
+
+  property animation : String = "none"
+
+  // none, pulse, ping, bounce
 
   /* Label */
   property text : String = ""
+
   property showText : Bool = false
 
   /* Styling */
-  property color : String = ""  // custom color override
+  property color : String = ""
+
+  // custom color override
   property bordered : Bool = false
+
   property borderColor : String = "#fff"
 
   /* Get status color */
@@ -45,7 +56,9 @@ component StatusDot {
     case size {
       "small" => "6px"
       "large" => "10px"
-      => "8px"  // default
+      => "8px"
+
+      // default
     }
   }
 
@@ -54,7 +67,9 @@ component StatusDot {
     case size {
       "small" => "8px"
       "large" => "12px"
-      => "10px"  // default
+      => "10px"
+
+      // default
     }
   }
 
@@ -108,10 +123,10 @@ component StatusDot {
 
     /* Tablet (641px - 1024px) */
     @media (min-width: 641px) and (max-width: 1024px) {
-      width: calc(#{getDotSize()} * 1.2);
-      height: calc(#{getDotSize()} * 1.2);
-      min-width: calc(#{getDotSize()} * 1.2);
-      min-height: calc(#{getDotSize()} * 1.2);
+      width: calc(#{getDotSize()}* 1.2);
+      height: calc(#{getDotSize()}* 1.2);
+      min-width: calc(#{getDotSize()}* 1.2);
+      min-height: calc(#{getDotSize()}* 1.2);
     }
 
     /* Desktop (1025px+) */
@@ -168,7 +183,12 @@ component StatusDot {
       if showText && String.isNotEmpty(text) {
         <span::container>
           <span::dot/>
-          <span::label>{text}</span>
+
+          <span::label>
+            {
+              text
+            }
+          </span>
         </span>
       } else {
         <span::dot/>

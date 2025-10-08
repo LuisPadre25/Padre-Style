@@ -120,6 +120,7 @@ store ThemeStore {
       }
     })()
     `
+
     Promise.resolve(void)
   }
 
@@ -129,6 +130,7 @@ store ThemeStore {
       document.documentElement.style.setProperty('--primary-color', #{color});
     })()
     `
+
     Promise.resolve(void)
   }
 
@@ -138,10 +140,7 @@ store ThemeStore {
   }
 
   fun resetTheme : Promise(Void) {
-    next {
-      theme: "default",
-      primaryColor: "#1989fa"
-    }
+    next { theme: "default", primaryColor: "#1989fa" }
     initialize()
   }
 }

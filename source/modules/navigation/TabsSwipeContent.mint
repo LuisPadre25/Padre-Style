@@ -1,13 +1,14 @@
 /* TabsSwipeContent - Swipeable content container for tabs */
-
 component TabsSwipeContent {
   /* Properties */
   property tabs : Array(TabItem) = []
+
   property activeTab : String = ""
   property children : Array(Html) = []
 
   /* State */
   state touchStartX : Number = 0
+
   state touchStartY : Number = 0
   state currentOffset : Number = 0
   state isSwiping : Bool = false
@@ -114,12 +115,14 @@ component TabsSwipeContent {
     <div::container
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
-      onTouchEnd={handleTouchEnd}>
-
+      onTouchEnd={handleTouchEnd}
+    >
       <div::wrapper style={"transform: " + getTransform()}>
         for child of children {
           <div::slide>
-            {child}
+            {
+              child
+            }
           </div>
         }
       </div>

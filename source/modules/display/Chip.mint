@@ -1,11 +1,12 @@
-/* Chip - Professional tag/chip component
+/*
+Chip - Professional tag/chip component
  * Features: Variants, Sizes, Icons, Closable, Avatars, Animations
  * Mobile-first responsive design
- */
-
+*/
 component Chip {
   /* Properties */
   property label : String = ""
+
   property variant : String = "default"
   property size : String = "md"
   property closable : Bool = false
@@ -16,25 +17,27 @@ component Chip {
 
   /* Colors */
   property color : String = ""
+
   property textColor : String = ""
   property borderColor : String = ""
 
   /* Animations */
   property animated : Bool = false
+
   property animation : String = "scaleIn"
   property animationDuration : Number = 0.3
 
   /* Events */
-  property onClick : Function(ChipClickEvent, Promise(Void)) = (event : ChipClickEvent) : Promise(Void) { Promise.never() }
-  property onClose : Function(ChipCloseEvent, Promise(Void)) = (event : ChipCloseEvent) : Promise(Void) { Promise.never() }
+  property onClick : Function(ChipClickEvent, Promise(Void)) =
+    (event : ChipClickEvent) : Promise(Void) { Promise.never() }
+
+  property onClose : Function(ChipCloseEvent, Promise(Void)) =
+    (event : ChipCloseEvent) : Promise(Void) { Promise.never() }
 
   /* Handle click */
   fun handleClick (event : Html.Event) : Promise(Void) {
     if !disabled && clickable {
-      onClick({
-        label: label,
-        variant: variant
-      })
+      onClick({ label: label, variant: variant })
     } else {
       Promise.never()
     }
@@ -49,10 +52,7 @@ component Chip {
     `
 
     if !disabled {
-      onClose({
-        label: label,
-        variant: variant
-      })
+      onClose({ label: label, variant: variant })
     } else {
       Promise.never()
     }
@@ -91,7 +91,10 @@ component Chip {
         "warning" => "background: #f59e0b; color: #fff; border-color: #f59e0b;"
         "error" => "background: #ef4444; color: #fff; border-color: #ef4444;"
         "info" => "background: #3b82f6; color: #fff; border-color: #3b82f6;"
-        "default" => "background: #f3f4f6; color: #374151; border-color: #d1d5db;"
+
+        "default" =>
+          "background: #f3f4f6; color: #374151; border-color: #d1d5db;"
+
         => "background: #f3f4f6; color: #374151; border-color: #d1d5db;"
       }
     }
@@ -181,22 +184,28 @@ component Chip {
   fun renderChipContent : Html {
     <div::chip(clickable, disabled)
       style={getSizeStyles() + getVariantColors()}
-      onClick={handleClick}>
-
+      onClick={handleClick}
+    >
       if String.isNotEmpty(avatar) {
         <img::avatarImg src={avatar} alt={label}/>
       }
 
       if String.isNotEmpty(icon) {
-        <div::iconWrapper>{icon}</div>
+        <div::iconWrapper>
+          {
+            icon
+          }
+        </div>
       }
 
-      <span>{label}</span>
+      <span>
+        {
+          label
+        }
+      </span>
 
       if closable && !disabled {
-        <button::closeButton onClick={handleClose}>
-          "×"
-        </button>
+        <button::closeButton onClick={handleClose}>"×"</button>
       }
     </div>
   }
@@ -206,7 +215,8 @@ component Chip {
       <EnterExit
         animation={animation}
         duration={animationDuration}
-        content={renderChipContent()}/>
+        content={renderChipContent()}
+      />
     } else {
       renderChipContent()
     }

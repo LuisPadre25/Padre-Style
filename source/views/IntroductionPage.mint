@@ -121,6 +121,7 @@ component IntroductionPage {
       });
     })()
     `
+
     Promise.never()
   }
 
@@ -200,9 +201,10 @@ component IntroductionPage {
     position: absolute;
     width: 100%;
     height: 100%;
-    background-image:
-      linear-gradient(rgba(25, 137, 250, 0.1) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(25, 137, 250, 0.1) 1px, transparent 1px);
+
+    background-image: linear-gradient(rgba(25, 137, 250, 0.1) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(25, 137, 250, 0.1) 1px, transparent 1px);
+
     background-size: 50px 50px;
     opacity: 0.3;
     transform: perspective(500px) rotateX(60deg) scale(2);
@@ -508,14 +510,16 @@ component IntroductionPage {
       position: absolute;
       width: 200%;
       height: 200%;
+
       background: conic-gradient(
-        from 0deg,
-        transparent 0deg,
-        rgba(25, 137, 250, 0.3) 90deg,
-        transparent 180deg,
-        rgba(7, 193, 96, 0.3) 270deg,
-        transparent 360deg
-      );
+                  from 0deg,
+                  transparent 0deg,
+                  rgba(25, 137, 250, 0.3) 90deg,
+                  transparent 180deg,
+                  rgba(7, 193, 96, 0.3) 270deg,
+                  transparent 360deg
+                  );
+
       animation: spin 10s linear infinite;
     }
   }
@@ -533,9 +537,10 @@ component IntroductionPage {
       left: 0;
       right: 0;
       bottom: 0;
-      background-image:
-        repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(255, 255, 255, 0.03) 40px, rgba(255, 255, 255, 0.03) 41px),
-        repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(255, 255, 255, 0.03) 40px, rgba(255, 255, 255, 0.03) 41px);
+
+      background-image: repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(255, 255, 255, 0.03) 40px, rgba(255, 255, 255, 0.03) 41px),
+                        repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(255, 255, 255, 0.03) 40px, rgba(255, 255, 255, 0.03) 41px);
+
       opacity: 0.5;
     }
 
@@ -626,7 +631,7 @@ component IntroductionPage {
 
   fun render : Html {
     <div::container>
-      <canvas::cursorTrail id="cursor-trail"></canvas>
+      <canvas::cursorTrail id="cursor-trail"/>
 
       <section::hero>
         <div::heroBackground>
@@ -640,9 +645,7 @@ component IntroductionPage {
           <div::badge class="animate-on-scroll">"KINETIC UI"</div>
 
           <div class="animate-on-scroll">
-            <Heading level="1" margin="0">
-              "Mint Wū"
-            </Heading>
+            <Heading level="1" margin="0">"Mint Wū"</Heading>
           </div>
 
           <div class="animate-on-scroll">
@@ -653,8 +656,13 @@ component IntroductionPage {
           </div>
 
           <div::ctaGroup>
-            <button::magneticBtn::primaryBtn class="magnetic-btn">"Start Creating"</button>
-            <button::magneticBtn::secondaryBtn class="magnetic-btn">"View Showcase"</button>
+            <button::magneticBtn::primaryBtn class="magnetic-btn">
+              "Start Creating"
+            </button>
+
+            <button::magneticBtn::secondaryBtn class="magnetic-btn">
+              "View Showcase"
+            </button>
           </div>
         </div>
       </section>
@@ -662,6 +670,7 @@ component IntroductionPage {
       <div::featuresSection>
         <div::sectionHeader class="animate-on-scroll">
           <Heading level="2" margin="0 0 16px">"Built for Motion"</Heading>
+
           <Text size="base" margin="0 0 32px">
             "Every interaction designed to feel natural, responsive, and delightful"
           </Text>
@@ -671,6 +680,7 @@ component IntroductionPage {
           <div::featureCard class="animate-on-scroll">
             <span::featureIcon>"⚡"</span>
             <Heading level="3" margin="0 0 8px">"Lightning Fast"</Heading>
+
             <Text size="sm" margin="0">
               "60fps animations powered by GPU acceleration. Smooth performance even on low-end devices."
             </Text>
@@ -679,6 +689,7 @@ component IntroductionPage {
           <div::featureCard class="animate-on-scroll">
             <span::featureIcon>"🎨"</span>
             <Heading level="3" margin="0 0 8px">"Gesture Based"</Heading>
+
             <Text size="sm" margin="0">
               "Natural touch interactions with spring physics and momentum scrolling built-in."
             </Text>
@@ -687,6 +698,7 @@ component IntroductionPage {
           <div::featureCard class="animate-on-scroll">
             <span::featureIcon>"🎯"</span>
             <Heading level="3" margin="0 0 8px">"Layout Aware"</Heading>
+
             <Text size="sm" margin="0">
               "Automatic layout animations when elements resize, reorder, or change position."
             </Text>
@@ -695,6 +707,7 @@ component IntroductionPage {
           <div::featureCard class="animate-on-scroll">
             <span::featureIcon>"🔮"</span>
             <Heading level="3" margin="0 0 8px">"Scroll Magic"</Heading>
+
             <Text size="sm" margin="0">
               "Parallax, reveal, and scroll-driven animations with precise control and easing."
             </Text>
@@ -703,6 +716,7 @@ component IntroductionPage {
           <div::featureCard class="animate-on-scroll">
             <span::featureIcon>"✨"</span>
             <Heading level="3" margin="0 0 8px">"Micro-interactions"</Heading>
+
             <Text size="sm" margin="0">
               "Delightful details like magnetic buttons, ripple effects, and hover transformations."
             </Text>
@@ -711,6 +725,7 @@ component IntroductionPage {
           <div::featureCard class="animate-on-scroll">
             <span::featureIcon>"🚀"</span>
             <Heading level="3" margin="0 0 8px">"Page Transitions"</Heading>
+
             <Text size="sm" margin="0">
               "Seamless route transitions with shared element animations and custom easing."
             </Text>
@@ -722,11 +737,15 @@ component IntroductionPage {
         <div::showcaseGrid>
           <div::showcaseContent class="animate-on-scroll">
             <Heading level="2" margin="0 0 20px">"Interactive By Default"</Heading>
+
             <Text size="base" margin="0">
               "Every component responds to your cursor, touch, and scroll. "
               "Built with spring physics for natural motion that feels alive."
             </Text>
-            <button::magneticBtn::primaryBtn class="magnetic-btn">"Explore Components"</button>
+
+            <button::magneticBtn::primaryBtn class="magnetic-btn">
+              "Explore Components"
+            </button>
           </div>
 
           <div::showcaseVisual class="animate-on-scroll">
@@ -741,14 +760,17 @@ component IntroductionPage {
             <div::statNumber>"50+"</div>
             <div::statLabel>"Components"</div>
           </div>
+
           <div::statCard class="animate-on-scroll">
             <div::statNumber>"60fps"</div>
             <div::statLabel>"Performance"</div>
           </div>
+
           <div::statCard class="animate-on-scroll">
             <div::statNumber>"100%"</div>
             <div::statLabel>"Animated"</div>
           </div>
+
           <div::statCard class="animate-on-scroll">
             <div::statNumber>"∞"</div>
             <div::statLabel>"Possibilities"</div>
@@ -760,14 +782,21 @@ component IntroductionPage {
         <div class="animate-on-scroll">
           <Heading level="2" margin="0 0 20px">"Ready to Create Magic?"</Heading>
         </div>
+
         <div class="animate-on-scroll">
           <Text size="lg" margin="0 0 32px">
             "Start building beautiful, animated interfaces today"
           </Text>
         </div>
+
         <div::ctaGroup>
-          <button::magneticBtn::primaryBtn class="magnetic-btn">"Get Started Free"</button>
-          <button::magneticBtn::secondaryBtn class="magnetic-btn">"Browse Documentation"</button>
+          <button::magneticBtn::primaryBtn class="magnetic-btn">
+            "Get Started Free"
+          </button>
+
+          <button::magneticBtn::secondaryBtn class="magnetic-btn">
+            "Browse Documentation"
+          </button>
         </div>
       </div>
     </div>

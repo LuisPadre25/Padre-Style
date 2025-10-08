@@ -1,8 +1,8 @@
 /* Text - Typography component for body text */
-
 component Text {
   /* Properties */
   property children : Array(Html) = []
+
   property size : String = "base"
   property color : String = ""
   property weight : String = "400"

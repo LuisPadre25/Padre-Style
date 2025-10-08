@@ -1,8 +1,8 @@
-/* QR Code Encoder
+/*
+QR Code Encoder
  * Pure Mint Lang implementation of QR Code standard
  * Generates REAL scannable QR codes
- */
-
+*/
 module QREncoder {
   // Generate QR Code as 2D matrix
   fun generate (text : String, errorCorrection : String) : String {

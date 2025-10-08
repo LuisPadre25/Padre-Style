@@ -1,5 +1,4 @@
 /* DialogStore - Global state management for Dialog system */
-
 store DialogStore {
   state isOpen : Bool = false
   state options : DialogOptions = DialogDefaults.DEFAULT_OPTIONS

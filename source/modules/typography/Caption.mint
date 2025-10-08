@@ -1,8 +1,8 @@
 /* Caption - Typography component for small text and captions */
-
 component Caption {
   /* Properties */
   property children : Array(Html) = []
+
   property color : String = ""
   property weight : String = "400"
   property align : String = "left"

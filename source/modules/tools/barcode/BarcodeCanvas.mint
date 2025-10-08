@@ -64,7 +64,9 @@ component BarcodeCanvas {
       <canvas::canvas data-barcode-canvas="true"/>
 
       <div::textLabel>
-        {barcodeText}
+        {
+          barcodeText
+        }
       </div>
     </div>
   }

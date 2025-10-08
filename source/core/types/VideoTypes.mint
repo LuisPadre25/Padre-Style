@@ -1,5 +1,4 @@
 /* Video Player Types */
-
 type CaptionTrack {
   label : String,
   src : String,

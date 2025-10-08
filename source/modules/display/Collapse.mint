@@ -1,22 +1,30 @@
-/* Collapse - Professional collapsible panels component
+/*
+Collapse - Professional collapsible panels component
  * Features: Accordion mode, Dynamic items, Animations, Form integration
  * Mobile-first responsive design
- */
-
+*/
 component Collapse {
   /* Properties */
   property items : Array(CollapseItem) = []
+
   property active : Array(String) = []
   property accordion : Bool = false
   property border : Bool = true
   property animated : Bool = true
   property animationDuration : Number = 0.3
-  property width : String = "100%"  // "auto", "100%", "500px", etc.
-  property minWidth : String = "420px"  // Minimum width
+  property width : String = "100%"
+
+  // "auto", "100%", "500px", etc.
+  property minWidth : String = "420px"
+
+  // Minimum width
 
   /* Events */
-  property onChange : Function(CollapseChangeEvent, Promise(Void)) = (event : CollapseChangeEvent) : Promise(Void) { Promise.never() }
-  property onRemove : Function(CollapseRemoveEvent, Promise(Void)) = (event : CollapseRemoveEvent) : Promise(Void) { Promise.never() }
+  property onChange : Function(CollapseChangeEvent, Promise(Void)) =
+    (event : CollapseChangeEvent) : Promise(Void) { Promise.never() }
+
+  property onRemove : Function(CollapseRemoveEvent, Promise(Void)) =
+    (event : CollapseRemoveEvent) : Promise(Void) { Promise.never() }
 
   /* State */
   state activeItems : Array(String) = []
@@ -52,11 +60,7 @@ component Collapse {
       /* Currently active - close it */
       if accordion {
         next { activeItems: [] }
-        onChange({
-          name: item.name,
-          active: [],
-          expanded: false
-        })
+        onChange({ name: item.name, active: [], expanded: false })
       } else {
         `
         (() => {
@@ -76,22 +80,14 @@ component Collapse {
         })()
         `
         |> (newActive : Array(String)) : Promise(Void) {
-          onChange({
-            name: item.name,
-            active: newActive,
-            expanded: false
-          })
+          onChange({ name: item.name, active: newActive, expanded: false })
         }
       }
     } else {
       /* Not active - open it */
       if accordion {
         next { activeItems: [item.name] }
-        onChange({
-          name: item.name,
-          active: [item.name],
-          expanded: true
-        })
+        onChange({ name: item.name, active: [item.name], expanded: true })
       } else {
         `
         (() => {
@@ -111,28 +107,25 @@ component Collapse {
         })()
         `
         |> (newActive : Array(String)) : Promise(Void) {
-          onChange({
-            name: item.name,
-            active: newActive,
-            expanded: true
-          })
+          onChange({ name: item.name, active: newActive, expanded: true })
         }
       }
     }
   }
 
   /* Remove item */
-  fun handleRemove (item : CollapseItem, index : Number, event : Html.Event) : Promise(Void) {
+  fun handleRemove (
+    item : CollapseItem,
+    index : Number,
+    event : Html.Event
+  ) : Promise(Void) {
     `
     (() => {
       #{event}.stopPropagation();
     })()
     `
 
-    onRemove({
-      name: item.name,
-      index: index
-    })
+    onRemove({ name: item.name, index: index })
   }
 
   /* Styles */
@@ -189,7 +182,9 @@ component Collapse {
       cursor: not-allowed;
       opacity: 0.4;
       background: #fafafa;
-    } else {
+    }
+
+    else {
       &:hover {
         background: #fafafa;
       }
@@ -325,7 +320,8 @@ component Collapse {
     box-sizing: border-box;
 
     if animated {
-      transition: max-height #{Number.toString(animationDuration)}s cubic-bezier(0.4, 0, 0.2, 1), opacity #{Number.toString(animationDuration)}s ease;
+      transition: max-height #{Number.toString(animationDuration)}s cubic-bezier(0.4, 0, 0.2, 1), opacity #{Number.toString(
+        animationDuration)}s ease;
     } else {
       transition: none;
     }
@@ -363,12 +359,16 @@ component Collapse {
       for item, index of items {
         <div::item(shouldShowBorder(index)) key={item.name}>
           <div::header(isActive(item.name), item.disabled)
-            onClick={(event : Html.Event) { handleToggle(item, index) }}>
-
+            onClick={(event : Html.Event) { handleToggle(item, index) }}
+          >
             <div::headerLeft>
               <div::chevron(isActive(item.name), item.disabled)/>
 
-              <div::title(isActive(item.name), item.disabled)>{item.title}</div>
+              <div::title(isActive(item.name), item.disabled)>
+                {
+                  item.title
+                }
+              </div>
             </div>
 
             <div::headerRight>
@@ -383,16 +383,18 @@ component Collapse {
                   variant="primary"
                   size="small"
                   standalone={true}
-                  text={item.badge}/>
+                  text={item.badge}
+                />
               } else {
                 <></>
               }
 
               if item.removable {
                 <button::removeButton
-                  onClick={(event : Html.Event) { handleRemove(item, index, event) }}>
-                  "×"
-                </button>
+                  onClick={
+                    (event : Html.Event) { handleRemove(item, index, event) }
+                  }
+                >"×"</button>
               } else {
                 <></>
               }
@@ -401,7 +403,9 @@ component Collapse {
 
           <div::contentWrapper(isActive(item.name))>
             <div::content>
-              {item.content}
+              {
+                item.content
+              }
             </div>
           </div>
         </div>

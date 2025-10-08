@@ -1,8 +1,7 @@
 /* Mint Syntax Highlighter */
 module MintPure {
   fun highlightMint (code : String) : String {
-    HighlightEngine.highlightMultiLine(
-      code,
+    HighlightEngine.highlightMultiLine(code,
       [
         "module",
         "component",
@@ -33,19 +32,18 @@ module MintPure {
         "subscription",
         "sequence"
       ],
-      [
-        "String",
-        "Number",
-        "Bool",
-        "Array",
-        "Maybe",
-        "Result",
-        "Promise",
-        "Html",
-        "Void",
-        "Time",
-        "Tuple"
-      ]
-    )
+        [
+          "String",
+          "Number",
+          "Bool",
+          "Array",
+          "Maybe",
+          "Result",
+          "Promise",
+          "Html",
+          "Void",
+          "Time",
+          "Tuple"
+        ])
   }
 }

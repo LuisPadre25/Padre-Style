@@ -28,7 +28,8 @@ module CodeExamples {
       },
       {
         title: "vCard Contact",
-        content: "BEGIN:VCARD\\nVERSION:3.0\\nFN:John Doe\\nTEL:+1234567890\\nEMAIL:john@example.com\\nEND:VCARD",
+        content:
+          "BEGIN:VCARD\\nVERSION:3.0\\nFN:John Doe\\nTEL:+1234567890\\nEMAIL:john@example.com\\nEND:VCARD",
         description: "Escanea para agregar contacto a tu teléfono"
       },
       {
@@ -38,7 +39,8 @@ module CodeExamples {
       },
       {
         title: "Event Calendar",
-        content: "BEGIN:VEVENT\\nSUMMARY:Mint Lang Workshop\\nDTSTART:20250201T100000\\nDTEND:20250201T120000\\nEND:VEVENT",
+        content:
+          "BEGIN:VEVENT\\nSUMMARY:Mint Lang Workshop\\nDTSTART:20250201T100000\\nDTEND:20250201T120000\\nEND:VEVENT",
         description: "Escanea para agregar evento al calendario"
       },
       {
@@ -58,7 +60,8 @@ module CodeExamples {
       },
       {
         title: "JSON Data",
-        content: "{\\\"name\\\":\\\"Mint Lang\\\",\\\"type\\\":\\\"Programming Language\\\",\\\"year\\\":2025}",
+        content:
+          "{\\\"name\\\":\\\"Mint Lang\\\",\\\"type\\\":\\\"Programming Language\\\",\\\"year\\\":2025}",
         description: "Escanea para obtener datos JSON estructurados"
       }
     ]

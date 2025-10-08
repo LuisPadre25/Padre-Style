@@ -1,22 +1,24 @@
 /* ComponentShowcase - Reusable component documentation showcase */
-
 component ComponentShowcase {
   connect ViewModeStore exposing { viewMode }
   connect ThemeStore exposing { theme }
 
   /* Props */
   property title : String = "Component"
+
   property description : String = ""
   property badge : String = "Component"
 
   /* Preview content */
   property previewHeader : Html = Html.empty()
+
   property previewContent : Html = Html.empty()
   property controlsContent : Html = Html.empty()
   property hideSimulator : Bool = false
 
   /* Documentation */
   property usageText : String = ""
+
   property usageCode : CodeSnippet = { code: "", language: "mint" }
   property codeExamples : Array(UsageExample) = []
   property apiProperties : Array(ApiProperty) = []
@@ -25,15 +27,20 @@ component ComponentShowcase {
   property methods : Array(ApiProperty) = []
   property slots : Array(ApiProperty) = []
 
+  /* Custom content for additional tabs */
+  property iconsContent : Html = Html.empty()
+
   /* Tabs configuration */
   property enabledTabs : Array(String) = ["preview", "usage", "api"]
 
   /* Simulator customization */
   property mobileTitle : String = ""
+
   property desktopUrl : String = "localhost:3000"
 
   /* State */
   state activeTab : String = "preview"
+
   state modalOpen : Bool = false
   state activeExampleIndex : Number = -1
 
@@ -44,6 +51,22 @@ component ComponentShowcase {
         {
           name: "preview",
           title: "Preview",
+          disabled: false,
+          dot: false,
+          badge: "",
+          titleStyle: "",
+          icon: "",
+          content: "",
+          badgeVariant: "",
+          badgeSize: "",
+          badgeColor: "",
+          dotStatus: "",
+          dotSize: "",
+          dotAnimation: ""
+        },
+        {
+          name: "icons",
+          title: "Icons",
           disabled: false,
           dot: false,
           badge: "",
@@ -92,7 +115,8 @@ component ComponentShowcase {
       ]
 
     allTabs
-    |> Array.select((tab : TabItem) : Bool { Array.contains(enabledTabs, tab.name) })
+    |> Array.select(
+      (tab : TabItem) : Bool { Array.contains(enabledTabs, tab.name) })
   }
 
   /* Tab change handler */
@@ -147,21 +171,35 @@ component ComponentShowcase {
     <div::codeSection>
       <div::codeHeader>
         <div>
-          <h3::codeTitle>{example.title}</h3>
+          <h3::codeTitle>
+            {
+              example.title
+            }
+          </h3>
+
           if !String.isEmpty(example.description) {
-            <p::exampleDescription>{example.description}</p>
+            <p::exampleDescription>
+              {
+                example.description
+              }
+            </p>
           } else {
             <></>
           }
         </div>
-        <button::previewButton onClick={(event : Html.Event) : Promise(Void) { openExampleModal(index) }}>
-          "👁️ Preview"
-        </button>
+
+        <button::previewButton
+          onClick={
+            (event : Html.Event) : Promise(Void) { openExampleModal(index) }
+          }
+        >"👁️ Preview"</button>
       </div>
+
       <CodeBlock
         code={example.snippet.code}
         language={example.snippet.language}
-        showCopyButton={true}/>
+        showCopyButton={true}
+      />
     </div>
   }
 
@@ -560,7 +598,6 @@ component ComponentShowcase {
     }
   }
 
-
   style table {
     width: 100%;
     border-collapse: collapse;
@@ -767,13 +804,22 @@ component ComponentShowcase {
     <div::container>
       <div::titleContainer>
         <Heading level="1" margin="0">
-          {title}
+          {
+            title
+          }
         </Heading>
-        <span::badge>{badge}</span>
+
+        <span::badge>
+          {
+            badge
+          }
+        </span>
       </div>
 
       <Text size="base" margin="0 0 30px">
-        {description}
+        {
+          description
+        }
       </Text>
 
       /* Tab Navigation */
@@ -788,68 +834,84 @@ component ComponentShowcase {
         lineWidth="60px"
         lineHeight="3px"
         duration={200}
-        onChange={handleTabChange}/>
+        onChange={handleTabChange}
+      />
 
       /* Tab Content */
       if activeTab == "preview" {
         <div>
           /* Preview Header (optional content before simulator) */
-          {previewHeader}
+          {
+            previewHeader
+          }
 
           if hideSimulator {
             /* No simulator - direct preview */
             <div::playgroundSection>
               <div::previewArea>
-                {previewContent}
+                {
+                  previewContent
+                }
               </div>
+
               <div::controlsCard>
-                {controlsContent}
+                {
+                  controlsContent
+                }
               </div>
             </div>
           } else {
             <div::playgroundSection>
               /* Viewport Indicator */
               <div::viewportIndicator>
-                {ViewModeStore.getViewportLabel()}
+                {
+                  ViewModeStore.getViewportLabel()
+                }
               </div>
 
               /* Mobile/Tablet/Desktop Simulator */
               if viewMode == "mobile" {
                 <div::mobileTabletLayout>
                   <div::simulatorFrame>
-                    <div::simulatorNotch>
-                      <div::simulatorSpeaker/>
-                    </div>
+                    <div::simulatorNotch><div::simulatorSpeaker/></div>
+
                     <div::simulatorScreen>
                       /* Preview Area - Only preview, no controls */
                       <div::previewArea>
-                        {previewContent}
+                        {
+                          previewContent
+                        }
                       </div>
                     </div>
                   </div>
 
                   /* Controls OUTSIDE simulator */
                   <div::externalControlsCard>
-                    {controlsContent}
+                    {
+                      controlsContent
+                    }
                   </div>
                 </div>
               } else if viewMode == "tablet" {
                 <div::mobileTabletLayout>
                   <div::tabletFrame>
-                    <div::simulatorNotch>
-                      <div::simulatorSpeaker/>
-                    </div>
+                    <div::simulatorNotch><div::simulatorSpeaker/></div>
+
                     <div::simulatorScreen::tabletScreen>
                       /* Preview Area - Only preview, no controls */
                       <div::previewArea>
-                        {previewContent}
+                        {
+                          previewContent
+                        }
                       </div>
                     </div>
                   </div>
 
                   /* Controls OUTSIDE simulator */
                   <div::externalControlsCard>
-                    {controlsContent}
+                    {
+                      controlsContent
+                    }
                   </div>
                 </div>
               } else {
@@ -859,6 +921,7 @@ component ComponentShowcase {
                     <div::browserDot::dotRed/>
                     <div::browserDot::dotYellow/>
                     <div::browserDot::dotGreen/>
+
                     <div::addressBar>
                       "🔒 " + if String.isEmpty(desktopUrl) {
                         "localhost:3000"
@@ -871,12 +934,16 @@ component ComponentShowcase {
                   <div::simulatorScreen::desktopScreen>
                     /* LEFT: Preview Area */
                     <div::desktopPreviewArea>
-                      {previewContent}
+                      {
+                        previewContent
+                      }
                     </div>
 
                     /* RIGHT: Controls */
                     <div::desktopControlsCard>
-                      {controlsContent}
+                      {
+                        controlsContent
+                      }
                     </div>
                   </div>
                 </div>
@@ -889,8 +956,11 @@ component ComponentShowcase {
           if !String.isEmpty(usageText) {
             <div::docCard>
               <Heading level="3" margin="0 0 16px">"Usage"</Heading>
+
               <Text size="base" margin="0">
-                {usageText}
+                {
+                  usageText
+                }
               </Text>
             </div>
           } else {
@@ -902,14 +972,14 @@ component ComponentShowcase {
             <div::codeSection>
               <div::codeHeader>
                 <h3::codeTitle>"Code Example"</h3>
-                <button::previewButton onClick={openModal}>
-                  "👁️ Preview"
-                </button>
+                <button::previewButton onClick={openModal}>"👁️ Preview"</button>
               </div>
+
               <CodeBlock
                 code={usageCode.code}
                 language={usageCode.language}
-                showCopyButton={true}/>
+                showCopyButton={true}
+              />
             </div>
           } else {
             <></>
@@ -917,12 +987,15 @@ component ComponentShowcase {
 
           /* Multiple code examples */
           {
-            Array.mapWithIndex(
-              codeExamples,
-              (example : UsageExample, index : Number) : Html { renderCodeExample(example, index) })
+            Array.mapWithIndex(codeExamples,
+              (example : UsageExample, index : Number) : Html {
+                renderCodeExample(example, index)
+              })
           }
 
-          {additionalDocs}
+          {
+            additionalDocs
+          }
         </div>
       } else if activeTab == "api" {
         <div>
@@ -930,6 +1003,7 @@ component ComponentShowcase {
           if !Array.isEmpty(apiProperties) {
             <div::docCard>
               <Heading level="3" margin="0 0 16px">"Props"</Heading>
+
               <table::table>
                 <thead>
                   <tr>
@@ -939,13 +1013,35 @@ component ComponentShowcase {
                     <th::tableHeader>"Default"</th>
                   </tr>
                 </thead>
+
                 <tbody>
                   for prop of apiProperties {
                     <tr>
-                      <td::tableCell><code::codeInline>{prop.name}</code></td>
-                      <td::tableCell>{prop.description}</td>
-                      <td::tableCell>{prop.type}</td>
-                      <td::tableCell>{prop.defaultValue}</td>
+                      <td::tableCell>
+                        <code::codeInline>
+                          {
+                            prop.name
+                          }
+                        </code>
+                      </td>
+
+                      <td::tableCell>
+                        {
+                          prop.description
+                        }
+                      </td>
+
+                      <td::tableCell>
+                        {
+                          prop.type
+                        }
+                      </td>
+
+                      <td::tableCell>
+                        {
+                          prop.defaultValue
+                        }
+                      </td>
                     </tr>
                   }
                 </tbody>
@@ -959,6 +1055,7 @@ component ComponentShowcase {
           if !Array.isEmpty(events) {
             <div::docCard>
               <Heading level="3" margin="0 0 16px">"Events"</Heading>
+
               <table::table>
                 <thead>
                   <tr>
@@ -968,13 +1065,35 @@ component ComponentShowcase {
                     <th::tableHeader>"Type"</th>
                   </tr>
                 </thead>
+
                 <tbody>
                   for event of events {
                     <tr>
-                      <td::tableCell><code::codeInline>{event.name}</code></td>
-                      <td::tableCell>{event.description}</td>
-                      <td::tableCell>{event.type}</td>
-                      <td::tableCell>{event.defaultValue}</td>
+                      <td::tableCell>
+                        <code::codeInline>
+                          {
+                            event.name
+                          }
+                        </code>
+                      </td>
+
+                      <td::tableCell>
+                        {
+                          event.description
+                        }
+                      </td>
+
+                      <td::tableCell>
+                        {
+                          event.type
+                        }
+                      </td>
+
+                      <td::tableCell>
+                        {
+                          event.defaultValue
+                        }
+                      </td>
                     </tr>
                   }
                 </tbody>
@@ -988,6 +1107,7 @@ component ComponentShowcase {
           if !Array.isEmpty(methods) {
             <div::docCard>
               <Heading level="3" margin="0 0 16px">"Methods"</Heading>
+
               <table::table>
                 <thead>
                   <tr>
@@ -997,13 +1117,35 @@ component ComponentShowcase {
                     <th::tableHeader>"Returns"</th>
                   </tr>
                 </thead>
+
                 <tbody>
                   for method of methods {
                     <tr>
-                      <td::tableCell><code::codeInline>{method.name}</code></td>
-                      <td::tableCell>{method.description}</td>
-                      <td::tableCell>{method.type}</td>
-                      <td::tableCell>{method.defaultValue}</td>
+                      <td::tableCell>
+                        <code::codeInline>
+                          {
+                            method.name
+                          }
+                        </code>
+                      </td>
+
+                      <td::tableCell>
+                        {
+                          method.description
+                        }
+                      </td>
+
+                      <td::tableCell>
+                        {
+                          method.type
+                        }
+                      </td>
+
+                      <td::tableCell>
+                        {
+                          method.defaultValue
+                        }
+                      </td>
                     </tr>
                   }
                 </tbody>
@@ -1017,6 +1159,7 @@ component ComponentShowcase {
           if !Array.isEmpty(slots) {
             <div::docCard>
               <Heading level="3" margin="0 0 16px">"Slots"</Heading>
+
               <table::table>
                 <thead>
                   <tr>
@@ -1026,13 +1169,35 @@ component ComponentShowcase {
                     <th::tableHeader>"Default"</th>
                   </tr>
                 </thead>
+
                 <tbody>
                   for slot of slots {
                     <tr>
-                      <td::tableCell><code::codeInline>{slot.name}</code></td>
-                      <td::tableCell>{slot.description}</td>
-                      <td::tableCell>{slot.type}</td>
-                      <td::tableCell>{slot.defaultValue}</td>
+                      <td::tableCell>
+                        <code::codeInline>
+                          {
+                            slot.name
+                          }
+                        </code>
+                      </td>
+
+                      <td::tableCell>
+                        {
+                          slot.description
+                        }
+                      </td>
+
+                      <td::tableCell>
+                        {
+                          slot.type
+                        }
+                      </td>
+
+                      <td::tableCell>
+                        {
+                          slot.defaultValue
+                        }
+                      </td>
                     </tr>
                   }
                 </tbody>
@@ -1042,11 +1207,21 @@ component ComponentShowcase {
             <></>
           }
 
-          {additionalDocs}
+          {
+            additionalDocs
+          }
+        </div>
+      } else if activeTab == "icons" {
+        <div>
+          {
+            iconsContent
+          }
         </div>
       } else {
         <div>
-          {additionalDocs}
+          {
+            additionalDocs
+          }
         </div>
       }
 
@@ -1055,18 +1230,19 @@ component ComponentShowcase {
         <div::modalOverlay onClick={closeModal}>
           <div::modalContent onClick={stopPropagation}>
             <div::modalHeader>
-              <h3::modalTitle>
-                "👁️ Live Preview"
-              </h3>
-              <button::modalCloseButton onClick={closeModal}>
-                "×"
-              </button>
+              <h3::modalTitle>"👁️ Live Preview"</h3>
+              <button::modalCloseButton onClick={closeModal}>"×"</button>
             </div>
+
             <div::modalBody>
               /* Simple preview without simulator - just the component */
               <div::playgroundSection>
-                <div style="background: linear-gradient(135deg, #f5f7fa 0%, #e4e9f2 100%); padding: 40px; border-radius: 16px; display: flex; align-items: center; justify-content: center; min-height: 400px;">
-                  {getModalPreviewContent()}
+                <div
+                  style="background: linear-gradient(135deg, #f5f7fa 0%, #e4e9f2 100%); padding: 40px; border-radius: 16px; display: flex; align-items: center; justify-content: center; min-height: 400px;"
+                >
+                  {
+                    getModalPreviewContent()
+                  }
                 </div>
               </div>
             </div>

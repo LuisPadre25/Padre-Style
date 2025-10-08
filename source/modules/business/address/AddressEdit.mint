@@ -1,15 +1,16 @@
 component AddressEdit {
   /* Properties */
-  property addressInfo : AddressEditInfo = {
-    name: "",
-    tel: "",
-    province: "",
-    city: "",
-    county: "",
-    addressDetail: "",
-    areaCode: "",
-    isDefault: false
-  }
+  property addressInfo : AddressEditInfo =
+    {
+      name: "",
+      tel: "",
+      province: "",
+      city: "",
+      county: "",
+      addressDetail: "",
+      areaCode: "",
+      isDefault: false
+    }
 
   property searchResult : Array(AddressEditSearchItem) = []
   property showDelete : Bool = false
@@ -29,21 +30,42 @@ component AddressEdit {
   property namePlaceholder : String = "Name"
   property telPlaceholder : String = "Phone"
   property detailPlaceholder : String = "Detailed Address"
-  property onSave : Function(AddressEditInfo, Promise(Void)) = (info : AddressEditInfo) { Promise.resolve(void) }
-  property onDelete : Function(AddressEditInfo, Promise(Void)) = (info : AddressEditInfo) { Promise.resolve(void) }
-  property onChange : Function(String, String, Promise(Void)) = (key : String, value : String) { Promise.resolve(void) }
-  property onChangeDetail : Function(String, Promise(Void)) = (value : String) { Promise.resolve(void) }
-  property onChangeDefault : Function(Bool, Promise(Void)) = (checked : Bool) { Promise.resolve(void) }
-  property onSelectSearch : Function(AddressEditSearchItem, Promise(Void)) = (item : AddressEditSearchItem) { Promise.resolve(void) }
-  property onFocus : Function(String, Promise(Void)) = (key : String) { Promise.resolve(void) }
+
+  property onSave : Function(AddressEditInfo, Promise(Void)) =
+    (info : AddressEditInfo) { Promise.resolve(void) }
+
+  property onDelete : Function(AddressEditInfo, Promise(Void)) =
+    (info : AddressEditInfo) { Promise.resolve(void) }
+
+  property onChange : Function(String, String, Promise(Void)) =
+    (key : String, value : String) { Promise.resolve(void) }
+
+  property onChangeDetail : Function(String, Promise(Void)) =
+    (value : String) { Promise.resolve(void) }
+
+  property onChangeDefault : Function(Bool, Promise(Void)) =
+    (checked : Bool) { Promise.resolve(void) }
+
+  property onSelectSearch : Function(AddressEditSearchItem, Promise(Void)) =
+    (item : AddressEditSearchItem) { Promise.resolve(void) }
+
+  property onFocus : Function(String, Promise(Void)) =
+    (key : String) { Promise.resolve(void) }
+
   property onClickArea : Function(Promise(Void)) = () { Promise.resolve(void) }
   property telValidator : Function(String, Bool) = (tel : String) { true }
-  property validator : Function(String, String, String) = (key : String, value : String) { "" }
+
+  property validator : Function(String, String, String) =
+    (key : String, value : String) { "" }
+
   property customContent : Html = <></>
-  property areaColumnsPlaceholder : Array(String) = ["Choose", "Choose", "Choose"]
+
+  property areaColumnsPlaceholder : Array(String) =
+    ["Choose", "Choose", "Choose"]
 
   /* State */
   state name : String = ""
+
   state tel : String = ""
   state province : String = ""
   state city : String = ""
@@ -324,26 +346,17 @@ component AddressEdit {
   }
 
   fun updateName (val : String) : Promise(Void) {
-    next {
-      name: val,
-      nameError: ""
-    }
+    next { name: val, nameError: "" }
     onChange("name", val)
   }
 
   fun updateTel (val : String) : Promise(Void) {
-    next {
-      tel: val,
-      telError: ""
-    }
+    next { tel: val, telError: "" }
     onChange("tel", val)
   }
 
   fun updateDetail (val : String) : Promise(Void) {
-    next {
-      addressDetail: val,
-      detailError: ""
-    }
+    next { addressDetail: val, detailError: "" }
     onChangeDetail(val)
   }
 
@@ -366,6 +379,7 @@ component AddressEdit {
       #{updateName(`value`)}
     })()
     `
+
     Promise.resolve(void)
   }
 
@@ -376,6 +390,7 @@ component AddressEdit {
       #{updateTel(`value`)}
     })()
     `
+
     Promise.resolve(void)
   }
 
@@ -386,6 +401,7 @@ component AddressEdit {
       #{updateDetail(`value`)}
     })()
     `
+
     Promise.resolve(void)
   }
 
@@ -396,6 +412,7 @@ component AddressEdit {
       #{updateDefaultState(`newValue`)}
     })()
     `
+
     Promise.resolve(void)
   }
 
@@ -434,12 +451,7 @@ component AddressEdit {
   }
 
   fun clearErrors : Promise(Void) {
-    next {
-      nameError: "",
-      telError: "",
-      areaError: "",
-      detailError: ""
-    }
+    next { nameError: "", telError: "", areaError: "", detailError: "" }
   }
 
   fun getCurrentInfo : AddressEditInfo {
@@ -481,6 +493,7 @@ component AddressEdit {
       }
     })()
     `
+
     Promise.resolve(void)
   }
 
@@ -510,7 +523,8 @@ component AddressEdit {
   }
 
   fun getAreaText : String {
-    if String.isNotEmpty(province) && String.isNotEmpty(city) && String.isNotEmpty(county) {
+    if String.isNotEmpty(province) && String.isNotEmpty(city) && String.isNotEmpty(
+      county) {
       province + " " + city + " " + county
     } else if String.isNotEmpty(areaCode) {
       "Selected"
@@ -527,23 +541,30 @@ component AddressEdit {
           /* Name Field */
           <div::fieldRow>
             <div::fieldLabel>"Name"</div>
+
             <div::fieldControl>
               <input::input
                 type="text"
                 value={name}
                 placeholder={namePlaceholder}
                 onFocus={handleNameFocus}
-                onChange={handleNameChange}/>
+                onChange={handleNameChange}
+              />
             </div>
           </div>
 
           if String.isNotEmpty(nameError) {
-            <div::error>{nameError}</div>
+            <div::error>
+              {
+                nameError
+              }
+            </div>
           }
 
           /* Phone Field */
           <div::fieldRow>
             <div::fieldLabel>"Phone"</div>
+
             <div::fieldControl>
               <input::input
                 type="tel"
@@ -551,32 +572,43 @@ component AddressEdit {
                 placeholder={telPlaceholder}
                 maxlength={Number.toString(telMaxlength)}
                 onFocus={handleTelFocus}
-                onChange={handleTelChange}/>
+                onChange={handleTelChange}
+              />
             </div>
           </div>
 
           if String.isNotEmpty(telError) {
-            <div::error>{telError}</div>
+            <div::error>
+              {
+                telError
+              }
+            </div>
           }
 
           /* Area Field */
           if showArea {
             <div::fieldRow onClick={handleAreaClick}>
               <div::fieldLabel>"Area"</div>
+
               <div::fieldControl>
                 <input::input
                   type="text"
                   value={getAreaText()}
                   placeholder={areaPlaceholder}
                   readonly={true}
-                  disabled={disableArea}/>
+                  disabled={disableArea}
+                />
 
                 <span::rightIcon>"›"</span>
               </div>
             </div>
 
             if String.isNotEmpty(areaError) {
-              <div::error>{areaError}</div>
+              <div::error>
+                {
+                  areaError
+                }
+              </div>
             }
           }
         </div>
@@ -585,29 +617,48 @@ component AddressEdit {
         if showDetail {
           <div::textareaWrapper>
             <div::textareaLabel>"Detailed Address"</div>
+
             <textarea::textarea
               value={addressDetail}
               placeholder={detailPlaceholder}
               rows={Number.toString(detailRows)}
               maxlength={Number.toString(detailMaxlength)}
               onFocus={handleDetailFocus}
-              onChange={handleDetailChange}/>
+              onChange={handleDetailChange}
+            />
           </div>
 
           if String.isNotEmpty(detailError) {
-            <div::error>{detailError}</div>
+            <div::error>
+              {
+                detailError
+              }
+            </div>
           }
         }
 
         /* Custom Content Slot */
-        {customContent}
+        {
+          customContent
+        }
 
         if showSearchResult && Array.size(searchResult) > 0 {
           <div::searchResults>
             for item of searchResult {
-              <div::searchItem onClick={(e : Html.Event) { handleSearchItemClick(item) }}>
-                <div::searchName>{item.name}</div>
-                <div::searchAddress>{item.address}</div>
+              <div::searchItem
+                onClick={(e : Html.Event) { handleSearchItemClick(item) }}
+              >
+                <div::searchName>
+                  {
+                    item.name
+                  }
+                </div>
+
+                <div::searchAddress>
+                  {
+                    item.address
+                  }
+                </div>
               </div>
             }
           </div>
@@ -616,6 +667,7 @@ component AddressEdit {
         if showSetDefault {
           <div::defaultSwitch>
             <span::switchLabel>"Set as the default address"</span>
+
             <div::switch
               class={
                 if isDefault {
@@ -624,8 +676,8 @@ component AddressEdit {
                   ""
                 }
               }
-              onClick={handleDefaultToggle}>
-
+              onClick={handleDefaultToggle}
+            >
               <div::switchNode
                 class={
                   if isDefault {
@@ -633,34 +685,40 @@ component AddressEdit {
                   } else {
                     ""
                   }
-                }/>
+                }
+              />
             </div>
           </div>
         }
 
         <div::buttons>
-          <button::button::saveButton
-            type="submit"
-            disabled={isSaving}>
-
+          <button::button::saveButton type="submit" disabled={isSaving}>
             if isSaving {
               <div::spinner/>
             }
 
-            <span>{saveButtonText}</span>
+            <span>
+              {
+                saveButtonText
+              }
+            </span>
           </button>
 
           if showDelete {
             <button::button::deleteButton
               type="button"
               disabled={isDeleting}
-              onClick={handleDelete}>
-
+              onClick={handleDelete}
+            >
               if isDeleting {
                 <div::spinner::spinnerDelete/>
               }
 
-              <span>{deleteButtonText}</span>
+              <span>
+                {
+                  deleteButtonText
+                }
+              </span>
             </button>
           }
         </div>

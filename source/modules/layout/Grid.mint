@@ -1,14 +1,15 @@
-/* Grid - Responsive CSS Grid Layout Component
+/*
+Grid - Responsive CSS Grid Layout Component
  * Mobile-first design with support for 12-column grid system
  * Breakpoints: mobile (default), tablet (768px), desktop (1024px), widescreen (1216px), fullhd (1408px)
- */
-
+*/
 component Grid {
   /* Content */
   property children : Array(Html) = []
 
   /* Grid Column System - Mobile First */
   property cols : String = "auto"
+
   property colsTablet : String = ""
   property colsDesktop : String = ""
   property colsWidescreen : String = ""
@@ -16,31 +17,37 @@ component Grid {
 
   /* Gap Properties */
   property gap : String = "1rem"
+
   property rowGap : String = ""
   property columnGap : String = ""
 
   /* Alignment */
   property justifyItems : String = "stretch"
+
   property alignItems : String = "stretch"
   property justifyContent : String = "start"
   property alignContent : String = "start"
 
   /* Grid Flow */
   property autoFlow : String = "row"
+
   property autoRows : String = "auto"
   property autoCols : String = "auto"
 
   /* Sizing */
   property width : String = "100%"
+
   property height : String = "auto"
   property minHeight : String = "auto"
 
   /* Spacing */
   property padding : String = "0"
+
   property margin : String = "0"
 
   /* Styling */
   property background : String = "transparent"
+
   property border : String = "none"
   property borderRadius : String = "0"
   property boxShadow : String = "none"
@@ -49,7 +56,7 @@ component Grid {
   property className : String = ""
 
   /* Handle custom column values (numbers > 12 or CSS values) */
-  fun handleCustomColumns(columns : String) : String {
+  fun handleCustomColumns (columns : String) : String {
     case Number.fromString(columns) {
       Just(num) =>
         if num > 0 {
@@ -62,10 +69,11 @@ component Grid {
     }
   }
 
-  /* Convert column count to CSS grid template
+  /*
+  Convert column count to CSS grid template
    * Supports: 0-12, auto, or any number (13+) or custom CSS value
-   */
-  fun getGridTemplate(columns : String) : String {
+  */
+  fun getGridTemplate (columns : String) : String {
     case columns {
       "auto" => "repeat(auto-fit, minmax(250px, 1fr))"
       "0" => "none"

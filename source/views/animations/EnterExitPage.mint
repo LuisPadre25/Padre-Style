@@ -1,8 +1,8 @@
 /* EnterExitPage - Showcase for EnterExit animation component using ComponentShowcase */
-
 component EnterExitPage {
   /* State for component controls */
   state selectedAnimation : String = "fadeIn"
+
   state duration : Number = 0.6
   state delay : Number = 0
   state easing : String = "ease-out"
@@ -12,10 +12,26 @@ component EnterExitPage {
   fun getAnimations : Array(AnimationItem) {
     [
       { id: "fadeIn", label: "Fade In", code: "opacity: 0 → 1" },
-      { id: "fadeInUp", label: "Fade In Up", code: "opacity: 0, translateY(30px) → opacity: 1, translateY(0)" },
-      { id: "fadeInDown", label: "Fade In Down", code: "opacity: 0, translateY(-30px) → opacity: 1, translateY(0)" },
-      { id: "slideInRight", label: "Slide In Right", code: "translateX(30px) → translateX(0)" },
-      { id: "slideInLeft", label: "Slide In Left", code: "translateX(-30px) → translateX(0)" },
+      {
+        id: "fadeInUp",
+        label: "Fade In Up",
+        code: "opacity: 0, translateY(30px) → opacity: 1, translateY(0)"
+      },
+      {
+        id: "fadeInDown",
+        label: "Fade In Down",
+        code: "opacity: 0, translateY(-30px) → opacity: 1, translateY(0)"
+      },
+      {
+        id: "slideInRight",
+        label: "Slide In Right",
+        code: "translateX(30px) → translateX(0)"
+      },
+      {
+        id: "slideInLeft",
+        label: "Slide In Left",
+        code: "translateX(-30px) → translateX(0)"
+      },
       { id: "scaleIn", label: "Scale In", code: "scale(0.9) → scale(1)" },
       { id: "zoomIn", label: "Zoom In", code: "scale(0) → scale(1)" },
       { id: "rotateIn", label: "Rotate In", code: "rotate(-180deg) → rotate(0)" }
@@ -24,11 +40,7 @@ component EnterExitPage {
 
   /* Event handlers */
   fun handleAnimationChange (animationType : String) : Promise(Void) {
-    next
-      {
-        selectedAnimation: animationType,
-        key: key + 1
-      }
+    next { selectedAnimation: animationType, key: key + 1 }
   }
 
   fun playAnimation : Promise(Void) {
@@ -36,21 +48,19 @@ component EnterExitPage {
   }
 
   fun handleDurationChange (newValue : String) : Promise(Void) {
-    next
-      {
-        duration:
-          Number.fromString(newValue)
-          |> Maybe.withDefault(0.6)
-      }
+    next {
+      duration:
+        Number.fromString(newValue)
+        |> Maybe.withDefault(0.6)
+    }
   }
 
   fun handleDelayChange (newValue : String) : Promise(Void) {
-    next
-      {
-        delay:
-          Number.fromString(newValue)
-          |> Maybe.withDefault(0)
-      }
+    next {
+      delay:
+        Number.fromString(newValue)
+        |> Maybe.withDefault(0)
+    }
   }
 
   fun handleEasingChange (newValue : String) : Promise(Void) {
@@ -65,11 +75,8 @@ component EnterExitPage {
       easing={easing}
       delay={delay}
       key={Number.toString(key)}
-      content={
-        <div::previewElement>
-          "Preview"
-        </div>
-      }/>
+      content={<div::previewElement>"Preview"</div>}
+    />
   }
 
   /* Get animation label by id */
@@ -86,54 +93,99 @@ component EnterExitPage {
       <Heading level="4" margin="0 0 12px">"Animation Controls"</Heading>
 
       <div::activeAnimationBadge>
-        "Active: " <strong>{getAnimationLabel(selectedAnimation)}</strong>
+        "Active: "
+
+        <strong>
+          {
+            getAnimationLabel(selectedAnimation)
+          }
+        </strong>
       </div>
 
       <div::controlGroup>
         <label::controlLabel>
           "Duration"
-          <span::controlValue>{Number.toString(duration) + "s"}</span>
+
+          <span::controlValue>
+            {
+              Number.toString(duration) + "s"
+            }
+          </span>
         </label>
+
         <input::slider
           type="range"
           min="0.1"
           max="3"
           step="0.1"
           value={Number.toString(duration)}
-          onInput={(event : Html.Event) : Promise(Void) { handleDurationChange(Dom.getValue(event.target)) }}/>
+          onInput={
+            (event : Html.Event) : Promise(Void) {
+              handleDurationChange(Dom.getValue(event.target))
+            }
+          }
+        />
       </div>
 
       <div::controlGroup>
         <label::controlLabel>
           "Delay"
-          <span::controlValue>{Number.toString(delay) + "s"}</span>
+
+          <span::controlValue>
+            {
+              Number.toString(delay) + "s"
+            }
+          </span>
         </label>
+
         <input::slider
           type="range"
           min="0"
           max="2"
           step="0.1"
           value={Number.toString(delay)}
-          onInput={(event : Html.Event) : Promise(Void) { handleDelayChange(Dom.getValue(event.target)) }}/>
+          onInput={
+            (event : Html.Event) : Promise(Void) {
+              handleDelayChange(Dom.getValue(event.target))
+            }
+          }
+        />
       </div>
 
       <div::controlGroup>
         <label::controlLabel>"Easing Function"</label>
-        <select::select value={easing} onChange={(event : Html.Event) : Promise(Void) { handleEasingChange(Dom.getValue(event.target)) }}>
+
+        <select::select
+          value={easing}
+          onChange={
+            (event : Html.Event) : Promise(Void) {
+              handleEasingChange(Dom.getValue(event.target))
+            }
+          }
+        >
           <option value="ease-out">"ease-out (recommended)"</option>
           <option value="ease-in">"ease-in"</option>
           <option value="ease-in-out">"ease-in-out"</option>
           <option value="linear">"linear"</option>
           <option value="cubic-bezier(0.4, 0, 0.2, 1)">"cubic-bezier: smooth"</option>
-          <option value="cubic-bezier(0.34, 1.56, 0.64, 1)">"cubic-bezier: bouncy ⭐"</option>
-          <option value="cubic-bezier(0.68, -0.55, 0.265, 1.55)">"cubic-bezier: back"</option>
-          <option value="cubic-bezier(0.175, 0.885, 0.32, 1.275)">"cubic-bezier: anticipate"</option>
+
+          <option value="cubic-bezier(0.34, 1.56, 0.64, 1)">
+            "cubic-bezier: bouncy ⭐"
+          </option>
+
+          <option value="cubic-bezier(0.68, -0.55, 0.265, 1.55)">
+            "cubic-bezier: back"
+          </option>
+
+          <option value="cubic-bezier(0.175, 0.885, 0.32, 1.275)">
+            "cubic-bezier: anticipate"
+          </option>
         </select>
       </div>
 
-      <button::playButton onClick={(event : Html.Event) : Promise(Void) { playAnimation() }}>
-        "▶ Replay Animation"
-      </button>
+      <button::playButton
+        onClick={(event : Html.Event) : Promise(Void) { playAnimation() }}
+      >"▶ Replay Animation"</button>
     </div>
   }
 
@@ -143,149 +195,111 @@ component EnterExitPage {
       {
         title: "Basic Usage",
         description: "Simple fade-in animation with default settings",
-        snippet: {
-          code: "<EnterExit\n" +
-                "  animation=\"fadeIn\"\n" +
-                "  duration={0.6}\n" +
-                "  content={\n" +
-                "    <div>\"Hello World\"</div>\n" +
-                "  }/>",
-          language: "mint"
-        },
-        previewContent: <ExamplePreviewWithReplay
-          content={
-            <EnterExit
-              animation="fadeIn"
-              duration={0.6}
-              content={
-                <div::previewElement>
-                  "Hello World"
-                </div>
-              }/>
-          }/>,
+        snippet:
+          {
+            code:
+              "<EnterExit\n" + "  animation=\"fadeIn\"\n" + "  duration={0.6}\n" + "  content={\n" + "    <div>\"Hello World\"</div>\n" + "  }/>",
+            language: "mint"
+          },
+        previewContent:
+          <ExamplePreviewWithReplay
+            content={
+              <EnterExit
+                animation="fadeIn"
+                duration={0.6}
+                content={<div::previewElement>"Hello World"</div>}
+              />
+            }
+          />,
         showReplay: true
       },
       {
         title: "With Replay Control",
         description: "Use the key prop to trigger animation replay",
-        snippet: {
-          code: "component MyPage {\n" +
-                "  state key : Number = 0\n\n" +
-                "  fun replay : Promise(Void) {\n" +
-                "    next { key: key + 1 }\n" +
-                "  }\n\n" +
-                "  fun render : Html {\n" +
-                "    <>\n" +
-                "      <EnterExit\n" +
-                "        animation=\"slideInRight\"\n" +
-                "        duration={0.6}\n" +
-                "        key={Number.toString(key)}\n" +
-                "        content={\n" +
-                "          <div>\"Your content here\"</div>\n" +
-                "        }/>\n\n" +
-                "      <button onClick={(e) { replay() }}>\"Replay\"</button>\n" +
-                "    </>\n" +
-                "  }\n" +
-                "}",
-          language: "mint"
-        },
-        previewContent: <ExamplePreviewWithReplay
-          content={
-            <EnterExit
-              animation="slideInRight"
-              duration={0.6}
-              content={
-                <div::previewElement>
-                  "Slide In Animation"
-                </div>
-              }/>
-          }/>,
+        snippet:
+          {
+            code:
+              "component MyPage {\n" + "  state key : Number = 0\n\n" + "  fun replay : Promise(Void) {\n" + "    next { key: key + 1 }\n" + "  }\n\n" + "  fun render : Html {\n" + "    <>\n" + "      <EnterExit\n" + "        animation=\"slideInRight\"\n" + "        duration={0.6}\n" + "        key={Number.toString(key)}\n" + "        content={\n" + "          <div>\"Your content here\"</div>\n" + "        }/>\n\n" + "      <button onClick={(e) { replay() }}>\"Replay\"</button>\n" + "    </>\n" + "  }\n" + "}",
+            language: "mint"
+          },
+        previewContent:
+          <ExamplePreviewWithReplay
+            content={
+              <EnterExit
+                animation="slideInRight"
+                duration={0.6}
+                content={<div::previewElement>"Slide In Animation"</div>}
+              />
+            }
+          />,
         showReplay: true
       },
       {
         title: "Advanced: Multiple Elements",
         description: "Stagger animations with different delays",
-        snippet: {
-          code: "<div>\n" +
-                "  <EnterExit\n" +
-                "    animation=\"fadeInUp\"\n" +
-                "    duration={0.5}\n" +
-                "    delay={0}\n" +
-                "    content={<h1>\"Title\"</h1>}/>\n\n" +
-                "  <EnterExit\n" +
-                "    animation=\"fadeInUp\"\n" +
-                "    duration={0.5}\n" +
-                "    delay={0.2}\n" +
-                "    content={<p>\"Subtitle\"</Text>}/>\n\n" +
-                "  <EnterExit\n" +
-                "    animation=\"fadeInUp\"\n" +
-                "    duration={0.5}\n" +
-                "    delay={0.4}\n" +
-                "    content={<button>\"Action\"</button>}/>\n" +
-                "</div>",
-          language: "mint"
-        },
-        previewContent: <ExamplePreviewWithReplay
-          content={
-            <div style="display: flex; flex-direction: column; gap: 16px; align-items: center;">
-              <EnterExit
-                animation="fadeInUp"
-                duration={0.5}
-                delay={0}
-                content={
-                  <div::previewElement style="font-size: 24px; font-weight: bold;">
-                    "Title"
-                  </div>
-                }/>
+        snippet:
+          {
+            code:
+              "<div>\n" + "  <EnterExit\n" + "    animation=\"fadeInUp\"\n" + "    duration={0.5}\n" + "    delay={0}\n" + "    content={<h1>\"Title\"</h1>}/>\n\n" + "  <EnterExit\n" + "    animation=\"fadeInUp\"\n" + "    duration={0.5}\n" + "    delay={0.2}\n" + "    content={<p>\"Subtitle\"</Text>}/>\n\n" + "  <EnterExit\n" + "    animation=\"fadeInUp\"\n" + "    duration={0.5}\n" + "    delay={0.4}\n" + "    content={<button>\"Action\"</button>}/>\n" + "</div>",
+            language: "mint"
+          },
+        previewContent:
+          <ExamplePreviewWithReplay
+            content={
+              <div
+                style="display: flex; flex-direction: column; gap: 16px; align-items: center;"
+              >
+                <EnterExit
+                  animation="fadeInUp"
+                  duration={0.5}
+                  delay={0}
+                  content={
+                    <div::previewElement
+                      style="font-size: 24px; font-weight: bold;"
+                    >"Title"</div>
+                  }
+                />
 
-              <EnterExit
-                animation="fadeInUp"
-                duration={0.5}
-                delay={0.2}
-                content={
-                  <div::previewElement style="font-size: 16px;">
-                    "Subtitle"
-                  </div>
-                }/>
+                <EnterExit
+                  animation="fadeInUp"
+                  duration={0.5}
+                  delay={0.2}
+                  content={
+                    <div::previewElement style="font-size: 16px;">"Subtitle"</div>
+                  }
+                />
 
-              <EnterExit
-                animation="fadeInUp"
-                duration={0.5}
-                delay={0.4}
-                content={
-                  <div::previewElement>
-                    "Action Button"
-                  </div>
-                }/>
-            </div>
-          }/>,
+                <EnterExit
+                  animation="fadeInUp"
+                  duration={0.5}
+                  delay={0.4}
+                  content={<div::previewElement>"Action Button"</div>}
+                />
+              </div>
+            }
+          />,
         showReplay: true
       },
       {
         title: "Custom Timing Function",
         description: "Use cubic-bezier for smooth custom easing",
-        snippet: {
-          code: "<EnterExit\n" +
-                "  animation=\"scaleIn\"\n" +
-                "  duration={0.8}\n" +
-                "  easing=\"cubic-bezier(0.34, 1.56, 0.64, 1)\"\n" +
-                "  content={\n" +
-                "    <div class=\"card\">\"Bouncy animation\"</div>\n" +
-                "  }/>",
-          language: "mint"
-        },
-        previewContent: <ExamplePreviewWithReplay
-          content={
-            <EnterExit
-              animation="scaleIn"
-              duration={0.8}
-              easing="cubic-bezier(0.34, 1.56, 0.64, 1)"
-              content={
-                <div::previewElement>
-                  "🎉 Bouncy!"
-                </div>
-              }/>
-          }/>,
+        snippet:
+          {
+            code:
+              "<EnterExit\n" + "  animation=\"scaleIn\"\n" + "  duration={0.8}\n" + "  easing=\"cubic-bezier(0.34, 1.56, 0.64, 1)\"\n" + "  content={\n" + "    <div class=\"card\">\"Bouncy animation\"</div>\n" + "  }/>",
+            language: "mint"
+          },
+        previewContent:
+          <ExamplePreviewWithReplay
+            content={
+              <EnterExit
+                animation="scaleIn"
+                duration={0.8}
+                easing="cubic-bezier(0.34, 1.56, 0.64, 1)"
+                content={<div::previewElement>"🎉 Bouncy!"</div>}
+              />
+            }
+          />,
         showReplay: true
       }
     ]
@@ -296,7 +310,8 @@ component EnterExitPage {
     [
       {
         name: "animation",
-        description: "Animation type to apply. Available: fadeIn, fadeInUp, fadeInDown, slideInRight, slideInLeft, scaleIn, zoomIn, rotateIn",
+        description:
+          "Animation type to apply. Available: fadeIn, fadeInUp, fadeInDown, slideInRight, slideInLeft, scaleIn, zoomIn, rotateIn",
         type: "String",
         defaultValue: "\"fadeIn\""
       },
@@ -308,7 +323,8 @@ component EnterExitPage {
       },
       {
         name: "easing",
-        description: "CSS timing function. Available: ease-out, ease-in, ease-in-out, linear, or any cubic-bezier()",
+        description:
+          "CSS timing function. Available: ease-out, ease-in, ease-in-out, linear, or any cubic-bezier()",
         type: "String",
         defaultValue: "\"ease-out\""
       },
@@ -326,7 +342,8 @@ component EnterExitPage {
       },
       {
         name: "key",
-        description: "Unique key to trigger re-animation. Change this value to replay the animation",
+        description:
+          "Unique key to trigger re-animation. Change this value to replay the animation",
         type: "String",
         defaultValue: "\"\""
       }
@@ -338,6 +355,7 @@ component EnterExitPage {
     <div>
       <div::docCard>
         <Heading level="3" margin="0 0 16px">"Available Animations"</Heading>
+
         <table::apiTable>
           <thead>
             <tr>
@@ -346,12 +364,29 @@ component EnterExitPage {
               <th::tableHeader>"Transform"</th>
             </tr>
           </thead>
+
           <tbody>
             for item of getAnimations() {
               <tr>
-                <td::tableCell><code::codeInline>{item.id}</code></td>
-                <td::tableCell>{item.label}</td>
-                <td::tableCell>{item.code}</td>
+                <td::tableCell>
+                  <code::codeInline>
+                    {
+                      item.id
+                    }
+                  </code>
+                </td>
+
+                <td::tableCell>
+                  {
+                    item.label
+                  }
+                </td>
+
+                <td::tableCell>
+                  {
+                    item.code
+                  }
+                </td>
               </tr>
             }
           </tbody>
@@ -360,6 +395,7 @@ component EnterExitPage {
 
       <div::docCard>
         <Heading level="3" margin="0 0 16px">"Easing Functions"</Heading>
+
         <table::apiTable>
           <thead>
             <tr>
@@ -368,22 +404,26 @@ component EnterExitPage {
               <th::tableHeader>"Best For"</th>
             </tr>
           </thead>
+
           <tbody>
             <tr>
               <td::tableCell><code::codeInline>"ease-out"</code></td>
               <td::tableCell>"Starts fast, ends slow"</td>
               <td::tableCell>"Entering elements ⭐ recommended"</td>
             </tr>
+
             <tr>
               <td::tableCell><code::codeInline>"ease-in"</code></td>
               <td::tableCell>"Starts slow, ends fast"</td>
               <td::tableCell>"Exiting elements"</td>
             </tr>
+
             <tr>
               <td::tableCell><code::codeInline>"ease-in-out"</code></td>
               <td::tableCell>"Slow start and end"</td>
               <td::tableCell>"Looping animations"</td>
             </tr>
+
             <tr>
               <td::tableCell><code::codeInline>"linear"</code></td>
               <td::tableCell>"Constant speed"</td>
@@ -395,9 +435,11 @@ component EnterExitPage {
 
       <div::docCard>
         <Heading level="3" margin="0 0 16px">"Custom Cubic-Bezier Functions"</Heading>
+
         <Text size="base" margin="0">
           "Try these pre-made cubic-bezier curves in the preview above:"
         </Text>
+
         <table::apiTable>
           <thead>
             <tr>
@@ -406,31 +448,54 @@ component EnterExitPage {
               <th::tableHeader>"Effect"</th>
             </tr>
           </thead>
+
           <tbody>
             <tr>
               <td::tableCell>"Smooth"</td>
-              <td::tableCell><code::codeInline>"cubic-bezier(0.4, 0, 0.2, 1)"</code></td>
+
+              <td::tableCell>
+                <code::codeInline>"cubic-bezier(0.4, 0, 0.2, 1)"</code>
+              </td>
+
               <td::tableCell>"Smooth acceleration"</td>
             </tr>
+
             <tr>
               <td::tableCell>"Bouncy ⭐"</td>
-              <td::tableCell><code::codeInline>"cubic-bezier(0.34, 1.56, 0.64, 1)"</code></td>
+
+              <td::tableCell>
+                <code::codeInline>"cubic-bezier(0.34, 1.56, 0.64, 1)"</code>
+              </td>
+
               <td::tableCell>"Playful bounce effect"</td>
             </tr>
+
             <tr>
               <td::tableCell>"Back"</td>
-              <td::tableCell><code::codeInline>"cubic-bezier(0.68, -0.55, 0.265, 1.55)"</code></td>
+
+              <td::tableCell>
+                <code::codeInline>"cubic-bezier(0.68, -0.55, 0.265, 1.55)"</code>
+              </td>
+
               <td::tableCell>"Goes back before moving forward"</td>
             </tr>
+
             <tr>
               <td::tableCell>"Anticipate"</td>
-              <td::tableCell><code::codeInline>"cubic-bezier(0.175, 0.885, 0.32, 1.275)"</code></td>
+
+              <td::tableCell>
+                <code::codeInline>"cubic-bezier(0.175, 0.885, 0.32, 1.275)"</code>
+              </td>
+
               <td::tableCell>"Slight overshoot at the end"</td>
             </tr>
           </tbody>
         </table>
+
         <Text size="base" margin="0">
-          "💡 Tip: Use " <code::codeInline>"cubic-bezier: bouncy"</code> " from the easing selector to see the effect in real-time!"
+          "💡 Tip: Use "
+          <code::codeInline>"cubic-bezier: bouncy"</code>
+          " from the easing selector to see the effect in real-time!"
         </Text>
       </div>
     </div>
@@ -440,6 +505,7 @@ component EnterExitPage {
   fun getPreviewHeader : Html {
     <div::animationSelectorCard>
       <Heading level="4" margin="0 0 12px">"Choose Animation Type"</Heading>
+
       <div::animationGrid>
         for item of getAnimations() {
           <div::animationCard
@@ -450,10 +516,23 @@ component EnterExitPage {
                 ""
               }
             }
-            onClick={(event : Html.Event) : Promise(Void) { handleAnimationChange(item.id) }}>
+            onClick={
+              (event : Html.Event) : Promise(Void) {
+                handleAnimationChange(item.id)
+              }
+            }
+          >
+            <div::animationCardTitle>
+              {
+                item.label
+              }
+            </div>
 
-            <div::animationCardTitle>{item.label}</div>
-            <div::animationCardCode>{item.code}</div>
+            <div::animationCardCode>
+              {
+                item.code
+              }
+            </div>
           </div>
         }
       </div>
@@ -676,6 +755,7 @@ component EnterExitPage {
       codeExamples={getCodeExamples()}
       apiProperties={getApiProperties()}
       additionalDocs={getAdditionalApiDocs()}
-      enabledTabs={["preview", "usage", "api"]}/>
+      enabledTabs={["preview", "usage", "api"]}
+    />
   }
 }

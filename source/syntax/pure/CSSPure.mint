@@ -1,8 +1,7 @@
 /* CSS Syntax Highlighter */
 module CSSPure {
   fun highlightCSS (code : String) : String {
-    HighlightEngine.highlightMultiLine(
-      code,
+    HighlightEngine.highlightMultiLine(code,
       [
         "import",
         "from",
@@ -14,37 +13,36 @@ module CSSPure {
         "not",
         "only"
       ],
-      [
-        "color",
-        "background",
-        "background-color",
-        "border",
-        "border-radius",
-        "margin",
-        "padding",
-        "width",
-        "height",
-        "display",
-        "position",
-        "top",
-        "right",
-        "bottom",
-        "left",
-        "flex",
-        "grid",
-        "font",
-        "font-size",
-        "font-weight",
-        "opacity",
-        "transform",
-        "transition",
-        "animation",
-        "animation-name",
-        "animation-duration",
-        "animation-timing-function",
-        "animation-delay",
-        "animation-fill-mode"
-      ]
-    )
+        [
+          "color",
+          "background",
+          "background-color",
+          "border",
+          "border-radius",
+          "margin",
+          "padding",
+          "width",
+          "height",
+          "display",
+          "position",
+          "top",
+          "right",
+          "bottom",
+          "left",
+          "flex",
+          "grid",
+          "font",
+          "font-size",
+          "font-weight",
+          "opacity",
+          "transform",
+          "transition",
+          "animation",
+          "animation-name",
+          "animation-duration",
+          "animation-timing-function",
+          "animation-delay",
+          "animation-fill-mode"
+        ])
   }
 }

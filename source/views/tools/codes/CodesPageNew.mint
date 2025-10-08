@@ -1,35 +1,45 @@
 /* CodesPage - QR & Barcode showcase using ComponentShowcase */
-
 component CodesPageNew {
   connect NavigationStore exposing { setPage }
   connect CodeStore exposing { qrText, qrErrorLevel, barcodeText }
 
   /* State for component controls */
-  state activeCodeType : String = "qr"  /* qr or barcode */
+  state activeCodeType : String = "qr"
+
+  /* qr or barcode */
   state selectedQRExample : Number = 0
+
   state selectedBarcodeExample : Number = 0
 
   /* QR Code examples */
   fun getQRExamples : Array(Tuple(String, String, String)) {
     [
-      { "Website URL", "https://mint-lang.com", "Simple website URL" },
-      { "Contact vCard", "BEGIN:VCARD\nFN:John Doe\nTEL:+1234567890\nEND:VCARD", "Contact information" },
-      { "WiFi Config", "WIFI:T:WPA;S:MyNetwork;P:password123;;", "WiFi credentials" },
-      { "Email", "mailto:hello@example.com", "Email address" },
-      { "SMS", "smsto:+1234567890:Hello!", "SMS message" },
-      { "Geo Location", "geo:37.7749,-122.4194", "GPS coordinates" }
+      {"Website URL", "https://mint-lang.com", "Simple website URL"},
+      {
+        "Contact vCard",
+        "BEGIN:VCARD\nFN:John Doe\nTEL:+1234567890\nEND:VCARD",
+        "Contact information"
+      },
+      {
+        "WiFi Config",
+        "WIFI:T:WPA;S:MyNetwork;P:password123;;",
+        "WiFi credentials"
+      },
+      {"Email", "mailto:hello@example.com", "Email address"},
+      {"SMS", "smsto:+1234567890:Hello!", "SMS message"},
+      {"Geo Location", "geo:37.7749,-122.4194", "GPS coordinates"}
     ]
   }
 
   /* Barcode examples */
   fun getBarcodeExamples : Array(Tuple(String, String, String)) {
     [
-      { "Product Code", "MINT-LANG-2025", "CODE128 product identifier" },
-      { "Shipping Label", "SHIP-987654321", "Shipping tracking number" },
-      { "Serial Number", "SN-ABC123XYZ", "Device serial number" },
-      { "License Plate", "CA-ABC-1234", "Vehicle plate number" },
-      { "Order ID", "ORDER-2025-001", "Order tracking code" },
-      { "Ticket Code", "TICKET-VIP-789", "Event ticket barcode" }
+      {"Product Code", "MINT-LANG-2025", "CODE128 product identifier"},
+      {"Shipping Label", "SHIP-987654321", "Shipping tracking number"},
+      {"Serial Number", "SN-ABC123XYZ", "Device serial number"},
+      {"License Plate", "CA-ABC-1234", "Vehicle plate number"},
+      {"Order ID", "ORDER-2025-001", "Order tracking code"},
+      {"Ticket Code", "TICKET-VIP-789", "Event ticket barcode"}
     ]
   }
 
@@ -87,7 +97,9 @@ component CodesPageNew {
     Array.at(getQRExamples(), index)
     |> Maybe.map(
       (example : Tuple(String, String, String)) : Promise(Void) {
-        let {title, content, description} = example
+        let {title, content, description} =
+          example
+
         CodeStore.setQrText(content)
       })
     |> Maybe.withDefault(Promise.never())
@@ -99,7 +111,9 @@ component CodesPageNew {
     Array.at(getBarcodeExamples(), index)
     |> Maybe.map(
       (example : Tuple(String, String, String)) : Promise(Void) {
-        let {title, content, description} = example
+        let {title, content, description} =
+          example
+
         CodeStore.setBarcodeText(content)
       })
     |> Maybe.withDefault(Promise.never())
@@ -157,7 +171,8 @@ component CodesPageNew {
           lineWidth="40px"
           lineHeight="3px"
           duration={200}
-          onChange={handleCodeTypeChange}/>
+          onChange={handleCodeTypeChange}
+        />
       </div>
 
       if activeCodeType == "qr" {
@@ -168,16 +183,22 @@ component CodesPageNew {
 
           <div::controlGroup>
             <div::controlLabel>"QR Code Content:"</div>
+
             <textarea::textarea
               value={qrText}
               onInput={handleQRTextChange}
               placeholder="Enter URL, text, vCard, WiFi config, etc..."
-              rows="3"/>
+              rows="3"
+            />
           </div>
 
           <div::controlGroup>
             <div::controlLabel>"Error Correction Level:"</div>
-            <select::select value={qrErrorLevel} onChange={handleErrorCorrectionChange}>
+
+            <select::select
+              value={qrErrorLevel}
+              onChange={handleErrorCorrectionChange}
+            >
               <option value="L">"L - Low (7%)"</option>
               <option value="M">"M - Medium (15%)"</option>
               <option value="Q">"Q - Quartile (25%)"</option>
@@ -192,14 +213,25 @@ component CodesPageNew {
           <div::controlGroup>
             <div::examplesList>
               {
-                Array.mapWithIndex(
-                  getQRExamples(),
+                Array.mapWithIndex(getQRExamples(),
                   (example : Tuple(String, String, String), index : Number) : Html {
-                    let {title, content, description} = example
+                    let {title, content, description} =
+                      example
 
-                    <button::exampleButton(selectedQRExample == index) onClick={(e : Html.Event) { handleQRExampleClick(index) }}>
-                      <div::exampleButtonTitle>{title}</div>
-                      <div::exampleButtonDesc>{description}</div>
+                    <button::exampleButton(selectedQRExample == index)
+                      onClick={(e : Html.Event) { handleQRExampleClick(index) }}
+                    >
+                      <div::exampleButtonTitle>
+                        {
+                          title
+                        }
+                      </div>
+
+                      <div::exampleButtonDesc>
+                        {
+                          description
+                        }
+                      </div>
                     </button>
                   })
               }
@@ -214,18 +246,22 @@ component CodesPageNew {
 
           <div::controlGroup>
             <div::controlLabel>"Barcode Content:"</div>
+
             <input::input
               type="text"
               value={barcodeText}
               onInput={handleBarcodeTextChange}
-              placeholder="Enter product code, serial number, etc..."/>
+              placeholder="Enter product code, serial number, etc..."
+            />
           </div>
 
           <div::controlGroup>
             <div::controlLabel>"Format:"</div>
+
             <select::select disabled={true}>
               <option value="CODE128">"CODE128 (Alphanumeric)"</option>
             </select>
+
             <div::formatNote>"📝 More formats coming soon"</div>
           </div>
 
@@ -236,14 +272,27 @@ component CodesPageNew {
           <div::controlGroup>
             <div::examplesList>
               {
-                Array.mapWithIndex(
-                  getBarcodeExamples(),
+                Array.mapWithIndex(getBarcodeExamples(),
                   (example : Tuple(String, String, String), index : Number) : Html {
-                    let {title, content, description} = example
+                    let {title, content, description} =
+                      example
 
-                    <button::exampleButton(selectedBarcodeExample == index) onClick={(e : Html.Event) { handleBarcodeExampleClick(index) }}>
-                      <div::exampleButtonTitle>{title}</div>
-                      <div::exampleButtonDesc>{description}</div>
+                    <button::exampleButton(selectedBarcodeExample == index)
+                      onClick={
+                        (e : Html.Event) { handleBarcodeExampleClick(index) }
+                      }
+                    >
+                      <div::exampleButtonTitle>
+                        {
+                          title
+                        }
+                      </div>
+
+                      <div::exampleButtonDesc>
+                        {
+                          description
+                        }
+                      </div>
                     </button>
                   })
               }
@@ -260,61 +309,118 @@ component CodesPageNew {
       {
         title: "Basic QR Code",
         description: "Generate a simple QR code with URL",
-        snippet: {
-          code: "<QRCode\n  data=\"https://mint-lang.com\"\n  size={200}\n  showLabel={true}\n  label=\"Visit Mint Lang\"\n/>",
-          language: "mint"
-        },
-        previewContent: <QRCode data="https://mint-lang.com" size={200} showLabel={true} label="Visit Mint Lang"/>,
+        snippet:
+          {
+            code:
+              "<QRCode\n  data=\"https://mint-lang.com\"\n  size={200}\n  showLabel={true}\n  label=\"Visit Mint Lang\"\n/>",
+            language: "mint"
+          },
+        previewContent:
+          <QRCode
+            data="https://mint-lang.com"
+            size={200}
+            showLabel={true}
+            label="Visit Mint Lang"
+          />,
         showReplay: false
       },
       {
         title: "Custom Styled QR Code",
         description: "QR code with custom colors and styling",
-        snippet: {
-          code: "<QRCode\n  data=\"https://github.com\"\n  size={250}\n  foregroundColor=\"#6e5494\"\n  backgroundColor=\"#f6f8fa\"\n  border={4}\n  errorCorrection=\"H\"\n/>",
-          language: "mint"
-        },
-        previewContent: <QRCode data="https://github.com" size={250} foregroundColor="#6e5494" backgroundColor="#f6f8fa" border={4} errorCorrection="H"/>,
+        snippet:
+          {
+            code:
+              "<QRCode\n  data=\"https://github.com\"\n  size={250}\n  foregroundColor=\"#6e5494\"\n  backgroundColor=\"#f6f8fa\"\n  border={4}\n  errorCorrection=\"H\"\n/>",
+            language: "mint"
+          },
+        previewContent:
+          <QRCode
+            data="https://github.com"
+            size={250}
+            foregroundColor="#6e5494"
+            backgroundColor="#f6f8fa"
+            border={4}
+            errorCorrection="H"
+          />,
         showReplay: false
       },
       {
         title: "Contact vCard QR",
         description: "QR code for contact information",
-        snippet: {
-          code: "<QRCode\n  data=\"BEGIN:VCARD\\nFN:John Doe\\nTEL:+1234567890\\nEMAIL:john@example.com\\nEND:VCARD\"\n  size={220}\n  showLabel={true}\n  label=\"Scan to add contact\"\n/>",
-          language: "mint"
-        },
-        previewContent: <QRCode data="BEGIN:VCARD\nFN:John Doe\nTEL:+1234567890\nEMAIL:john@example.com\nEND:VCARD" size={220} showLabel={true} label="Scan to add contact"/>,
+        snippet:
+          {
+            code:
+              "<QRCode\n  data=\"BEGIN:VCARD\\nFN:John Doe\\nTEL:+1234567890\\nEMAIL:john@example.com\\nEND:VCARD\"\n  size={220}\n  showLabel={true}\n  label=\"Scan to add contact\"\n/>",
+            language: "mint"
+          },
+        previewContent:
+          <QRCode
+            data="BEGIN:VCARD\nFN:John Doe\nTEL:+1234567890\nEMAIL:john@example.com\nEND:VCARD"
+            size={220}
+            showLabel={true}
+            label="Scan to add contact"
+          />,
         showReplay: false
       },
       {
         title: "Basic CODE128 Barcode",
         description: "Simple barcode with text display",
-        snippet: {
-          code: "<Barcode\n  data=\"MINT-LANG-2025\"\n  format=\"CODE128\"\n  width={2}\n  height={80}\n  displayValue={true}\n/>",
-          language: "mint"
-        },
-        previewContent: <Barcode data="MINT-LANG-2025" format="CODE128" width={2} height={80} displayValue={true}/>,
+        snippet:
+          {
+            code:
+              "<Barcode\n  data=\"MINT-LANG-2025\"\n  format=\"CODE128\"\n  width={2}\n  height={80}\n  displayValue={true}\n/>",
+            language: "mint"
+          },
+        previewContent:
+          <Barcode
+            data="MINT-LANG-2025"
+            format="CODE128"
+            width={2}
+            height={80}
+            displayValue={true}
+          />,
         showReplay: false
       },
       {
         title: "Shipping Label Barcode",
         description: "Larger barcode for shipping labels",
-        snippet: {
-          code: "<Barcode\n  data=\"SHIP-987654321\"\n  format=\"CODE128\"\n  width={3}\n  height={120}\n  displayValue={true}\n  fontSize={14}\n/>",
-          language: "mint"
-        },
-        previewContent: <Barcode data="SHIP-987654321" format="CODE128" width={3} height={120} displayValue={true} fontSize={14}/>,
+        snippet:
+          {
+            code:
+              "<Barcode\n  data=\"SHIP-987654321\"\n  format=\"CODE128\"\n  width={3}\n  height={120}\n  displayValue={true}\n  fontSize={14}\n/>",
+            language: "mint"
+          },
+        previewContent:
+          <Barcode
+            data="SHIP-987654321"
+            format="CODE128"
+            width={3}
+            height={120}
+            displayValue={true}
+            fontSize={14}
+          />,
         showReplay: false
       },
       {
         title: "Custom Styled Barcode",
         description: "Barcode with custom colors",
-        snippet: {
-          code: "<Barcode\n  data=\"PRODUCT-ABC123\"\n  format=\"CODE128\"\n  width={2}\n  height={100}\n  displayValue={true}\n  lineColor=\"#1989fa\"\n  background=\"#f7f8fa\"\n  margin={20}\n/>",
-          language: "mint"
-        },
-        previewContent: <Barcode data="PRODUCT-ABC123" format="CODE128" width={2} height={100} displayValue={true} lineColor="#1989fa" background="#f7f8fa" margin={20}/>,
+        snippet:
+          {
+            code:
+              "<Barcode\n  data=\"PRODUCT-ABC123\"\n  format=\"CODE128\"\n  width={2}\n  height={100}\n  displayValue={true}\n  lineColor=\"#1989fa\"\n  background=\"#f7f8fa\"\n  margin={20}\n/>",
+            language: "mint"
+          },
+        previewContent:
+          <Barcode
+            data="PRODUCT-ABC123"
+            format="CODE128"
+            width={2}
+            height={100}
+            displayValue={true}
+            lineColor="#1989fa"
+            background="#f7f8fa"
+            margin={20}
+          />,
         showReplay: false
       }
     ]
@@ -323,29 +429,114 @@ component CodesPageNew {
   /* API Properties for QR Code */
   fun getQRApiProperties : Array(ApiProperty) {
     [
-      { name: "data", description: "The data to encode in the QR code", type: "String", defaultValue: "\"\"" },
-      { name: "size", description: "Size of the QR code in pixels", type: "Number", defaultValue: "256" },
-      { name: "backgroundColor", description: "Background color", type: "String", defaultValue: "\"#ffffff\"" },
-      { name: "foregroundColor", description: "QR code color", type: "String", defaultValue: "\"#000000\"" },
-      { name: "border", description: "Quiet zone size (0-4)", type: "Number", defaultValue: "2" },
-      { name: "errorCorrection", description: "Error correction level (L, M, Q, H)", type: "String", defaultValue: "\"M\"" },
-      { name: "showLabel", description: "Show label below QR code", type: "Bool", defaultValue: "false" },
-      { name: "label", description: "Label text", type: "String", defaultValue: "\"\"" }
+      {
+        name: "data",
+        description: "The data to encode in the QR code",
+        type: "String",
+        defaultValue: "\"\""
+      },
+      {
+        name: "size",
+        description: "Size of the QR code in pixels",
+        type: "Number",
+        defaultValue: "256"
+      },
+      {
+        name: "backgroundColor",
+        description: "Background color",
+        type: "String",
+        defaultValue: "\"#ffffff\""
+      },
+      {
+        name: "foregroundColor",
+        description: "QR code color",
+        type: "String",
+        defaultValue: "\"#000000\""
+      },
+      {
+        name: "border",
+        description: "Quiet zone size (0-4)",
+        type: "Number",
+        defaultValue: "2"
+      },
+      {
+        name: "errorCorrection",
+        description: "Error correction level (L, M, Q, H)",
+        type: "String",
+        defaultValue: "\"M\""
+      },
+      {
+        name: "showLabel",
+        description: "Show label below QR code",
+        type: "Bool",
+        defaultValue: "false"
+      },
+      {
+        name: "label",
+        description: "Label text",
+        type: "String",
+        defaultValue: "\"\""
+      }
     ]
   }
 
   /* API Properties for Barcode */
   fun getBarcodeApiProperties : Array(ApiProperty) {
     [
-      { name: "data", description: "The data to encode in the barcode", type: "String", defaultValue: "\"\"" },
-      { name: "format", description: "Barcode format (CODE128, CODE39, EAN13, etc.)", type: "String", defaultValue: "\"CODE128\"" },
-      { name: "width", description: "Width of each bar", type: "Number", defaultValue: "2" },
-      { name: "height", description: "Height of the barcode in pixels", type: "Number", defaultValue: "100" },
-      { name: "displayValue", description: "Display value below barcode", type: "Bool", defaultValue: "true" },
-      { name: "fontSize", description: "Font size for the value text", type: "Number", defaultValue: "14" },
-      { name: "lineColor", description: "Barcode color", type: "String", defaultValue: "\"#000000\"" },
-      { name: "background", description: "Background color", type: "String", defaultValue: "\"#ffffff\"" },
-      { name: "margin", description: "Margin around barcode", type: "Number", defaultValue: "10" }
+      {
+        name: "data",
+        description: "The data to encode in the barcode",
+        type: "String",
+        defaultValue: "\"\""
+      },
+      {
+        name: "format",
+        description: "Barcode format (CODE128, CODE39, EAN13, etc.)",
+        type: "String",
+        defaultValue: "\"CODE128\""
+      },
+      {
+        name: "width",
+        description: "Width of each bar",
+        type: "Number",
+        defaultValue: "2"
+      },
+      {
+        name: "height",
+        description: "Height of the barcode in pixels",
+        type: "Number",
+        defaultValue: "100"
+      },
+      {
+        name: "displayValue",
+        description: "Display value below barcode",
+        type: "Bool",
+        defaultValue: "true"
+      },
+      {
+        name: "fontSize",
+        description: "Font size for the value text",
+        type: "Number",
+        defaultValue: "14"
+      },
+      {
+        name: "lineColor",
+        description: "Barcode color",
+        type: "String",
+        defaultValue: "\"#000000\""
+      },
+      {
+        name: "background",
+        description: "Background color",
+        type: "String",
+        defaultValue: "\"#ffffff\""
+      },
+      {
+        name: "margin",
+        description: "Margin around barcode",
+        type: "Number",
+        defaultValue: "10"
+      }
     ]
   }
 
@@ -394,7 +585,9 @@ component CodesPageNew {
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       color: white;
       border-color: transparent;
-    } else {
+    }
+
+    else {
       background: white;
       color: #646566;
       border-color: #e0e0e0;
@@ -423,7 +616,9 @@ component CodesPageNew {
     if active {
       background: #f0f0ff;
       border-color: #667eea;
-    } else {
+    }
+
+    else {
       background: white;
       border-color: #e0e0e0;
 

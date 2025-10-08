@@ -1,11 +1,11 @@
 /*
-  ProVideoPlayer - Professional Video Player
+ProVideoPlayer - Professional Video Player
   Features: Seek, Keyboard, Touch, Buffer, Thumbnails, Playlist, Analytics, Mini-player
 */
-
 component ProVideoPlayer {
   /* Properties */
   property playlist : Array(PlaylistItem) = []
+
   property sources : Array(VideoQuality) = []
   property captions : Array(CaptionTrack) = []
   property thumbnailSprite : Maybe(ThumbnailSprite) = Maybe.nothing()
@@ -21,6 +21,7 @@ component ProVideoPlayer {
 
   /* Player State */
   state isPlaying : Bool = false
+
   state currentTime : Number = 0
   state duration : Number = 0
   state buffered : Number = 0
@@ -30,6 +31,7 @@ component ProVideoPlayer {
 
   /* UI State */
   state currentQuality : Number = 0
+
   state currentCaption : Number = -1
   state currentPlaylistIndex : Number = 0
   state showControls : Bool = true
@@ -46,11 +48,13 @@ component ProVideoPlayer {
 
   /* Preview State */
   state hoverTime : Number = 0
+
   state showPreview : Bool = false
   state previewX : Number = 0
 
   /* Analytics State */
   state watchTime : Number = 0
+
   state playCount : Number = 0
   state pauseCount : Number = 0
   state seekCount : Number = 0
@@ -577,7 +581,6 @@ component ProVideoPlayer {
   }
 
   /* ===== PLAYBACK CONTROLS ===== */
-
   fun handlePlayPause (event : Html.Event) : Promise(Void) {
     `
     (() => {
@@ -594,15 +597,9 @@ component ProVideoPlayer {
 
     if analytics {
       if isPlaying {
-        next {
-          isPlaying: false,
-          pauseCount: pauseCount + 1
-        }
+        next { isPlaying: false, pauseCount: pauseCount + 1 }
       } else {
-        next {
-          isPlaying: true,
-          playCount: playCount + 1
-        }
+        next { isPlaying: true, playCount: playCount + 1 }
       }
     } else {
       next { isPlaying: !isPlaying }
@@ -614,7 +611,6 @@ component ProVideoPlayer {
   }
 
   /* ===== SEEK/SCRUBBING ===== */
-
   fun handleProgressClick (event : Html.Event) : Promise(Void) {
     `
     (() => {
@@ -648,6 +644,7 @@ component ProVideoPlayer {
       }
     })()
     `
+
     Promise.resolve(void)
   }
 
@@ -666,6 +663,7 @@ component ProVideoPlayer {
       }
     })()
     `
+
     Promise.resolve(void)
   }
 
@@ -674,7 +672,6 @@ component ProVideoPlayer {
   }
 
   /* ===== VOLUME CONTROLS ===== */
-
   fun handleVolumeToggle (event : Html.Event) : Promise(Void) {
     next { showVolumeSlider: !showVolumeSlider }
   }
@@ -691,7 +688,12 @@ component ProVideoPlayer {
 
     next {
       isMuted: !isMuted,
-      volume: if isMuted { 1 } else { 0 }
+      volume:
+        if isMuted {
+          1
+        } else {
+          0
+        }
     }
   }
 
@@ -706,14 +708,10 @@ component ProVideoPlayer {
     })()
     `
 
-    next {
-      volume: newVolume,
-      isMuted: false
-    }
+    next { volume: newVolume, isMuted: false }
   }
 
   /* ===== PLAYBACK SPEED ===== */
-
   fun handleSpeedMenu (event : Html.Event) : Promise(Void) {
     next {
       showSpeedMenu: !showSpeedMenu,
@@ -733,14 +731,10 @@ component ProVideoPlayer {
     })()
     `
 
-    next {
-      playbackRate: speed,
-      showSpeedMenu: false
-    }
+    next { playbackRate: speed, showSpeedMenu: false }
   }
 
   /* ===== QUALITY CONTROLS ===== */
-
   fun handleQualityMenu (event : Html.Event) : Promise(Void) {
     next {
       showQualityMenu: !showQualityMenu,
@@ -777,7 +771,6 @@ component ProVideoPlayer {
   }
 
   /* ===== CAPTION CONTROLS ===== */
-
   fun handleCaptionMenu (event : Html.Event) : Promise(Void) {
     next {
       showCaptionMenu: !showCaptionMenu,
@@ -800,14 +793,10 @@ component ProVideoPlayer {
     })()
     `
 
-    next {
-      currentCaption: index,
-      showCaptionMenu: false
-    }
+    next { currentCaption: index, showCaptionMenu: false }
   }
 
   /* ===== FULLSCREEN ===== */
-
   fun toggleFullscreen (event : Html.Event) : Promise(Void) {
     `
     (() => {
@@ -828,7 +817,6 @@ component ProVideoPlayer {
   }
 
   /* ===== PICTURE IN PICTURE ===== */
-
   fun togglePiP (event : Html.Event) : Promise(Void) {
     `
     (() => {
@@ -849,7 +837,6 @@ component ProVideoPlayer {
   }
 
   /* ===== MINI PLAYER ===== */
-
   fun toggleMiniPlayer (event : Html.Event) : Promise(Void) {
     next { isMiniPlayer: !isMiniPlayer }
   }
@@ -859,16 +846,12 @@ component ProVideoPlayer {
   }
 
   /* ===== PLAYLIST ===== */
-
   fun togglePlaylist (event : Html.Event) : Promise(Void) {
     next { showPlaylist: !showPlaylist }
   }
 
   fun playPlaylistItem (index : Number) : Promise(Void) {
-    next {
-      currentPlaylistIndex: index,
-      showPlaylist: false
-    }
+    next { currentPlaylistIndex: index, showPlaylist: false }
   }
 
   fun playNext (event : Html.Event) : Promise(Void) {
@@ -894,7 +877,6 @@ component ProVideoPlayer {
   }
 
   /* ===== KEYBOARD SHORTCUTS ===== */
-
   fun handleKeyPress (event : Html.Event) : Promise(Void) {
     if keyboard {
       `
@@ -1000,6 +982,7 @@ component ProVideoPlayer {
         }
       })()
       `
+
       Promise.resolve(void)
     } else {
       Promise.resolve(void)
@@ -1007,17 +990,13 @@ component ProVideoPlayer {
   }
 
   /* ===== MOUSE CONTROLS ===== */
-
   fun handleMouseEnter (event : Html.Event) : Promise(Void) {
     next { showControls: true }
   }
 
   fun handleMouseLeave (event : Html.Event) : Promise(Void) {
     if isPlaying {
-      next {
-        showControls: false,
-        showVolumeSlider: false
-      }
+      next { showControls: false, showVolumeSlider: false }
     } else {
       Promise.resolve(void)
     }
@@ -1028,8 +1007,12 @@ component ProVideoPlayer {
   }
 
   /* ===== VIDEO EVENTS ===== */
-
-  fun updateTimeState (time : Number, dur : Number, buffered : Number, loading : Bool) : Promise(Void) {
+  fun updateTimeState (
+    time : Number,
+    dur : Number,
+    buffered : Number,
+    loading : Bool
+  ) : Promise(Void) {
     next {
       currentTime: time,
       duration: dur,
@@ -1054,12 +1037,12 @@ component ProVideoPlayer {
     next { isFullscreen: fullscreen }
   }
 
-  fun updatePreviewState (show : Bool, time : Number, x : Number) : Promise(Void) {
-    next {
-      showPreview: show,
-      hoverTime: time,
-      previewX: x
-    }
+  fun updatePreviewState (
+    show : Bool,
+    time : Number,
+    x : Number
+  ) : Promise(Void) {
+    next { showPreview: show, hoverTime: time, previewX: x }
   }
 
   fun updateTime : Void {
@@ -1101,6 +1084,7 @@ component ProVideoPlayer {
         }
       })()
       `
+
       Promise.resolve(void)
     } else {
       next { isPlaying: false }
@@ -1123,7 +1107,6 @@ component ProVideoPlayer {
   }
 
   /* ===== LIFECYCLE ===== */
-
   fun componentDidMount : Promise(Void) {
     `
     (() => {
@@ -1291,7 +1274,6 @@ component ProVideoPlayer {
   }
 
   /* ===== HELPER FUNCTIONS ===== */
-
   fun formatTime (seconds : Number) : String {
     let hours =
       Math.floor(seconds / 3600)
@@ -1388,25 +1370,21 @@ component ProVideoPlayer {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onMouseMove={handleMouseMove}
-      onDoubleClick={handleDoubleClick}>
-
+      onDoubleClick={handleDoubleClick}
+    >
       if isMiniPlayer {
         <div::miniControls>
-          <button::miniButton onClick={toggleMiniPlayer} title="Restore">
-            "⛶"
-          </button>
+          <button::miniButton onClick={toggleMiniPlayer} title="Restore">"⛶"</button>
 
-          <button::miniButton onClick={closeMiniPlayer} title="Close">
-            "✕"
-          </button>
+          <button::miniButton onClick={closeMiniPlayer} title="Close">"✕"</button>
         </div>
       }
 
       <video::video
         data-pro-video="true"
         src={getCurrentSource()}
-        poster={getCurrentPoster()}>
-
+        poster={getCurrentPoster()}
+      >
         for caption of captions {
           if caption.isDefault {
             <track
@@ -1414,28 +1392,26 @@ component ProVideoPlayer {
               kind="subtitles"
               srcLang={caption.language}
               src={caption.src}
-              default="true"/>
+              default="true"
+            />
           } else {
             <track
               label={caption.label}
               kind="subtitles"
               srcLang={caption.language}
-              src={caption.src}/>
+              src={caption.src}
+            />
           }
         }
       </video>
 
       if isLoading {
-        <div::loadingOverlay>
-          <div::spinner/>
-        </div>
+        <div::loadingOverlay><div::spinner/></div>
       }
 
       if !isPlaying && !isMiniPlayer {
         <div::centerOverlay::centerVisible>
-          <button::bigPlayButton onClick={handlePlayPause}>
-            "▶"
-          </button>
+          <button::bigPlayButton onClick={handlePlayPause}>"▶"</button>
         </div>
       }
 
@@ -1446,14 +1422,14 @@ component ProVideoPlayer {
           } else {
             "opacity: 0"
           }
-        }>
-
+        }
+      >
         <div::progressContainer>
           <div::progressWrapper
             onClick={handleProgressClick}
             onMouseMove={handleProgressMouseMove}
-            onMouseLeave={handleProgressMouseLeave}>
-
+            onMouseLeave={handleProgressMouseLeave}
+          >
             <div::progressBar
               class={
                 if showPreview {
@@ -1461,14 +1437,17 @@ component ProVideoPlayer {
                 } else {
                   ""
                 }
-              }>
-
+              }
+            >
               <div::bufferProgress
-                style={"width: " + Number.toString(getBufferPercentage()) + "%"}/>
+                style={"width: " + Number.toString(getBufferPercentage()) + "%"}
+              />
 
               <div::currentProgress
-                style={"width: " + Number.toString(getProgressPercentage()) + "%"}>
-
+                style={
+                  "width: " + Number.toString(getProgressPercentage()) + "%"
+                }
+              >
                 <div::progressThumb
                   class={
                     if showPreview {
@@ -1476,23 +1455,32 @@ component ProVideoPlayer {
                     } else {
                       ""
                     }
-                  }/>
+                  }
+                />
               </div>
             </div>
 
             if showPreview {
               <div::thumbnailPreview::previewVisible
-                style={"left: " + Number.toString(previewX) + "px"}>
-
+                style={"left: " + Number.toString(previewX) + "px"}
+              >
                 <div::previewImage/>
-                <div::previewTime>{formatTime(hoverTime)}</div>
+
+                <div::previewTime>
+                  {
+                    formatTime(hoverTime)
+                  }
+                </div>
               </div>
             }
           </div>
         </div>
 
         <div::controlsRow>
-          <button::controlButton onClick={handlePlayPause} title="Play/Pause (Space)">
+          <button::controlButton
+            onClick={handlePlayPause}
+            title="Play/Pause (Space)"
+          >
             if isPlaying {
               "⏸"
             } else {
@@ -1501,23 +1489,21 @@ component ProVideoPlayer {
           </button>
 
           if Array.size(playlist) > 1 {
-            <button::controlButton onClick={playPrevious} title="Previous">
-              "⏮"
-            </button>
+            <button::controlButton onClick={playPrevious} title="Previous">"⏮"</button>
           }
 
           if Array.size(playlist) > 1 {
-            <button::controlButton onClick={playNext} title="Next">
-              "⏭"
-            </button>
+            <button::controlButton onClick={playNext} title="Next">"⏭"</button>
           }
 
           <div::volumeContainer
             onMouseEnter={handleVolumeToggle}
-            onMouseLeave={handleVolumeToggle}>
-
+            onMouseLeave={handleVolumeToggle}
+          >
             <button::controlButton onClick={handleMute} title="Mute (M)">
-              {getVolumeIcon()}
+              {
+                getVolumeIcon()
+              }
             </button>
 
             <div::volumeSliderContainer
@@ -1527,28 +1513,36 @@ component ProVideoPlayer {
                 } else {
                   ""
                 }
-              }>
-
+              }
+            >
               <div::volumeSlider>
                 <div::volumeFill
-                  style={"width: " + Number.toString(volume * 100) + "%"}/>
+                  style={"width: " + Number.toString(volume * 100) + "%"}
+                />
               </div>
             </div>
           </div>
 
           <div::timeDisplay>
-            {formatTime(currentTime)}
+            {
+              formatTime(currentTime)
+            }
+
             " / "
-            {formatTime(duration)}
+
+            {
+              formatTime(duration)
+            }
           </div>
 
           <div::spacer/>
 
           if Array.size(captions) > 0 && !isMiniPlayer {
             <div style="position: relative;">
-              <button::controlButton onClick={handleCaptionMenu} title="Captions">
-                "CC"
-              </button>
+              <button::controlButton
+                onClick={handleCaptionMenu}
+                title="Captions"
+              >"CC"</button>
 
               if showCaptionMenu {
                 <div::menu>
@@ -1560,10 +1554,8 @@ component ProVideoPlayer {
                         ""
                       }
                     }
-                    onClick={(e : Html.Event) { setCaption(-1) }}>
-
-                    "Off"
-                  </div>
+                    onClick={(e : Html.Event) { setCaption(-1) }}
+                  >"Off"</div>
 
                   for caption, index of captions {
                     <div::menuItem
@@ -1574,9 +1566,11 @@ component ProVideoPlayer {
                           ""
                         }
                       }
-                      onClick={(e : Html.Event) { setCaption(index) }}>
-
-                      {caption.label}
+                      onClick={(e : Html.Event) { setCaption(index) }}
+                    >
+                      {
+                        caption.label
+                      }
 
                       if currentCaption == index {
                         <span::badge>"✓"</span>
@@ -1605,9 +1599,11 @@ component ProVideoPlayer {
                           ""
                         }
                       }
-                      onClick={(e : Html.Event) { setQuality(index) }}>
-
-                      {quality.label}
+                      onClick={(e : Html.Event) { setQuality(index) }}
+                    >
+                      {
+                        quality.label
+                      }
 
                       if currentQuality == index {
                         <span::badge>"✓"</span>
@@ -1639,10 +1635,8 @@ component ProVideoPlayer {
                         ""
                       }
                     }
-                    onClick={(e : Html.Event) { setPlaybackSpeed(0.25) }}>
-
-                    "0.25x"
-                  </div>
+                    onClick={(e : Html.Event) { setPlaybackSpeed(0.25) }}
+                  >"0.25x"</div>
 
                   <div::menuItem
                     class={
@@ -1652,10 +1646,8 @@ component ProVideoPlayer {
                         ""
                       }
                     }
-                    onClick={(e : Html.Event) { setPlaybackSpeed(0.5) }}>
-
-                    "0.5x"
-                  </div>
+                    onClick={(e : Html.Event) { setPlaybackSpeed(0.5) }}
+                  >"0.5x"</div>
 
                   <div::menuItem
                     class={
@@ -1665,10 +1657,8 @@ component ProVideoPlayer {
                         ""
                       }
                     }
-                    onClick={(e : Html.Event) { setPlaybackSpeed(0.75) }}>
-
-                    "0.75x"
-                  </div>
+                    onClick={(e : Html.Event) { setPlaybackSpeed(0.75) }}
+                  >"0.75x"</div>
 
                   <div::menuItem
                     class={
@@ -1678,10 +1668,8 @@ component ProVideoPlayer {
                         ""
                       }
                     }
-                    onClick={(e : Html.Event) { setPlaybackSpeed(1) }}>
-
-                    "Normal"
-                  </div>
+                    onClick={(e : Html.Event) { setPlaybackSpeed(1) }}
+                  >"Normal"</div>
 
                   <div::menuItem
                     class={
@@ -1691,10 +1679,8 @@ component ProVideoPlayer {
                         ""
                       }
                     }
-                    onClick={(e : Html.Event) { setPlaybackSpeed(1.25) }}>
-
-                    "1.25x"
-                  </div>
+                    onClick={(e : Html.Event) { setPlaybackSpeed(1.25) }}
+                  >"1.25x"</div>
 
                   <div::menuItem
                     class={
@@ -1704,10 +1690,8 @@ component ProVideoPlayer {
                         ""
                       }
                     }
-                    onClick={(e : Html.Event) { setPlaybackSpeed(1.5) }}>
-
-                    "1.5x"
-                  </div>
+                    onClick={(e : Html.Event) { setPlaybackSpeed(1.5) }}
+                  >"1.5x"</div>
 
                   <div::menuItem
                     class={
@@ -1717,10 +1701,8 @@ component ProVideoPlayer {
                         ""
                       }
                     }
-                    onClick={(e : Html.Event) { setPlaybackSpeed(1.75) }}>
-
-                    "1.75x"
-                  </div>
+                    onClick={(e : Html.Event) { setPlaybackSpeed(1.75) }}
+                  >"1.75x"</div>
 
                   <div::menuItem
                     class={
@@ -1730,35 +1712,36 @@ component ProVideoPlayer {
                         ""
                       }
                     }
-                    onClick={(e : Html.Event) { setPlaybackSpeed(2) }}>
-
-                    "2x"
-                  </div>
+                    onClick={(e : Html.Event) { setPlaybackSpeed(2) }}
+                  >"2x"</div>
                 </div>
               }
             </div>
           }
 
           if Array.size(playlist) > 0 && !isMiniPlayer {
-            <button::controlButton onClick={togglePlaylist} title="Playlist">
-              "☰"
-            </button>
+            <button::controlButton onClick={togglePlaylist} title="Playlist">"☰"</button>
           }
 
           if miniPlayer && !isFullscreen && !isMiniPlayer {
-            <button::controlButton onClick={toggleMiniPlayer} title="Mini Player">
-              "⧉"
-            </button>
+            <button::controlButton
+              onClick={toggleMiniPlayer}
+              title="Mini Player"
+            >"⧉"</button>
           }
 
           if !isMiniPlayer {
-            <button::controlButton onClick={togglePiP} title="Picture-in-Picture">
-              "⧉"
-            </button>
+            <button::controlButton
+              onClick={togglePiP}
+              title="Picture-in-Picture"
+            >"⧉"</button>
           }
 
           if !isMiniPlayer {
-            <button::controlButton onClick={toggleFullscreen} title="Fullscreen (F)">
+            <button::controlButton
+              onClick={toggleFullscreen}
+              title="Fullscreen (F)"
+            >
               if isFullscreen {
                 "⛶"
               } else {
@@ -1777,11 +1760,15 @@ component ProVideoPlayer {
             } else {
               ""
             }
-          }>
-
+          }
+        >
           <div::playlistHeader>
             "Playlist ("
-            {Number.toString(Array.size(playlist))}
+
+            {
+              Number.toString(Array.size(playlist))
+            }
+
             " videos)"
           </div>
 
@@ -1794,13 +1781,22 @@ component ProVideoPlayer {
                   ""
                 }
               }
-              onClick={(e : Html.Event) { playPlaylistItem(index) }}>
-
+              onClick={(e : Html.Event) { playPlaylistItem(index) }}
+            >
               <img::playlistThumb src={item.poster} alt={item.title}/>
 
               <div::playlistInfo>
-                <div::playlistTitle>{item.title}</div>
-                <div::playlistDuration>{formatTime(item.duration)}</div>
+                <div::playlistTitle>
+                  {
+                    item.title
+                  }
+                </div>
+
+                <div::playlistDuration>
+                  {
+                    formatTime(item.duration)
+                  }
+                </div>
               </div>
             </div>
           }

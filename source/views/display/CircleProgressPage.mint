@@ -1,10 +1,10 @@
 /* CircleProgressPage - Showcase for CircleProgress component */
-
 component CircleProgressPage {
   connect NavigationStore exposing { setPage }
 
   /* State for component controls */
   state percentage : Number = 75
+
   state size : String = "default"
   state variant : String = "primary"
   state showValue : Bool = true
@@ -71,7 +71,8 @@ component CircleProgressPage {
         glow={glow}
         gradient={gradient}
         status={status}
-        label="Progress"/>
+        label="Progress"
+      />
     </div>
   }
 
@@ -82,103 +83,125 @@ component CircleProgressPage {
 
       <div::controlGroup>
         <div::controlLabel>"Percentage"</div>
+
         <div::buttonGroup>
-          <button::button(percentage == 0) onClick={(e : Html.Event) { handlePercentageChange("0") }}>
-            "0%"
-          </button>
-          <button::button(percentage == 25) onClick={(e : Html.Event) { handlePercentageChange("25") }}>
-            "25%"
-          </button>
-          <button::button(percentage == 50) onClick={(e : Html.Event) { handlePercentageChange("50") }}>
-            "50%"
-          </button>
-          <button::button(percentage == 75) onClick={(e : Html.Event) { handlePercentageChange("75") }}>
-            "75%"
-          </button>
-          <button::button(percentage == 100) onClick={(e : Html.Event) { handlePercentageChange("100") }}>
-            "100%"
-          </button>
+          <button::button(percentage == 0)
+            onClick={(e : Html.Event) { handlePercentageChange("0") }}
+          >"0%"</button>
+
+          <button::button(percentage == 25)
+            onClick={(e : Html.Event) { handlePercentageChange("25") }}
+          >"25%"</button>
+
+          <button::button(percentage == 50)
+            onClick={(e : Html.Event) { handlePercentageChange("50") }}
+          >"50%"</button>
+
+          <button::button(percentage == 75)
+            onClick={(e : Html.Event) { handlePercentageChange("75") }}
+          >"75%"</button>
+
+          <button::button(percentage == 100)
+            onClick={(e : Html.Event) { handlePercentageChange("100") }}
+          >"100%"</button>
         </div>
       </div>
 
       <div::controlGroup>
         <div::controlLabel>"Size"</div>
+
         <div::buttonGroup>
-          <button::button(size == "small") onClick={(e : Html.Event) { handleSizeChange("small") }}>
-            "Small"
-          </button>
-          <button::button(size == "default") onClick={(e : Html.Event) { handleSizeChange("default") }}>
-            "Default"
-          </button>
-          <button::button(size == "large") onClick={(e : Html.Event) { handleSizeChange("large") }}>
-            "Large"
-          </button>
+          <button::button(size == "small")
+            onClick={(e : Html.Event) { handleSizeChange("small") }}
+          >"Small"</button>
+
+          <button::button(size == "default")
+            onClick={(e : Html.Event) { handleSizeChange("default") }}
+          >"Default"</button>
+
+          <button::button(size == "large")
+            onClick={(e : Html.Event) { handleSizeChange("large") }}
+          >"Large"</button>
         </div>
       </div>
 
       <div::controlGroup>
         <div::controlLabel>"Variant"</div>
+
         <div::buttonGroup>
-          <button::button(variant == "primary") onClick={(e : Html.Event) { handleVariantChange("primary") }}>
-            "Primary"
-          </button>
-          <button::button(variant == "success") onClick={(e : Html.Event) { handleVariantChange("success") }}>
-            "Success"
-          </button>
-          <button::button(variant == "warning") onClick={(e : Html.Event) { handleVariantChange("warning") }}>
-            "Warning"
-          </button>
-          <button::button(variant == "error") onClick={(e : Html.Event) { handleVariantChange("error") }}>
-            "Error"
-          </button>
+          <button::button(variant == "primary")
+            onClick={(e : Html.Event) { handleVariantChange("primary") }}
+          >"Primary"</button>
+
+          <button::button(variant == "success")
+            onClick={(e : Html.Event) { handleVariantChange("success") }}
+          >"Success"</button>
+
+          <button::button(variant == "warning")
+            onClick={(e : Html.Event) { handleVariantChange("warning") }}
+          >"Warning"</button>
+
+          <button::button(variant == "error")
+            onClick={(e : Html.Event) { handleVariantChange("error") }}
+          >"Error"</button>
         </div>
       </div>
 
       <div::controlGroup>
         <div::controlLabel>"Format"</div>
+
         <div::buttonGroup>
-          <button::button(format == "percentage") onClick={(e : Html.Event) { handleFormatChange("percentage") }}>
-            "Percentage"
-          </button>
-          <button::button(format == "fraction") onClick={(e : Html.Event) { handleFormatChange("fraction") }}>
-            "Fraction"
-          </button>
+          <button::button(format == "percentage")
+            onClick={(e : Html.Event) { handleFormatChange("percentage") }}
+          >"Percentage"</button>
+
+          <button::button(format == "fraction")
+            onClick={(e : Html.Event) { handleFormatChange("fraction") }}
+          >"Fraction"</button>
         </div>
       </div>
 
       <div::controlGroup>
         <div::controlLabel>"Status"</div>
+
         <div::buttonGroup>
-          <button::button(status == "") onClick={(e : Html.Event) { handleStatusChange("") }}>
-            "None"
-          </button>
-          <button::button(status == "success") onClick={(e : Html.Event) { handleStatusChange("success") }}>
-            "Success"
-          </button>
-          <button::button(status == "error") onClick={(e : Html.Event) { handleStatusChange("error") }}>
-            "Error"
-          </button>
-          <button::button(status == "warning") onClick={(e : Html.Event) { handleStatusChange("warning") }}>
-            "Warning"
-          </button>
+          <button::button(status == "")
+            onClick={(e : Html.Event) { handleStatusChange("") }}
+          >"None"</button>
+
+          <button::button(status == "success")
+            onClick={(e : Html.Event) { handleStatusChange("success") }}
+          >"Success"</button>
+
+          <button::button(status == "error")
+            onClick={(e : Html.Event) { handleStatusChange("error") }}
+          >"Error"</button>
+
+          <button::button(status == "warning")
+            onClick={(e : Html.Event) { handleStatusChange("warning") }}
+          >"Warning"</button>
         </div>
       </div>
 
       <div::controlGroup>
         <div::controlLabel>"Options"</div>
+
         <div::buttonGroup>
-          <button::toggleButton(showValue) onClick={(e : Html.Event) { toggleValue() }}>
-            "Show Value"
-          </button>
-          <button::toggleButton(animated) onClick={(e : Html.Event) { toggleAnimated() }}>
-            "Animated"
-          </button>
-          <button::toggleButton(glow) onClick={(e : Html.Event) { toggleGlow() }}>
-            "Glow"
-          </button>
-          <button::toggleButton(gradient) onClick={(e : Html.Event) { toggleGradient() }}>
-            "Gradient"
-          </button>
+          <button::toggleButton(showValue)
+            onClick={(e : Html.Event) { toggleValue() }}
+          >"Show Value"</button>
+
+          <button::toggleButton(animated)
+            onClick={(e : Html.Event) { toggleAnimated() }}
+          >"Animated"</button>
+
+          <button::toggleButton(glow)
+            onClick={(e : Html.Event) { toggleGlow() }}
+          >"Glow"</button>
+
+          <button::toggleButton(gradient)
+            onClick={(e : Html.Event) { toggleGradient() }}
+          >"Gradient"</button>
         </div>
       </div>
     </div>
@@ -190,21 +213,19 @@ component CircleProgressPage {
       {
         title: "Basic Usage",
         description: "Simple circular progress indicator",
-        snippet: {
-          code: "<CircleProgress percentage={75}/>",
-          language: "mint"
-        },
-        previewContent:
-          <CircleProgress percentage={75}/>,
+        snippet: { code: "<CircleProgress percentage={75}/>", language: "mint" },
+        previewContent: <CircleProgress percentage={75}/>,
         showReplay: false
       },
       {
         title: "Variants",
         description: "Different color variants",
-        snippet: {
-          code: "<CircleProgress percentage={75} variant=\"primary\"/>\n<CircleProgress percentage={75} variant=\"success\"/>\n<CircleProgress percentage={75} variant=\"warning\"/>\n<CircleProgress percentage={75} variant=\"error\"/>",
-          language: "mint"
-        },
+        snippet:
+          {
+            code:
+              "<CircleProgress percentage={75} variant=\"primary\"/>\n<CircleProgress percentage={75} variant=\"success\"/>\n<CircleProgress percentage={75} variant=\"warning\"/>\n<CircleProgress percentage={75} variant=\"error\"/>",
+            language: "mint"
+          },
         previewContent:
           <div style="display: flex; gap: 24px; flex-wrap: wrap;">
             <CircleProgress percentage={75} variant="primary"/>
@@ -217,12 +238,16 @@ component CircleProgressPage {
       {
         title: "Sizes",
         description: "Small, default, and large sizes (responsive)",
-        snippet: {
-          code: "<CircleProgress percentage={75} size=\"small\"/>\n<CircleProgress percentage={75} size=\"default\"/>\n<CircleProgress percentage={75} size=\"large\"/>",
-          language: "mint"
-        },
+        snippet:
+          {
+            code:
+              "<CircleProgress percentage={75} size=\"small\"/>\n<CircleProgress percentage={75} size=\"default\"/>\n<CircleProgress percentage={75} size=\"large\"/>",
+            language: "mint"
+          },
         previewContent:
-          <div style="display: flex; gap: 32px; align-items: center; flex-wrap: wrap;">
+          <div
+            style="display: flex; gap: 32px; align-items: center; flex-wrap: wrap;"
+          >
             <CircleProgress percentage={75} size="small"/>
             <CircleProgress percentage={75} size="default"/>
             <CircleProgress percentage={75} size="large"/>
@@ -232,10 +257,12 @@ component CircleProgressPage {
       {
         title: "With Labels",
         description: "Add descriptive labels below circle",
-        snippet: {
-          code: "<CircleProgress percentage={45} label=\"Upload\"/>\n<CircleProgress percentage={80} label=\"Download\" variant=\"success\"/>",
-          language: "mint"
-        },
+        snippet:
+          {
+            code:
+              "<CircleProgress percentage={45} label=\"Upload\"/>\n<CircleProgress percentage={80} label=\"Download\" variant=\"success\"/>",
+            language: "mint"
+          },
         previewContent:
           <div style="display: flex; gap: 32px; flex-wrap: wrap;">
             <CircleProgress percentage={45} label="Upload"/>
@@ -247,13 +274,20 @@ component CircleProgressPage {
       {
         title: "Format Options",
         description: "Display as percentage or fraction",
-        snippet: {
-          code: "<CircleProgress percentage={75} format=\"percentage\"/>\n<CircleProgress percentage={75} format=\"fraction\"/>",
-          language: "mint"
-        },
+        snippet:
+          {
+            code:
+              "<CircleProgress percentage={75} format=\"percentage\"/>\n<CircleProgress percentage={75} format=\"fraction\"/>",
+            language: "mint"
+          },
         previewContent:
           <div style="display: flex; gap: 32px; flex-wrap: wrap;">
-            <CircleProgress percentage={75} format="percentage" label="Percentage"/>
+            <CircleProgress
+              percentage={75}
+              format="percentage"
+              label="Percentage"
+            />
+
             <CircleProgress percentage={75} format="fraction" label="Fraction"/>
           </div>,
         showReplay: false
@@ -261,10 +295,12 @@ component CircleProgressPage {
       {
         title: "Status States",
         description: "Success, error, and warning states with icons",
-        snippet: {
-          code: "<CircleProgress percentage={100} status=\"success\"/>\n<CircleProgress percentage={45} status=\"error\"/>\n<CircleProgress percentage={60} status=\"warning\"/>",
-          language: "mint"
-        },
+        snippet:
+          {
+            code:
+              "<CircleProgress percentage={100} status=\"success\"/>\n<CircleProgress percentage={45} status=\"error\"/>\n<CircleProgress percentage={60} status=\"warning\"/>",
+            language: "mint"
+          },
         previewContent:
           <div style="display: flex; gap: 32px; flex-wrap: wrap;">
             <CircleProgress percentage={100} status="success" label="Success"/>
@@ -276,10 +312,11 @@ component CircleProgressPage {
       {
         title: "Gradient Effect",
         description: "Smooth gradient fill",
-        snippet: {
-          code: "<CircleProgress percentage={75} gradient={true}/>",
-          language: "mint"
-        },
+        snippet:
+          {
+            code: "<CircleProgress percentage={75} gradient={true}/>",
+            language: "mint"
+          },
         previewContent:
           <div style="display: flex; gap: 32px; flex-wrap: wrap;">
             <CircleProgress percentage={75} gradient={true} variant="primary"/>
@@ -291,12 +328,15 @@ component CircleProgressPage {
       {
         title: "Glow Effect",
         description: "Add glow shadow for emphasis",
-        snippet: {
-          code: "<CircleProgress percentage={75} glow={true}/>",
-          language: "mint"
-        },
+        snippet:
+          {
+            code: "<CircleProgress percentage={75} glow={true}/>",
+            language: "mint"
+          },
         previewContent:
-          <div style="display: flex; gap: 32px; flex-wrap: wrap; padding: 20px; background: #f0f0f0; border-radius: 8px;">
+          <div
+            style="display: flex; gap: 32px; flex-wrap: wrap; padding: 20px; background: #f0f0f0; border-radius: 8px;"
+          >
             <CircleProgress percentage={75} glow={true} variant="primary"/>
             <CircleProgress percentage={90} glow={true} variant="success"/>
             <CircleProgress percentage={50} glow={true} variant="error"/>
@@ -306,10 +346,12 @@ component CircleProgressPage {
       {
         title: "Custom Colors",
         description: "Override with custom hex colors",
-        snippet: {
-          code: "<CircleProgress percentage={75} color=\"#722ed1\"/>\n<CircleProgress percentage={60} color=\"#13c2c2\"/>\n<CircleProgress percentage={85} color=\"#eb2f96\"/>",
-          language: "mint"
-        },
+        snippet:
+          {
+            code:
+              "<CircleProgress percentage={75} color=\"#722ed1\"/>\n<CircleProgress percentage={60} color=\"#13c2c2\"/>\n<CircleProgress percentage={85} color=\"#eb2f96\"/>",
+            language: "mint"
+          },
         previewContent:
           <div style="display: flex; gap: 32px; flex-wrap: wrap;">
             <CircleProgress percentage={75} color="#722ed1"/>
@@ -321,10 +363,11 @@ component CircleProgressPage {
       {
         title: "Without Value",
         description: "Hide percentage text",
-        snippet: {
-          code: "<CircleProgress percentage={75} showValue={false}/>",
-          language: "mint"
-        },
+        snippet:
+          {
+            code: "<CircleProgress percentage={75} showValue={false}/>",
+            language: "mint"
+          },
         previewContent:
           <div style="display: flex; gap: 32px; flex-wrap: wrap;">
             <CircleProgress percentage={30} showValue={false} variant="primary"/>
@@ -449,6 +492,7 @@ component CircleProgressPage {
     <div>
       <div::docCard>
         <Heading level="3" margin="0 0 16px">"Sizes (Mobile-First)"</Heading>
+
         <table::apiTable>
           <thead>
             <tr>
@@ -458,6 +502,7 @@ component CircleProgressPage {
               <th::tableHeader>"Stroke"</th>
             </tr>
           </thead>
+
           <tbody>
             <tr>
               <td::tableCell><code::codeInline>"small"</code></td>
@@ -465,12 +510,14 @@ component CircleProgressPage {
               <td::tableCell>"100px"</td>
               <td::tableCell>"6px"</td>
             </tr>
+
             <tr>
               <td::tableCell><code::codeInline>"default"</code></td>
               <td::tableCell>"120px"</td>
               <td::tableCell>"140px"</td>
               <td::tableCell>"8px ⭐"</td>
             </tr>
+
             <tr>
               <td::tableCell><code::codeInline>"large"</code></td>
               <td::tableCell>"160px"</td>
@@ -483,6 +530,7 @@ component CircleProgressPage {
 
       <div::docCard>
         <Heading level="3" margin="0 0 16px">"Variants"</Heading>
+
         <table::apiTable>
           <thead>
             <tr>
@@ -491,27 +539,32 @@ component CircleProgressPage {
               <th::tableHeader>"Usage"</th>
             </tr>
           </thead>
+
           <tbody>
             <tr>
               <td::tableCell><code::codeInline>"primary"</code></td>
               <td::tableCell>"#1890ff"</td>
               <td::tableCell>"Default/general progress"</td>
             </tr>
+
             <tr>
               <td::tableCell><code::codeInline>"success"</code></td>
               <td::tableCell>"#52c41a"</td>
               <td::tableCell>"Completed/success states"</td>
             </tr>
+
             <tr>
               <td::tableCell><code::codeInline>"warning"</code></td>
               <td::tableCell>"#faad14"</td>
               <td::tableCell>"Warning/attention needed"</td>
             </tr>
+
             <tr>
               <td::tableCell><code::codeInline>"error"</code></td>
               <td::tableCell>"#ff4d4f"</td>
               <td::tableCell>"Error/failed states"</td>
             </tr>
+
             <tr>
               <td::tableCell><code::codeInline>"info"</code></td>
               <td::tableCell>"#1890ff"</td>
@@ -523,6 +576,7 @@ component CircleProgressPage {
 
       <div::docCard>
         <Heading level="3" margin="0 0 16px">"Status States"</Heading>
+
         <table::apiTable>
           <thead>
             <tr>
@@ -531,17 +585,20 @@ component CircleProgressPage {
               <th::tableHeader>"When to Use"</th>
             </tr>
           </thead>
+
           <tbody>
             <tr>
               <td::tableCell><code::codeInline>"success"</code></td>
               <td::tableCell>"✓"</td>
               <td::tableCell>"100% complete, task finished"</td>
             </tr>
+
             <tr>
               <td::tableCell><code::codeInline>"error"</code></td>
               <td::tableCell>"✕"</td>
               <td::tableCell>"Failed operation, error state"</td>
             </tr>
+
             <tr>
               <td::tableCell><code::codeInline>"warning"</code></td>
               <td::tableCell>"!"</td>
@@ -553,64 +610,67 @@ component CircleProgressPage {
 
       <div::docCard>
         <Heading level="3" margin="0 0 16px">"Best Practices"</Heading>
+
         <ul::featureList>
-          <li::featureItem>"💡 Use " <code::codeInline>"status=\"success\""</code> " when progress reaches 100%"</li>
-          <li::featureItem>"💡 Add " <code::codeInline>"label"</code> " for clarity (e.g., \"Upload\", \"Processing\")"</li>
-          <li::featureItem>"💡 Use " <code::codeInline>"gradient={true}"</code> " for visual appeal"</li>
-          <li::featureItem>"💡 Keep animations smooth with default duration (0.8s)"</li>
-          <li::featureItem>"💡 Mobile-first: sizes scale automatically on desktop"</li>
-          <li::featureItem>"💡 Use " <code::codeInline>"glow={true}"</code> " sparingly for important progress"</li>
-          <li::featureItem>"💡 Format as fraction for file operations (45/100 MB)"</li>
+          <li::featureItem>
+            "💡 Use "
+            <code::codeInline>"status=\"success\""</code>
+            " when progress reaches 100%"
+          </li>
+
+          <li::featureItem>
+            "💡 Add "
+            <code::codeInline>"label"</code>
+            " for clarity (e.g., \"Upload\", \"Processing\")"
+          </li>
+
+          <li::featureItem>
+            "💡 Use "
+            <code::codeInline>"gradient={true}"</code>
+            " for visual appeal"
+          </li>
+
+          <li::featureItem>
+            "💡 Keep animations smooth with default duration (0.8s)"
+          </li>
+
+          <li::featureItem>
+            "💡 Mobile-first: sizes scale automatically on desktop"
+          </li>
+
+          <li::featureItem>
+            "💡 Use "
+            <code::codeInline>"glow={true}"</code>
+            " sparingly for important progress"
+          </li>
+
+          <li::featureItem>
+            "💡 Format as fraction for file operations (45/100 MB)"
+          </li>
         </ul>
       </div>
 
       <div::docCard>
         <Heading level="3" margin="0 0 16px">"Common Patterns"</Heading>
+
         <Text size="base" margin="0 0 16px">
           <strong>"File Upload Progress:"</strong>
         </Text>
+
         <pre::codeExample>
-"<CircleProgress\n" +
-"  percentage={uploadProgress}\n" +
-"  variant=\"primary\"\n" +
-"  label=\"Uploading...\"\n" +
-"  animated={true}\n" +
-"  status={\n" +
-"    if uploadProgress == 100 {\n" +
-"      \"success\"\n" +
-"    } else {\n" +
-"      \"\"\n" +
-"    }\n" +
-"  }/>"
+          "<CircleProgress\n" + "  percentage={uploadProgress}\n" + "  variant=\"primary\"\n" + "  label=\"Uploading...\"\n" + "  animated={true}\n" + "  status={\n" + "    if uploadProgress == 100 {\n" + "      \"success\"\n" + "    } else {\n" + "      \"\"\n" + "    }\n" + "  }/>"
         </pre>
 
-        <Text size="base" margin="0 0 16px">
-          <strong>"Task Completion:"</strong>
-        </Text>
+        <Text size="base" margin="0 0 16px"><strong>"Task Completion:"</strong></Text>
+
         <pre::codeExample>
-"<CircleProgress\n" +
-"  percentage={completedTasks / totalTasks * 100}\n" +
-"  format=\"fraction\"\n" +
-"  variant=\"success\"\n" +
-"  label=\"Tasks Complete\"/>"
+          "<CircleProgress\n" + "  percentage={completedTasks / totalTasks * 100}\n" + "  format=\"fraction\"\n" + "  variant=\"success\"\n" + "  label=\"Tasks Complete\"/>"
         </pre>
 
-        <Text size="base" margin="0 0 16px">
-          <strong>"Storage Usage:"</strong>
-        </Text>
+        <Text size="base" margin="0 0 16px"><strong>"Storage Usage:"</strong></Text>
+
         <pre::codeExample>
-"<CircleProgress\n" +
-"  percentage={usedSpace / totalSpace * 100}\n" +
-"  variant={\n" +
-"    if percentage > 90 {\n" +
-"      \"error\"\n" +
-"    } else if percentage > 75 {\n" +
-"      \"warning\"\n" +
-"    } else {\n" +
-"      \"success\"\n" +
-"    }\n" +
-"  }\n" +
-"  label=\"Storage\"/>"
+          "<CircleProgress\n" + "  percentage={usedSpace / totalSpace * 100}\n" + "  variant={\n" + "    if percentage > 90 {\n" + "      \"error\"\n" + "    } else if percentage > 75 {\n" + "      \"warning\"\n" + "    } else {\n" + "      \"success\"\n" + "    }\n" + "  }\n" + "  label=\"Storage\"/>"
         </pre>
       </div>
     </div>
@@ -768,6 +828,7 @@ component CircleProgressPage {
       codeExamples={getCodeExamples()}
       apiProperties={getApiProperties()}
       additionalDocs={getAdditionalApiDocs()}
-      enabledTabs={["preview", "usage", "api"]}/>
+      enabledTabs={["preview", "usage", "api"]}
+    />
   }
 }

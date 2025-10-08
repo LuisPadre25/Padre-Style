@@ -1,10 +1,10 @@
 /* BadgePage - Showcase for Badge component using ComponentShowcase */
-
 component BadgePage {
   connect NavigationStore exposing { setPage }
 
   /* State for component controls */
   state count : Number = 5
+
   state max : Number = 99
   state showZero : Bool = false
   state variant : String = "error"
@@ -42,9 +42,14 @@ component BadgePage {
   /* Get preview content */
   fun getPreviewContent : Html {
     <div::previewWrapper>
-      <Badge count={count} max={max} variant={variant} position={position} size={size} showZero={showZero}>
-        <div::demoButton>"Messages"</div>
-      </Badge>
+      <Badge
+        count={count}
+        max={max}
+        variant={variant}
+        position={position}
+        size={size}
+        showZero={showZero}
+      ><div::demoButton>"Messages"</div></Badge>
     </div>
   }
 
@@ -55,88 +60,107 @@ component BadgePage {
 
       <div::controlGroup>
         <div::controlLabel>"Count Value"</div>
+
         <div::buttonGroup>
-          <button::button(count == 0) onClick={(e : Html.Event) { handleCountChange("0") }}>
-            "0"
-          </button>
-          <button::button(count == 5) onClick={(e : Html.Event) { handleCountChange("5") }}>
-            "5"
-          </button>
-          <button::button(count == 12) onClick={(e : Html.Event) { handleCountChange("12") }}>
-            "12"
-          </button>
-          <button::button(count == 99) onClick={(e : Html.Event) { handleCountChange("99") }}>
-            "99"
-          </button>
-          <button::button(count == 100) onClick={(e : Html.Event) { handleCountChange("100") }}>
-            "100"
-          </button>
-          <button::button(count == 999) onClick={(e : Html.Event) { handleCountChange("999") }}>
-            "999"
-          </button>
+          <button::button(count == 0)
+            onClick={(e : Html.Event) { handleCountChange("0") }}
+          >"0"</button>
+
+          <button::button(count == 5)
+            onClick={(e : Html.Event) { handleCountChange("5") }}
+          >"5"</button>
+
+          <button::button(count == 12)
+            onClick={(e : Html.Event) { handleCountChange("12") }}
+          >"12"</button>
+
+          <button::button(count == 99)
+            onClick={(e : Html.Event) { handleCountChange("99") }}
+          >"99"</button>
+
+          <button::button(count == 100)
+            onClick={(e : Html.Event) { handleCountChange("100") }}
+          >"100"</button>
+
+          <button::button(count == 999)
+            onClick={(e : Html.Event) { handleCountChange("999") }}
+          >"999"</button>
         </div>
       </div>
 
       <div::controlGroup>
         <div::controlLabel>"Variant"</div>
+
         <div::buttonGroup>
-          <button::button(variant == "default") onClick={(e : Html.Event) { handleVariantChange("default") }}>
-            "Default"
-          </button>
-          <button::button(variant == "success") onClick={(e : Html.Event) { handleVariantChange("success") }}>
-            "Success"
-          </button>
-          <button::button(variant == "processing") onClick={(e : Html.Event) { handleVariantChange("processing") }}>
-            "Processing"
-          </button>
-          <button::button(variant == "error") onClick={(e : Html.Event) { handleVariantChange("error") }}>
-            "Error"
-          </button>
-          <button::button(variant == "warning") onClick={(e : Html.Event) { handleVariantChange("warning") }}>
-            "Warning"
-          </button>
+          <button::button(variant == "default")
+            onClick={(e : Html.Event) { handleVariantChange("default") }}
+          >"Default"</button>
+
+          <button::button(variant == "success")
+            onClick={(e : Html.Event) { handleVariantChange("success") }}
+          >"Success"</button>
+
+          <button::button(variant == "processing")
+            onClick={(e : Html.Event) { handleVariantChange("processing") }}
+          >"Processing"</button>
+
+          <button::button(variant == "error")
+            onClick={(e : Html.Event) { handleVariantChange("error") }}
+          >"Error"</button>
+
+          <button::button(variant == "warning")
+            onClick={(e : Html.Event) { handleVariantChange("warning") }}
+          >"Warning"</button>
         </div>
       </div>
 
       <div::controlGroup>
         <div::controlLabel>"Size"</div>
+
         <div::buttonGroup>
-          <button::button(size == "small") onClick={(e : Html.Event) { handleSizeChange("small") }}>
-            "Small"
-          </button>
-          <button::button(size == "default") onClick={(e : Html.Event) { handleSizeChange("default") }}>
-            "Default"
-          </button>
-          <button::button(size == "large") onClick={(e : Html.Event) { handleSizeChange("large") }}>
-            "Large"
-          </button>
+          <button::button(size == "small")
+            onClick={(e : Html.Event) { handleSizeChange("small") }}
+          >"Small"</button>
+
+          <button::button(size == "default")
+            onClick={(e : Html.Event) { handleSizeChange("default") }}
+          >"Default"</button>
+
+          <button::button(size == "large")
+            onClick={(e : Html.Event) { handleSizeChange("large") }}
+          >"Large"</button>
         </div>
       </div>
 
       <div::controlGroup>
         <div::controlLabel>"Position"</div>
+
         <div::buttonGroup>
-          <button::button(position == "topRight") onClick={(e : Html.Event) { handlePositionChange("topRight") }}>
-            "Top Right"
-          </button>
-          <button::button(position == "topLeft") onClick={(e : Html.Event) { handlePositionChange("topLeft") }}>
-            "Top Left"
-          </button>
-          <button::button(position == "bottomRight") onClick={(e : Html.Event) { handlePositionChange("bottomRight") }}>
-            "Bottom Right"
-          </button>
-          <button::button(position == "bottomLeft") onClick={(e : Html.Event) { handlePositionChange("bottomLeft") }}>
-            "Bottom Left"
-          </button>
+          <button::button(position == "topRight")
+            onClick={(e : Html.Event) { handlePositionChange("topRight") }}
+          >"Top Right"</button>
+
+          <button::button(position == "topLeft")
+            onClick={(e : Html.Event) { handlePositionChange("topLeft") }}
+          >"Top Left"</button>
+
+          <button::button(position == "bottomRight")
+            onClick={(e : Html.Event) { handlePositionChange("bottomRight") }}
+          >"Bottom Right"</button>
+
+          <button::button(position == "bottomLeft")
+            onClick={(e : Html.Event) { handlePositionChange("bottomLeft") }}
+          >"Bottom Left"</button>
         </div>
       </div>
 
       <div::controlGroup>
         <div::controlLabel>"Options"</div>
+
         <div::buttonGroup>
-          <button::toggleButton(showZero) onClick={(e : Html.Event) { toggleShowZero() }}>
-            "Show Zero"
-          </button>
+          <button::toggleButton(showZero)
+            onClick={(e : Html.Event) { toggleShowZero() }}
+          >"Show Zero"</button>
         </div>
       </div>
     </div>
@@ -148,34 +172,29 @@ component BadgePage {
       {
         title: "Basic Usage",
         description: "Simple notification badge with count",
-        snippet: {
-          code: "<Badge count={5}>\n  <button>Messages</button>\n</Badge>",
-          language: "mint"
-        },
-        previewContent:
-          <Badge count={5}>
-            <div::demoButton>"Messages"</div>
-          </Badge>,
+        snippet:
+          {
+            code: "<Badge count={5}>\n  <button>Messages</button>\n</Badge>",
+            language: "mint"
+          },
+        previewContent: <Badge count={5}><div::demoButton>"Messages"</div></Badge>,
         showReplay: false
       },
       {
         title: "Variants",
         description: "Different color variants for various states",
-        snippet: {
-          code: "<Badge count={5} variant=\"success\"/>\n<Badge count={5} variant=\"error\"/>\n<Badge count={5} variant=\"warning\"/>\n<Badge count={5} variant=\"processing\"/>",
-          language: "mint"
-        },
+        snippet:
+          {
+            code:
+              "<Badge count={5} variant=\"success\"/>\n<Badge count={5} variant=\"error\"/>\n<Badge count={5} variant=\"warning\"/>\n<Badge count={5} variant=\"processing\"/>",
+            language: "mint"
+          },
         previewContent:
           <div style="display: flex; gap: 16px; flex-wrap: wrap;">
-            <Badge count={5} variant="success">
-              <div::demoButton>"Success"</div>
-            </Badge>
-            <Badge count={5} variant="error">
-              <div::demoButton>"Error"</div>
-            </Badge>
-            <Badge count={5} variant="warning">
-              <div::demoButton>"Warning"</div>
-            </Badge>
+            <Badge count={5} variant="success"><div::demoButton>"Success"</div></Badge>
+            <Badge count={5} variant="error"><div::demoButton>"Error"</div></Badge>
+            <Badge count={5} variant="warning"><div::demoButton>"Warning"</div></Badge>
+
             <Badge count={5} variant="processing">
               <div::demoButton>"Processing"</div>
             </Badge>
@@ -185,15 +204,18 @@ component BadgePage {
       {
         title: "Overflow Count",
         description: "Max count display (99+, 999+)",
-        snippet: {
-          code: "<Badge count={100} max={99}>\n  <button>99+</button>\n</Badge>\n\n<Badge count={1000} max={999}>\n  <button>999+</button>\n</Badge>",
-          language: "mint"
-        },
+        snippet:
+          {
+            code:
+              "<Badge count={100} max={99}>\n  <button>99+</button>\n</Badge>\n\n<Badge count={1000} max={999}>\n  <button>999+</button>\n</Badge>",
+            language: "mint"
+          },
         previewContent:
           <div style="display: flex; gap: 24px;">
             <Badge count={100} max={99} variant="error">
               <div::demoButton>"Messages"</div>
             </Badge>
+
             <Badge count={1000} max={999} variant="error">
               <div::demoButton>"Inbox"</div>
             </Badge>
@@ -203,18 +225,21 @@ component BadgePage {
       {
         title: "Dot Badge",
         description: "Simple dot indicator for status",
-        snippet: {
-          code: "<Badge dot={true} variant=\"success\">\n  <Avatar/>\n</Badge>",
-          language: "mint"
-        },
+        snippet:
+          {
+            code: "<Badge dot={true} variant=\"success\">\n  <Avatar/>\n</Badge>",
+            language: "mint"
+          },
         previewContent:
           <div style="display: flex; gap: 24px;">
             <Badge dot={true} variant="success">
               <div::demoAvatar style="background: #52c41a;">"JD"</div>
             </Badge>
+
             <Badge dot={true} variant="error">
               <div::demoAvatar style="background: #ff4d4f;">"AB"</div>
             </Badge>
+
             <Badge dot={true} variant="warning">
               <div::demoAvatar style="background: #faad14;">"MC"</div>
             </Badge>
@@ -224,10 +249,12 @@ component BadgePage {
       {
         title: "Standalone Tags",
         description: "Status labels without children",
-        snippet: {
-          code: "<Badge standalone={true} text=\"New\" variant=\"success\"/>\n<Badge standalone={true} text=\"Beta\" variant=\"processing\"/>\n<Badge standalone={true} text=\"Hot\" variant=\"error\"/>",
-          language: "mint"
-        },
+        snippet:
+          {
+            code:
+              "<Badge standalone={true} text=\"New\" variant=\"success\"/>\n<Badge standalone={true} text=\"Beta\" variant=\"processing\"/>\n<Badge standalone={true} text=\"Hot\" variant=\"error\"/>",
+            language: "mint"
+          },
         previewContent:
           <div style="display: flex; gap: 12px; flex-wrap: wrap;">
             <Badge standalone={true} text="New" variant="success"/>
@@ -240,18 +267,22 @@ component BadgePage {
       {
         title: "Sizes",
         description: "Small, default, and large sizes",
-        snippet: {
-          code: "<Badge count={5} size=\"small\"/>\n<Badge count={10} size=\"default\"/>\n<Badge count={99} size=\"large\"/>",
-          language: "mint"
-        },
+        snippet:
+          {
+            code:
+              "<Badge count={5} size=\"small\"/>\n<Badge count={10} size=\"default\"/>\n<Badge count={99} size=\"large\"/>",
+            language: "mint"
+          },
         previewContent:
           <div style="display: flex; gap: 24px; align-items: center;">
             <Badge count={5} size="small" variant="error">
               <div::demoButton>"Small"</div>
             </Badge>
+
             <Badge count={10} size="default" variant="error">
               <div::demoButton>"Default"</div>
             </Badge>
+
             <Badge count={99} size="large" variant="error">
               <div::demoButton>"Large"</div>
             </Badge>
@@ -261,21 +292,26 @@ component BadgePage {
       {
         title: "Positions",
         description: "Badge positioning options",
-        snippet: {
-          code: "<Badge count={5} position=\"topRight\"/>\n<Badge count={5} position=\"topLeft\"/>\n<Badge count={5} position=\"bottomRight\"/>\n<Badge count={5} position=\"bottomLeft\"/>",
-          language: "mint"
-        },
+        snippet:
+          {
+            code:
+              "<Badge count={5} position=\"topRight\"/>\n<Badge count={5} position=\"topLeft\"/>\n<Badge count={5} position=\"bottomRight\"/>\n<Badge count={5} position=\"bottomLeft\"/>",
+            language: "mint"
+          },
         previewContent:
           <div style="display: flex; gap: 24px; flex-wrap: wrap;">
             <Badge count={5} position="topRight" variant="error">
               <div::demoBox>"TR"</div>
             </Badge>
+
             <Badge count={5} position="topLeft" variant="success">
               <div::demoBox>"TL"</div>
             </Badge>
+
             <Badge count={5} position="bottomRight" variant="warning">
               <div::demoBox>"BR"</div>
             </Badge>
+
             <Badge count={5} position="bottomLeft" variant="processing">
               <div::demoBox>"BL"</div>
             </Badge>
@@ -285,21 +321,26 @@ component BadgePage {
       {
         title: "With Icons",
         description: "Badges on emoji icons",
-        snippet: {
-          code: "<Badge count={12} variant=\"error\">\n  <div style=\"font-size: 32px;\">🔔</div>\n</Badge>\n\n<Badge count={5} variant=\"success\">\n  <div style=\"font-size: 32px;\">💬</div>\n</Badge>",
-          language: "mint"
-        },
+        snippet:
+          {
+            code:
+              "<Badge count={12} variant=\"error\">\n  <div style=\"font-size: 32px;\">🔔</div>\n</Badge>\n\n<Badge count={5} variant=\"success\">\n  <div style=\"font-size: 32px;\">💬</div>\n</Badge>",
+            language: "mint"
+          },
         previewContent:
           <div style="display: flex; gap: 32px;">
             <Badge count={12} variant="error">
               <div style="font-size: 32px; cursor: pointer;">"🔔"</div>
             </Badge>
+
             <Badge count={5} variant="success">
               <div style="font-size: 32px; cursor: pointer;">"💬"</div>
             </Badge>
+
             <Badge dot={true} variant="warning">
               <div style="font-size: 32px; cursor: pointer;">"👤"</div>
             </Badge>
+
             <Badge count={99} variant="processing" size="large">
               <div style="font-size: 32px; cursor: pointer;">"📧"</div>
             </Badge>
@@ -309,21 +350,17 @@ component BadgePage {
       {
         title: "Custom Colors",
         description: "Use custom hex colors",
-        snippet: {
-          code: "<Badge count={5} color=\"#722ed1\"/>\n<Badge count={3} color=\"#13c2c2\"/>\n<Badge count={8} color=\"#eb2f96\"/>",
-          language: "mint"
-        },
+        snippet:
+          {
+            code:
+              "<Badge count={5} color=\"#722ed1\"/>\n<Badge count={3} color=\"#13c2c2\"/>\n<Badge count={8} color=\"#eb2f96\"/>",
+            language: "mint"
+          },
         previewContent:
           <div style="display: flex; gap: 24px;">
-            <Badge count={5} color="#722ed1">
-              <div::demoButton>"Purple"</div>
-            </Badge>
-            <Badge count={3} color="#13c2c2">
-              <div::demoButton>"Cyan"</div>
-            </Badge>
-            <Badge count={8} color="#eb2f96">
-              <div::demoButton>"Magenta"</div>
-            </Badge>
+            <Badge count={5} color="#722ed1"><div::demoButton>"Purple"</div></Badge>
+            <Badge count={3} color="#13c2c2"><div::demoButton>"Cyan"</div></Badge>
+            <Badge count={8} color="#eb2f96"><div::demoButton>"Magenta"</div></Badge>
           </div>,
         showReplay: false
       }
@@ -373,7 +410,8 @@ component BadgePage {
         name: "variant",
         type: "String",
         defaultValue: "\"default\"",
-        description: "Color preset: default | success | processing | error | warning | info"
+        description:
+          "Color preset: default | success | processing | error | warning | info"
       },
       {
         name: "color",
@@ -397,7 +435,8 @@ component BadgePage {
         name: "position",
         type: "String",
         defaultValue: "\"topRight\"",
-        description: "Corner position: topRight | topLeft | bottomRight | bottomLeft"
+        description:
+          "Corner position: topRight | topLeft | bottomRight | bottomLeft"
       },
       {
         name: "offset",
@@ -419,6 +458,7 @@ component BadgePage {
     <div>
       <div::docCard>
         <Heading level="3" margin="0 0 16px">"Variants"</Heading>
+
         <table::apiTable>
           <thead>
             <tr>
@@ -427,32 +467,38 @@ component BadgePage {
               <th::tableHeader>"Usage"</th>
             </tr>
           </thead>
+
           <tbody>
             <tr>
               <td::tableCell><code::codeInline>"default"</code></td>
               <td::tableCell>"#ff4d4f"</td>
               <td::tableCell>"Default/error notifications"</td>
             </tr>
+
             <tr>
               <td::tableCell><code::codeInline>"success"</code></td>
               <td::tableCell>"#52c41a"</td>
               <td::tableCell>"Completed actions"</td>
             </tr>
+
             <tr>
               <td::tableCell><code::codeInline>"processing"</code></td>
               <td::tableCell>"#1890ff"</td>
               <td::tableCell>"In-progress states"</td>
             </tr>
+
             <tr>
               <td::tableCell><code::codeInline>"error"</code></td>
               <td::tableCell>"#ff4d4f"</td>
               <td::tableCell>"Critical alerts"</td>
             </tr>
+
             <tr>
               <td::tableCell><code::codeInline>"warning"</code></td>
               <td::tableCell>"#faad14"</td>
               <td::tableCell>"Needs attention"</td>
             </tr>
+
             <tr>
               <td::tableCell><code::codeInline>"info"</code></td>
               <td::tableCell>"#1890ff"</td>
@@ -464,6 +510,7 @@ component BadgePage {
 
       <div::docCard>
         <Heading level="3" margin="0 0 16px">"Sizes"</Heading>
+
         <table::apiTable>
           <thead>
             <tr>
@@ -472,17 +519,20 @@ component BadgePage {
               <th::tableHeader>"Use Case"</th>
             </tr>
           </thead>
+
           <tbody>
             <tr>
               <td::tableCell><code::codeInline>"small"</code></td>
               <td::tableCell>"18px"</td>
               <td::tableCell>"Compact layouts"</td>
             </tr>
+
             <tr>
               <td::tableCell><code::codeInline>"default"</code></td>
               <td::tableCell>"20px"</td>
               <td::tableCell>"Standard ⭐"</td>
             </tr>
+
             <tr>
               <td::tableCell><code::codeInline>"large"</code></td>
               <td::tableCell>"24px"</td>
@@ -494,6 +544,7 @@ component BadgePage {
 
       <div::docCard>
         <Heading level="3" margin="0 0 16px">"Badge Types"</Heading>
+
         <table::apiTable>
           <thead>
             <tr>
@@ -502,17 +553,20 @@ component BadgePage {
               <th::tableHeader>"Example"</th>
             </tr>
           </thead>
+
           <tbody>
             <tr>
               <td::tableCell>"Count"</td>
               <td::tableCell><code::codeInline>"count={5}"</code></td>
               <td::tableCell>"Notification counts"</td>
             </tr>
+
             <tr>
               <td::tableCell>"Dot"</td>
               <td::tableCell><code::codeInline>"dot={true}"</code></td>
               <td::tableCell>"Status indicator"</td>
             </tr>
+
             <tr>
               <td::tableCell>"Standalone"</td>
               <td::tableCell><code::codeInline>"standalone={true}"</code></td>
@@ -524,13 +578,41 @@ component BadgePage {
 
       <div::docCard>
         <Heading level="3" margin="0 0 16px">"Best Practices"</Heading>
+
         <ul::featureList>
-          <li::featureItem>"💡 Use " <code::codeInline>"max={99}"</code> " to show '99+' for large counts"</li>
+          <li::featureItem>
+            "💡 Use "
+            <code::codeInline>"max={99}"</code>
+            " to show '99+' for large counts"
+          </li>
+
           <li::featureItem>"💡 Keep text short (1-3 chars) for readability"</li>
-          <li::featureItem>"💡 Use " <code::codeInline>"dot"</code> " for presence indicators (online/offline)"</li>
-          <li::featureItem>"💡 Use " <code::codeInline>"standalone"</code> " for tags like 'New', 'Beta', 'Hot'"</li>
-          <li::featureItem>"💡 Badge hides when " <code::codeInline>"count=0"</code> " (use " <code::codeInline>"showZero={true}"</code> " to override)"</li>
-          <li::featureItem>"💡 Stick to " <code::codeInline>"topRight"</code> " for consistency"</li>
+
+          <li::featureItem>
+            "💡 Use "
+            <code::codeInline>"dot"</code>
+            " for presence indicators (online/offline)"
+          </li>
+
+          <li::featureItem>
+            "💡 Use "
+            <code::codeInline>"standalone"</code>
+            " for tags like 'New', 'Beta', 'Hot'"
+          </li>
+
+          <li::featureItem>
+            "💡 Badge hides when "
+            <code::codeInline>"count=0"</code>
+            " (use "
+            <code::codeInline>"showZero={true}"</code>
+            " to override)"
+          </li>
+
+          <li::featureItem>
+            "💡 Stick to "
+            <code::codeInline>"topRight"</code>
+            " for consistency"
+          </li>
         </ul>
       </div>
     </div>
@@ -581,7 +663,6 @@ component BadgePage {
     font-weight: 600;
     color: #666;
   }
-
 
   style controlGroup {
     margin-bottom: 20px;
@@ -658,7 +739,6 @@ component BadgePage {
     margin-bottom: 24px;
   }
 
-
   style apiTable {
     width: 100%;
     border-collapse: collapse;
@@ -726,6 +806,7 @@ component BadgePage {
       codeExamples={getCodeExamples()}
       apiProperties={getApiProperties()}
       additionalDocs={getAdditionalApiDocs()}
-      enabledTabs={["preview", "usage", "api"]}/>
+      enabledTabs={["preview", "usage", "api"]}
+    />
   }
 }

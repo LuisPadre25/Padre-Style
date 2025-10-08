@@ -1,8 +1,8 @@
 /* AvatarPage - Showcase for Avatar component using ComponentShowcase */
-
 component AvatarPage {
   /* State for component controls */
   state componentType : String = "avatar"
+
   state selectedSize : String = "md"
   state selectedShape : String = "circle"
   state showBorder : Bool = false
@@ -17,6 +17,7 @@ component AvatarPage {
 
   /* AvatarGroup specific state */
   state groupMax : Number = 5
+
   state groupSpacing : String = "normal"
   state groupBordered : Bool = true
 
@@ -123,16 +124,7 @@ component AvatarPage {
   /* Get array of avatar URLs for group */
   fun getGroupAvatars : Array(String) {
     if avatarContentType == "initials" {
-      [
-        "JD",
-        "AB",
-        "CD",
-        "EF",
-        "GH",
-        "IJ",
-        "KL",
-        "MN"
-      ]
+      ["JD", "AB", "CD", "EF", "GH", "IJ", "KL", "MN"]
     } else {
       [
         "https://i.pravatar.cc/150?img=1",
@@ -170,7 +162,8 @@ component AvatarPage {
               status={status}
               animated={animated}
               animation={animation}
-              bgColor="#1989fa"/>
+              bgColor="#1989fa"
+            />
           }
 
           if contentType == "image" {
@@ -191,7 +184,8 @@ component AvatarPage {
               showStatus={showStatus}
               status={status}
               animated={animated}
-              animation={animation}/>
+              animation={animation}
+            />
           }
 
           if contentType == "icon" {
@@ -212,7 +206,8 @@ component AvatarPage {
               status={status}
               animated={animated}
               animation={animation}
-              bgColor="#52c41a"/>
+              bgColor="#52c41a"
+            />
           }
 
           if contentType == "placeholder" {
@@ -225,7 +220,8 @@ component AvatarPage {
               status={status}
               animated={animated}
               animation={animation}
-              bgColor="#94a3b8"/>
+              bgColor="#94a3b8"
+            />
           }
 
           if contentType == "shapes" {
@@ -243,7 +239,8 @@ component AvatarPage {
                     ""
                   }
                 }
-                bgColor="#1989fa"/>
+                bgColor="#1989fa"
+              />
 
               <Avatar
                 text="S"
@@ -258,7 +255,8 @@ component AvatarPage {
                     ""
                   }
                 }
-                bgColor="#52c41a"/>
+                bgColor="#52c41a"
+              />
 
               <Avatar
                 text="R"
@@ -273,7 +271,8 @@ component AvatarPage {
                     ""
                   }
                 }
-                bgColor="#f59e0b"/>
+                bgColor="#f59e0b"
+              />
             </>
           }
         </>
@@ -293,7 +292,8 @@ component AvatarPage {
           status={status}
           showBadge={showBadge}
           animated={animated}
-          animation={animation}/>
+          animation={animation}
+        />
       }
     </div>
   }
@@ -311,6 +311,7 @@ component AvatarPage {
 
       <div::controlGroup>
         <div::controlLabel>"Component Type"</div>
+
         <Tabs
           tabs={getComponentTypeTabs()}
           active={componentType}
@@ -318,61 +319,78 @@ component AvatarPage {
           color="#1989fa"
           titleActiveColor="#1989fa"
           border={true}
-          onChange={handleComponentTypeTabChange}/>
+          onChange={handleComponentTypeTabChange}
+        />
       </div>
 
       <div::controlGroup>
         <div::controlLabel>"Size"</div>
+
         <div::buttonGroup>
-          <button::button(selectedSize == "xs") onClick={(e : Html.Event) { handleSizeChange("xs") }}>
-            "XS"
-          </button>
-          <button::button(selectedSize == "sm") onClick={(e : Html.Event) { handleSizeChange("sm") }}>
-            "SM"
-          </button>
-          <button::button(selectedSize == "md") onClick={(e : Html.Event) { handleSizeChange("md") }}>
-            "MD"
-          </button>
-          <button::button(selectedSize == "lg") onClick={(e : Html.Event) { handleSizeChange("lg") }}>
-            "LG"
-          </button>
-          <button::button(selectedSize == "xl") onClick={(e : Html.Event) { handleSizeChange("xl") }}>
-            "XL"
-          </button>
-          <button::button(selectedSize == "xxl") onClick={(e : Html.Event) { handleSizeChange("xxl") }}>
-            "XXL"
-          </button>
-          <button::button(selectedSize == "xxxl") onClick={(e : Html.Event) { handleSizeChange("xxxl") }}>
-            "XXXL"
-          </button>
+          <button::button(selectedSize == "xs")
+            onClick={(e : Html.Event) { handleSizeChange("xs") }}
+          >"XS"</button>
+
+          <button::button(selectedSize == "sm")
+            onClick={(e : Html.Event) { handleSizeChange("sm") }}
+          >"SM"</button>
+
+          <button::button(selectedSize == "md")
+            onClick={(e : Html.Event) { handleSizeChange("md") }}
+          >"MD"</button>
+
+          <button::button(selectedSize == "lg")
+            onClick={(e : Html.Event) { handleSizeChange("lg") }}
+          >"LG"</button>
+
+          <button::button(selectedSize == "xl")
+            onClick={(e : Html.Event) { handleSizeChange("xl") }}
+          >"XL"</button>
+
+          <button::button(selectedSize == "xxl")
+            onClick={(e : Html.Event) { handleSizeChange("xxl") }}
+          >"XXL"</button>
+
+          <button::button(selectedSize == "xxxl")
+            onClick={(e : Html.Event) { handleSizeChange("xxxl") }}
+          >"XXXL"</button>
         </div>
       </div>
 
       <div::controlGroup>
         <div::controlLabel>"Shape"</div>
+
         <div::buttonGroup>
-          <button::button(selectedShape == "circle") onClick={(e : Html.Event) { handleShapeChange("circle") }}>
-            "Circle"
-          </button>
-          <button::button(selectedShape == "square") onClick={(e : Html.Event) { handleShapeChange("square") }}>
-            "Square"
-          </button>
-          <button::button(selectedShape == "rounded") onClick={(e : Html.Event) { handleShapeChange("rounded") }}>
-            "Rounded"
-          </button>
+          <button::button(selectedShape == "circle")
+            onClick={(e : Html.Event) { handleShapeChange("circle") }}
+          >"Circle"</button>
+
+          <button::button(selectedShape == "square")
+            onClick={(e : Html.Event) { handleShapeChange("square") }}
+          >"Square"</button>
+
+          <button::button(selectedShape == "rounded")
+            onClick={(e : Html.Event) { handleShapeChange("rounded") }}
+          >"Rounded"</button>
         </div>
       </div>
 
       if componentType == "group" {
         <div::controlGroup>
           <div::controlLabel>"Content Type"</div>
+
           <div::buttonGroup>
-            <button::button(avatarContentType == "images") onClick={(e : Html.Event) { handleAvatarContentTypeChange("images") }}>
-              "Images"
-            </button>
-            <button::button(avatarContentType == "initials") onClick={(e : Html.Event) { handleAvatarContentTypeChange("initials") }}>
-              "Initials"
-            </button>
+            <button::button(avatarContentType == "images")
+              onClick={
+                (e : Html.Event) { handleAvatarContentTypeChange("images") }
+              }
+            >"Images"</button>
+
+            <button::button(avatarContentType == "initials")
+              onClick={
+                (e : Html.Event) { handleAvatarContentTypeChange("initials") }
+              }
+            >"Initials"</button>
           </div>
         </div>
       }
@@ -380,79 +398,101 @@ component AvatarPage {
       if componentType == "avatar" {
         <div::controlGroup>
           <div::controlLabel>"Content Type"</div>
+
           <div::buttonGroup>
-            <button::button(contentType == "initials") onClick={(e : Html.Event) { handleContentTypeChange("initials") }}>
-              "Initials"
-            </button>
-            <button::button(contentType == "image") onClick={(e : Html.Event) { handleContentTypeChange("image") }}>
-              "Image"
-            </button>
-            <button::button(contentType == "icon") onClick={(e : Html.Event) { handleContentTypeChange("icon") }}>
-              "Icon"
-            </button>
-            <button::button(contentType == "placeholder") onClick={(e : Html.Event) { handleContentTypeChange("placeholder") }}>
-              "Placeholder"
-            </button>
-            <button::button(contentType == "shapes") onClick={(e : Html.Event) { handleContentTypeChange("shapes") }}>
-              "All Shapes"
-            </button>
+            <button::button(contentType == "initials")
+              onClick={(e : Html.Event) { handleContentTypeChange("initials") }}
+            >"Initials"</button>
+
+            <button::button(contentType == "image")
+              onClick={(e : Html.Event) { handleContentTypeChange("image") }}
+            >"Image"</button>
+
+            <button::button(contentType == "icon")
+              onClick={(e : Html.Event) { handleContentTypeChange("icon") }}
+            >"Icon"</button>
+
+            <button::button(contentType == "placeholder")
+              onClick={
+                (e : Html.Event) { handleContentTypeChange("placeholder") }
+              }
+            >"Placeholder"</button>
+
+            <button::button(contentType == "shapes")
+              onClick={(e : Html.Event) { handleContentTypeChange("shapes") }}
+            >"All Shapes"</button>
           </div>
         </div>
 
         <div::controlGroup>
           <div::controlLabel>"Status Indicator"</div>
+
           <div::buttonGroup>
-            <button::button(status == "online") onClick={(e : Html.Event) { handleStatusChange("online") }}>
-              "🟢 Online"
-            </button>
-            <button::button(status == "offline") onClick={(e : Html.Event) { handleStatusChange("offline") }}>
-              "⚪ Offline"
-            </button>
-            <button::button(status == "away") onClick={(e : Html.Event) { handleStatusChange("away") }}>
-              "🟡 Away"
-            </button>
-            <button::button(status == "busy") onClick={(e : Html.Event) { handleStatusChange("busy") }}>
-              "🔴 Busy"
-            </button>
-            <button::button(status == "dnd") onClick={(e : Html.Event) { handleStatusChange("dnd") }}>
-              "🟣 DND"
-            </button>
+            <button::button(status == "online")
+              onClick={(e : Html.Event) { handleStatusChange("online") }}
+            >"🟢 Online"</button>
+
+            <button::button(status == "offline")
+              onClick={(e : Html.Event) { handleStatusChange("offline") }}
+            >"⚪ Offline"</button>
+
+            <button::button(status == "away")
+              onClick={(e : Html.Event) { handleStatusChange("away") }}
+            >"🟡 Away"</button>
+
+            <button::button(status == "busy")
+              onClick={(e : Html.Event) { handleStatusChange("busy") }}
+            >"🔴 Busy"</button>
+
+            <button::button(status == "dnd")
+              onClick={(e : Html.Event) { handleStatusChange("dnd") }}
+            >"🟣 DND"</button>
           </div>
         </div>
 
         <div::controlGroup>
           <div::controlLabel>"Animation"</div>
+
           <div::buttonGroup>
-            <button::button(animation == "scaleIn") onClick={(e : Html.Event) { handleAnimationChange("scaleIn") }}>
-              "Scale"
-            </button>
-            <button::button(animation == "fadeIn") onClick={(e : Html.Event) { handleAnimationChange("fadeIn") }}>
-              "Fade"
-            </button>
-            <button::button(animation == "slideInLeft") onClick={(e : Html.Event) { handleAnimationChange("slideInLeft") }}>
-              "Slide"
-            </button>
+            <button::button(animation == "scaleIn")
+              onClick={(e : Html.Event) { handleAnimationChange("scaleIn") }}
+            >"Scale"</button>
+
+            <button::button(animation == "fadeIn")
+              onClick={(e : Html.Event) { handleAnimationChange("fadeIn") }}
+            >"Fade"</button>
+
+            <button::button(animation == "slideInLeft")
+              onClick={
+                (e : Html.Event) { handleAnimationChange("slideInLeft") }
+              }
+            >"Slide"</button>
           </div>
         </div>
 
         <div::controlGroup>
           <div::controlLabel>"Options"</div>
+
           <div::buttonGroup>
-            <button::toggleButton(showBorder) onClick={(e : Html.Event) { toggleBorder() }}>
-              "Border"
-            </button>
-            <button::toggleButton(showRing) onClick={(e : Html.Event) { toggleRing() }}>
-              "Ring"
-            </button>
-            <button::toggleButton(showBadge) onClick={(e : Html.Event) { toggleBadge() }}>
-              "Badge"
-            </button>
-            <button::toggleButton(showStatus) onClick={(e : Html.Event) { toggleStatus() }}>
-              "Status"
-            </button>
-            <button::toggleButton(animated) onClick={(e : Html.Event) { toggleAnimated() }}>
-              "Animated"
-            </button>
+            <button::toggleButton(showBorder)
+              onClick={(e : Html.Event) { toggleBorder() }}
+            >"Border"</button>
+
+            <button::toggleButton(showRing)
+              onClick={(e : Html.Event) { toggleRing() }}
+            >"Ring"</button>
+
+            <button::toggleButton(showBadge)
+              onClick={(e : Html.Event) { toggleBadge() }}
+            >"Badge"</button>
+
+            <button::toggleButton(showStatus)
+              onClick={(e : Html.Event) { toggleStatus() }}
+            >"Status"</button>
+
+            <button::toggleButton(animated)
+              onClick={(e : Html.Event) { toggleAnimated() }}
+            >"Animated"</button>
           </div>
         </div>
       }
@@ -460,97 +500,121 @@ component AvatarPage {
       if componentType == "group" {
         <div::controlGroup>
           <div::controlLabel>"Max Avatars"</div>
+
           <div::buttonGroup>
-            <button::button(groupMax == 3) onClick={(e : Html.Event) { handleGroupMaxChange(3) }}>
-              "3"
-            </button>
-            <button::button(groupMax == 4) onClick={(e : Html.Event) { handleGroupMaxChange(4) }}>
-              "4"
-            </button>
-            <button::button(groupMax == 5) onClick={(e : Html.Event) { handleGroupMaxChange(5) }}>
-              "5"
-            </button>
-            <button::button(groupMax == 6) onClick={(e : Html.Event) { handleGroupMaxChange(6) }}>
-              "6"
-            </button>
-            <button::button(groupMax == 7) onClick={(e : Html.Event) { handleGroupMaxChange(7) }}>
-              "7"
-            </button>
-            <button::button(groupMax == 8) onClick={(e : Html.Event) { handleGroupMaxChange(8) }}>
-              "8"
-            </button>
+            <button::button(groupMax == 3)
+              onClick={(e : Html.Event) { handleGroupMaxChange(3) }}
+            >"3"</button>
+
+            <button::button(groupMax == 4)
+              onClick={(e : Html.Event) { handleGroupMaxChange(4) }}
+            >"4"</button>
+
+            <button::button(groupMax == 5)
+              onClick={(e : Html.Event) { handleGroupMaxChange(5) }}
+            >"5"</button>
+
+            <button::button(groupMax == 6)
+              onClick={(e : Html.Event) { handleGroupMaxChange(6) }}
+            >"6"</button>
+
+            <button::button(groupMax == 7)
+              onClick={(e : Html.Event) { handleGroupMaxChange(7) }}
+            >"7"</button>
+
+            <button::button(groupMax == 8)
+              onClick={(e : Html.Event) { handleGroupMaxChange(8) }}
+            >"8"</button>
           </div>
         </div>
 
         <div::controlGroup>
           <div::controlLabel>"Spacing"</div>
+
           <div::buttonGroup>
-            <button::button(groupSpacing == "tight") onClick={(e : Html.Event) { handleGroupSpacingChange("tight") }}>
-              "Tight"
-            </button>
-            <button::button(groupSpacing == "normal") onClick={(e : Html.Event) { handleGroupSpacingChange("normal") }}>
-              "Normal"
-            </button>
-            <button::button(groupSpacing == "loose") onClick={(e : Html.Event) { handleGroupSpacingChange("loose") }}>
-              "Loose"
-            </button>
+            <button::button(groupSpacing == "tight")
+              onClick={(e : Html.Event) { handleGroupSpacingChange("tight") }}
+            >"Tight"</button>
+
+            <button::button(groupSpacing == "normal")
+              onClick={(e : Html.Event) { handleGroupSpacingChange("normal") }}
+            >"Normal"</button>
+
+            <button::button(groupSpacing == "loose")
+              onClick={(e : Html.Event) { handleGroupSpacingChange("loose") }}
+            >"Loose"</button>
           </div>
         </div>
 
         <div::controlGroup>
           <div::controlLabel>"Status Indicator"</div>
+
           <div::buttonGroup>
-            <button::button(status == "online") onClick={(e : Html.Event) { handleStatusChange("online") }}>
-              "🟢 Online"
-            </button>
-            <button::button(status == "offline") onClick={(e : Html.Event) { handleStatusChange("offline") }}>
-              "⚪ Offline"
-            </button>
-            <button::button(status == "away") onClick={(e : Html.Event) { handleStatusChange("away") }}>
-              "🟡 Away"
-            </button>
-            <button::button(status == "busy") onClick={(e : Html.Event) { handleStatusChange("busy") }}>
-              "🔴 Busy"
-            </button>
-            <button::button(status == "dnd") onClick={(e : Html.Event) { handleStatusChange("dnd") }}>
-              "🟣 DND"
-            </button>
+            <button::button(status == "online")
+              onClick={(e : Html.Event) { handleStatusChange("online") }}
+            >"🟢 Online"</button>
+
+            <button::button(status == "offline")
+              onClick={(e : Html.Event) { handleStatusChange("offline") }}
+            >"⚪ Offline"</button>
+
+            <button::button(status == "away")
+              onClick={(e : Html.Event) { handleStatusChange("away") }}
+            >"🟡 Away"</button>
+
+            <button::button(status == "busy")
+              onClick={(e : Html.Event) { handleStatusChange("busy") }}
+            >"🔴 Busy"</button>
+
+            <button::button(status == "dnd")
+              onClick={(e : Html.Event) { handleStatusChange("dnd") }}
+            >"🟣 DND"</button>
           </div>
         </div>
 
         <div::controlGroup>
           <div::controlLabel>"Animation"</div>
+
           <div::buttonGroup>
-            <button::button(animation == "scaleIn") onClick={(e : Html.Event) { handleAnimationChange("scaleIn") }}>
-              "Scale"
-            </button>
-            <button::button(animation == "fadeIn") onClick={(e : Html.Event) { handleAnimationChange("fadeIn") }}>
-              "Fade"
-            </button>
-            <button::button(animation == "slideInLeft") onClick={(e : Html.Event) { handleAnimationChange("slideInLeft") }}>
-              "Slide"
-            </button>
+            <button::button(animation == "scaleIn")
+              onClick={(e : Html.Event) { handleAnimationChange("scaleIn") }}
+            >"Scale"</button>
+
+            <button::button(animation == "fadeIn")
+              onClick={(e : Html.Event) { handleAnimationChange("fadeIn") }}
+            >"Fade"</button>
+
+            <button::button(animation == "slideInLeft")
+              onClick={
+                (e : Html.Event) { handleAnimationChange("slideInLeft") }
+              }
+            >"Slide"</button>
           </div>
         </div>
 
         <div::controlGroup>
           <div::controlLabel>"Options"</div>
+
           <div::buttonGroup>
-            <button::toggleButton(groupBordered) onClick={(e : Html.Event) { toggleGroupBordered() }}>
-              "Border"
-            </button>
-            <button::toggleButton(showRing) onClick={(e : Html.Event) { toggleRing() }}>
-              "Ring"
-            </button>
-            <button::toggleButton(showBadge) onClick={(e : Html.Event) { toggleBadge() }}>
-              "Badge"
-            </button>
-            <button::toggleButton(showStatus) onClick={(e : Html.Event) { toggleStatus() }}>
-              "Status"
-            </button>
-            <button::toggleButton(animated) onClick={(e : Html.Event) { toggleAnimated() }}>
-              "Animated"
-            </button>
+            <button::toggleButton(groupBordered)
+              onClick={(e : Html.Event) { toggleGroupBordered() }}
+            >"Border"</button>
+
+            <button::toggleButton(showRing)
+              onClick={(e : Html.Event) { toggleRing() }}
+            >"Ring"</button>
+
+            <button::toggleButton(showBadge)
+              onClick={(e : Html.Event) { toggleBadge() }}
+            >"Badge"</button>
+
+            <button::toggleButton(showStatus)
+              onClick={(e : Html.Event) { toggleStatus() }}
+            >"Status"</button>
+
+            <button::toggleButton(animated)
+              onClick={(e : Html.Event) { toggleAnimated() }}
+            >"Animated"</button>
           </div>
         </div>
       }
@@ -563,289 +627,243 @@ component AvatarPage {
       {
         title: "Basic Usage",
         description: "Simple avatar with initials and default settings",
-        snippet: {
-          code: "<Avatar\n" +
-                "  text=\"John Doe\"\n" +
-                "  size=\"md\"\n" +
-                "  shape=\"circle\"\n" +
-                "  bgColor=\"#1989fa\"/>",
-          language: "mint"
-        },
-        previewContent: <Avatar
-          text="John Doe"
-          size="lg"
-          shape="circle"
-          bgColor="#1989fa"/>,
+        snippet:
+          {
+            code:
+              "<Avatar\n" + "  text=\"John Doe\"\n" + "  size=\"md\"\n" + "  shape=\"circle\"\n" + "  bgColor=\"#1989fa\"/>",
+            language: "mint"
+          },
+        previewContent:
+          <Avatar text="John Doe" size="lg" shape="circle" bgColor="#1989fa"/>,
         showReplay: false
       },
       {
         title: "With Image",
         description: "Avatar displaying user profile image",
-        snippet: {
-          code: "<Avatar\n" +
-                "  src=\"https://i.pravatar.cc/150?img=1\"\n" +
-                "  alt=\"User Avatar\"\n" +
-                "  size=\"lg\"\n" +
-                "  shape=\"circle\"/>",
-          language: "mint"
-        },
-        previewContent: <Avatar
-          src="https://i.pravatar.cc/150?img=1"
-          alt="User Avatar"
-          size="lg"
-          shape="circle"/>,
+        snippet:
+          {
+            code:
+              "<Avatar\n" + "  src=\"https://i.pravatar.cc/150?img=1\"\n" + "  alt=\"User Avatar\"\n" + "  size=\"lg\"\n" + "  shape=\"circle\"/>",
+            language: "mint"
+          },
+        previewContent:
+          <Avatar
+            src="https://i.pravatar.cc/150?img=1"
+            alt="User Avatar"
+            size="lg"
+            shape="circle"
+          />,
         showReplay: false
       },
       {
         title: "With Badge",
         description: "Avatar with notification badge",
-        snippet: {
-          code: "<Avatar\n" +
-                "  text=\"JD\"\n" +
-                "  size=\"lg\"\n" +
-                "  badge=\"99+\"\n" +
-                "  badgePosition=\"topRight\"\n" +
-                "  bgColor=\"#1989fa\"/>",
-          language: "mint"
-        },
-        previewContent: <Avatar
-          text="JD"
-          size="lg"
-          badge="99+"
-          badgePosition="topRight"
-          bgColor="#1989fa"/>,
+        snippet:
+          {
+            code:
+              "<Avatar\n" + "  text=\"JD\"\n" + "  size=\"lg\"\n" + "  badge=\"99+\"\n" + "  badgePosition=\"topRight\"\n" + "  bgColor=\"#1989fa\"/>",
+            language: "mint"
+          },
+        previewContent:
+          <Avatar
+            text="JD"
+            size="lg"
+            badge="99+"
+            badgePosition="topRight"
+            bgColor="#1989fa"
+          />,
         showReplay: false
       },
       {
         title: "With Status Indicator",
-        description: "Avatar with status indicator using StatusDot component (online, offline, away, busy, dnd)",
-        snippet: {
-          code: "<Avatar\n" +
-                "  src=\"https://i.pravatar.cc/150?img=2\"\n" +
-                "  size=\"lg\"\n" +
-                "  showStatus={true}\n" +
-                "  status=\"online\"/>\n\n" +
-                "<Avatar\n" +
-                "  text=\"OF\"\n" +
-                "  size=\"lg\"\n" +
-                "  showStatus={true}\n" +
-                "  status=\"offline\"/>\n\n" +
-                "<Avatar\n" +
-                "  text=\"AW\"\n" +
-                "  size=\"lg\"\n" +
-                "  showStatus={true}\n" +
-                "  status=\"away\"/>\n\n" +
-                "<Avatar\n" +
-                "  text=\"BS\"\n" +
-                "  size=\"lg\"\n" +
-                "  showStatus={true}\n" +
-                "  status=\"busy\"/>\n\n" +
-                "<Avatar\n" +
-                "  text=\"DN\"\n" +
-                "  size=\"lg\"\n" +
-                "  showStatus={true}\n" +
-                "  status=\"dnd\"/>",
-          language: "mint"
-        },
-        previewContent: <div style="display: flex; gap: 24px; flex-wrap: wrap;">
-          <Avatar
-            src="https://i.pravatar.cc/150?img=2"
-            size="lg"
-            showStatus={true}
-            status="online"/>
-          <Avatar
-            text="OF"
-            size="lg"
-            showStatus={true}
-            status="offline"
-            bgColor="#8c8c8c"/>
-          <Avatar
-            text="AW"
-            size="lg"
-            showStatus={true}
-            status="away"
-            bgColor="#faad14"/>
-          <Avatar
-            text="BS"
-            size="lg"
-            showStatus={true}
-            status="busy"
-            bgColor="#f5222d"/>
-          <Avatar
-            text="DN"
-            size="lg"
-            showStatus={true}
-            status="dnd"
-            bgColor="#722ed1"/>
-        </div>,
+        description:
+          "Avatar with status indicator using StatusDot component (online, offline, away, busy, dnd)",
+        snippet:
+          {
+            code:
+              "<Avatar\n" + "  src=\"https://i.pravatar.cc/150?img=2\"\n" + "  size=\"lg\"\n" + "  showStatus={true}\n" + "  status=\"online\"/>\n\n" + "<Avatar\n" + "  text=\"OF\"\n" + "  size=\"lg\"\n" + "  showStatus={true}\n" + "  status=\"offline\"/>\n\n" + "<Avatar\n" + "  text=\"AW\"\n" + "  size=\"lg\"\n" + "  showStatus={true}\n" + "  status=\"away\"/>\n\n" + "<Avatar\n" + "  text=\"BS\"\n" + "  size=\"lg\"\n" + "  showStatus={true}\n" + "  status=\"busy\"/>\n\n" + "<Avatar\n" + "  text=\"DN\"\n" + "  size=\"lg\"\n" + "  showStatus={true}\n" + "  status=\"dnd\"/>",
+            language: "mint"
+          },
+        previewContent:
+          <div style="display: flex; gap: 24px; flex-wrap: wrap;">
+            <Avatar
+              src="https://i.pravatar.cc/150?img=2"
+              size="lg"
+              showStatus={true}
+              status="online"
+            />
+
+            <Avatar
+              text="OF"
+              size="lg"
+              showStatus={true}
+              status="offline"
+              bgColor="#8c8c8c"
+            />
+
+            <Avatar
+              text="AW"
+              size="lg"
+              showStatus={true}
+              status="away"
+              bgColor="#faad14"
+            />
+
+            <Avatar
+              text="BS"
+              size="lg"
+              showStatus={true}
+              status="busy"
+              bgColor="#f5222d"
+            />
+
+            <Avatar
+              text="DN"
+              size="lg"
+              showStatus={true}
+              status="dnd"
+              bgColor="#722ed1"
+            />
+          </div>,
         showReplay: false
       },
       {
         title: "All Shapes Demo",
-        description: "Avatar component supports circle, square, and rounded shapes",
-        snippet: {
-          code: "<Avatar text=\"C\" shape=\"circle\" size=\"lg\" bgColor=\"#1989fa\"/>\n" +
-                "<Avatar text=\"S\" shape=\"square\" size=\"lg\" bgColor=\"#52c41a\"/>\n" +
-                "<Avatar text=\"R\" shape=\"rounded\" size=\"lg\" bgColor=\"#f59e0b\"/>",
-          language: "mint"
-        },
-        previewContent: <div style="display: flex; gap: 24px;">
-          <Avatar text="C" shape="circle" size="lg" bgColor="#1989fa"/>
-          <Avatar text="S" shape="square" size="lg" bgColor="#52c41a"/>
-          <Avatar text="R" shape="rounded" size="lg" bgColor="#f59e0b"/>
-        </div>,
+        description:
+          "Avatar component supports circle, square, and rounded shapes",
+        snippet:
+          {
+            code:
+              "<Avatar text=\"C\" shape=\"circle\" size=\"lg\" bgColor=\"#1989fa\"/>\n" + "<Avatar text=\"S\" shape=\"square\" size=\"lg\" bgColor=\"#52c41a\"/>\n" + "<Avatar text=\"R\" shape=\"rounded\" size=\"lg\" bgColor=\"#f59e0b\"/>",
+            language: "mint"
+          },
+        previewContent:
+          <div style="display: flex; gap: 24px;">
+            <Avatar text="C" shape="circle" size="lg" bgColor="#1989fa"/>
+            <Avatar text="S" shape="square" size="lg" bgColor="#52c41a"/>
+            <Avatar text="R" shape="rounded" size="lg" bgColor="#f59e0b"/>
+          </div>,
         showReplay: false
       },
       {
         title: "Shapes with Status & Badge",
-        description: "All shapes work with status indicators and notification badges",
-        snippet: {
-          code: "<Avatar\n" +
-                "  text=\"JD\"\n" +
-                "  shape=\"circle\"\n" +
-                "  size=\"xl\"\n" +
-                "  showStatus={true}\n" +
-                "  status=\"online\"\n" +
-                "  badge=\"5\"\n" +
-                "  badgeVariant=\"error\"\n" +
-                "  bgColor=\"#1989fa\"/>\n\n" +
-                "<Avatar\n" +
-                "  icon=\"🎮\"\n" +
-                "  shape=\"square\"\n" +
-                "  size=\"xl\"\n" +
-                "  showStatus={true}\n" +
-                "  status=\"busy\"\n" +
-                "  badge=\"99\"\n" +
-                "  badgeVariant=\"warning\"\n" +
-                "  bgColor=\"#722ed1\"/>\n\n" +
-                "<Avatar\n" +
-                "  src=\"https://i.pravatar.cc/150?img=3\"\n" +
-                "  shape=\"rounded\"\n" +
-                "  size=\"xl\"\n" +
-                "  showStatus={true}\n" +
-                "  status=\"away\"\n" +
-                "  badge=\"12\"\n" +
-                "  badgeVariant=\"success\"/>",
-          language: "mint"
-        },
-        previewContent: <div style="display: flex; gap: 24px;">
-          <Avatar
-            text="JD"
-            shape="circle"
-            size="xl"
-            showStatus={true}
-            status="online"
-            badge="5"
-            badgeVariant="error"
-            bgColor="#1989fa"/>
-          <Avatar
-            icon="🎮"
-            shape="square"
-            size="xl"
-            showStatus={true}
-            status="busy"
-            badge="99"
-            badgeVariant="warning"
-            bgColor="#722ed1"/>
-          <Avatar
-            src="https://i.pravatar.cc/150?img=3"
-            shape="rounded"
-            size="xl"
-            showStatus={true}
-            status="away"
-            badge="12"
-            badgeVariant="success"/>
-        </div>,
+        description:
+          "All shapes work with status indicators and notification badges",
+        snippet:
+          {
+            code:
+              "<Avatar\n" + "  text=\"JD\"\n" + "  shape=\"circle\"\n" + "  size=\"xl\"\n" + "  showStatus={true}\n" + "  status=\"online\"\n" + "  badge=\"5\"\n" + "  badgeVariant=\"error\"\n" + "  bgColor=\"#1989fa\"/>\n\n" + "<Avatar\n" + "  icon=\"🎮\"\n" + "  shape=\"square\"\n" + "  size=\"xl\"\n" + "  showStatus={true}\n" + "  status=\"busy\"\n" + "  badge=\"99\"\n" + "  badgeVariant=\"warning\"\n" + "  bgColor=\"#722ed1\"/>\n\n" + "<Avatar\n" + "  src=\"https://i.pravatar.cc/150?img=3\"\n" + "  shape=\"rounded\"\n" + "  size=\"xl\"\n" + "  showStatus={true}\n" + "  status=\"away\"\n" + "  badge=\"12\"\n" + "  badgeVariant=\"success\"/>",
+            language: "mint"
+          },
+        previewContent:
+          <div style="display: flex; gap: 24px;">
+            <Avatar
+              text="JD"
+              shape="circle"
+              size="xl"
+              showStatus={true}
+              status="online"
+              badge="5"
+              badgeVariant="error"
+              bgColor="#1989fa"
+            />
+
+            <Avatar
+              icon="🎮"
+              shape="square"
+              size="xl"
+              showStatus={true}
+              status="busy"
+              badge="99"
+              badgeVariant="warning"
+              bgColor="#722ed1"
+            />
+
+            <Avatar
+              src="https://i.pravatar.cc/150?img=3"
+              shape="rounded"
+              size="xl"
+              showStatus={true}
+              status="away"
+              badge="12"
+              badgeVariant="success"
+            />
+          </div>,
         showReplay: false
       },
       {
         title: "With Border and Ring",
         description: "Avatar with border and ring effect",
-        snippet: {
-          code: "<Avatar\n" +
-                "  text=\"AB\"\n" +
-                "  size=\"xl\"\n" +
-                "  border={true}\n" +
-                "  borderColor=\"#fff\"\n" +
-                "  borderWidth=\"3px\"\n" +
-                "  ring={true}\n" +
-                "  ringColor=\"#1989fa\"\n" +
-                "  ringWidth=\"3px\"\n" +
-                "  bgColor=\"#722ed1\"/>",
-          language: "mint"
-        },
-        previewContent: <Avatar
-          text="AB"
-          size="xl"
-          border={true}
-          borderColor="#fff"
-          borderWidth="3px"
-          ring={true}
-          ringColor="#1989fa"
-          ringWidth="3px"
-          bgColor="#722ed1"/>,
+        snippet:
+          {
+            code:
+              "<Avatar\n" + "  text=\"AB\"\n" + "  size=\"xl\"\n" + "  border={true}\n" + "  borderColor=\"#fff\"\n" + "  borderWidth=\"3px\"\n" + "  ring={true}\n" + "  ringColor=\"#1989fa\"\n" + "  ringWidth=\"3px\"\n" + "  bgColor=\"#722ed1\"/>",
+            language: "mint"
+          },
+        previewContent:
+          <Avatar
+            text="AB"
+            size="xl"
+            border={true}
+            borderColor="#fff"
+            borderWidth="3px"
+            ring={true}
+            ringColor="#1989fa"
+            ringWidth="3px"
+            bgColor="#722ed1"
+          />,
         showReplay: false
       },
       {
         title: "With Animation",
         description: "Avatar with entrance animation",
-        snippet: {
-          code: "<Avatar\n" +
-                "  icon=\"👤\"\n" +
-                "  size=\"lg\"\n" +
-                "  animated={true}\n" +
-                "  animation=\"scaleIn\"\n" +
-                "  animationDuration={0.6}\n" +
-                "  animationEasing=\"ease-out\"\n" +
-                "  bgColor=\"#52c41a\"/>",
-          language: "mint"
-        },
-        previewContent: <Avatar
-          icon="👤"
-          size="lg"
-          animated={true}
-          animation="scaleIn"
-          animationDuration={0.6}
-          animationEasing="ease-out"
-          bgColor="#52c41a"/>,
+        snippet:
+          {
+            code:
+              "<Avatar\n" + "  icon=\"👤\"\n" + "  size=\"lg\"\n" + "  animated={true}\n" + "  animation=\"scaleIn\"\n" + "  animationDuration={0.6}\n" + "  animationEasing=\"ease-out\"\n" + "  bgColor=\"#52c41a\"/>",
+            language: "mint"
+          },
+        previewContent:
+          <Avatar
+            icon="👤"
+            size="lg"
+            animated={true}
+            animation="scaleIn"
+            animationDuration={0.6}
+            animationEasing="ease-out"
+            bgColor="#52c41a"
+          />,
         showReplay: false
       },
       {
         title: "Custom Size",
         description: "Avatar with custom size value",
-        snippet: {
-          code: "<Avatar\n" +
-                "  text=\"XL\"\n" +
-                "  customSize=\"120px\"\n" +
-                "  shape=\"rounded\"\n" +
-                "  bgColor=\"#faad14\"/>",
-          language: "mint"
-        },
-        previewContent: <Avatar
-          text="XL"
-          customSize="120px"
-          shape="rounded"
-          bgColor="#faad14"/>,
+        snippet:
+          {
+            code:
+              "<Avatar\n" + "  text=\"XL\"\n" + "  customSize=\"120px\"\n" + "  shape=\"rounded\"\n" + "  bgColor=\"#faad14\"/>",
+            language: "mint"
+          },
+        previewContent:
+          <Avatar text="XL" customSize="120px" shape="rounded" bgColor="#faad14"/>,
         showReplay: false
       },
       {
         title: "Avatar Group",
         description: "Multiple avatars in a row",
-        snippet: {
-          code: "<div style=\"display: flex; gap: 12px;\">\n" +
-                "  <Avatar text=\"AB\" size=\"md\" bgColor=\"#1989fa\"/>\n" +
-                "  <Avatar text=\"CD\" size=\"md\" bgColor=\"#52c41a\"/>\n" +
-                "  <Avatar text=\"EF\" size=\"md\" bgColor=\"#faad14\"/>\n" +
-                "  <Avatar text=\"GH\" size=\"md\" bgColor=\"#f5222d\"/>\n" +
-                "</div>",
-          language: "mint"
-        },
-        previewContent: <div style="display: flex; gap: 12px;">
-          <Avatar text="AB" size="md" bgColor="#1989fa"/>
-          <Avatar text="CD" size="md" bgColor="#52c41a"/>
-          <Avatar text="EF" size="md" bgColor="#faad14"/>
-          <Avatar text="GH" size="md" bgColor="#f5222d"/>
-        </div>,
+        snippet:
+          {
+            code:
+              "<div style=\"display: flex; gap: 12px;\">\n" + "  <Avatar text=\"AB\" size=\"md\" bgColor=\"#1989fa\"/>\n" + "  <Avatar text=\"CD\" size=\"md\" bgColor=\"#52c41a\"/>\n" + "  <Avatar text=\"EF\" size=\"md\" bgColor=\"#faad14\"/>\n" + "  <Avatar text=\"GH\" size=\"md\" bgColor=\"#f5222d\"/>\n" + "</div>",
+            language: "mint"
+          },
+        previewContent:
+          <div style="display: flex; gap: 12px;">
+            <Avatar text="AB" size="md" bgColor="#1989fa"/>
+            <Avatar text="CD" size="md" bgColor="#52c41a"/>
+            <Avatar text="EF" size="md" bgColor="#faad14"/>
+            <Avatar text="GH" size="md" bgColor="#f5222d"/>
+          </div>,
         showReplay: false
       }
     ]
@@ -880,7 +898,8 @@ component AvatarPage {
       },
       {
         name: "size",
-        description: "Predefined size: xs (24px), sm (32px), md (40px), lg (48px), xl (64px), xxl (80px), xxxl (96px)",
+        description:
+          "Predefined size: xs (24px), sm (32px), md (40px), lg (48px), xl (64px), xxl (80px), xxxl (96px)",
         type: "String",
         defaultValue: "\"md\""
       },
@@ -964,7 +983,8 @@ component AvatarPage {
       },
       {
         name: "badgeVariant",
-        description: "Badge color variant: default, success, processing, error, warning, info",
+        description:
+          "Badge color variant: default, success, processing, error, warning, info",
         type: "String",
         defaultValue: "\"error\""
       },
@@ -976,7 +996,8 @@ component AvatarPage {
       },
       {
         name: "status",
-        description: "Status type: online | offline | away | busy | dnd (uses StatusDot)",
+        description:
+          "Status type: online | offline | away | busy | dnd (uses StatusDot)",
         type: "String",
         defaultValue: "\"online\""
       },
@@ -1006,7 +1027,8 @@ component AvatarPage {
       },
       {
         name: "animation",
-        description: "Animation type (see EnterExit component for available animations)",
+        description:
+          "Animation type (see EnterExit component for available animations)",
         type: "String",
         defaultValue: "\"scaleIn\""
       },
@@ -1054,6 +1076,7 @@ component AvatarPage {
     <div>
       <div::docCard>
         <Heading level="3" margin="0 0 16px">"Size Reference"</Heading>
+
         <table::apiTable>
           <thead>
             <tr>
@@ -1063,6 +1086,7 @@ component AvatarPage {
               <th::tableHeader>"Best For"</th>
             </tr>
           </thead>
+
           <tbody>
             <tr>
               <td::tableCell><code::codeInline>"xs"</code></td>
@@ -1070,36 +1094,42 @@ component AvatarPage {
               <td::tableCell>"10px"</td>
               <td::tableCell>"Inline text, lists"</td>
             </tr>
+
             <tr>
               <td::tableCell><code::codeInline>"sm"</code></td>
               <td::tableCell>"32px × 32px"</td>
               <td::tableCell>"13px"</td>
               <td::tableCell>"Comments, mentions"</td>
             </tr>
+
             <tr>
               <td::tableCell><code::codeInline>"md"</code></td>
               <td::tableCell>"40px × 40px"</td>
               <td::tableCell>"16px"</td>
               <td::tableCell>"Default, navigation ⭐"</td>
             </tr>
+
             <tr>
               <td::tableCell><code::codeInline>"lg"</code></td>
               <td::tableCell>"48px × 48px"</td>
               <td::tableCell>"19px"</td>
               <td::tableCell>"User profiles"</td>
             </tr>
+
             <tr>
               <td::tableCell><code::codeInline>"xl"</code></td>
               <td::tableCell>"64px × 64px"</td>
               <td::tableCell>"26px"</td>
               <td::tableCell>"Profile headers"</td>
             </tr>
+
             <tr>
               <td::tableCell><code::codeInline>"xxl"</code></td>
               <td::tableCell>"80px × 80px"</td>
               <td::tableCell>"32px"</td>
               <td::tableCell>"Hero sections"</td>
             </tr>
+
             <tr>
               <td::tableCell><code::codeInline>"xxxl"</code></td>
               <td::tableCell>"96px × 96px"</td>
@@ -1112,9 +1142,11 @@ component AvatarPage {
 
       <div::docCard>
         <Heading level="3" margin="0 0 16px">"Content Priority"</Heading>
+
         <Text size="base" margin="0 0 16px">
           "The Avatar component displays content in the following priority order:"
         </Text>
+
         <table::apiTable>
           <thead>
             <tr>
@@ -1124,25 +1156,38 @@ component AvatarPage {
               <th::tableHeader>"Description"</th>
             </tr>
           </thead>
+
           <tbody>
             <tr>
               <td::tableCell>"1"</td>
               <td::tableCell>"Image"</td>
               <td::tableCell><code::codeInline>"src"</code></td>
-              <td::tableCell>"If src is provided and valid, image will be displayed"</td>
+
+              <td::tableCell>
+                "If src is provided and valid, image will be displayed"
+              </td>
             </tr>
+
             <tr>
               <td::tableCell>"2"</td>
               <td::tableCell>"Icon"</td>
               <td::tableCell><code::codeInline>"icon"</code></td>
-              <td::tableCell>"If no image, icon will be displayed (emoji or character)"</td>
+
+              <td::tableCell>
+                "If no image, icon will be displayed (emoji or character)"
+              </td>
             </tr>
+
             <tr>
               <td::tableCell>"3"</td>
               <td::tableCell>"Initials"</td>
               <td::tableCell><code::codeInline>"text"</code></td>
-              <td::tableCell>"If no image or icon, initials from text will be shown"</td>
+
+              <td::tableCell>
+                "If no image or icon, initials from text will be shown"
+              </td>
             </tr>
+
             <tr>
               <td::tableCell>"4"</td>
               <td::tableCell>"Fallback"</td>
@@ -1155,9 +1200,11 @@ component AvatarPage {
 
       <div::docCard>
         <Heading level="3" margin="0 0 16px">"Status Indicator States"</Heading>
+
         <Text size="base" margin="0 0 16px">
           "The Avatar component supports semantic status indicators with predefined colors:"
         </Text>
+
         <table::apiTable>
           <thead>
             <tr>
@@ -1166,22 +1213,26 @@ component AvatarPage {
               <th::tableHeader>"Usage"</th>
             </tr>
           </thead>
+
           <tbody>
             <tr>
               <td::tableCell><code::codeInline>"online"</code></td>
               <td::tableCell>"🟢 #10b981 (Green)"</td>
               <td::tableCell>"User is active and available"</td>
             </tr>
+
             <tr>
               <td::tableCell><code::codeInline>"offline"</code></td>
               <td::tableCell>"⚫ #6b7280 (Gray)"</td>
               <td::tableCell>"User is disconnected or invisible"</td>
             </tr>
+
             <tr>
               <td::tableCell><code::codeInline>"away"</code></td>
               <td::tableCell>"🟡 #f59e0b (Yellow)"</td>
               <td::tableCell>"User is idle or temporarily away"</td>
             </tr>
+
             <tr>
               <td::tableCell><code::codeInline>"busy"</code></td>
               <td::tableCell>"🔴 #ef4444 (Red)"</td>
@@ -1193,39 +1244,51 @@ component AvatarPage {
 
       <div::docCard>
         <Heading level="3" margin="0 0 16px">"Avatar Group Component"</Heading>
+
         <Text size="base" margin="0 0 16px">
           "Display multiple avatars with overlap effect using the AvatarGroup component:"
         </Text>
+
         <pre::codeExample>
-"<AvatarGroup\n" +
-"  avatars={[\n" +
-"    \"https://i.pravatar.cc/150?img=1\",\n" +
-"    \"https://i.pravatar.cc/150?img=2\",\n" +
-"    \"https://i.pravatar.cc/150?img=3\",\n" +
-"    \"https://i.pravatar.cc/150?img=4\",\n" +
-"    \"https://i.pravatar.cc/150?img=5\",\n" +
-"    \"https://i.pravatar.cc/150?img=6\"\n" +
-"  ]}\n" +
-"  size=\"md\"\n" +
-"  max={5}\n" +
-"  spacing=\"normal\"\n" +
-"  shape=\"circle\"\n" +
-"  bordered={true}/>"
+          "<AvatarGroup\n" + "  avatars={[\n" + "    \"https://i.pravatar.cc/150?img=1\",\n" + "    \"https://i.pravatar.cc/150?img=2\",\n" + "    \"https://i.pravatar.cc/150?img=3\",\n" + "    \"https://i.pravatar.cc/150?img=4\",\n" + "    \"https://i.pravatar.cc/150?img=5\",\n" + "    \"https://i.pravatar.cc/150?img=6\"\n" + "  ]}\n" + "  size=\"md\"\n" + "  max={5}\n" + "  spacing=\"normal\"\n" + "  shape=\"circle\"\n" + "  bordered={true}/>"
         </pre>
+
         <Text size="base" margin="0 0 16px">
-          "Props: " <code::codeInline>"avatars"</code> " (Array), " <code::codeInline>"size"</code> ", " <code::codeInline>"max"</code> " (number to show), " <code::codeInline>"spacing"</code> " (tight/normal/loose), " <code::codeInline>"shape"</code> ", " <code::codeInline>"bordered"</code>
+          "Props: "
+          <code::codeInline>"avatars"</code>
+          " (Array), "
+          <code::codeInline>"size"</code>
+          ", "
+          <code::codeInline>"max"</code>
+          " (number to show), "
+          <code::codeInline>"spacing"</code>
+          " (tight/normal/loose), "
+          <code::codeInline>"shape"</code>
+          ", "
+          <code::codeInline>"bordered"</code>
         </Text>
       </div>
 
       <div::docCard>
         <Heading level="3" margin="0 0 16px">"Mobile Responsiveness"</Heading>
+
         <Text size="base" margin="0 0 16px">
           "The Avatar component is mobile-first and includes:"
         </Text>
+
         <ul::featureList>
-          <li::featureItem>"✓ Minimum 44px touch target on mobile devices (iOS/Android)"</li>
-          <li::featureItem>"✓ Responsive badge scaling for better visibility on small screens"</li>
-          <li::featureItem>"✓ Enhanced hover effects on desktop (scale + shadow)"</li>
+          <li::featureItem>
+            "✓ Minimum 44px touch target on mobile devices (iOS/Android)"
+          </li>
+
+          <li::featureItem>
+            "✓ Responsive badge scaling for better visibility on small screens"
+          </li>
+
+          <li::featureItem>
+            "✓ Enhanced hover effects on desktop (scale + shadow)"
+          </li>
+
           <li::featureItem>"✓ Optimized animations with proper easing curves"</li>
           <li::featureItem>"✓ Support for high-DPI displays (Retina, etc.)"</li>
         </ul>
@@ -1233,16 +1296,57 @@ component AvatarPage {
 
       <div::docCard>
         <Heading level="3" margin="0 0 16px">"Best Practices"</Heading>
+
         <ul::featureList>
-          <li::featureItem>"💡 Use " <code::codeInline>"md"</code> " size (40px) for most UI elements"</li>
-          <li::featureItem>"💡 Always provide meaningful " <code::codeInline>"alt"</code> " text for images"</li>
-          <li::featureItem>"💡 Use " <code::codeInline>"showStatus"</code> " with " <code::codeInline>"status"</code> " prop for user presence (online/offline/away/busy)"</li>
-          <li::featureItem>"💡 Use " <code::codeInline>"badge"</code> " for notification counts (keep text short: 2-3 chars or '99+')"</li>
-          <li::featureItem>"💡 All 3 shapes (circle, square, rounded) work perfectly with status and badges"</li>
-          <li::featureItem>"💡 Enable " <code::codeInline>"lazy"</code> " loading for images in long lists"</li>
-          <li::featureItem>"💡 Use " <code::codeInline>"ring"</code> " effect to highlight active/selected users"</li>
-          <li::featureItem>"💡 Use consistent shapes across your app (circle for users, square for brands)"</li>
-          <li::featureItem>"💡 Badge and status indicators scale automatically with avatar size"</li>
+          <li::featureItem>
+            "💡 Use "
+            <code::codeInline>"md"</code>
+            " size (40px) for most UI elements"
+          </li>
+
+          <li::featureItem>
+            "💡 Always provide meaningful "
+            <code::codeInline>"alt"</code>
+            " text for images"
+          </li>
+
+          <li::featureItem>
+            "💡 Use "
+            <code::codeInline>"showStatus"</code>
+            " with "
+            <code::codeInline>"status"</code>
+            " prop for user presence (online/offline/away/busy)"
+          </li>
+
+          <li::featureItem>
+            "💡 Use "
+            <code::codeInline>"badge"</code>
+            " for notification counts (keep text short: 2-3 chars or '99+')"
+          </li>
+
+          <li::featureItem>
+            "💡 All 3 shapes (circle, square, rounded) work perfectly with status and badges"
+          </li>
+
+          <li::featureItem>
+            "💡 Enable "
+            <code::codeInline>"lazy"</code>
+            " loading for images in long lists"
+          </li>
+
+          <li::featureItem>
+            "💡 Use "
+            <code::codeInline>"ring"</code>
+            " effect to highlight active/selected users"
+          </li>
+
+          <li::featureItem>
+            "💡 Use consistent shapes across your app (circle for users, square for brands)"
+          </li>
+
+          <li::featureItem>
+            "💡 Badge and status indicators scale automatically with avatar size"
+          </li>
         </ul>
       </div>
     </div>
@@ -1256,7 +1360,6 @@ component AvatarPage {
     align-items: center;
     justify-content: center;
   }
-
 
   style controlGroup {
     margin-bottom: 20px;
@@ -1333,7 +1436,6 @@ component AvatarPage {
     margin-bottom: 24px;
   }
 
-
   style apiTable {
     width: 100%;
     border-collapse: collapse;
@@ -1402,6 +1504,7 @@ component AvatarPage {
       apiProperties={getApiProperties()}
       events={getApiEvents()}
       additionalDocs={getAdditionalApiDocs()}
-      enabledTabs={["preview", "usage", "api"]}/>
+      enabledTabs={["preview", "usage", "api"]}
+    />
   }
 }

@@ -1,8 +1,8 @@
 /* Columns - Flexbox container for Column components */
-
 component Columns {
   /* Properties */
   property children : Array(Html) = []
+
   property gap : String = "0.75rem"
   property multiline : Bool = false
   property vAlign : String = "stretch"
@@ -52,7 +52,13 @@ component Columns {
   style columns {
     display: flex;
     flex-direction: #{getFlexDirection()};
-    flex-wrap: #{if multiline { "wrap" } else { "nowrap" }};
+
+    flex-wrap: #{if multiline {
+      "wrap"
+    } else {
+      "nowrap"
+    }};
+
     gap: #{gap};
     align-items: #{getAlignItems()};
     justify-content: #{getJustifyContent()};

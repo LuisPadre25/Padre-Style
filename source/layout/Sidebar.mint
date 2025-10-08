@@ -42,7 +42,6 @@ component Sidebar {
     Promise.resolve(void)
   }
 
-
   fun toggleCategory (categoryId : String) : Promise(Void) {
     if Set.has(collapsedCategories, categoryId) {
       next { collapsedCategories: Set.delete(collapsedCategories, categoryId) }
@@ -114,7 +113,6 @@ component Sidebar {
       }
     }
   }
-
 
   style navGroup {
     margin-bottom: 20px;
@@ -235,16 +233,12 @@ component Sidebar {
     letter-spacing: 0.5px;
   }
 
-
   fun isItemActive (item : SidebarItem) : Bool {
     currentPage == item.id
   }
 
   fun renderItem (item : SidebarItem) : Html {
-    <div::navItem
-      id={"sidebar-item-" + item.id}
-      data-route={item.route}>
-
+    <div::navItem id={"sidebar-item-" + item.id} data-route={item.route}>
       <a::link
         href={item.route}
         class={
@@ -255,18 +249,28 @@ component Sidebar {
           }
         }
         data-item-id={item.id}
-        onClick={(event : Html.Event) : Promise(Void) { closeSidebar() }}>
-
+        onClick={(event : Html.Event) : Promise(Void) { closeSidebar() }}
+      >
         <span>
-          {item.label}
+          {
+            item.label
+          }
 
           if String.isNotEmpty(item.subtitle) {
-            <span::subtitle>{item.subtitle}</span>
+            <span::subtitle>
+              {
+                item.subtitle
+              }
+            </span>
           }
         </span>
 
         if String.isNotEmpty(item.badge) {
-          <span::badge>{item.badge}</span>
+          <span::badge>
+            {
+              item.badge
+            }
+          </span>
         }
       </a>
     </div>
@@ -274,7 +278,11 @@ component Sidebar {
 
   fun renderCategory (category : SidebarCategory) : Html {
     <div::navGroup>
-      <div::navTitle onClick={(event : Html.Event) : Promise(Void) { toggleCategory(category.id) }}>
+      <div::navTitle
+        onClick={
+          (event : Html.Event) : Promise(Void) { toggleCategory(category.id) }
+        }
+      >
         <span::categoryIcon
           class={
             if isCategoryCollapsed(category.id) {
@@ -282,14 +290,18 @@ component Sidebar {
             } else {
               ""
             }
-          }>
+          }
+        >"▼"</span>
 
-          "▼"
-        </span>
+        {
+          category.icon
+        }
 
-        {category.icon}
         " "
-        {category.title}
+
+        {
+          category.title
+        }
       </div>
 
       <div::navItems
@@ -299,8 +311,8 @@ component Sidebar {
           } else {
             "expanded"
           }
-        }>
-
+        }
+      >
         for item of category.items {
           renderItem(item)
         }
@@ -342,24 +354,22 @@ component Sidebar {
             "overlayHidden"
           }
         }
-        onClick={closeSidebar}></div>
+        onClick={closeSidebar}
+      />
 
       <div::nav
         class={
-          "sidebar " +
-          if fixed {
+          "sidebar " + if fixed {
             "fixed"
           } else {
             ""
-          } +
-          " " +
-          if sidebarOpen {
+          } + " " + if sidebarOpen {
             "sidebarOpen"
           } else {
             "sidebarClosed"
           }
-        }>
-
+        }
+      >
         for category of categories {
           renderCategory(category)
         }

@@ -1,5 +1,4 @@
 /* TabsPage - Tabs Component Showcase */
-
 component TabsPage {
   connect NavigationStore exposing { setPage }
   connect ViewModeStore exposing { viewMode }
@@ -10,6 +9,7 @@ component TabsPage {
 
   /* State */
   state activeBasic : String = "tab1"
+
   state activeVertical : String = "home"
   state activeHorizontal : String = "home"
   state activeTextOnly : String = "home"
@@ -56,7 +56,12 @@ component TabsPage {
         dot: false,
         badge: "",
         titleStyle: "",
-        icon: if showIcons { "🏠" } else { "" },
+        icon:
+          if showIcons {
+            "🏠"
+          } else {
+            ""
+          },
         content: "",
         badgeVariant: "",
         badgeSize: "",
@@ -72,7 +77,12 @@ component TabsPage {
         dot: false,
         badge: "",
         titleStyle: "",
-        icon: if showIcons { "👤" } else { "" },
+        icon:
+          if showIcons {
+            "👤"
+          } else {
+            ""
+          },
         content: "",
         badgeVariant: "",
         badgeSize: "",
@@ -88,7 +98,12 @@ component TabsPage {
         dot: false,
         badge: "",
         titleStyle: "",
-        icon: if showIcons { "💬" } else { "" },
+        icon:
+          if showIcons {
+            "💬"
+          } else {
+            ""
+          },
         content: "",
         badgeVariant: "",
         badgeSize: "",
@@ -104,7 +119,12 @@ component TabsPage {
         dot: false,
         badge: "",
         titleStyle: "",
-        icon: if showIcons { "⚙️" } else { "" },
+        icon:
+          if showIcons {
+            "⚙️"
+          } else {
+            ""
+          },
         content: "",
         badgeVariant: "",
         badgeSize: "",
@@ -118,18 +138,25 @@ component TabsPage {
 
   fun getTabContent : Html {
     case activeBasic {
-      "tab1" => <div style="text-align: center; padding: 40px; font-size: 16px; color: #646566;">
-        "🏠 Home Content"
-      </div>
-      "tab2" => <div style="text-align: center; padding: 40px; font-size: 16px; color: #646566;">
-        "👤 Profile Content"
-      </div>
-      "tab3" => <div style="text-align: center; padding: 40px; font-size: 16px; color: #646566;">
-        "💬 Messages Content"
-      </div>
-      => <div style="text-align: center; padding: 40px; font-size: 16px; color: #646566;">
-        "⚙️ Settings Content"
-      </div>
+      "tab1" =>
+        <div
+          style="text-align: center; padding: 40px; font-size: 16px; color: #646566;"
+        >"🏠 Home Content"</div>
+
+      "tab2" =>
+        <div
+          style="text-align: center; padding: 40px; font-size: 16px; color: #646566;"
+        >"👤 Profile Content"</div>
+
+      "tab3" =>
+        <div
+          style="text-align: center; padding: 40px; font-size: 16px; color: #646566;"
+        >"💬 Messages Content"</div>
+
+      =>
+        <div
+          style="text-align: center; padding: 40px; font-size: 16px; color: #646566;"
+        >"⚙️ Settings Content"</div>
     }
   }
 
@@ -204,8 +231,12 @@ component TabsPage {
               border={showBorder}
               iconLayout={iconLayout}
               ellipsis={true}
-              onChange={handleBasicChange}/>
-            {getTabContent()}
+              onChange={handleBasicChange}
+            />
+
+            {
+              getTabContent()
+            }
           </div>
         </div>
       }
@@ -215,6 +246,7 @@ component TabsPage {
 
           <div::controlGroup>
             <label::label>"Icon Layout"</label>
+
             <select::select value={iconLayout} onChange={handleIconLayoutChange}>
               <option value="horizontal">"Horizontal (Left)"</option>
               <option value="vertical">"Vertical (Top)"</option>
@@ -228,7 +260,9 @@ component TabsPage {
               <input::checkbox
                 type="checkbox"
                 checked={showBorder}
-                onChange={handleBorderToggle}/>
+                onChange={handleBorderToggle}
+              />
+
               <label::checkboxLabel>"Show Border"</label>
             </div>
 
@@ -236,15 +270,22 @@ component TabsPage {
               <input::checkbox
                 type="checkbox"
                 checked={showIcons}
-                onChange={handleIconsToggle}/>
+                onChange={handleIconsToggle}
+              />
+
               <label::checkboxLabel>"Show Icons"</label>
             </div>
           </div>
 
           <div::controlGroup>
             <label::label>"Active Tab"</label>
-            <div style="padding: 8px 12px; background: var(--border-color); border-radius: 6px; font-size: 14px; color: var(--text-color); font-weight: 500;">
-              {activeBasic}
+
+            <div
+              style="padding: 8px 12px; background: var(--border-color); border-radius: 6px; font-size: 14px; color: var(--text-color); font-weight: 500;"
+            >
+              {
+                activeBasic
+              }
             </div>
           </div>
         </div>
@@ -254,265 +295,247 @@ component TabsPage {
         [
           {
             title: "Vertical Icons Layout",
-            description: "Icons above text - perfect for mobile bottom navigation",
-            snippet: {
-              code:
-                "<Tabs\n" +
-                "  tabs={[\n" +
-                "    { name: \"home\", title: \"Home\", icon: \"🏠\", ... },\n" +
-                "    { name: \"search\", title: \"Search\", icon: \"🔍\", ... },\n" +
-                "    { name: \"profile\", title: \"Profile\", icon: \"👤\", ... }\n" +
-                "  ]}\n" +
-                "  active=\"home\"\n" +
-                "  type=\"line\"\n" +
-                "  iconLayout=\"vertical\"\n" +
-                "  border={true}\n" +
-                "  onChange={handleChange}/>",
-              language: "mint"
-            },
+            description:
+              "Icons above text - perfect for mobile bottom navigation",
+            snippet:
+              {
+                code:
+                  "<Tabs\n" + "  tabs={[\n" + "    { name: \"home\", title: \"Home\", icon: \"🏠\", ... },\n" + "    { name: \"search\", title: \"Search\", icon: \"🔍\", ... },\n" + "    { name: \"profile\", title: \"Profile\", icon: \"👤\", ... }\n" + "  ]}\n" + "  active=\"home\"\n" + "  type=\"line\"\n" + "  iconLayout=\"vertical\"\n" + "  border={true}\n" + "  onChange={handleChange}/>",
+                language: "mint"
+              },
             previewContent:
               <Tabs
-                tabs={[
-                  {
-                    name: "home",
-                    title: "Home",
-                    disabled: false,
-                    dot: false,
-                    badge: "",
-                    titleStyle: "",
-                    icon: "🏠",
-                    content: "",
-                    badgeVariant: "",
-                    badgeSize: "",
-                    badgeColor: "",
-                    dotStatus: "",
-                    dotSize: "",
-                    dotAnimation: ""
-                  },
-                  {
-                    name: "search",
-                    title: "Search",
-                    disabled: false,
-                    dot: false,
-                    badge: "",
-                    titleStyle: "",
-                    icon: "🔍",
-                    content: "",
-                    badgeVariant: "",
-                    badgeSize: "",
-                    badgeColor: "",
-                    dotStatus: "",
-                    dotSize: "",
-                    dotAnimation: ""
-                  },
-                  {
-                    name: "profile",
-                    title: "Profile",
-                    disabled: false,
-                    dot: false,
-                    badge: "",
-                    titleStyle: "",
-                    icon: "👤",
-                    content: "",
-                    badgeVariant: "",
-                    badgeSize: "",
-                    badgeColor: "",
-                    dotStatus: "",
-                    dotSize: "",
-                    dotAnimation: ""
-                  }
-                ]}
+                tabs={
+                  [
+                    {
+                      name: "home",
+                      title: "Home",
+                      disabled: false,
+                      dot: false,
+                      badge: "",
+                      titleStyle: "",
+                      icon: "🏠",
+                      content: "",
+                      badgeVariant: "",
+                      badgeSize: "",
+                      badgeColor: "",
+                      dotStatus: "",
+                      dotSize: "",
+                      dotAnimation: ""
+                    },
+                    {
+                      name: "search",
+                      title: "Search",
+                      disabled: false,
+                      dot: false,
+                      badge: "",
+                      titleStyle: "",
+                      icon: "🔍",
+                      content: "",
+                      badgeVariant: "",
+                      badgeSize: "",
+                      badgeColor: "",
+                      dotStatus: "",
+                      dotSize: "",
+                      dotAnimation: ""
+                    },
+                    {
+                      name: "profile",
+                      title: "Profile",
+                      disabled: false,
+                      dot: false,
+                      badge: "",
+                      titleStyle: "",
+                      icon: "👤",
+                      content: "",
+                      badgeVariant: "",
+                      badgeSize: "",
+                      badgeColor: "",
+                      dotStatus: "",
+                      dotSize: "",
+                      dotAnimation: ""
+                    }
+                  ]
+                }
                 active={activeVertical}
                 type="line"
                 border={true}
                 iconLayout="vertical"
-                onChange={handleVerticalChange}/>,
+                onChange={handleVerticalChange}
+              />,
             showReplay: true
           },
           {
             title: "Horizontal Icons Layout",
             description: "Icons to the left of text - traditional tab style",
-            snippet: {
-              code:
-                "<Tabs\n" +
-                "  tabs={[\n" +
-                "    { name: \"home\", title: \"Home\", icon: \"🏠\", ... },\n" +
-                "    { name: \"profile\", title: \"Profile\", icon: \"👤\", ... },\n" +
-                "    { name: \"messages\", title: \"Messages\", icon: \"💬\", ... },\n" +
-                "    { name: \"settings\", title: \"Settings\", icon: \"⚙️\", ... }\n" +
-                "  ]}\n" +
-                "  active=\"home\"\n" +
-                "  type=\"line\"\n" +
-                "  iconLayout=\"horizontal\"\n" +
-                "  border={true}\n" +
-                "  onChange={handleChange}/>",
-              language: "mint"
-            },
+            snippet:
+              {
+                code:
+                  "<Tabs\n" + "  tabs={[\n" + "    { name: \"home\", title: \"Home\", icon: \"🏠\", ... },\n" + "    { name: \"profile\", title: \"Profile\", icon: \"👤\", ... },\n" + "    { name: \"messages\", title: \"Messages\", icon: \"💬\", ... },\n" + "    { name: \"settings\", title: \"Settings\", icon: \"⚙️\", ... }\n" + "  ]}\n" + "  active=\"home\"\n" + "  type=\"line\"\n" + "  iconLayout=\"horizontal\"\n" + "  border={true}\n" + "  onChange={handleChange}/>",
+                language: "mint"
+              },
             previewContent:
               <Tabs
-                tabs={[
-                  {
-                    name: "home",
-                    title: "Home",
-                    disabled: false,
-                    dot: false,
-                    badge: "",
-                    titleStyle: "",
-                    icon: "🏠",
-                    content: "",
-                    badgeVariant: "",
-                    badgeSize: "",
-                    badgeColor: "",
-                    dotStatus: "",
-                    dotSize: "",
-                    dotAnimation: ""
-                  },
-                  {
-                    name: "profile",
-                    title: "Profile",
-                    disabled: false,
-                    dot: false,
-                    badge: "",
-                    titleStyle: "",
-                    icon: "👤",
-                    content: "",
-                    badgeVariant: "",
-                    badgeSize: "",
-                    badgeColor: "",
-                    dotStatus: "",
-                    dotSize: "",
-                    dotAnimation: ""
-                  },
-                  {
-                    name: "messages",
-                    title: "Messages",
-                    disabled: false,
-                    dot: false,
-                    badge: "",
-                    titleStyle: "",
-                    icon: "💬",
-                    content: "",
-                    badgeVariant: "",
-                    badgeSize: "",
-                    badgeColor: "",
-                    dotStatus: "",
-                    dotSize: "",
-                    dotAnimation: ""
-                  },
-                  {
-                    name: "settings",
-                    title: "Settings",
-                    disabled: false,
-                    dot: false,
-                    badge: "",
-                    titleStyle: "",
-                    icon: "⚙️",
-                    content: "",
-                    badgeVariant: "",
-                    badgeSize: "",
-                    badgeColor: "",
-                    dotStatus: "",
-                    dotSize: "",
-                    dotAnimation: ""
-                  }
-                ]}
+                tabs={
+                  [
+                    {
+                      name: "home",
+                      title: "Home",
+                      disabled: false,
+                      dot: false,
+                      badge: "",
+                      titleStyle: "",
+                      icon: "🏠",
+                      content: "",
+                      badgeVariant: "",
+                      badgeSize: "",
+                      badgeColor: "",
+                      dotStatus: "",
+                      dotSize: "",
+                      dotAnimation: ""
+                    },
+                    {
+                      name: "profile",
+                      title: "Profile",
+                      disabled: false,
+                      dot: false,
+                      badge: "",
+                      titleStyle: "",
+                      icon: "👤",
+                      content: "",
+                      badgeVariant: "",
+                      badgeSize: "",
+                      badgeColor: "",
+                      dotStatus: "",
+                      dotSize: "",
+                      dotAnimation: ""
+                    },
+                    {
+                      name: "messages",
+                      title: "Messages",
+                      disabled: false,
+                      dot: false,
+                      badge: "",
+                      titleStyle: "",
+                      icon: "💬",
+                      content: "",
+                      badgeVariant: "",
+                      badgeSize: "",
+                      badgeColor: "",
+                      dotStatus: "",
+                      dotSize: "",
+                      dotAnimation: ""
+                    },
+                    {
+                      name: "settings",
+                      title: "Settings",
+                      disabled: false,
+                      dot: false,
+                      badge: "",
+                      titleStyle: "",
+                      icon: "⚙️",
+                      content: "",
+                      badgeVariant: "",
+                      badgeSize: "",
+                      badgeColor: "",
+                      dotStatus: "",
+                      dotSize: "",
+                      dotAnimation: ""
+                    }
+                  ]
+                }
                 active={activeHorizontal}
                 type="line"
                 border={true}
                 iconLayout="horizontal"
-                onChange={handleHorizontalChange}/>,
+                onChange={handleHorizontalChange}
+              />,
             showReplay: true
           },
           {
             title: "Text Only Tabs",
             description: "Simple tabs without icons - clean and minimal",
-            snippet: {
-              code:
-                "<Tabs\n" +
-                "  tabs={[\n" +
-                "    { name: \"home\", title: \"Home\", ... },\n" +
-                "    { name: \"profile\", title: \"Profile\", ... },\n" +
-                "    { name: \"messages\", title: \"Messages\", ... },\n" +
-                "    { name: \"settings\", title: \"Settings\", ... }\n" +
-                "  ]}\n" +
-                "  active=\"home\"\n" +
-                "  type=\"line\"\n" +
-                "  border={true}\n" +
-                "  onChange={handleChange}/>",
-              language: "mint"
-            },
+            snippet:
+              {
+                code:
+                  "<Tabs\n" + "  tabs={[\n" + "    { name: \"home\", title: \"Home\", ... },\n" + "    { name: \"profile\", title: \"Profile\", ... },\n" + "    { name: \"messages\", title: \"Messages\", ... },\n" + "    { name: \"settings\", title: \"Settings\", ... }\n" + "  ]}\n" + "  active=\"home\"\n" + "  type=\"line\"\n" + "  border={true}\n" + "  onChange={handleChange}/>",
+                language: "mint"
+              },
             previewContent:
               <Tabs
-                tabs={[
-                  {
-                    name: "home",
-                    title: "Home",
-                    disabled: false,
-                    dot: false,
-                    badge: "",
-                    titleStyle: "",
-                    icon: "",
-                    content: "",
-                    badgeVariant: "",
-                    badgeSize: "",
-                    badgeColor: "",
-                    dotStatus: "",
-                    dotSize: "",
-                    dotAnimation: ""
-                  },
-                  {
-                    name: "profile",
-                    title: "Profile",
-                    disabled: false,
-                    dot: false,
-                    badge: "",
-                    titleStyle: "",
-                    icon: "",
-                    content: "",
-                    badgeVariant: "",
-                    badgeSize: "",
-                    badgeColor: "",
-                    dotStatus: "",
-                    dotSize: "",
-                    dotAnimation: ""
-                  },
-                  {
-                    name: "messages",
-                    title: "Messages",
-                    disabled: false,
-                    dot: false,
-                    badge: "",
-                    titleStyle: "",
-                    icon: "",
-                    content: "",
-                    badgeVariant: "",
-                    badgeSize: "",
-                    badgeColor: "",
-                    dotStatus: "",
-                    dotSize: "",
-                    dotAnimation: ""
-                  },
-                  {
-                    name: "settings",
-                    title: "Settings",
-                    disabled: false,
-                    dot: false,
-                    badge: "",
-                    titleStyle: "",
-                    icon: "",
-                    content: "",
-                    badgeVariant: "",
-                    badgeSize: "",
-                    badgeColor: "",
-                    dotStatus: "",
-                    dotSize: "",
-                    dotAnimation: ""
-                  }
-                ]}
+                tabs={
+                  [
+                    {
+                      name: "home",
+                      title: "Home",
+                      disabled: false,
+                      dot: false,
+                      badge: "",
+                      titleStyle: "",
+                      icon: "",
+                      content: "",
+                      badgeVariant: "",
+                      badgeSize: "",
+                      badgeColor: "",
+                      dotStatus: "",
+                      dotSize: "",
+                      dotAnimation: ""
+                    },
+                    {
+                      name: "profile",
+                      title: "Profile",
+                      disabled: false,
+                      dot: false,
+                      badge: "",
+                      titleStyle: "",
+                      icon: "",
+                      content: "",
+                      badgeVariant: "",
+                      badgeSize: "",
+                      badgeColor: "",
+                      dotStatus: "",
+                      dotSize: "",
+                      dotAnimation: ""
+                    },
+                    {
+                      name: "messages",
+                      title: "Messages",
+                      disabled: false,
+                      dot: false,
+                      badge: "",
+                      titleStyle: "",
+                      icon: "",
+                      content: "",
+                      badgeVariant: "",
+                      badgeSize: "",
+                      badgeColor: "",
+                      dotStatus: "",
+                      dotSize: "",
+                      dotAnimation: ""
+                    },
+                    {
+                      name: "settings",
+                      title: "Settings",
+                      disabled: false,
+                      dot: false,
+                      badge: "",
+                      titleStyle: "",
+                      icon: "",
+                      content: "",
+                      badgeVariant: "",
+                      badgeSize: "",
+                      badgeColor: "",
+                      dotStatus: "",
+                      dotSize: "",
+                      dotAnimation: ""
+                    }
+                  ]
+                }
                 active={activeTextOnly}
                 type="line"
                 border={true}
-                onChange={handleTextOnlyChange}/>,
+                onChange={handleTextOnlyChange}
+              />,
             showReplay: true
           }
         ]
@@ -533,13 +556,15 @@ component TabsPage {
           },
           {
             name: "type",
-            description: "Tab style: currently only 'line' is supported (bottom line indicator)",
+            description:
+              "Tab style: currently only 'line' is supported (bottom line indicator)",
             type: "String",
             defaultValue: "\"line\""
           },
           {
             name: "iconLayout",
-            description: "Icon position: 'horizontal' (left of text) or 'vertical' (above text)",
+            description:
+              "Icon position: 'horizontal' (left of text) or 'vertical' (above text)",
             type: "String",
             defaultValue: "\"horizontal\""
           },
@@ -650,6 +675,7 @@ component TabsPage {
             defaultValue: "direction: 'left' | 'right'"
           }
         ]
-      }/>
+      }
+    />
   }
 }

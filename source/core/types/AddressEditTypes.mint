@@ -1,5 +1,4 @@
 /* Address Edit Types */
-
 type AddressEditInfo {
   name : String,
   tel : String,

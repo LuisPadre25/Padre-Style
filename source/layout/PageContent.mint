@@ -18,17 +18,19 @@ component PageContent {
 
   fun renderPageContent : Html {
     case currentPage {
-      "introduction" =>
-        <IntroductionPage/>
+      "introduction" => <IntroductionPage/>
 
       "home" =>
         <>
           <Heading level="1" margin="0 0 30px">"Introduction"</Heading>
+
           <Text margin="16px 0">
             "Welcome to the Mint UI Component Library. "
             "This is a comprehensive collection of reusable components."
           </Text>
+
           <Heading level="2" margin="52px 0 20px">"Getting Started"</Heading>
+
           <Text margin="16px 0">
             "Browse through the sidebar to explore different components."
           </Text>
@@ -37,100 +39,85 @@ component PageContent {
       "quickstart" =>
         <>
           <Heading level="1" margin="0 0 30px">"Quickstart Guide"</Heading>
+
           <Text margin="16px 0">
             "Get started quickly with our component library."
           </Text>
-          <div::codeBlock>
-            "mint install my-component"
-          </div>
+
+          <div::codeBlock>"mint install my-component"</div>
         </>
 
       "advanced-usage" =>
         <>
           <Heading level="1" margin="0 0 30px">"Advanced Usage"</Heading>
-          <Text margin="16px 0">
-            "Learn advanced techniques and patterns."
-          </Text>
+          <Text margin="16px 0">"Learn advanced techniques and patterns."</Text>
           <Heading level="2" margin="52px 0 20px">"Custom Styling"</Heading>
+
           <Text margin="16px 0">
             "You can customize components using CSS variables."
           </Text>
         </>
 
-      "avatar" =>
-        <AvatarPage/>
+      "avatar" => <AvatarPage/>
+
+      "icon" => <IconPage/>
 
       "button" =>
         <>
           <Heading level="1" margin="0 0 30px">"Button Component"</Heading>
+
           <Text margin="16px 0">
             "Buttons allow users to take actions with a single tap."
           </Text>
+
           <Heading level="2" margin="52px 0 20px">"Basic Usage"</Heading>
-          <div::codeBlock>
-            "<button>Click me</button>"
-          </div>
+          <div::codeBlock>"<button>Click me</button>"</div>
         </>
 
-      "grid-layout" =>
-        <LayoutPage/>
+      "grid-layout" => <LayoutPage/>
 
-      "flex" =>
-        <FlexPage/>
+      "flex" => <FlexPage/>
 
-      "typography" =>
-        <TypographyPage/>
+      "container" => <ContainerPage/>
+
+      "typography" => <TypographyPage/>
 
       "calendar" =>
         <>
           <Heading level="1" margin="0 0 30px">"Calendar Component"</Heading>
-          <Text margin="16px 0">
-            "Calendar component for date selection."
-          </Text>
+          <Text margin="16px 0">"Calendar component for date selection."</Text>
         </>
 
-      "badge" =>
-        <BadgePage/>
+      "badge" => <BadgePage/>
 
-      "chip" =>
-        <ChipPage/>
+      "chip" => <ChipPage/>
 
-      "status-dot" =>
-        <StatusDotPage/>
+      "status-dot" => <StatusDotPage/>
 
-      "circle-progress" =>
-        <CircleProgressPage/>
+      "circle-progress" => <CircleProgressPage/>
 
-      "collapse" =>
-        <CollapsePage/>
+      "collapse" => <CollapsePage/>
 
-      "codes" =>
-        <CodesPageNew/>
+      "codes" => <CodesPageNew/>
 
-      "themes" =>
-        <ThemePage/>
+      "themes" => <ThemePage/>
 
-      "video-player" =>
-        <VideoPlayerPage/>
+      "video-player" => <VideoPlayerPage/>
 
-      "matrix" =>
-        <MatrixPage/>
+      "matrix" => <MatrixPage/>
 
-      "tabs" =>
-        <TabsPage/>
+      "tabs" => <TabsPage/>
 
-      "address-edit" =>
-        <AddressEditPage/>
+      "address-edit" => <AddressEditPage/>
 
-      "enter-exit" =>
-        <EnterExitPage/>
+      "enter-exit" => <EnterExitPage/>
 
-      "dialog" =>
-        <DialogPage/>
+      "dialog" => <DialogPage/>
 
       "gestures" =>
         <>
           <Heading level="1" margin="0 0 30px">"Gestures Animations"</Heading>
+
           <Text margin="16px 0">
             "Interactive gesture-based animations. Content coming soon..."
           </Text>
@@ -139,6 +126,7 @@ component PageContent {
       "scroll" =>
         <>
           <Heading level="1" margin="0 0 30px">"Scroll Animations"</Heading>
+
           <Text margin="16px 0">
             "Scroll-triggered reveal animations. Content coming soon..."
           </Text>
@@ -147,6 +135,7 @@ component PageContent {
       "keyframes" =>
         <>
           <Heading level="1" margin="0 0 30px">"Keyframes"</Heading>
+
           <Text margin="16px 0">
             "Complex animation sequences. Content coming soon..."
           </Text>
@@ -155,6 +144,7 @@ component PageContent {
       "transforms" =>
         <>
           <Heading level="1" margin="0 0 30px">"Transforms"</Heading>
+
           <Text margin="16px 0">
             "Rotation, scale, and transform animations. Content coming soon..."
           </Text>
@@ -163,6 +153,7 @@ component PageContent {
       "spring" =>
         <>
           <Heading level="1" margin="0 0 30px">"Spring Physics"</Heading>
+
           <Text margin="16px 0">
             "Physics-based spring animations. Content coming soon..."
           </Text>
@@ -171,6 +162,7 @@ component PageContent {
       "orchestration" =>
         <>
           <Heading level="1" margin="0 0 30px">"Orchestration"</Heading>
+
           <Text margin="16px 0">
             "Stagger and sequence animations. Content coming soon..."
           </Text>
@@ -179,22 +171,33 @@ component PageContent {
       "not-found" =>
         <>
           <Heading level="1" margin="0 0 30px">"404 - Page Not Found"</Heading>
-          <Text margin="16px 0">
-            "The page you are looking for does not exist."
-          </Text>
+          <Text margin="16px 0">"The page you are looking for does not exist."</Text>
         </>
 
       =>
         <>
-          <Heading level="1" margin="0 0 30px">{String.capitalize(currentPage)}</Heading>
+          <Heading level="1" margin="0 0 30px">
+            {
+              String.capitalize(currentPage)
+            }
+          </Heading>
+
           <Text margin="16px 0">
             "This is the "
-            {currentPage}
+
+            {
+              currentPage
+            }
+
             " page. Content coming soon..."
           </Text>
+
           <Text margin="16px 0">
             "Section: "
-            {currentSection}
+
+            {
+              currentSection
+            }
           </Text>
         </>
     }
@@ -202,7 +205,9 @@ component PageContent {
 
   fun render : Html {
     <div::pageContainer>
-      {renderPageContent()}
+      {
+        renderPageContent()
+      }
     </div>
   }
 }

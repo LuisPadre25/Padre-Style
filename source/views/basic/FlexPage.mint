@@ -1,5 +1,4 @@
 /* FlexPage - Columns & Column Components Showcase */
-
 component FlexPage {
   connect NavigationStore exposing { setPage }
   connect ViewModeStore exposing { viewMode }
@@ -10,16 +9,15 @@ component FlexPage {
 
   /* State for examples */
   state activeExample : String = "basic"
+
   state gap : String = "1rem"
   state multiline : Bool = true
   state vAlign : String = "stretch"
   state direction : String = "horizontal"
 
   /* Dynamic columns state */
-  state dynamicColumns : Array(DynamicColumn) = [
-    { id: "1", size: "5", offset: "0" },
-    { id: "2", size: "5", offset: "0" }
-  ]
+  state dynamicColumns : Array(DynamicColumn) =
+    [{ id: "1", size: "5", offset: "0" }, { id: "2", size: "5", offset: "0" }]
 
   state columnCounter : Number = 2
 
@@ -60,27 +58,21 @@ component FlexPage {
           { id: #{newId}, size: "auto", offset: "0" }
         ]`
 
-      next {
-        columnCounter: newCounter,
-        dynamicColumns: newColumns
-      }
+      next { columnCounter: newCounter, dynamicColumns: newColumns }
     }
   }
 
   fun removeColumn (id : String) : Promise(Void) {
     next {
       dynamicColumns:
-        Array.reject(
-          dynamicColumns,
-          (col : DynamicColumn) { col.id == id })
+        Array.reject(dynamicColumns, (col : DynamicColumn) { col.id == id })
     }
   }
 
   fun updateColumnSize (id : String, newSize : String) : Promise(Void) {
     next {
       dynamicColumns:
-        Array.map(
-          dynamicColumns,
+        Array.map(dynamicColumns,
           (col : DynamicColumn) {
             if col.id == id {
               { id: col.id, size: newSize, offset: col.offset }
@@ -94,8 +86,7 @@ component FlexPage {
   fun updateColumnOffset (id : String, newOffset : String) : Promise(Void) {
     next {
       dynamicColumns:
-        Array.map(
-          dynamicColumns,
+        Array.map(dynamicColumns,
           (col : DynamicColumn) {
             if col.id == id {
               { id: col.id, size: col.size, offset: newOffset }
@@ -275,20 +266,40 @@ component FlexPage {
       badge="Layout"
       previewContent={
         <div style="width: 100%;">
-          <Columns gap={gap} multiline={multiline} vAlign={vAlign} direction={direction}>
-            for (col of dynamicColumns) {
+          <Columns
+            gap={gap}
+            multiline={multiline}
+            vAlign={vAlign}
+            direction={direction}
+          >
+            for col of dynamicColumns {
               <Column size={col.size} offset={col.offset}>
-                <div style={"background: " + getColumnColor(col.id) + "; color: white; padding: 2rem; border-radius: 8px; text-align: center; font-weight: 500; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);"}>
+                <div
+                  style={
+                    "background: " + getColumnColor(col.id) + "; color: white; padding: 2rem; border-radius: 8px; text-align: center; font-weight: 500; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);"
+                  }
+                >
                   <div>
                     "Column "
-                    {col.id}
+
+                    {
+                      col.id
+                    }
                   </div>
+
                   <div style="font-size: 12px; margin-top: 8px; opacity: 0.9;">
                     "size: "
-                    {col.size}
+
+                    {
+                      col.size
+                    }
+
                     if col.offset != "0" {
                       " | offset: "
-                      {col.offset}
+
+                      {
+                        col.offset
+                      }
                     }
                   </div>
                 </div>
@@ -301,6 +312,7 @@ component FlexPage {
         <div>
           <div::controlGroup>
             <label::label>"Direction"</label>
+
             <select::select value={direction} onChange={handleDirectionChange}>
               <option value="horizontal">"Horizontal (Row)"</option>
               <option value="vertical">"Vertical (Column)"</option>
@@ -309,6 +321,7 @@ component FlexPage {
 
           <div::controlGroup>
             <label::label>"Vertical Alignment"</label>
+
             <select::select value={vAlign} onChange={handleVAlignChange}>
               <option value="stretch">"Stretch"</option>
               <option value="top">"Top"</option>
@@ -319,25 +332,37 @@ component FlexPage {
 
           <div::controlGroup>
             <label::label>"Columns"</label>
-            for (col of dynamicColumns) {
+
+            for col of dynamicColumns {
               <div::columnControl>
                 <div::columnHeader>
                   <div::columnTitle>
                     "Column "
-                    {col.id}
+
+                    {
+                      col.id
+                    }
                   </div>
+
                   if Array.size(dynamicColumns) > 1 {
                     <button::removeButton onClick={() { removeColumn(col.id) }}>
                       "Remove"
                     </button>
                   }
                 </div>
+
                 <div::columnRow>
                   <div::columnField>
                     <label::label>"Size"</label>
+
                     <select::select
                       value={col.size}
-                      onChange={(e : Html.Event) { updateColumnSize(col.id, Dom.getValue(e.target)) }}>
+                      onChange={
+                        (e : Html.Event) {
+                          updateColumnSize(col.id, Dom.getValue(e.target))
+                        }
+                      }
+                    >
                       <option value="auto">"Auto (flexible)"</option>
                       <option value="1">"1 (10%)"</option>
                       <option value="2">"2 (20%)"</option>
@@ -351,11 +376,18 @@ component FlexPage {
                       <option value="10">"10 (100%)"</option>
                     </select>
                   </div>
+
                   <div::columnField>
                     <label::label>"Offset"</label>
+
                     <select::select
                       value={col.offset}
-                      onChange={(e : Html.Event) { updateColumnOffset(col.id, Dom.getValue(e.target)) }}>
+                      onChange={
+                        (e : Html.Event) {
+                          updateColumnOffset(col.id, Dom.getValue(e.target))
+                        }
+                      }
+                    >
                       <option value="0">"0 (None)"</option>
                       <option value="1">"1 (10%)"</option>
                       <option value="2">"2 (20%)"</option>
@@ -371,9 +403,8 @@ component FlexPage {
                 </div>
               </div>
             }
-            <button::addButton onClick={addColumn}>
-              "+ Add Column"
-            </button>
+
+            <button::addButton onClick={addColumn}>"+ Add Column"</button>
           </div>
         </div>
       }
@@ -383,33 +414,18 @@ component FlexPage {
           {
             title: "Basic Columns - Equal Width",
             description: "Auto columns distribute space equally",
-            snippet: {
-              code:
-                "<Columns gap=\"1rem\">\n" +
-                "  <Column size=\"auto\">\n" +
-                "    <div>Column 1</div>\n" +
-                "  </Column>\n" +
-                "  <Column size=\"auto\">\n" +
-                "    <div>Column 2</div>\n" +
-                "  </Column>\n" +
-                "  <Column size=\"auto\">\n" +
-                "    <div>Column 3</div>\n" +
-                "  </Column>\n" +
-                "</Columns>",
-              language: "mint"
-            },
+            snippet:
+              {
+                code:
+                  "<Columns gap=\"1rem\">\n" + "  <Column size=\"auto\">\n" + "    <div>Column 1</div>\n" + "  </Column>\n" + "  <Column size=\"auto\">\n" + "    <div>Column 2</div>\n" + "  </Column>\n" + "  <Column size=\"auto\">\n" + "    <div>Column 3</div>\n" + "  </Column>\n" + "</Columns>",
+                language: "mint"
+              },
             previewContent:
               <div style="width: 100%;">
                 <Columns gap="1rem">
-                  <Column size="auto">
-                    <div::demoBox>"Column 1"</div>
-                  </Column>
-                  <Column size="auto">
-                    <div::demoBox2>"Column 2"</div>
-                  </Column>
-                  <Column size="auto">
-                    <div::demoBox3>"Column 3"</div>
-                  </Column>
+                  <Column size="auto"><div::demoBox>"Column 1"</div></Column>
+                  <Column size="auto"><div::demoBox2>"Column 2"</div></Column>
+                  <Column size="auto"><div::demoBox3>"Column 3"</div></Column>
                 </Columns>
               </div>,
             showReplay: false
@@ -417,33 +433,18 @@ component FlexPage {
           {
             title: "Fixed Sizes - Fractions",
             description: "Size 1-10 represents 10%-100%",
-            snippet: {
-              code:
-                "<Columns gap=\"1rem\">\n" +
-                "  <Column size=\"2\">\n" +
-                "    <div>20% (size=2)</div>\n" +
-                "  </Column>\n" +
-                "  <Column size=\"5\">\n" +
-                "    <div>50% (size=5)</div>\n" +
-                "  </Column>\n" +
-                "  <Column size=\"3\">\n" +
-                "    <div>30% (size=3)</div>\n" +
-                "  </Column>\n" +
-                "</Columns>",
-              language: "mint"
-            },
+            snippet:
+              {
+                code:
+                  "<Columns gap=\"1rem\">\n" + "  <Column size=\"2\">\n" + "    <div>20% (size=2)</div>\n" + "  </Column>\n" + "  <Column size=\"5\">\n" + "    <div>50% (size=5)</div>\n" + "  </Column>\n" + "  <Column size=\"3\">\n" + "    <div>30% (size=3)</div>\n" + "  </Column>\n" + "</Columns>",
+                language: "mint"
+              },
             previewContent:
               <div style="width: 100%;">
                 <Columns gap="1rem">
-                  <Column size="2">
-                    <div::demoBox>"20%"</div>
-                  </Column>
-                  <Column size="5">
-                    <div::demoBox2>"50%"</div>
-                  </Column>
-                  <Column size="3">
-                    <div::demoBox3>"30%"</div>
-                  </Column>
+                  <Column size="2"><div::demoBox>"20%"</div></Column>
+                  <Column size="5"><div::demoBox2>"50%"</div></Column>
+                  <Column size="3"><div::demoBox3>"30%"</div></Column>
                 </Columns>
               </div>,
             showReplay: false
@@ -451,33 +452,18 @@ component FlexPage {
           {
             title: "Mixed Sizes",
             description: "Combine fixed and auto columns",
-            snippet: {
-              code:
-                "<Columns gap=\"1rem\">\n" +
-                "  <Column size=\"3\">\n" +
-                "    <div>30% fixed</div>\n" +
-                "  </Column>\n" +
-                "  <Column size=\"auto\">\n" +
-                "    <div>Auto fills remaining</div>\n" +
-                "  </Column>\n" +
-                "  <Column size=\"2\">\n" +
-                "    <div>20% fixed</div>\n" +
-                "  </Column>\n" +
-                "</Columns>",
-              language: "mint"
-            },
+            snippet:
+              {
+                code:
+                  "<Columns gap=\"1rem\">\n" + "  <Column size=\"3\">\n" + "    <div>30% fixed</div>\n" + "  </Column>\n" + "  <Column size=\"auto\">\n" + "    <div>Auto fills remaining</div>\n" + "  </Column>\n" + "  <Column size=\"2\">\n" + "    <div>20% fixed</div>\n" + "  </Column>\n" + "</Columns>",
+                language: "mint"
+              },
             previewContent:
               <div style="width: 100%;">
                 <Columns gap="1rem">
-                  <Column size="3">
-                    <div::demoBox>"30% fixed"</div>
-                  </Column>
-                  <Column size="auto">
-                    <div::demoBox2>"Auto"</div>
-                  </Column>
-                  <Column size="2">
-                    <div::demoBox3>"20% fixed"</div>
-                  </Column>
+                  <Column size="3"><div::demoBox>"30% fixed"</div></Column>
+                  <Column size="auto"><div::demoBox2>"Auto"</div></Column>
+                  <Column size="2"><div::demoBox3>"20% fixed"</div></Column>
                 </Columns>
               </div>,
             showReplay: false
@@ -485,27 +471,17 @@ component FlexPage {
           {
             title: "Offset",
             description: "Push columns with offset",
-            snippet: {
-              code:
-                "<Columns gap=\"1rem\">\n" +
-                "  <Column size=\"3\" offset=\"2\">\n" +
-                "    <div>30% with 20% offset</div>\n" +
-                "  </Column>\n" +
-                "  <Column size=\"4\">\n" +
-                "    <div>40%</div>\n" +
-                "  </Column>\n" +
-                "</Columns>",
-              language: "mint"
-            },
+            snippet:
+              {
+                code:
+                  "<Columns gap=\"1rem\">\n" + "  <Column size=\"3\" offset=\"2\">\n" + "    <div>30% with 20% offset</div>\n" + "  </Column>\n" + "  <Column size=\"4\">\n" + "    <div>40%</div>\n" + "  </Column>\n" + "</Columns>",
+                language: "mint"
+              },
             previewContent:
               <div style="width: 100%;">
                 <Columns gap="1rem">
-                  <Column size="3" offset="2">
-                    <div::demoBox>"30% + offset"</div>
-                  </Column>
-                  <Column size="4">
-                    <div::demoBox2>"40%"</div>
-                  </Column>
+                  <Column size="3" offset="2"><div::demoBox>"30% + offset"</div></Column>
+                  <Column size="4"><div::demoBox2>"40%"</div></Column>
                 </Columns>
               </div>,
             showReplay: false
@@ -513,30 +489,23 @@ component FlexPage {
           {
             title: "Responsive Columns",
             description: "Different sizes per breakpoint",
-            snippet: {
-              code:
-                "<Columns gap=\"1rem\" multiline={true}>\n" +
-                "  <Column size=\"10\" sizeTablet=\"5\" sizeDesktop=\"3\">\n" +
-                "    <div>100% mobile, 50% tablet, 30% desktop</div>\n" +
-                "  </Column>\n" +
-                "  <Column size=\"10\" sizeTablet=\"5\" sizeDesktop=\"3\">\n" +
-                "    <div>100% mobile, 50% tablet, 30% desktop</div>\n" +
-                "  </Column>\n" +
-                "  <Column size=\"10\" sizeTablet=\"10\" sizeDesktop=\"4\">\n" +
-                "    <div>100% mobile, 100% tablet, 40% desktop</div>\n" +
-                "  </Column>\n" +
-                "</Columns>",
-              language: "mint"
-            },
+            snippet:
+              {
+                code:
+                  "<Columns gap=\"1rem\" multiline={true}>\n" + "  <Column size=\"10\" sizeTablet=\"5\" sizeDesktop=\"3\">\n" + "    <div>100% mobile, 50% tablet, 30% desktop</div>\n" + "  </Column>\n" + "  <Column size=\"10\" sizeTablet=\"5\" sizeDesktop=\"3\">\n" + "    <div>100% mobile, 50% tablet, 30% desktop</div>\n" + "  </Column>\n" + "  <Column size=\"10\" sizeTablet=\"10\" sizeDesktop=\"4\">\n" + "    <div>100% mobile, 100% tablet, 40% desktop</div>\n" + "  </Column>\n" + "</Columns>",
+                language: "mint"
+              },
             previewContent:
               <div style="width: 100%;">
                 <Columns gap="1rem" multiline={true}>
                   <Column size="10" sizeTablet="5" sizeDesktop="3">
                     <div::demoBox>"Responsive 1"</div>
                   </Column>
+
                   <Column size="10" sizeTablet="5" sizeDesktop="3">
                     <div::demoBox2>"Responsive 2"</div>
                   </Column>
+
                   <Column size="10" sizeTablet="10" sizeDesktop="4">
                     <div::demoBox3>"Responsive 3"</div>
                   </Column>
@@ -568,13 +537,15 @@ component FlexPage {
           },
           {
             name: "vAlign",
-            description: "Vertical alignment: 'top', 'center', 'bottom', 'stretch'",
+            description:
+              "Vertical alignment: 'top', 'center', 'bottom', 'stretch'",
             type: "String",
             defaultValue: "\"stretch\""
           },
           {
             name: "hAlign",
-            description: "Horizontal alignment: 'left', 'center', 'right', 'space-between', 'space-around'",
+            description:
+              "Horizontal alignment: 'left', 'center', 'right', 'space-between', 'space-around'",
             type: "String",
             defaultValue: "\"flex-start\""
           },
@@ -598,7 +569,8 @@ component FlexPage {
           },
           {
             name: "customSize",
-            description: "Custom CSS size when size='custom' (e.g., '300px', '25%')",
+            description:
+              "Custom CSS size when size='custom' (e.g., '300px', '25%')",
             type: "String",
             defaultValue: "\"\""
           },
@@ -633,6 +605,7 @@ component FlexPage {
             defaultValue: "\"\""
           }
         ]
-      }/>
+      }
+    />
   }
 }

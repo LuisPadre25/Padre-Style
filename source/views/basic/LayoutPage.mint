@@ -1,5 +1,4 @@
 /* LayoutPage - Grid Component Showcase */
-
 component LayoutPage {
   connect NavigationStore exposing { setPage }
   connect ViewModeStore exposing { viewMode }
@@ -10,6 +9,7 @@ component LayoutPage {
 
   /* State for interactive controls */
   state cols : String = "3"
+
   state colsTablet : String = "4"
   state colsDesktop : String = "6"
   state gap : String = "1rem"
@@ -44,7 +44,8 @@ component LayoutPage {
 
   /* Event handlers */
   fun handleColsChange (event : Html.Event) : Promise(Void) {
-    let value = Dom.getValue(event.target)
+    let value =
+      Dom.getValue(event.target)
 
     case viewMode {
       "mobile" => next { cols: value }
@@ -69,9 +70,9 @@ component LayoutPage {
     Array.range(1, count)
     |> Array.map(
       (i : Number) : Html {
-        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 2rem; border-radius: 8px; color: white; text-align: center; font-weight: 500; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
-          "Item " + Number.toString(i)
-        </div>
+        <div
+          style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 2rem; border-radius: 8px; color: white; text-align: center; font-weight: 500; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);"
+        >"Item " + Number.toString(i)</div>
       })
   }
 
@@ -159,8 +160,11 @@ component LayoutPage {
           cols={cols}
           colsTablet={colsTablet}
           colsDesktop={colsDesktop}
-          gap={gap}>
-          {generateItems(itemCount)}
+          gap={gap}
+        >
+          {
+            generateItems(itemCount)
+          }
         </Grid>
       }
       controlsContent={
@@ -168,35 +172,52 @@ component LayoutPage {
           <Heading level="4" margin="0 0 16px">"Grid Configuration"</Heading>
 
           <div::controlGroup>
-            <label::label>{getColsLabel()}</label>
+            <label::label>
+              {
+                getColsLabel()
+              }
+            </label>
+
             <input::input
               type="text"
               value={getCurrentCols()}
               placeholder="Ej: auto, 1-12, o número custom"
-              onChange={handleColsChange}/>
-            <small::hint>{getColsHint()}</small>
+              onChange={handleColsChange}
+            />
+
+            <small::hint>
+              {
+                getColsHint()
+              }
+            </small>
           </div>
 
           <div::controlGroup>
             <label::label>"Gap"</label>
+
             <input::input
               type="text"
               value={gap}
               placeholder="1rem, 20px, etc."
-              onChange={handleGapChange}/>
+              onChange={handleGapChange}
+            />
           </div>
 
           <div::controlGroup>
-            <label::label>
-              "Item Count: " + Number.toString(itemCount)
-            </label>
+            <label::label>"Item Count: " + Number.toString(itemCount)</label>
+
             <input::rangeInput
               type="range"
               value={Number.toString(itemCount)}
               min="1"
               max="24"
               step="1"
-              onInput={(event : Html.Event) : Promise(Void) { handleItemCountChange(Dom.getValue(event.target)) }}/>
+              onInput={
+                (event : Html.Event) : Promise(Void) {
+                  handleItemCountChange(Dom.getValue(event.target))
+                }
+              }
+            />
           </div>
         </div>
       }
@@ -206,137 +227,110 @@ component LayoutPage {
           {
             title: "Auto Grid (Responsive)",
             description: "Automatically adjusts columns based on available space",
-            snippet: {
-              code:
-                "<Grid cols=\"auto\" gap=\"1rem\">\n" +
-                "  <div>\"Item 1\"</div>\n" +
-                "  <div>\"Item 2\"</div>\n" +
-                "  <div>\"Item 3\"</div>\n" +
-                "</Grid>",
-              language: "mint"
-            },
+            snippet:
+              {
+                code:
+                  "<Grid cols=\"auto\" gap=\"1rem\">\n" + "  <div>\"Item 1\"</div>\n" + "  <div>\"Item 2\"</div>\n" + "  <div>\"Item 3\"</div>\n" + "</Grid>",
+                language: "mint"
+              },
             previewContent:
               <Grid cols="auto" gap="1rem">
-                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 2rem; border-radius: 8px; color: white; text-align: center; font-weight: 500;">
-                  "Item 1"
-                </div>
-                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 2rem; border-radius: 8px; color: white; text-align: center; font-weight: 500;">
-                  "Item 2"
-                </div>
-                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 2rem; border-radius: 8px; color: white; text-align: center; font-weight: 500;">
-                  "Item 3"
-                </div>
+                <div
+                  style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 2rem; border-radius: 8px; color: white; text-align: center; font-weight: 500;"
+                >"Item 1"</div>
+
+                <div
+                  style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 2rem; border-radius: 8px; color: white; text-align: center; font-weight: 500;"
+                >"Item 2"</div>
+
+                <div
+                  style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 2rem; border-radius: 8px; color: white; text-align: center; font-weight: 500;"
+                >"Item 3"</div>
               </Grid>,
             showReplay: false
           },
           {
             title: "Fixed 3 Columns",
             description: "Grid with exactly 3 columns",
-            snippet: {
-              code:
-                "<Grid cols=\"3\" gap=\"1rem\">\n" +
-                "  <div>\"Col 1\"</div>\n" +
-                "  <div>\"Col 2\"</div>\n" +
-                "  <div>\"Col 3\"</div>\n" +
-                "  <div>\"Col 4\"</div>\n" +
-                "  <div>\"Col 5\"</div>\n" +
-                "  <div>\"Col 6\"</div>\n" +
-                "</Grid>",
-              language: "mint"
-            },
+            snippet:
+              {
+                code:
+                  "<Grid cols=\"3\" gap=\"1rem\">\n" + "  <div>\"Col 1\"</div>\n" + "  <div>\"Col 2\"</div>\n" + "  <div>\"Col 3\"</div>\n" + "  <div>\"Col 4\"</div>\n" + "  <div>\"Col 5\"</div>\n" + "  <div>\"Col 6\"</div>\n" + "</Grid>",
+                language: "mint"
+              },
             previewContent:
               <Grid cols="3" gap="1rem">
-                {generateItems(6)}
+                {
+                  generateItems(6)
+                }
               </Grid>,
             showReplay: false
           },
           {
             title: "Responsive Breakpoints",
             description: "Mobile-first: 1 col mobile, 2 tablet, 3 desktop",
-            snippet: {
-              code:
-                "<Grid\n" +
-                "  cols=\"1\"\n" +
-                "  colsTablet=\"2\"\n" +
-                "  colsDesktop=\"3\"\n" +
-                "  gap=\"1rem\">\n" +
-                "  <div>\"Item 1\"</div>\n" +
-                "  <div>\"Item 2\"</div>\n" +
-                "  <div>\"Item 3\"</div>\n" +
-                "  <div>\"Item 4\"</div>\n" +
-                "  <div>\"Item 5\"</div>\n" +
-                "  <div>\"Item 6\"</div>\n" +
-                "</Grid>",
-              language: "mint"
-            },
+            snippet:
+              {
+                code:
+                  "<Grid\n" + "  cols=\"1\"\n" + "  colsTablet=\"2\"\n" + "  colsDesktop=\"3\"\n" + "  gap=\"1rem\">\n" + "  <div>\"Item 1\"</div>\n" + "  <div>\"Item 2\"</div>\n" + "  <div>\"Item 3\"</div>\n" + "  <div>\"Item 4\"</div>\n" + "  <div>\"Item 5\"</div>\n" + "  <div>\"Item 6\"</div>\n" + "</Grid>",
+                language: "mint"
+              },
             previewContent:
-              <Grid
-                cols="1"
-                colsTablet="2"
-                colsDesktop="3"
-                gap="1rem">
-                {generateItems(6)}
+              <Grid cols="1" colsTablet="2" colsDesktop="3" gap="1rem">
+                {
+                  generateItems(6)
+                }
               </Grid>,
             showReplay: false
           },
           {
             title: "12 Column Grid",
             description: "Maximum columns in the grid system",
-            snippet: {
-              code:
-                "<Grid cols=\"12\" gap=\"0.5rem\">\n" +
-                "  <div>\"1\"</div>\n" +
-                "  <div>\"2\"</div>\n" +
-                "  <div>\"3\"</div>\n" +
-                "  ...\n" +
-                "  <div>\"12\"</div>\n" +
-                "</Grid>",
-              language: "mint"
-            },
+            snippet:
+              {
+                code:
+                  "<Grid cols=\"12\" gap=\"0.5rem\">\n" + "  <div>\"1\"</div>\n" + "  <div>\"2\"</div>\n" + "  <div>\"3\"</div>\n" + "  ...\n" + "  <div>\"12\"</div>\n" + "</Grid>",
+                language: "mint"
+              },
             previewContent:
               <Grid cols="12" gap="0.5rem">
-                {generateItems(12)}
+                {
+                  generateItems(12)
+                }
               </Grid>,
             showReplay: false
           },
           {
             title: "Custom 20 Columns",
             description: "Grid supports any number beyond 12",
-            snippet: {
-              code:
-                "<Grid cols=\"20\" gap=\"0.5rem\">\n" +
-                "  {/* 20 items */}\n" +
-                "</Grid>",
-              language: "mint"
-            },
+            snippet:
+              {
+                code:
+                  "<Grid cols=\"20\" gap=\"0.5rem\">\n" + "  {/* 20 items */}\n" + "</Grid>",
+                language: "mint"
+              },
             previewContent:
               <Grid cols="20" gap="0.5rem">
-                {generateItems(20)}
+                {
+                  generateItems(20)
+                }
               </Grid>,
             showReplay: false
           },
           {
             title: "Custom Gap",
             description: "Different row and column gaps",
-            snippet: {
-              code:
-                "<Grid\n" +
-                "  cols=\"4\"\n" +
-                "  rowGap=\"2rem\"\n" +
-                "  columnGap=\"0.5rem\">\n" +
-                "  <div>\"Item 1\"</div>\n" +
-                "  <div>\"Item 2\"</div>\n" +
-                "  <div>\"Item 3\"</div>\n" +
-                "  <div>\"Item 4\"</div>\n" +
-                "</Grid>",
-              language: "mint"
-            },
+            snippet:
+              {
+                code:
+                  "<Grid\n" + "  cols=\"4\"\n" + "  rowGap=\"2rem\"\n" + "  columnGap=\"0.5rem\">\n" + "  <div>\"Item 1\"</div>\n" + "  <div>\"Item 2\"</div>\n" + "  <div>\"Item 3\"</div>\n" + "  <div>\"Item 4\"</div>\n" + "</Grid>",
+                language: "mint"
+              },
             previewContent:
-              <Grid
-                cols="4"
-                rowGap="2rem"
-                columnGap="0.5rem">
-                {generateItems(8)}
+              <Grid cols="4" rowGap="2rem" columnGap="0.5rem">
+                {
+                  generateItems(8)
+                }
               </Grid>,
             showReplay: false
           }
@@ -346,7 +340,8 @@ component LayoutPage {
         [
           {
             name: "cols",
-            description: "Number of columns (mobile-first). Supports: 'auto', '0'-'12', or any number/CSS value",
+            description:
+              "Number of columns (mobile-first). Supports: 'auto', '0'-'12', or any number/CSS value",
             type: "String",
             defaultValue: "\"auto\""
           },
@@ -501,6 +496,7 @@ component LayoutPage {
             defaultValue: "[]"
           }
         ]
-      }/>
+      }
+    />
   }
 }

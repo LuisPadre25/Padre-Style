@@ -1,30 +1,41 @@
-/* Badge - Professional notification badge and status indicator
+/*
+Badge - Professional notification badge and status indicator
  * Based on Ant Design and Material UI standards
  * Features: count badges, dot indicators, status badges, standalone labels
- */
-
+*/
 component Badge {
   /* Core properties */
   property count : Number = 0
+
   property max : Number = 99
   property dot : Bool = false
   property showZero : Bool = false
   property standalone : Bool = false
 
   /* Styling */
-  property variant : String = "default"  // default, success, processing, error, warning, info
-  property color : String = ""  // custom color override
+  property variant : String = "default"
+
+  // default, success, processing, error, warning, info
+  property color : String = ""
+
+  // custom color override
   property textColor : String = "#fff"
 
   /* Positioning (for non-standalone badges) */
-  property position : String = "topRight"  // topRight, topLeft, bottomRight, bottomLeft
-  property offset : Array(Number) = []  // [x, y] offset in pixels
+  property position : String = "topRight"
+
+  // topRight, topLeft, bottomRight, bottomLeft
+  property offset : Array(Number) = []
+
+  // [x, y] offset in pixels
 
   /* Text content (for standalone badges) */
   property text : String = ""
 
   /* Size */
-  property size : String = "default"  // small, default, large
+  property size : String = "default"
+
+  // small, default, large
 
   /* Children (element to badge) */
   property children : Array(Html) = []
@@ -40,7 +51,9 @@ component Badge {
         "error" => "#ff4d4f"
         "warning" => "#faad14"
         "info" => "#1890ff"
-        => "#ff4d4f"  // default red
+        => "#ff4d4f"
+
+        // default red
       }
     }
   }
@@ -84,7 +97,8 @@ component Badge {
         |> Array.first
         |> Maybe.withDefault(0)
 
-      "transform: translate(calc(50% + " + Number.toString(x) + "px), calc(-50% + " + Number.toString(y) + "px));"
+      "transform: translate(calc(50% + " + Number.toString(x) + "px), calc(-50% + " + Number.toString(
+        y) + "px));"
     }
   }
 
@@ -228,25 +242,33 @@ component Badge {
     if standalone {
       /* Standalone badge (status/tag) */
       <span::standaloneBadge>
-        {text}
+        {
+          text
+        }
       </span>
     } else {
       /* Badge with children */
       if shouldShowBadge() {
         <span::wrapper>
-          {children}
+          {
+            children
+          }
 
           if dot {
             <span::dot style={getOffsetStyles()}/>
           } else {
             <span::badge style={getOffsetStyles()}>
-              {getDisplayCount()}
+              {
+                getDisplayCount()
+              }
             </span>
           }
         </span>
       } else {
         <span::wrapper>
-          {children}
+          {
+            children
+          }
         </span>
       }
     }

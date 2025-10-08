@@ -1,10 +1,11 @@
-/* Tabs - Professional mobile-first navigation component
+/*
+Tabs - Professional mobile-first navigation component
  * Features: Swipe gestures, Sticky positioning, Auto-scroll, Lazy loading support
- */
-
+*/
 component Tabs {
   /* Properties */
   property tabs : Array(TabItem) = []
+
   property active : String = ""
   property type : String = "line"
   property color : String = ""
@@ -23,24 +24,36 @@ component Tabs {
 
   /* Card & Layout Properties */
   property iconLayout : String = "horizontal"
+
   property cardSpacing : String = "normal"
 
   /* Advanced Features */
   property sticky : Bool = false
+
   property stickyOffsetTop : Number = 0
   property swipeable : Bool = true
   property lazyRender : Bool = false
   property scrollable : Bool = true
 
   /* Events */
-  property onChange : Function(TabChangeEvent, Promise(Void)) = (event : TabChangeEvent) : Promise(Void) { Promise.never() }
-  property onClick : Function(TabClickEvent, Promise(Void)) = (event : TabClickEvent) : Promise(Void) { Promise.never() }
-  property onDisabled : Function(TabClickEvent, Promise(Void)) = (event : TabClickEvent) : Promise(Void) { Promise.never() }
-  property onSwipe : Function(String, Promise(Void)) = (direction : String) : Promise(Void) { Promise.never() }
-  property onDirectionChange : Function(String, Promise(Void)) = (direction : String) : Promise(Void) { Promise.never() }
+  property onChange : Function(TabChangeEvent, Promise(Void)) =
+    (event : TabChangeEvent) : Promise(Void) { Promise.never() }
+
+  property onClick : Function(TabClickEvent, Promise(Void)) =
+    (event : TabClickEvent) : Promise(Void) { Promise.never() }
+
+  property onDisabled : Function(TabClickEvent, Promise(Void)) =
+    (event : TabClickEvent) : Promise(Void) { Promise.never() }
+
+  property onSwipe : Function(String, Promise(Void)) =
+    (direction : String) : Promise(Void) { Promise.never() }
+
+  property onDirectionChange : Function(String, Promise(Void)) =
+    (direction : String) : Promise(Void) { Promise.never() }
 
   /* State */
   state currentActive : String = ""
+
   state touchStartX : Number = 0
   state touchStartY : Number = 0
   state isSwiping : Bool = false
@@ -168,26 +181,20 @@ component Tabs {
       (tab : TabItem) : Promise(Void) {
         next { currentActive: tab.name }
 
-        onChange(
-          {
-            name: tab.name,
-            title: tab.title,
-            index: index
-          })
+        onChange({ name: tab.name, title: tab.title, index: index })
       })
     |> Maybe.withDefault(Promise.never())
   }
 
   /* Event Handlers */
-  fun handleTabClick (tab : TabItem, index : Number, event : Html.Event) : Promise(Void) {
+  fun handleTabClick (
+    tab : TabItem,
+    index : Number,
+    event : Html.Event
+  ) : Promise(Void) {
     if tab.disabled {
       onDisabled(
-        {
-          name: tab.name,
-          title: tab.title,
-          index: index,
-          disabled: tab.disabled
-        })
+        { name: tab.name, title: tab.title, index: index, disabled: tab.disabled })
     } else {
       /* Detect direction based on index change */
       if index > getActiveIndex() {
@@ -202,21 +209,11 @@ component Tabs {
       }
 
       onClick(
-        {
-          name: tab.name,
-          title: tab.title,
-          index: index,
-          disabled: tab.disabled
-        })
+        { name: tab.name, title: tab.title, index: index, disabled: tab.disabled })
 
       next { currentActive: tab.name }
 
-      onChange(
-        {
-          name: tab.name,
-          title: tab.title,
-          index: index
-        })
+      onChange({ name: tab.name, title: tab.title, index: index })
     }
   }
 
@@ -396,17 +393,34 @@ component Tabs {
   style tab (active : Bool, disabled : Bool) {
     position: relative;
     display: flex;
-    flex-direction: #{if iconLayout == "vertical" { "column" } else { "row" }};
+
+    flex-direction: #{if iconLayout == "vertical" {
+      "column"
+    } else {
+      "row"
+    }};
+
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
     padding: 0 4px;
     font-size: 13px;
-    line-height: #{if iconLayout == "vertical" { "1.2" } else { "40px" }};
+
+    line-height: #{if iconLayout == "vertical" {
+      "1.2"
+    } else {
+      "40px"
+    }};
+
     cursor: pointer;
     transition: all #{Number.toString(duration)}ms cubic-bezier(0.4, 0, 0.2, 1);
     min-width: 0;
-    gap: #{if iconLayout == "vertical" { "6px" } else { "4px" }};
+
+    gap: #{if iconLayout == "vertical" {
+      "6px"
+    } else {
+      "4px"
+    }};
 
     if iconLayout == "vertical" {
       padding: 8px 4px 12px 4px;
@@ -418,7 +432,9 @@ component Tabs {
       @media (min-width: 768px) {
         padding: 12px 12px 16px 12px;
       }
-    } else {
+    }
+
+    else {
       @media (min-width: 641px) {
         padding: 0 8px;
         font-size: 14px;
@@ -455,7 +471,9 @@ component Tabs {
       opacity: 0.5;
       filter: grayscale(1);
       pointer-events: none;
-    } else {
+    }
+
+    else {
       &:hover {
         opacity: 0.85;
         background: var(--border-color);
@@ -486,12 +504,32 @@ component Tabs {
     if type == "card-pill" {
       border-radius: 50px;
       padding: 8px 16px;
-      background: #{if active { "var(--card-bg)" } else { "transparent" }};
-      box-shadow: #{if active { "0 2px 8px var(--shadow-color)" } else { "none" }};
-      transform: #{if active { "scale(1)" } else { "scale(1)" }};
+
+      background: #{if active {
+        "var(--card-bg)"
+      } else {
+        "transparent"
+      }};
+
+      box-shadow: #{if active {
+        "0 2px 8px var(--shadow-color)"
+      } else {
+        "none"
+      }};
+
+      transform: #{if active {
+        "scale(1)"
+      } else {
+        "scale(1)"
+      }};
 
       &:hover {
-        background: #{if active { "var(--card-bg)" } else { "rgba(0, 0, 0, 0.05)" }};
+        background: #{if active {
+          "var(--card-bg)"
+        } else {
+          "rgba(0, 0, 0, 0.05)"
+        }};
+
         border-radius: 50px;
       }
     }
@@ -500,13 +538,38 @@ component Tabs {
     if type == "card-elevated" {
       border-radius: 6px;
       margin: 0 4px;
-      background: #{if active { getActiveColor() } else { "transparent" }};
-      color: #{if active { "#fff" } else { getInactiveColor() }};
-      box-shadow: #{if active { "0 6px 16px var(--shadow-color)" } else { "none" }};
-      transform: #{if active { "translateY(-2px)" } else { "translateY(0)" }};
+
+      background: #{if active {
+        getActiveColor()
+      } else {
+        "transparent"
+      }};
+
+      color: #{if active {
+        "#fff"
+      } else {
+        getInactiveColor()
+      }};
+
+      box-shadow: #{if active {
+        "0 6px 16px var(--shadow-color)"
+      } else {
+        "none"
+      }};
+
+      transform: #{if active {
+        "translateY(-2px)"
+      } else {
+        "translateY(0)"
+      }};
 
       &:hover {
-        background: #{if active { getActiveColor() } else { "var(--border-color)" }};
+        background: #{if active {
+          getActiveColor()
+        } else {
+          "var(--border-color)"
+        }};
+
         border-radius: 6px;
       }
     }
@@ -515,12 +578,32 @@ component Tabs {
     if type == "card-outlined" {
       border-radius: 6px;
       margin: 0 4px;
-      border: 2px solid #{if active { getActiveColor() } else { "transparent" }};
-      background: #{if active { "var(--card-bg)" } else { "transparent" }};
-      box-shadow: #{if active { "0 2px 8px var(--shadow-color)" } else { "none" }};
+
+      border: 2px solid #{if active {
+        getActiveColor()
+      } else {
+        "transparent"
+      }};
+
+      background: #{if active {
+        "var(--card-bg)"
+      } else {
+        "transparent"
+      }};
+
+      box-shadow: #{if active {
+        "0 2px 8px var(--shadow-color)"
+      } else {
+        "none"
+      }};
 
       &:hover {
-        border-color: #{if active { getActiveColor() } else { "var(--border-color)" }};
+        border-color: #{if active {
+          getActiveColor()
+        } else {
+          "var(--border-color)"
+        }};
+
         border-radius: 6px;
       }
     }
@@ -530,16 +613,36 @@ component Tabs {
       border-radius: 8px;
       padding: 6px 12px;
       font-weight: 500;
-      background: #{if active { "var(--card-bg)" } else { "transparent" }};
-      box-shadow: #{if active { "0 3px 8px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.08)" } else { "none" }};
-      transform: #{if active { "scale(1)" } else { "scale(1)" }};
+
+      background: #{if active {
+        "var(--card-bg)"
+      } else {
+        "transparent"
+      }};
+
+      box-shadow: #{if active {
+        "0 3px 8px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.08)"
+      } else {
+        "none"
+      }};
+
+      transform: #{if active {
+        "scale(1)"
+      } else {
+        "scale(1)"
+      }};
 
       @media (min-width: 768px) {
         padding: 8px 16px;
       }
 
       &:hover {
-        background: #{if active { "var(--card-bg)" } else { "rgba(0, 0, 0, 0.04)" }};
+        background: #{if active {
+          "var(--card-bg)"
+        } else {
+          "rgba(0, 0, 0, 0.04)"
+        }};
+
         border-radius: 8px;
       }
     }
@@ -551,14 +654,30 @@ component Tabs {
 
   style tabContent {
     display: flex;
-    flex-direction: #{if iconLayout == "vertical" { "column" } else { "row" }};
+
+    flex-direction: #{if iconLayout == "vertical" {
+      "column"
+    } else {
+      "row"
+    }};
+
     align-items: center;
     justify-content: center;
-    gap: #{if iconLayout == "vertical" { "4px" } else { "4px" }};
+
+    gap: #{if iconLayout == "vertical" {
+      "4px"
+    } else {
+      "4px"
+    }};
+
     min-width: 0;
 
     @media (min-width: 641px) {
-      gap: #{if iconLayout == "vertical" { "6px" } else { "6px" }};
+      gap: #{if iconLayout == "vertical" {
+        "6px"
+      } else {
+        "6px"
+      }};
     }
   }
 
@@ -594,7 +713,7 @@ component Tabs {
     box-shadow: 0 2px 4px var(--shadow-color);
 
     if total > 0 {
-      left: calc(#{Number.toString(index)} * #{Number.toString(100 / total)}%);
+      left: calc(#{Number.toString(index)}* #{Number.toString(100 / total)}%);
       width: calc(#{Number.toString(100 / total)}%);
     } else {
       width: #{lineWidth};
@@ -611,8 +730,8 @@ component Tabs {
       <div::wrap
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
-        onTouchEnd={handleTouchEnd}>
-
+        onTouchEnd={handleTouchEnd}
+      >
         <div::nav role="tablist">
           for tab, index of tabs {
             <div::tab(tab.name == currentActive, tab.disabled)
@@ -627,16 +746,26 @@ component Tabs {
                 }
               }
               style={tab.titleStyle}
-              onClick={(event : Html.Event) { handleTabClick(tab, index, event) }}>
-
+              onClick={
+                (event : Html.Event) { handleTabClick(tab, index, event) }
+              }
+            >
               <div::tabContent>
                 if !String.isEmpty(tab.icon) {
-                  <span::tabIcon>{tab.icon}</span>
+                  <span::tabIcon>
+                    {
+                      tab.icon
+                    }
+                  </span>
                 } else {
                   <></>
                 }
 
-                <span::tabText>{tab.title}</span>
+                <span::tabText>
+                  {
+                    tab.title
+                  }
+                </span>
 
                 if tab.dot {
                   <StatusDot
@@ -660,7 +789,8 @@ component Tabs {
                       } else {
                         "none"
                       }
-                    }/>
+                    }
+                  />
                 } else if !String.isEmpty(tab.badge) {
                   <Badge
                     count={
@@ -685,7 +815,8 @@ component Tabs {
                     }
                     color={tab.badgeColor}
                     standalone={true}
-                    text={tab.badge}/>
+                    text={tab.badge}
+                  />
                 } else {
                   <></>
                 }

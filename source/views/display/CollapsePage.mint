@@ -1,14 +1,15 @@
 /* CollapsePage - Professional showcase for Collapse component */
-
 component CollapsePage {
   /* State for examples */
   state activeBasic : Array(String) = []
+
   state activeAccordion : Array(String) = ["faq1"]
   state users : Array(Number) = [1]
   state activeUsers : Array(String) = ["user-1"]
 
   /* State for controls */
   state accordion : Bool = false
+
   state border : Bool = true
   state animated : Bool = true
   state animationDuration : Number = 0.3
@@ -54,7 +55,15 @@ component CollapsePage {
 
   /* Control handlers */
   fun toggleAccordion : Promise(Void) {
-    next { accordion: !accordion, activeAccordion: if !accordion { ["faq1"] } else { [] } }
+    next {
+      accordion: !accordion,
+      activeAccordion:
+        if !accordion {
+          ["faq1"]
+        } else {
+          []
+        }
+    }
   }
 
   fun toggleBorder : Promise(Void) {
@@ -103,14 +112,16 @@ component CollapsePage {
     next { previewTab: event.name }
   }
 
-
   /* Get data */
   fun getBasicItems : Array(CollapseItem) {
     [
       {
         name: "item1",
         title: "What is Mint Lang?",
-        content: <div>"Mint Lang is a refreshing programming language for the front-end web."</div>,
+        content:
+          <div>
+            "Mint Lang is a refreshing programming language for the front-end web."
+          </div>,
         disabled: false,
         icon: "",
         badge: "",
@@ -120,7 +131,8 @@ component CollapsePage {
       {
         name: "item2",
         title: "Why use Collapse?",
-        content: <div>"Perfect for FAQs, forms, and organizing content sections."</div>,
+        content:
+          <div>"Perfect for FAQs, forms, and organizing content sections."</div>,
         disabled: false,
         icon: "",
         badge: "",
@@ -145,7 +157,8 @@ component CollapsePage {
       {
         name: "faq1",
         title: "How does accordion mode work?",
-        content: <div>"Only one panel can be open at a time. Great for FAQs!"</div>,
+        content:
+          <div>"Only one panel can be open at a time. Great for FAQs!"</div>,
         disabled: false,
         icon: "",
         badge: "",
@@ -155,7 +168,8 @@ component CollapsePage {
       {
         name: "faq2",
         title: "Can I have multiple panels open?",
-        content: <div>"Yes! Disable accordion mode for multiple open panels."</div>,
+        content:
+          <div>"Yes! Disable accordion mode for multiple open panels."</div>,
         disabled: false,
         icon: "",
         badge: "",
@@ -165,7 +179,8 @@ component CollapsePage {
       {
         name: "faq3",
         title: "Is it responsive?",
-        content: <div>"Absolutely! Mobile-first design with touch-friendly areas."</div>,
+        content:
+          <div>"Absolutely! Mobile-first design with touch-friendly areas."</div>,
         disabled: false,
         icon: "",
         badge: "Popular",
@@ -199,10 +214,12 @@ component CollapsePage {
         <label::formLabel>"Nombre"</label>
         <input::formInput type="text" placeholder="Juan Pérez"/>
       </div>
+
       <div::formGroup>
         <label::formLabel>"Email"</label>
         <input::formInput type="email" placeholder="usuario@ejemplo.com"/>
       </div>
+
       <div::formGroup>
         <label::formLabel>"Teléfono"</label>
         <input::formInput type="tel" placeholder="+52 123 456 7890"/>
@@ -218,7 +235,8 @@ component CollapsePage {
         active={previewTab}
         type="line"
         animated={true}
-        onChange={handlePreviewTabChange}/>
+        onChange={handlePreviewTabChange}
+      />
 
       if previewTab == "faqs" {
         <div style="margin-top: 24px; width: 100%;">
@@ -231,7 +249,8 @@ component CollapsePage {
             animationDuration={animationDuration}
             width={width}
             minWidth="0"
-            onChange={handleAccordionChange}/>
+            onChange={handleAccordionChange}
+          />
 
           <div style="height: 60px; margin-top: 16px;"/>
         </div>
@@ -247,7 +266,8 @@ component CollapsePage {
             width={width}
             minWidth="0"
             onChange={handleUsersChange}
-            onRemove={handleRemoveUser}/>
+            onRemove={handleRemoveUser}
+          />
 
           <button::addButton onClick={(e : Html.Event) { addUser() }}>
             "+"
@@ -305,49 +325,60 @@ component CollapsePage {
 
       <div::controlGroup>
         <div::controlLabel>"Width"</div>
+
         <div::buttonGroup>
-          <button::button(width == "300px") onClick={(e : Html.Event) { handleWidthChange("300px") }}>
-            "300px"
-          </button>
-          <button::button(width == "auto") onClick={(e : Html.Event) { handleWidthChange("auto") }}>
-            "Auto"
-          </button>
-          <button::button(width == "100%") onClick={(e : Html.Event) { handleWidthChange("100%") }}>
-            "100%"
-          </button>
-          <button::button(width == "450px") onClick={(e : Html.Event) { handleWidthChange("450px") }}>
-            "450px"
-          </button>
-          <button::button(width == "500px") onClick={(e : Html.Event) { handleWidthChange("500px") }}>
-            "500px"
-          </button>
+          <button::button(width == "300px")
+            onClick={(e : Html.Event) { handleWidthChange("300px") }}
+          >"300px"</button>
+
+          <button::button(width == "auto")
+            onClick={(e : Html.Event) { handleWidthChange("auto") }}
+          >"Auto"</button>
+
+          <button::button(width == "100%")
+            onClick={(e : Html.Event) { handleWidthChange("100%") }}
+          >"100%"</button>
+
+          <button::button(width == "450px")
+            onClick={(e : Html.Event) { handleWidthChange("450px") }}
+          >"450px"</button>
+
+          <button::button(width == "500px")
+            onClick={(e : Html.Event) { handleWidthChange("500px") }}
+          >"500px"</button>
         </div>
       </div>
 
       <div::controlGroup>
         <div::controlLabel>"Animation Duration"</div>
+
         <div::buttonGroup>
-          <button::button(animationDuration == 0.1) onClick={(e : Html.Event) { handleDurationChange(0.1) }}>
-            "0.1s"
-          </button>
-          <button::button(animationDuration == 0.3) onClick={(e : Html.Event) { handleDurationChange(0.3) }}>
-            "0.3s"
-          </button>
-          <button::button(animationDuration == 0.5) onClick={(e : Html.Event) { handleDurationChange(0.5) }}>
-            "0.5s"
-          </button>
-          <button::button(animationDuration == 1) onClick={(e : Html.Event) { handleDurationChange(1) }}>
-            "1s"
-          </button>
+          <button::button(animationDuration == 0.1)
+            onClick={(e : Html.Event) { handleDurationChange(0.1) }}
+          >"0.1s"</button>
+
+          <button::button(animationDuration == 0.3)
+            onClick={(e : Html.Event) { handleDurationChange(0.3) }}
+          >"0.3s"</button>
+
+          <button::button(animationDuration == 0.5)
+            onClick={(e : Html.Event) { handleDurationChange(0.5) }}
+          >"0.5s"</button>
+
+          <button::button(animationDuration == 1)
+            onClick={(e : Html.Event) { handleDurationChange(1) }}
+          >"1s"</button>
         </div>
       </div>
 
       <div::controlGroup>
         <div::controlLabel>"Actions"</div>
+
         <div::buttonGroup>
           <button::actionButton onClick={(e : Html.Event) { expandAll() }}>
             "Expand All"
           </button>
+
           <button::actionButton onClick={(e : Html.Event) { collapseAll() }}>
             "Collapse All"
           </button>
@@ -356,16 +387,19 @@ component CollapsePage {
 
       <div::controlGroup>
         <div::controlLabel>"Options"</div>
+
         <div::buttonGroup>
-          <button::toggleButton(accordion) onClick={(e : Html.Event) { toggleAccordion() }}>
-            "Accordion"
-          </button>
-          <button::toggleButton(border) onClick={(e : Html.Event) { toggleBorder() }}>
-            "Border"
-          </button>
-          <button::toggleButton(animated) onClick={(e : Html.Event) { toggleAnimated() }}>
-            "Animated"
-          </button>
+          <button::toggleButton(accordion)
+            onClick={(e : Html.Event) { toggleAccordion() }}
+          >"Accordion"</button>
+
+          <button::toggleButton(border)
+            onClick={(e : Html.Event) { toggleBorder() }}
+          >"Border"</button>
+
+          <button::toggleButton(animated)
+            onClick={(e : Html.Event) { toggleAnimated() }}
+          >"Animated"</button>
         </div>
       </div>
     </div>
@@ -636,79 +670,148 @@ component CollapsePage {
         [
           {
             title: "Basic Collapse",
-            description: "Paneles colapsables básicos con múltiples paneles abiertos permitidos. Incluye panel deshabilitado.",
-            snippet: {
-              code: "state active : Array(String) = []\n\nfun handleChange (event : CollapseChangeEvent) : Promise(Void) {\n  next { active: event.active }\n}\n\n<Collapse\n  items={[\n    {\n      name: \"item1\",\n      title: \"What is Mint Lang?\",\n      content: <div>\"A refreshing language for front-end web\"</div>,\n      disabled: false,\n      icon: \"\",\n      badge: \"\",\n      removable: false,\n      extraData: \"\"\n    },\n    {\n      name: \"item2\",\n      title: \"Disabled Panel\",\n      content: <div>\"This panel cannot be opened\"</div>,\n      disabled: true,\n      icon: \"\",\n      badge: \"\",\n      removable: false,\n      extraData: \"\"\n    }\n  ]}\n  active={active}\n  accordion={false}\n  border={true}\n  animated={true}\n  onChange={handleChange}/>",
-              language: "mint"
-            },
-            previewContent: <div style="width: 100%;">
-              <Collapse
-                items={getBasicItems()}
-                active={activeBasic}
-                accordion={false}
-                border={true}
-                onChange={handleBasicChange}/>
-            </div>,
+            description:
+              "Paneles colapsables básicos con múltiples paneles abiertos permitidos. Incluye panel deshabilitado.",
+            snippet:
+              {
+                code:
+                  "state active : Array(String) = []\n\nfun handleChange (event : CollapseChangeEvent) : Promise(Void) {\n  next { active: event.active }\n}\n\n<Collapse\n  items={[\n    {\n      name: \"item1\",\n      title: \"What is Mint Lang?\",\n      content: <div>\"A refreshing language for front-end web\"</div>,\n      disabled: false,\n      icon: \"\",\n      badge: \"\",\n      removable: false,\n      extraData: \"\"\n    },\n    {\n      name: \"item2\",\n      title: \"Disabled Panel\",\n      content: <div>\"This panel cannot be opened\"</div>,\n      disabled: true,\n      icon: \"\",\n      badge: \"\",\n      removable: false,\n      extraData: \"\"\n    }\n  ]}\n  active={active}\n  accordion={false}\n  border={true}\n  animated={true}\n  onChange={handleChange}/>",
+                language: "mint"
+              },
+            previewContent:
+              <div style="width: 100%;">
+                <Collapse
+                  items={getBasicItems()}
+                  active={activeBasic}
+                  accordion={false}
+                  border={true}
+                  onChange={handleBasicChange}
+                />
+              </div>,
             showReplay: false
           },
           {
             title: "Accordion Mode (FAQs)",
-            description: "Modo acordeón para FAQs - solo un panel abierto a la vez. Incluye badge \"Popular\".",
-            snippet: {
-              code: "state activeAccordion : Array(String) = [\"faq1\"]\n\nfun handleAccordionChange (event : CollapseChangeEvent) : Promise(Void) {\n  next { activeAccordion: event.active }\n}\n\n<Collapse\n  items={[\n    {\n      name: \"faq1\",\n      title: \"How does accordion mode work?\",\n      content: <div>\"Only one panel open at a time\"</div>,\n      disabled: false,\n      icon: \"\",\n      badge: \"\",\n      removable: false,\n      extraData: \"\"\n    },\n    {\n      name: \"faq2\",\n      title: \"Is it responsive?\",\n      content: <div>\"Yes! Mobile-first design\"</div>,\n      disabled: false,\n      icon: \"\",\n      badge: \"Popular\",\n      removable: false,\n      extraData: \"\"\n    }\n  ]}\n  active={activeAccordion}\n  accordion={true}\n  border={true}\n  animated={true}\n  animationDuration={0.3}\n  onChange={handleAccordionChange}/>",
-              language: "mint"
-            },
-            previewContent: <div style="width: 100%;">
-              <Collapse
-                items={getAccordionItems()}
-                active={activeAccordion}
-                accordion={true}
-                border={true}
-                onChange={handleAccordionChange}/>
-            </div>,
+            description:
+              "Modo acordeón para FAQs - solo un panel abierto a la vez. Incluye badge \"Popular\".",
+            snippet:
+              {
+                code:
+                  "state activeAccordion : Array(String) = [\"faq1\"]\n\nfun handleAccordionChange (event : CollapseChangeEvent) : Promise(Void) {\n  next { activeAccordion: event.active }\n}\n\n<Collapse\n  items={[\n    {\n      name: \"faq1\",\n      title: \"How does accordion mode work?\",\n      content: <div>\"Only one panel open at a time\"</div>,\n      disabled: false,\n      icon: \"\",\n      badge: \"\",\n      removable: false,\n      extraData: \"\"\n    },\n    {\n      name: \"faq2\",\n      title: \"Is it responsive?\",\n      content: <div>\"Yes! Mobile-first design\"</div>,\n      disabled: false,\n      icon: \"\",\n      badge: \"Popular\",\n      removable: false,\n      extraData: \"\"\n    }\n  ]}\n  active={activeAccordion}\n  accordion={true}\n  border={true}\n  animated={true}\n  animationDuration={0.3}\n  onChange={handleAccordionChange}/>",
+                language: "mint"
+              },
+            previewContent:
+              <div style="width: 100%;">
+                <Collapse
+                  items={getAccordionItems()}
+                  active={activeAccordion}
+                  accordion={true}
+                  border={true}
+                  onChange={handleAccordionChange}
+                />
+              </div>,
             showReplay: false
           },
           {
             title: "Dynamic Forms",
-            description: "Formularios dinámicos: agrega/elimina usuarios con badge \"Adicional\" en usuarios adicionales.",
-            snippet: {
-              code: "state users : Array(Number) = [1]\nstate activeUsers : Array(String) = [\"user-1\"]\n\n// Contenido del formulario (puedes personalizarlo)\nfun getUserFormContent (userId : Number) : Html {\n  <div>\n    <label>\"Nombre\"</label>\n    <input type=\"text\" placeholder=\"Juan Pérez\"/>\n    \n    <label>\"Email\"</label>\n    <input type=\"email\" placeholder=\"email@ejemplo.com\"/>\n    \n    <label>\"Teléfono\"</label>\n    <input type=\"tel\" placeholder=\"+52 123 456 7890\"/>\n  </div>\n}\n\n// Mapear state users a CollapseItems con JS\nfun getUserItems : Array(CollapseItem) {\n  // Usa JavaScript inline para mapear dinámicamente\n  // cada userId se convierte en un CollapseItem\n  // badge: index > 0 ? 'Adicional' : ''\n  // removable: users.length > 1\n}\n\n<Collapse\n  items={getUserItems()}\n  active={activeUsers}\n  onChange={handleUsersChange}\n  onRemove={handleRemoveUser}/>\n\n<button onClick={addUser}>\n  \"+ Agregar Usuario\"\n</button>",
-              language: "mint"
-            },
-            previewContent: <div style="width: 100%;">
-              <Collapse
-                items={getUserItems()}
-                active={activeUsers}
-                accordion={false}
-                border={true}
-                onChange={handleUsersChange}
-                onRemove={handleRemoveUser}/>
-              <button::addButton onClick={(e : Html.Event) { addUser() }}>
-                "+ Agregar Usuario"
-              </button>
-            </div>,
+            description:
+              "Formularios dinámicos: agrega/elimina usuarios con badge \"Adicional\" en usuarios adicionales.",
+            snippet:
+              {
+                code:
+                  "state users : Array(Number) = [1]\nstate activeUsers : Array(String) = [\"user-1\"]\n\n// Contenido del formulario (puedes personalizarlo)\nfun getUserFormContent (userId : Number) : Html {\n  <div>\n    <label>\"Nombre\"</label>\n    <input type=\"text\" placeholder=\"Juan Pérez\"/>\n    \n    <label>\"Email\"</label>\n    <input type=\"email\" placeholder=\"email@ejemplo.com\"/>\n    \n    <label>\"Teléfono\"</label>\n    <input type=\"tel\" placeholder=\"+52 123 456 7890\"/>\n  </div>\n}\n\n// Mapear state users a CollapseItems con JS\nfun getUserItems : Array(CollapseItem) {\n  // Usa JavaScript inline para mapear dinámicamente\n  // cada userId se convierte en un CollapseItem\n  // badge: index > 0 ? 'Adicional' : ''\n  // removable: users.length > 1\n}\n\n<Collapse\n  items={getUserItems()}\n  active={activeUsers}\n  onChange={handleUsersChange}\n  onRemove={handleRemoveUser}/>\n\n<button onClick={addUser}>\n  \"+ Agregar Usuario\"\n</button>",
+                language: "mint"
+              },
+            previewContent:
+              <div style="width: 100%;">
+                <Collapse
+                  items={getUserItems()}
+                  active={activeUsers}
+                  accordion={false}
+                  border={true}
+                  onChange={handleUsersChange}
+                  onRemove={handleRemoveUser}
+                />
+
+                <button::addButton onClick={(e : Html.Event) { addUser() }}>
+                  "+ Agregar Usuario"
+                </button>
+              </div>,
             showReplay: false
           }
         ]
       }
       apiProperties={
         [
-          { name: "items", description: "Array of collapse items to display", type: "Array(CollapseItem)", defaultValue: "[]" },
-          { name: "active", description: "Array of active item names (expanded panels)", type: "Array(String)", defaultValue: "[]" },
-          { name: "accordion", description: "Only allow one panel open at a time", type: "Bool", defaultValue: "false" },
-          { name: "border", description: "Show borders around the collapse", type: "Bool", defaultValue: "true" },
-          { name: "animated", description: "Enable smooth animations", type: "Bool", defaultValue: "true" },
-          { name: "animationDuration", description: "Duration of expand/collapse animation in seconds", type: "Number", defaultValue: "0.3" },
-          { name: "width", description: "Width of the collapse component (auto, 100%, 300px, 500px, etc.)", type: "String", defaultValue: "\"100%\"" },
-          { name: "minWidth", description: "Minimum width of the collapse component (0, 420px, etc.). Set to 0 to allow smaller widths", type: "String", defaultValue: "\"420px\"" }
+          {
+            name: "items",
+            description: "Array of collapse items to display",
+            type: "Array(CollapseItem)",
+            defaultValue: "[]"
+          },
+          {
+            name: "active",
+            description: "Array of active item names (expanded panels)",
+            type: "Array(String)",
+            defaultValue: "[]"
+          },
+          {
+            name: "accordion",
+            description: "Only allow one panel open at a time",
+            type: "Bool",
+            defaultValue: "false"
+          },
+          {
+            name: "border",
+            description: "Show borders around the collapse",
+            type: "Bool",
+            defaultValue: "true"
+          },
+          {
+            name: "animated",
+            description: "Enable smooth animations",
+            type: "Bool",
+            defaultValue: "true"
+          },
+          {
+            name: "animationDuration",
+            description: "Duration of expand/collapse animation in seconds",
+            type: "Number",
+            defaultValue: "0.3"
+          },
+          {
+            name: "width",
+            description:
+              "Width of the collapse component (auto, 100%, 300px, 500px, etc.)",
+            type: "String",
+            defaultValue: "\"100%\""
+          },
+          {
+            name: "minWidth",
+            description:
+              "Minimum width of the collapse component (0, 420px, etc.). Set to 0 to allow smaller widths",
+            type: "String",
+            defaultValue: "\"420px\""
+          }
         ]
       }
       events={
         [
-          { name: "onChange", description: "Triggered when a panel is expanded or collapsed", type: "CollapseChangeEvent", defaultValue: "{ name, active, expanded }" },
-          { name: "onRemove", description: "Triggered when a removable item is removed", type: "CollapseRemoveEvent", defaultValue: "{ name, index }" }
+          {
+            name: "onChange",
+            description: "Triggered when a panel is expanded or collapsed",
+            type: "CollapseChangeEvent",
+            defaultValue: "{ name, active, expanded }"
+          },
+          {
+            name: "onRemove",
+            description: "Triggered when a removable item is removed",
+            type: "CollapseRemoveEvent",
+            defaultValue: "{ name, index }"
+          }
         ]
       }
-      enabledTabs={["preview", "usage", "api"]}/>
+      enabledTabs={["preview", "usage", "api"]}
+    />
   }
 }

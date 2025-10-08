@@ -1,5 +1,4 @@
 /* ExamplePreviewWithReplay - Wrapper for animation examples with replay control */
-
 component ExamplePreviewWithReplay {
   property content : Html = Html.empty()
 
@@ -53,11 +52,12 @@ component ExamplePreviewWithReplay {
   fun render : Html {
     <div::container>
       <div::previewArea key={Number.toString(replayKey)}>
-        {content}
+        {
+          content
+        }
       </div>
-      <button::replayButton onClick={replayAnimation}>
-        "🔄 Replay Animation"
-      </button>
+
+      <button::replayButton onClick={replayAnimation}>"🔄 Replay Animation"</button>
     </div>
   }
 }

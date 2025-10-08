@@ -270,12 +270,15 @@ component ThemeCustomizer {
           ""
         }
       }
-      onClick={(event : Html.Event) : Promise(Void) { handleThemeChange(id) }}>
+      onClick={(event : Html.Event) : Promise(Void) { handleThemeChange(id) }}
+    >
+      <div::themePreview style={"background: " + bgColor + ";"}/>
 
-      <div::themePreview style={"background: " + bgColor + ";"}>
-      </div>
-
-      <span::themeLabel>{label}</span>
+      <span::themeLabel>
+        {
+          label
+        }
+      </span>
     </div>
   }
 
@@ -289,8 +292,10 @@ component ThemeCustomizer {
         }
       }
       style={"background: " + color + ";"}
-      onClick={(event : Html.Event) : Promise(Void) { handleColorChange(color) }}>
-    </div>
+      onClick={
+        (event : Html.Event) : Promise(Void) { handleColorChange(color) }
+      }
+    />
   }
 
   fun render : Html {
@@ -300,8 +305,14 @@ component ThemeCustomizer {
           <h2::cardTitle>"Customize Theme"</h2>
 
           <div::buttonGroup>
-            <button::button onClick={(event : Html.Event) : Promise(Void) { handleReset() }}>"Reset"</button>
-            <button::button class="primary" onClick={(event : Html.Event) : Promise(Void) { handleApply() }}>"Apply Theme"</button>
+            <button::button
+              onClick={(event : Html.Event) : Promise(Void) { handleReset() }}
+            >"Reset"</button>
+
+            <button::button
+              class="primary"
+              onClick={(event : Html.Event) : Promise(Void) { handleApply() }}
+            >"Apply Theme"</button>
           </div>
         </div>
 
@@ -309,11 +320,28 @@ component ThemeCustomizer {
           <label::formLabel>"Theme Preset"</label>
 
           <div::themeGrid>
-            {renderThemeOption("default", "Default", "linear-gradient(135deg, #667eea 0%, #764ba2 100%)")}
-            {renderThemeOption("dark", "Dark", "#1a1a1a")}
-            {renderThemeOption("light", "Light", "#ffffff")}
-            {renderThemeOption("blue", "Blue Ocean", "linear-gradient(135deg, #1e3c72 0%, #2a5298 100%)")}
-            {renderThemeOption("green", "Nature", "linear-gradient(135deg, #134e5e 0%, #71b280 100%)")}
+            {
+              renderThemeOption("default", "Default",
+                "linear-gradient(135deg, #667eea 0%, #764ba2 100%)")
+            }
+
+            {
+              renderThemeOption("dark", "Dark", "#1a1a1a")
+            }
+
+            {
+              renderThemeOption("light", "Light", "#ffffff")
+            }
+
+            {
+              renderThemeOption("blue", "Blue Ocean",
+                "linear-gradient(135deg, #1e3c72 0%, #2a5298 100%)")
+            }
+
+            {
+              renderThemeOption("green", "Nature",
+                "linear-gradient(135deg, #134e5e 0%, #71b280 100%)")
+            }
           </div>
         </div>
 
@@ -321,18 +349,39 @@ component ThemeCustomizer {
           <label::formLabel>"Accent Color"</label>
 
           <div::colorGrid>
-            <input::colorInput
-              type="text"
-              value={primaryColor}/>
+            <input::colorInput type="text" value={primaryColor}/>
 
-            {renderColorSwatch("#1989fa")}
-            {renderColorSwatch("#5a54f9")}
-            {renderColorSwatch("#9e339f")}
-            {renderColorSwatch("#ed4192")}
-            {renderColorSwatch("#e0282e")}
-            {renderColorSwatch("#f4801a")}
-            {renderColorSwatch("#f2bd27")}
-            {renderColorSwatch("#00b96b")}
+            {
+              renderColorSwatch("#1989fa")
+            }
+
+            {
+              renderColorSwatch("#5a54f9")
+            }
+
+            {
+              renderColorSwatch("#9e339f")
+            }
+
+            {
+              renderColorSwatch("#ed4192")
+            }
+
+            {
+              renderColorSwatch("#e0282e")
+            }
+
+            {
+              renderColorSwatch("#f4801a")
+            }
+
+            {
+              renderColorSwatch("#f2bd27")
+            }
+
+            {
+              renderColorSwatch("#00b96b")
+            }
           </div>
         </div>
       </div>

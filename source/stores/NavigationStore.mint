@@ -12,10 +12,7 @@ store NavigationStore {
   }
 
   fun setPageAndSection (page : String, section : String) : Promise(Void) {
-    next {
-      currentPage: page,
-      currentSection: section
-    }
+    next { currentPage: page, currentSection: section }
   }
 
   fun toggleSidebar : Promise(Void) {

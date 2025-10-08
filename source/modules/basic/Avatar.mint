@@ -35,8 +35,11 @@ component Avatar {
   property animationEasing : String = "ease-out"
   property animationDelay : Number = 0
 
-  property onClick : Function(AvatarClickEvent, Promise(Void)) = (event : AvatarClickEvent) : Promise(Void) { Promise.never() }
-  property onError : Function(AvatarErrorEvent, Promise(Void)) = (event : AvatarErrorEvent) : Promise(Void) { Promise.never() }
+  property onClick : Function(AvatarClickEvent, Promise(Void)) =
+    (event : AvatarClickEvent) : Promise(Void) { Promise.never() }
+
+  property onError : Function(AvatarErrorEvent, Promise(Void)) =
+    (event : AvatarErrorEvent) : Promise(Void) { Promise.never() }
 
   state imageLoaded : Bool = false
   state imageError : Bool = false
@@ -87,15 +90,12 @@ component Avatar {
   }
 
   fun handleClick (event : Html.Event) : Promise(Void) {
-    onClick({
-      alt: alt,
-      src: src
-    })
+    onClick({ alt: alt, src: src })
   }
 
   fun getSizeValue : String {
-    if (String.isEmpty(customSize)) {
-      case (size) {
+    if String.isEmpty(customSize) {
+      case size {
         "xs" => "24px"
         "sm" => "32px"
         "md" => "40px"
@@ -111,8 +111,8 @@ component Avatar {
   }
 
   fun getFontSize : String {
-    if (String.isEmpty(customSize)) {
-      case (size) {
+    if String.isEmpty(customSize) {
+      case size {
         "xs" => "10px"
         "sm" => "13px"
         "md" => "16px"
@@ -128,7 +128,7 @@ component Avatar {
   }
 
   fun getBorderRadius : String {
-    case (shape) {
+    case shape {
       "circle" => "50%"
       "rounded" => "8px"
       => "0"
@@ -136,7 +136,7 @@ component Avatar {
   }
 
   fun getBackgroundColor : String {
-    if (String.isEmpty(color)) {
+    if String.isEmpty(color) {
       bgColor
     } else {
       color
@@ -148,7 +148,8 @@ component Avatar {
   }
 
   fun shouldShowInitials : Bool {
-    !shouldShowImage() && String.isEmpty(icon) && !String.isEmpty(displayInitials)
+    !shouldShowImage() && String.isEmpty(icon) && !String.isEmpty(
+      displayInitials)
   }
 
   fun shouldShowIcon : Bool {
@@ -156,11 +157,12 @@ component Avatar {
   }
 
   fun shouldShowPlaceholder : Bool {
-    !shouldShowImage() && String.isEmpty(icon) && String.isEmpty(displayInitials)
+    !shouldShowImage() && String.isEmpty(icon) && String.isEmpty(
+      displayInitials)
   }
 
   fun getStatusDotSize : String {
-    case (size) {
+    case size {
       "xs" => "small"
       "sm" => "small"
       "md" => "default"
@@ -173,7 +175,7 @@ component Avatar {
   }
 
   fun getStatusScale : String {
-    case (size) {
+    case size {
       "xs" => "1"
       "sm" => "1"
       "md" => "1"
@@ -187,7 +189,7 @@ component Avatar {
 
   fun getStatusOffset : String {
     /* El status va DENTRO para todos los shapes */
-    case (size) {
+    case size {
       "xs" => "0px"
       "sm" => "1px"
       "md" => "2px"
@@ -210,10 +212,10 @@ component Avatar {
     !String.isEmpty(badge)
   }
 
-
   style avatarWrapper {
     position: relative;
     display: inline-flex;
+
     /* Importante: NO overflow hidden aquí para que el status sea visible */
   }
 
@@ -238,11 +240,11 @@ component Avatar {
     color: #{textColor};
 
     if border {
-      border: #{borderWidth} solid #{borderColor};
+      border: #{borderWidth}solid #{borderColor};
     }
 
     if ring {
-      box-shadow: 0 0 0 #{ringWidth} #{ringColor};
+      box-shadow: 0 0 0 #{ringWidth}#{ringColor};
     }
 
     cursor: pointer;
@@ -262,7 +264,7 @@ component Avatar {
       min-width: max(#{getSizeValue()}, 44px);
       min-height: max(#{getSizeValue()}, 44px);
 
-      if (size == "xl" || size == "xxl" || size == "xxxl") {
+      if size == "xl" || size == "xxl" || size == "xxxl" {
         width: 48px;
         height: 48px;
         min-width: 48px;
@@ -274,7 +276,7 @@ component Avatar {
     @media (min-width: 641px) and (max-width: 1024px) {
       transform-origin: center;
 
-      if (size == "xxl" || size == "xxxl") {
+      if size == "xxl" || size == "xxxl" {
         width: 64px;
         height: 64px;
         min-width: 64px;
@@ -340,6 +342,7 @@ component Avatar {
 
     /* Escalar el status para avatares grandes */
     transform: scale(#{getStatusScale()});
+
     /* El status crece desde el centro para todos los shapes */
     transform-origin: center;
 
@@ -386,18 +389,23 @@ component Avatar {
               }
             }
             onLoad={handleImageLoad}
-            onError={handleImageError}/>
+            onError={handleImageError}
+          />
         }
 
         if shouldShowInitials() {
           <div::initials>
-            {displayInitials}
+            {
+              displayInitials
+            }
           </div>
         }
 
         if shouldShowIcon() {
           <div::icon>
-            {icon}
+            {
+              icon
+            }
           </div>
         }
 
@@ -409,8 +417,8 @@ component Avatar {
               stroke="currentColor"
               stroke-width="2"
               stroke-linecap="round"
-              stroke-linejoin="round">
-
+              stroke-linejoin="round"
+            >
               <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
               <circle cx="12" cy="7" r="4"/>
             </svg>
@@ -428,8 +436,14 @@ component Avatar {
 
   fun renderAvatar : Html {
     if shouldShowBadge() {
-      <Badge count={getBadgeCount()} position={badgePosition} variant={badgeVariant}>
-        {renderAvatarContent()}
+      <Badge
+        count={getBadgeCount()}
+        position={badgePosition}
+        variant={badgeVariant}
+      >
+        {
+          renderAvatarContent()
+        }
       </Badge>
     } else {
       renderAvatarContent()
@@ -443,7 +457,8 @@ component Avatar {
         duration={animationDuration}
         easing={animationEasing}
         delay={animationDelay}
-        content={renderAvatar()}/>
+        content={renderAvatar()}
+      />
     } else {
       renderAvatar()
     }

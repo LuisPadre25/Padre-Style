@@ -1,8 +1,8 @@
 /* EnterExit - Reusable animation component */
-
 component EnterExit {
   /* Props */
   property animation : String = "fadeIn"
+
   property duration : Number = 0.6
   property easing : String = "ease-out"
   property delay : Number = 0
@@ -142,7 +142,9 @@ component EnterExit {
       <div::rotateIn style="display:none;"/>
 
       <div::wrapper>
-        {content}
+        {
+          content
+        }
       </div>
     </>
   }

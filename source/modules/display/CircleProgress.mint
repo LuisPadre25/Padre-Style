@@ -1,10 +1,11 @@
-/* CircleProgress - Professional circular progress with Canvas
+/*
+CircleProgress - Professional circular progress with Canvas
  * Mobile-first responsive design
- */
-
+*/
 component CircleProgress {
   /* Properties */
   property percentage : Number = 0
+
   property size : String = "default"
   property customSize : Number = 0
   property strokeWidth : Number = 0
@@ -24,6 +25,7 @@ component CircleProgress {
 
   /* State for animation */
   state displayedPercentage : Number = 0
+
   state targetPercentage : Number = 0
 
   /* Lifecycle */
@@ -219,25 +221,21 @@ component CircleProgress {
     height: 80px;
 
     @media (min-width: 768px) {
-      width: #{
-        if size == "small" {
-          "100px"
-        } else if size == "large" {
-          "180px"
-        } else {
-          "140px"
-        }
-      };
+      width: #{if size == "small" {
+        "100px"
+      } else if size == "large" {
+        "180px"
+      } else {
+        "140px"
+      }};
 
-      height: #{
-        if size == "small" {
-          "100px"
-        } else if size == "large" {
-          "180px"
-        } else {
-          "140px"
-        }
-      };
+      height: #{if size == "small" {
+        "100px"
+      } else if size == "large" {
+        "180px"
+      } else {
+        "140px"
+      }};
     }
 
     if size == "small" {
@@ -276,7 +274,9 @@ component CircleProgress {
       @media (min-width: 768px) {
         font-size: 16px;
       }
-    } else if size == "large" {
+    }
+
+    else if size == "large" {
       font-size: 20px;
 
       @media (min-width: 768px) {
@@ -294,7 +294,9 @@ component CircleProgress {
 
     if size == "small" {
       font-size: 20px;
-    } else if size == "large" {
+    }
+
+    else if size == "large" {
       font-size: 32px;
 
       @media (min-width: 768px) {
@@ -324,9 +326,17 @@ component CircleProgress {
 
         <div::overlay>
           if String.isNotEmpty(getIcon()) {
-            <div::icon>{getIcon()}</div>
+            <div::icon>
+              {
+                getIcon()
+              }
+            </div>
           } else if showValue {
-            <div::valueText>{getText()}</div>
+            <div::valueText>
+              {
+                getText()
+              }
+            </div>
           } else {
             <></>
           }
@@ -334,7 +344,11 @@ component CircleProgress {
       </div>
 
       if String.isNotEmpty(label) {
-        <div::labelText>{label}</div>
+        <div::labelText>
+          {
+            label
+          }
+        </div>
       } else {
         <></>
       }

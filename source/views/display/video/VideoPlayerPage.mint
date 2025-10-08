@@ -120,6 +120,7 @@ component VideoPlayerPage {
     <div::container>
       <div::header>
         <Heading level="1" margin="0 0 16px">"🎬 Video Players"</Heading>
+
         <Text size="lg" margin="0 0 40px">
           "Professional video player with all advanced features: keyboard shortcuts, playlist, quality selector, subtitles, analytics, mini-player, PiP, and external platform support (YouTube, Vimeo)"
         </Text>
@@ -133,19 +134,41 @@ component VideoPlayerPage {
 
         <div::grid>
           <div::demoCard>
-            <Heading level="3" margin="0 0 12px">"Full-Featured Professional Player with Playlist"</Heading>
+            <Heading level="3" margin="0 0 12px">
+              "Full-Featured Professional Player with Playlist"
+            </Heading>
 
             <ProVideoPlayer
               sources={
                 [
-                  { label: "1080p", src: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", height: 1080 },
-                  { label: "720p", src: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4", height: 720 },
-                  { label: "480p", src: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4", height: 480 }
+                  {
+                    label: "1080p",
+                    src:
+                      "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+                    height: 1080
+                  },
+                  {
+                    label: "720p",
+                    src:
+                      "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+                    height: 720
+                  },
+                  {
+                    label: "480p",
+                    src:
+                      "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
+                    height: 480
+                  }
                 ]
               }
               captions={
                 [
-                  { label: "English", src: "/captions/en.vtt", language: "en", isDefault: true }
+                  {
+                    label: "English",
+                    src: "/captions/en.vtt",
+                    language: "en",
+                    isDefault: true
+                  }
                 ]
               }
               playlist={
@@ -153,22 +176,28 @@ component VideoPlayerPage {
                   {
                     id: "1",
                     title: "Big Buck Bunny",
-                    src: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-                    poster: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/BigBuckBunny.jpg",
+                    src:
+                      "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+                    poster:
+                      "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/BigBuckBunny.jpg",
                     duration: 596
                   },
                   {
                     id: "2",
                     title: "Elephants Dream",
-                    src: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
-                    poster: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ElephantsDream.jpg",
+                    src:
+                      "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+                    poster:
+                      "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ElephantsDream.jpg",
                     duration: 653
                   },
                   {
                     id: "3",
                     title: "For Bigger Blazes",
-                    src: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
-                    poster: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerBlazes.jpg",
+                    src:
+                      "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+                    poster:
+                      "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerBlazes.jpg",
                     duration: 15
                   }
                 ]
@@ -177,7 +206,8 @@ component VideoPlayerPage {
               width="100%"
               height="600px"
               keyboard={true}
-              analytics={true}/>
+              analytics={true}
+            />
 
             <Text size="sm" margin="8px 0 0">
               "🔥 Professional player with: Keyboard shortcuts (Space, ←→ seek, ↑↓ volume, F fullscreen, M mute, J/L 10s jumps, 0-9 percentage jumps), seek preview, buffer indicator, playlist, mini-player mode, analytics tracking, and all controls!"
@@ -185,12 +215,19 @@ component VideoPlayerPage {
           </div>
 
           <div::demoCard>
-            <Heading level="3" margin="0 0 12px">"Pro Player - Single Video with Auto-play"</Heading>
+            <Heading level="3" margin="0 0 12px">
+              "Pro Player - Single Video with Auto-play"
+            </Heading>
 
             <ProVideoPlayer
               sources={
                 [
-                  { label: "HD", src: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4", height: 720 }
+                  {
+                    label: "HD",
+                    src:
+                      "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
+                    height: 720
+                  }
                 ]
               }
               poster="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerJoyrides.jpg"
@@ -198,7 +235,8 @@ component VideoPlayerPage {
               height="500px"
               autoplay={true}
               muted={true}
-              keyboard={true}/>
+              keyboard={true}
+            />
 
             <Text size="sm" margin="8px 0 0">
               "⚡ All pro features in a single video configuration"
@@ -221,7 +259,8 @@ component VideoPlayerPage {
               url="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
               width="100%"
               height="400px"
-              controls={true}/>
+              controls={true}
+            />
 
             <Text size="sm" margin="8px 0 0">
               "📺 Supports standard YouTube URLs, short URLs (youtu.be), and embed URLs"
@@ -235,7 +274,8 @@ component VideoPlayerPage {
               url="https://vimeo.com/148751763"
               width="100%"
               height="400px"
-              controls={true}/>
+              controls={true}
+            />
 
             <Text size="sm" margin="8px 0 0">
               "🎬 Clean Vimeo player integration with responsive design"
@@ -259,142 +299,98 @@ component VideoPlayerPage {
           <tbody>
             <tr>
               <td::tableCell>"Play/Pause"</td>
-              <td::tableCell>
-                <span::checkmark>"✓"</span>
-              </td>
-              <td::tableCell>
-                <span::checkmark>"✓"</span>
-              </td>
+              <td::tableCell><span::checkmark>"✓"</span></td>
+              <td::tableCell><span::checkmark>"✓"</span></td>
             </tr>
 
             <tr>
               <td::tableCell>"Progress Bar with Preview"</td>
-              <td::tableCell>
-                <span::checkmark>"✓ Hover preview"</span>
-              </td>
-              <td::tableCell>
-                <span::checkmark>"✓"</span>
-              </td>
+              <td::tableCell><span::checkmark>"✓ Hover preview"</span></td>
+              <td::tableCell><span::checkmark>"✓"</span></td>
             </tr>
 
             <tr>
               <td::tableCell>"Volume Control"</td>
-              <td::tableCell>
-                <span::checkmark>"✓ Slider + Mute"</span>
-              </td>
-              <td::tableCell>
-                <span::checkmark>"✓"</span>
-              </td>
+              <td::tableCell><span::checkmark>"✓ Slider + Mute"</span></td>
+              <td::tableCell><span::checkmark>"✓"</span></td>
             </tr>
 
             <tr>
               <td::tableCell>"Playback Speed"</td>
-              <td::tableCell>
-                <span::checkmark>"✓ (0.25x - 2x)"</span>
-              </td>
+              <td::tableCell><span::checkmark>"✓ (0.25x - 2x)"</span></td>
               <td::tableCell>"Platform-dependent"</td>
             </tr>
 
             <tr>
               <td::tableCell>"Quality Selector"</td>
-              <td::tableCell>
-                <span::checkmark>"✓ Multi-source"</span>
-              </td>
+              <td::tableCell><span::checkmark>"✓ Multi-source"</span></td>
               <td::tableCell>"Platform-dependent"</td>
             </tr>
 
             <tr>
               <td::tableCell>"Subtitles/Captions"</td>
-              <td::tableCell>
-                <span::checkmark>"✓ VTT format"</span>
-              </td>
-              <td::tableCell>
-                <span::checkmark>"✓"</span>
-              </td>
+              <td::tableCell><span::checkmark>"✓ VTT format"</span></td>
+              <td::tableCell><span::checkmark>"✓"</span></td>
             </tr>
 
             <tr>
               <td::tableCell>"Fullscreen"</td>
-              <td::tableCell>
-                <span::checkmark>"✓ + Double-click"</span>
-              </td>
-              <td::tableCell>
-                <span::checkmark>"✓"</span>
-              </td>
+              <td::tableCell><span::checkmark>"✓ + Double-click"</span></td>
+              <td::tableCell><span::checkmark>"✓"</span></td>
             </tr>
 
             <tr>
               <td::tableCell>"Picture-in-Picture"</td>
-              <td::tableCell>
-                <span::checkmark>"✓"</span>
-              </td>
+              <td::tableCell><span::checkmark>"✓"</span></td>
               <td::tableCell>"Browser-dependent"</td>
             </tr>
 
             <tr>
               <td::tableCell>"Keyboard Shortcuts"</td>
-              <td::tableCell>
-                <span::checkmark>"✓ (15+ keys)"</span>
-              </td>
+              <td::tableCell><span::checkmark>"✓ (15+ keys)"</span></td>
               <td::tableCell>"Platform-dependent"</td>
             </tr>
 
             <tr>
               <td::tableCell>"Buffer Indicator"</td>
-              <td::tableCell>
-                <span::checkmark>"✓ Visual bar"</span>
-              </td>
+              <td::tableCell><span::checkmark>"✓ Visual bar"</span></td>
               <td::tableCell>"Platform-dependent"</td>
             </tr>
 
             <tr>
               <td::tableCell>"Playlist Support"</td>
-              <td::tableCell>
-                <span::checkmark>"✓ Auto-advance"</span>
-              </td>
+              <td::tableCell><span::checkmark>"✓ Auto-advance"</span></td>
               <td::tableCell>"✗"</td>
             </tr>
 
             <tr>
               <td::tableCell>"Mini-Player"</td>
-              <td::tableCell>
-                <span::checkmark>"✓ Floating mode"</span>
-              </td>
+              <td::tableCell><span::checkmark>"✓ Floating mode"</span></td>
               <td::tableCell>"✗"</td>
             </tr>
 
             <tr>
               <td::tableCell>"Analytics Tracking"</td>
-              <td::tableCell>
-                <span::checkmark>"✓ 5 metrics"</span>
-              </td>
+              <td::tableCell><span::checkmark>"✓ 5 metrics"</span></td>
               <td::tableCell>"✗"</td>
             </tr>
 
             <tr>
               <td::tableCell>"Loading State"</td>
-              <td::tableCell>
-                <span::checkmark>"✓ Spinner"</span>
-              </td>
+              <td::tableCell><span::checkmark>"✓ Spinner"</span></td>
               <td::tableCell>"Platform-dependent"</td>
             </tr>
 
             <tr>
               <td::tableCell>"Theme Integration"</td>
-              <td::tableCell>
-                <span::checkmark>"✓"</span>
-              </td>
-              <td::tableCell>
-                <span::checkmark>"✓"</span>
-              </td>
+              <td::tableCell><span::checkmark>"✓"</span></td>
+              <td::tableCell><span::checkmark>"✓"</span></td>
             </tr>
 
             <tr>
               <td::tableCell>"External Platforms"</td>
               <td::tableCell>"✗"</td>
-              <td::tableCell>
-                <span::checkmark>"✓ YouTube, Vimeo"</span>
-              </td>
+              <td::tableCell><span::checkmark>"✓ YouTube, Vimeo"</span></td>
             </tr>
           </tbody>
         </table>
@@ -407,7 +403,10 @@ component VideoPlayerPage {
           <div::feature>
             <div::featureIcon>"▶️"</div>
             <Heading level="4" margin="0 0 8px">"Play/Pause"</Heading>
-            <Text size="sm" margin="0">"Smooth playback control with visual feedback"</Text>
+
+            <Text size="sm" margin="0">
+              "Smooth playback control with visual feedback"
+            </Text>
           </div>
 
           <div::feature>

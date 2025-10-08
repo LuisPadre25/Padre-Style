@@ -161,11 +161,11 @@ component Navbar {
   style viewModeActive {
     background: var(--mint-primary-color, #1989fa);
 
-    & .viewModeText {
+    .viewModeText {
       color: white;
     }
 
-    & .viewModeIcon {
+    .viewModeIcon {
       filter: brightness(0) invert(1);
     }
   }
@@ -240,7 +240,8 @@ component Navbar {
                 } else {
                   ""
                 }
-              }></span>
+              }
+            />
 
             <span::hamburgerLine
               class={
@@ -249,7 +250,8 @@ component Navbar {
                 } else {
                   ""
                 }
-              }></span>
+              }
+            />
 
             <span::hamburgerLine
               class={
@@ -258,11 +260,15 @@ component Navbar {
                 } else {
                   ""
                 }
-              }></span>
+              }
+            />
           </button>
 
           <a::logo href="/">
-            <img::logoImg src="https://fastly.jsdelivr.net/npm/@vant/assets/logo.png"/>
+            <img::logoImg
+              src="https://fastly.jsdelivr.net/npm/@vant/assets/logo.png"
+            />
+
             <span::title>"Mint Wū"</span>
             <span::subtitle>"(Mint Lang 0.28.0)"</span>
           </a>
@@ -277,23 +283,27 @@ component Navbar {
                     ""
                   }
                 }
-                onClick={toggleViewMode}>
-
+                onClick={toggleViewMode}
+              >
                 if viewMode == "mobile" {
                   <svg::viewModeIcon
                     class="viewModeIcon"
                     viewBox="0 0 24 24"
-                    fill="currentColor">
-
-                    <path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/>
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"
+                    />
                   </svg>
                 } else {
                   <svg::viewModeIcon
                     class="viewModeIcon"
                     viewBox="0 0 24 24"
-                    fill="currentColor">
-
-                    <path d="M21 2H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h7v2H8v2h8v-2h-2v-2h7c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H3V4h18v12z"/>
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M21 2H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h7v2H8v2h8v-2h-2v-2h7c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H3V4h18v12z"
+                    />
                   </svg>
                 }
 
@@ -308,11 +318,10 @@ component Navbar {
             </li>
 
             <li::navItem class="hideOnMobile">
-              <a::link
-                target="_blank"
-                href="https://github.com/mint-lang/mint">
-
-                <img::icon src="https://fastly.jsdelivr.net/npm/@vant/assets/github.svg"/>
+              <a::link target="_blank" href="https://github.com/mint-lang/mint">
+                <img::icon
+                  src="https://fastly.jsdelivr.net/npm/@vant/assets/github.svg"
+                />
               </a>
             </li>
 
@@ -327,9 +336,7 @@ component Navbar {
             </li>
 
             <li::navItem class="hideOnMobile">
-              <a::cube href="https://mint-lang.com" target="_blank">
-                "Docs"
-              </a>
+              <a::cube href="https://mint-lang.com" target="_blank">"Docs"</a>
             </li>
           </ul>
         </div>

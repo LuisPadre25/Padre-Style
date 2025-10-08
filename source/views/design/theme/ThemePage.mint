@@ -28,6 +28,7 @@ component ThemePage {
     <div::container>
       <div::header>
         <Heading level="1" margin="0 0 24px">"Theme Customizer"</Heading>
+
         <Text size="lg" margin="0 0 40px">
           "Customize your application theme with colors, radius, and presets. "
           "Changes apply in real-time to preview your theme."

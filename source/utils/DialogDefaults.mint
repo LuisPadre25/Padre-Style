@@ -11,6 +11,5 @@ module DialogDefaults {
       closeOnClickOverlay: true
     }
 
-  const DEFAULT_CALLBACK =
-    () : Promise(Void) { Promise.resolve(void) }
+  const DEFAULT_CALLBACK = () : Promise(Void) { Promise.resolve(void) }
 }

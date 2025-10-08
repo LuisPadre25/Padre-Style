@@ -1,107 +1,62 @@
 /* DialogPage - Interactive showcase for Dialog component */
-
 component DialogPage {
-  connect DialogStore exposing { showCustomDialog, showConfirmDialog, showAlert }
+  connect DialogStore exposing {
+    showCustomDialog,
+    showConfirmDialog,
+    showAlert
+  }
 
   state resultMessage : String = ""
 
   /* Example 1: Basic Alert */
   fun showBasicAlert : Promise(Void) {
-    showAlert(
-      "Alert",
-      "This is a basic alert dialog",
-      () : Promise(Void) {
-        next { resultMessage: "✅ Alert confirmed" }
-      })
+    showAlert("Alert", "This is a basic alert dialog",
+      () : Promise(Void) { next { resultMessage: "✅ Alert confirmed" } })
   }
 
   /* Example 2: Confirmation Dialog */
   fun showConfirmation : Promise(Void) {
-    showConfirmDialog(
-      "Confirm Action",
+    showConfirmDialog("Confirm Action",
       "Are you sure you want to delete this item?",
-      () : Promise(Void) {
-        next { resultMessage: "✅ Delete confirmed" }
-      },
-      () : Promise(Void) {
-        next { resultMessage: "❌ Delete cancelled" }
-      })
+        () : Promise(Void) { next { resultMessage: "✅ Delete confirmed" } },
+          () : Promise(Void) { next { resultMessage: "❌ Delete cancelled" } })
   }
 
   /* Example 3: Round Button Theme */
   fun showRoundTheme : Promise(Void) {
-    showCustomDialog(
-      "Round Buttons",
-      "This dialog uses the round button theme",
-      "round",
-      "center",
-      "Accept",
-      "Decline",
-      true,
-      true,
-      () : Promise(Void) {
-        next { resultMessage: "✅ Accepted" }
-      },
-      () : Promise(Void) {
-        next { resultMessage: "❌ Declined" }
-      })
+    showCustomDialog("Round Buttons",
+      "This dialog uses the round button theme", "round", "center", "Accept",
+        "Decline", true, true,
+          () : Promise(Void) { next { resultMessage: "✅ Accepted" } },
+            () : Promise(Void) { next { resultMessage: "❌ Declined" } })
   }
 
   /* Example 4: Left Aligned Message */
   fun showLeftAlign : Promise(Void) {
-    showCustomDialog(
-      "Terms and Conditions",
+    showCustomDialog("Terms and Conditions",
       "By clicking confirm, you agree to our terms of service and privacy policy. This is a longer message to demonstrate left alignment.",
-      "default",
-      "left",
-      "I Agree",
-      "Cancel",
-      true,
-      true,
-      () : Promise(Void) {
-        next { resultMessage: "✅ Terms accepted" }
-      },
-      () : Promise(Void) {
-        next { resultMessage: "❌ Terms rejected" }
-      })
+        "default", "left", "I Agree", "Cancel", true, true,
+          () : Promise(Void) { next { resultMessage: "✅ Terms accepted" } },
+            () : Promise(Void) { next { resultMessage: "❌ Terms rejected" } })
   }
 
   /* Example 5: Before Close Hook */
   fun showWithValidation : Promise(Void) {
-    showCustomDialog(
-      "Confirm Exit",
-      "You have unsaved changes. Are you sure you want to exit?",
-      "round",
-      "center",
-      "Exit Anyway",
-      "Stay",
-      true,
-      false,
-      () : Promise(Void) {
-        next { resultMessage: "✅ Exited without saving" }
-      },
-      () : Promise(Void) {
-        next { resultMessage: "✅ Stayed on page" }
-      })
+    showCustomDialog("Confirm Exit",
+      "You have unsaved changes. Are you sure you want to exit?", "round",
+        "center", "Exit Anyway", "Stay", true, false,
+          () : Promise(Void) {
+            next { resultMessage: "✅ Exited without saving" }
+          }, () : Promise(Void) { next { resultMessage: "✅ Stayed on page" } })
   }
 
   /* Example 6: No Overlay Close */
   fun showNoOverlayClose : Promise(Void) {
-    showCustomDialog(
-      "Important",
+    showCustomDialog("Important",
       "This dialog cannot be closed by clicking the overlay. You must choose an action.",
-      "default",
-      "center",
-      "Understood",
-      "Cancel",
-      true,
-      false,
-      () : Promise(Void) {
-        next { resultMessage: "✅ Understood" }
-      },
-      () : Promise(Void) {
-        next { resultMessage: "❌ Cancelled" }
-      })
+        "default", "center", "Understood", "Cancel", true, false,
+          () : Promise(Void) { next { resultMessage: "✅ Understood" } },
+            () : Promise(Void) { next { resultMessage: "❌ Cancelled" } })
   }
 
   /* Get code examples */
@@ -110,35 +65,60 @@ component DialogPage {
       {
         title: "Basic Alert",
         description: "Simple alert with OK button",
-        snippet: { language: "mint", code: "DialogStore.showAlert(\n  \"Alert\",\n  \"This is a basic alert\",\n  () : Promise(Void) {\n    Debug.log(\"Alert confirmed\")\n  }\n)" },
+        snippet:
+          {
+            language: "mint",
+            code:
+              "DialogStore.showAlert(\n  \"Alert\",\n  \"This is a basic alert\",\n  () : Promise(Void) {\n    Debug.log(\"Alert confirmed\")\n  }\n)"
+          },
         previewContent: Html.empty(),
         showReplay: false
       },
       {
         title: "Confirmation Dialog",
         description: "Ask user to confirm action",
-        snippet: { language: "mint", code: "DialogStore.showConfirmDialog(\n  \"Delete Item\",\n  \"Are you sure?\",\n  () : Promise(Void) { /* Confirmed */ },\n  () : Promise(Void) { /* Cancelled */ }\n)" },
+        snippet:
+          {
+            language: "mint",
+            code:
+              "DialogStore.showConfirmDialog(\n  \"Delete Item\",\n  \"Are you sure?\",\n  () : Promise(Void) { /* Confirmed */ },\n  () : Promise(Void) { /* Cancelled */ }\n)"
+          },
         previewContent: Html.empty(),
         showReplay: false
       },
       {
         title: "Custom Theme",
         description: "Use round button theme",
-        snippet: { language: "mint", code: "DialogStore.showCustomDialog(\n  \"Custom\",\n  \"Round buttons\",\n  \"round\",\n  \"center\",\n  \"Accept\",\n  \"Decline\",\n  true,\n  true,\n  confirmCallback,\n  cancelCallback\n)" },
+        snippet:
+          {
+            language: "mint",
+            code:
+              "DialogStore.showCustomDialog(\n  \"Custom\",\n  \"Round buttons\",\n  \"round\",\n  \"center\",\n  \"Accept\",\n  \"Decline\",\n  true,\n  true,\n  confirmCallback,\n  cancelCallback\n)"
+          },
         previewContent: Html.empty(),
         showReplay: false
       },
       {
         title: "Left Aligned Message",
         description: "For longer text content",
-        snippet: { language: "mint", code: "DialogStore.showCustomDialog(\n  \"Terms\",\n  \"Long text here...\",\n  \"default\",\n  \"left\",\n  \"I Agree\",\n  \"Cancel\",\n  true,\n  true,\n  confirmCallback,\n  cancelCallback\n)" },
+        snippet:
+          {
+            language: "mint",
+            code:
+              "DialogStore.showCustomDialog(\n  \"Terms\",\n  \"Long text here...\",\n  \"default\",\n  \"left\",\n  \"I Agree\",\n  \"Cancel\",\n  true,\n  true,\n  confirmCallback,\n  cancelCallback\n)"
+          },
         previewContent: Html.empty(),
         showReplay: false
       },
       {
         title: "No Overlay Close",
         description: "Force button interaction",
-        snippet: { language: "mint", code: "DialogStore.showCustomDialog(\n  \"Important\",\n  \"Must choose action\",\n  \"default\",\n  \"center\",\n  \"OK\",\n  \"Cancel\",\n  true,\n  false,\n  confirmCallback,\n  cancelCallback\n)" },
+        snippet:
+          {
+            language: "mint",
+            code:
+              "DialogStore.showCustomDialog(\n  \"Important\",\n  \"Must choose action\",\n  \"default\",\n  \"center\",\n  \"OK\",\n  \"Cancel\",\n  true,\n  false,\n  confirmCallback,\n  cancelCallback\n)"
+          },
         previewContent: Html.empty(),
         showReplay: false
       }
@@ -223,15 +203,21 @@ component DialogPage {
           <div::examplesGrid>
             <div::exampleCard>
               <Heading level="4" margin="0 0 12px">"Basic Alert"</Heading>
-              <Text size="sm" margin="0 0 12px">"Simple alert dialog with OK button"</Text>
-              <button::exampleButton onClick={showBasicAlert}>
-                "Show Alert"
-              </button>
+
+              <Text size="sm" margin="0 0 12px">
+                "Simple alert dialog with OK button"
+              </Text>
+
+              <button::exampleButton onClick={showBasicAlert}>"Show Alert"</button>
             </div>
 
             <div::exampleCard>
               <Heading level="4" margin="0 0 12px">"Confirmation"</Heading>
-              <Text size="sm" margin="0 0 12px">"Confirm/Cancel dialog for dangerous actions"</Text>
+
+              <Text size="sm" margin="0 0 12px">
+                "Confirm/Cancel dialog for dangerous actions"
+              </Text>
+
               <button::exampleButton onClick={showConfirmation}>
                 "Show Confirmation"
               </button>
@@ -240,22 +226,26 @@ component DialogPage {
             <div::exampleCard>
               <Heading level="4" margin="0 0 12px">"Round Theme"</Heading>
               <Text size="sm" margin="0 0 12px">"Modern round button style"</Text>
-              <button::exampleButton onClick={showRoundTheme}>
-                "Show Round Theme"
-              </button>
+              <button::exampleButton onClick={showRoundTheme}>"Show Round Theme"</button>
             </div>
 
             <div::exampleCard>
               <Heading level="4" margin="0 0 12px">"Left Aligned"</Heading>
-              <Text size="sm" margin="0 0 12px">"Left-aligned text for longer content"</Text>
-              <button::exampleButton onClick={showLeftAlign}>
-                "Show Left Align"
-              </button>
+
+              <Text size="sm" margin="0 0 12px">
+                "Left-aligned text for longer content"
+              </Text>
+
+              <button::exampleButton onClick={showLeftAlign}>"Show Left Align"</button>
             </div>
 
             <div::exampleCard>
               <Heading level="4" margin="0 0 12px">"Validation Hook"</Heading>
-              <Text size="sm" margin="0 0 12px">"Dialog with beforeClose validation"</Text>
+
+              <Text size="sm" margin="0 0 12px">
+                "Dialog with beforeClose validation"
+              </Text>
+
               <button::exampleButton onClick={showWithValidation}>
                 "Show Validation"
               </button>
@@ -264,6 +254,7 @@ component DialogPage {
             <div::exampleCard>
               <Heading level="4" margin="0 0 12px">"No Overlay Close"</Heading>
               <Text size="sm" margin="0 0 12px">"Requires explicit button click"</Text>
+
               <button::exampleButton onClick={showNoOverlayClose}>
                 "Show No Overlay"
               </button>
@@ -274,12 +265,15 @@ component DialogPage {
       controlsContent={
         if String.isNotEmpty(resultMessage) {
           <div::resultBox>
-            {resultMessage}
+            {
+              resultMessage
+            }
           </div>
         } else {
           Html.empty()
         }
       }
-      codeExamples={getCodeExamples()}/>
+      codeExamples={getCodeExamples()}
+    />
   }
 }

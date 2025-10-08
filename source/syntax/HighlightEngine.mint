@@ -60,7 +60,8 @@ module HighlightEngine {
             let colored =
               colorize(stringMatch, "#CE9178")
 
-            processSimpleLine(line, keywords, types, index + stringLength, result + colored)
+            processSimpleLine(line, keywords, types, index + stringLength,
+              result + colored)
           }
 
         Maybe.Nothing =>
@@ -81,7 +82,8 @@ module HighlightEngine {
                       colorize(wordMatch, "#9CDCFE")
                     }
 
-                  processSimpleLine(line, keywords, types, index + wordLength, result + colored)
+                  processSimpleLine(line, keywords, types, index + wordLength,
+                    result + colored)
                 }
 
               Maybe.Nothing =>
@@ -92,7 +94,8 @@ module HighlightEngine {
                   let colored =
                     colorize(char, "#D4D4D4")
 
-                  processSimpleLine(line, keywords, types, index + 1, result + colored)
+                  processSimpleLine(line, keywords, types, index + 1,
+                    result + colored)
                 }
             }
           }
@@ -112,7 +115,11 @@ module HighlightEngine {
   }
 
   /* Find end of string */
-  fun findStringEnd (text : String, delimiter : String, position : Number) : Maybe(String) {
+  fun findStringEnd (
+    text : String,
+    delimiter : String,
+    position : Number
+  ) : Maybe(String) {
     if position >= String.size(text) {
       Maybe.Just(text)
     } else {
@@ -156,7 +163,11 @@ module HighlightEngine {
   }
 
   /* Highlight multiple lines */
-  fun highlightMultiLine (code : String, keywords : Array(String), types : Array(String)) : String {
+  fun highlightMultiLine (
+    code : String,
+    keywords : Array(String),
+    types : Array(String)
+  ) : String {
     let lines =
       String.split(code, "\n")
 
@@ -187,10 +198,12 @@ module HighlightEngine {
                 highlighted
               }
 
-            highlightLines(lines, keywords, types, index + 1, result + lineResult)
+            highlightLines(lines, keywords, types, index + 1,
+              result + lineResult)
           }
 
-        Maybe.Nothing => highlightLines(lines, keywords, types, index + 1, result)
+        Maybe.Nothing =>
+          highlightLines(lines, keywords, types, index + 1, result)
       }
     }
   }

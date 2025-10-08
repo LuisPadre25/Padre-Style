@@ -3,27 +3,29 @@ component AddressEditPage {
 
   state searchResult : Array(AddressEditSearchItem) = []
 
-  state addressInfo : AddressEditInfo = {
-    name: "John Doe",
-    tel: "+1 234-567-8900",
-    province: "California",
-    city: "Los Angeles",
-    county: "Los Angeles County",
-    addressDetail: "123 Main Street, Apt 4B, Building A",
-    areaCode: "90001",
-    isDefault: true
-  }
+  state addressInfo : AddressEditInfo =
+    {
+      name: "John Doe",
+      tel: "+1 234-567-8900",
+      province: "California",
+      city: "Los Angeles",
+      county: "Los Angeles County",
+      addressDetail: "123 Main Street, Apt 4B, Building A",
+      areaCode: "90001",
+      isDefault: true
+    }
 
-  state emptyAddressInfo : AddressEditInfo = {
-    name: "",
-    tel: "",
-    province: "",
-    city: "",
-    county: "",
-    addressDetail: "",
-    areaCode: "",
-    isDefault: false
-  }
+  state emptyAddressInfo : AddressEditInfo =
+    {
+      name: "",
+      tel: "",
+      province: "",
+      city: "",
+      county: "",
+      addressDetail: "",
+      areaCode: "",
+      isDefault: false
+    }
 
   state showToast : Bool = false
   state toastMessage : String = ""
@@ -262,10 +264,7 @@ component AddressEditPage {
   }
 
   fun displayToast (message : String) : Promise(Void) {
-    next {
-      showToast: true,
-      toastMessage: message
-    }
+    next { showToast: true, toastMessage: message }
   }
 
   fun showToastMessage (message : String) : Promise(Void) {
@@ -278,6 +277,7 @@ component AddressEditPage {
       }, 2000);
     })()
     `
+
     Promise.resolve(void)
   }
 
@@ -296,10 +296,11 @@ component AddressEditPage {
   fun handleChangeDetail (value : String) : Promise(Void) {
     if String.isNotEmpty(value) {
       next {
-        searchResult: [
-          { name: "Home", address: "123 Main Street, Apt 4B" },
-          { name: "Work", address: "456 Business Ave, Suite 100" }
-        ]
+        searchResult:
+          [
+            { name: "Home", address: "123 Main Street, Apt 4B" },
+            { name: "Work", address: "456 Business Ave, Suite 100" }
+          ]
       }
     } else {
       next { searchResult: [] }
@@ -335,6 +336,7 @@ component AddressEditPage {
     <div::container>
       <div::header>
         <Heading level="1" margin="0 0 24px">"📍 AddressEdit"</Heading>
+
         <Text size="lg" margin="0 0 40px">
           "Create, update, and delete receiving addresses with validation and search functionality"
         </Text>
@@ -357,9 +359,9 @@ component AddressEditPage {
                   ""
                 }
               }
-              onClick={switchToFilled}>
-              "With Data"
-            </button>
+              onClick={switchToFilled}
+            >"With Data"</button>
+
             <button::tabButton
               class={
                 if showExample == "empty" {
@@ -368,17 +370,15 @@ component AddressEditPage {
                   ""
                 }
               }
-              onClick={switchToEmpty}>
-              "Empty Form"
-            </button>
+              onClick={switchToEmpty}
+            >"Empty Form"</button>
           </div>
 
           <div::mobileSimulator>
             if viewMode == "mobile" {
               <div::simulatorFrame>
-                <div::simulatorNotch>
-                  <div::simulatorSpeaker/>
-                </div>
+                <div::simulatorNotch><div::simulatorSpeaker/></div>
+
                 <div::simulatorScreen>
                   <AddressEdit
                     addressInfo={getCurrentAddressInfo()}
@@ -399,7 +399,8 @@ component AddressEditPage {
                     onChange={handleChange}
                     onChangeDetail={handleChangeDetail}
                     onChangeDefault={handleChangeDefault}
-                    onSelectSearch={handleSelectSearch}/>
+                    onSelectSearch={handleSelectSearch}
+                  />
                 </div>
               </div>
             } else {
@@ -424,7 +425,8 @@ component AddressEditPage {
                     onChange={handleChange}
                     onChangeDetail={handleChangeDetail}
                     onChangeDefault={handleChangeDefault}
-                    onSelectSearch={handleSelectSearch}/>
+                    onSelectSearch={handleSelectSearch}
+                  />
                 </div>
               </div>
             }
@@ -464,6 +466,7 @@ component AddressEditPage {
                 <th::tableHeader>"Default"</th>
               </tr>
             </thead>
+
             <tbody>
               <tr::tableRow>
                 <td::tableCellCode>"addressInfo"</td>
@@ -471,54 +474,63 @@ component AddressEditPage {
                 <td::tableCellCode>"AddressEditInfo"</td>
                 <td::tableCellCode>"{}"</td>
               </tr>
+
               <tr::tableRow>
                 <td::tableCellCode>"searchResult"</td>
                 <td::tableCell>"Address search results"</td>
                 <td::tableCellCode>"Array(AddressEditSearchItem)"</td>
                 <td::tableCellCode>"[]"</td>
               </tr>
+
               <tr::tableRow>
                 <td::tableCellCode>"showDelete"</td>
                 <td::tableCell>"Whether to show delete button"</td>
                 <td::tableCellCode>"Bool"</td>
                 <td::tableCellCode>"false"</td>
               </tr>
+
               <tr::tableRow>
                 <td::tableCellCode>"showSetDefault"</td>
                 <td::tableCell>"Whether to show default address switch"</td>
                 <td::tableCellCode>"Bool"</td>
                 <td::tableCellCode>"false"</td>
               </tr>
+
               <tr::tableRow>
                 <td::tableCellCode>"showSearchResult"</td>
                 <td::tableCell>"Whether to show search results"</td>
                 <td::tableCellCode>"Bool"</td>
                 <td::tableCellCode>"false"</td>
               </tr>
+
               <tr::tableRow>
                 <td::tableCellCode>"showArea"</td>
                 <td::tableCell>"Whether to show area field"</td>
                 <td::tableCellCode>"Bool"</td>
                 <td::tableCellCode>"true"</td>
               </tr>
+
               <tr::tableRow>
                 <td::tableCellCode>"showDetail"</td>
                 <td::tableCell>"Whether to show detail field"</td>
                 <td::tableCellCode>"Bool"</td>
                 <td::tableCellCode>"true"</td>
               </tr>
+
               <tr::tableRow>
                 <td::tableCellCode>"disableArea"</td>
                 <td::tableCell>"Whether to disable area select"</td>
                 <td::tableCellCode>"Bool"</td>
                 <td::tableCellCode>"false"</td>
               </tr>
+
               <tr::tableRow>
                 <td::tableCellCode>"isSaving"</td>
                 <td::tableCell>"Show save button loading status"</td>
                 <td::tableCellCode>"Bool"</td>
                 <td::tableCellCode>"false"</td>
               </tr>
+
               <tr::tableRow>
                 <td::tableCellCode>"isDeleting"</td>
                 <td::tableCell>"Show delete button loading status"</td>
@@ -541,32 +553,38 @@ component AddressEditPage {
                 <th::tableHeader>"Arguments"</th>
               </tr>
             </thead>
+
             <tbody>
               <tr::tableRow>
                 <td::tableCellCode>"onSave"</td>
                 <td::tableCell>"Emitted when save button is clicked"</td>
                 <td::tableCellCode>"info: AddressEditInfo"</td>
               </tr>
+
               <tr::tableRow>
                 <td::tableCellCode>"onDelete"</td>
                 <td::tableCell>"Emitted when delete is confirmed"</td>
                 <td::tableCellCode>"info: AddressEditInfo"</td>
               </tr>
+
               <tr::tableRow>
                 <td::tableCellCode>"onChange"</td>
                 <td::tableCell>"Emitted when name or tel field changes"</td>
                 <td::tableCellCode>"key: String, value: String"</td>
               </tr>
+
               <tr::tableRow>
                 <td::tableCellCode>"onChangeDetail"</td>
                 <td::tableCell>"Emitted when address detail changes"</td>
                 <td::tableCellCode>"value: String"</td>
               </tr>
+
               <tr::tableRow>
                 <td::tableCellCode>"onChangeDefault"</td>
                 <td::tableCell>"Emitted when switching default address"</td>
                 <td::tableCellCode>"checked: Bool"</td>
               </tr>
+
               <tr::tableRow>
                 <td::tableCellCode>"onSelectSearch"</td>
                 <td::tableCell>"Emitted when search result is selected"</td>
@@ -610,57 +628,68 @@ component AddressEditPage {
                 <th::tableHeader>"Description"</th>
               </tr>
             </thead>
+
             <tbody>
               <tr::tableRow>
                 <td::tableCellCode>"--mint-address-edit-padding"</td>
                 <td::tableCellCode>"var(--mint-padding-sm, 12px)"</td>
                 <td::tableCell>"Form fields padding"</td>
               </tr>
+
               <tr::tableRow>
                 <td::tableCellCode>"--mint-address-edit-buttons-padding"</td>
                 <td::tableCellCode>"16px 16px"</td>
                 <td::tableCell>"Buttons container padding"</td>
               </tr>
+
               <tr::tableRow>
                 <td::tableCellCode>"--mint-address-edit-button-margin-bottom"</td>
                 <td::tableCellCode>"12px"</td>
                 <td::tableCell>"Button margin bottom"</td>
               </tr>
+
               <tr::tableRow>
                 <td::tableCellCode>"--mint-address-edit-button-font-size"</td>
                 <td::tableCellCode>"var(--mint-font-size-lg, 16px)"</td>
                 <td::tableCell>"Button font size"</td>
               </tr>
+
               <tr::tableRow>
                 <td::tableCellCode>"--mint-primary-color"</td>
                 <td::tableCellCode>"#1989fa"</td>
                 <td::tableCell>"Primary color for buttons and switch"</td>
               </tr>
+
               <tr::tableRow>
                 <td::tableCellCode>"--mint-danger-color"</td>
                 <td::tableCellCode>"#ee0a24"</td>
                 <td::tableCell>"Danger color for delete and errors"</td>
               </tr>
+
               <tr::tableRow>
                 <td::tableCellCode>"--mint-background"</td>
                 <td::tableCellCode>"#f7f8fa"</td>
                 <td::tableCell>"Background color"</td>
               </tr>
+
               <tr::tableRow>
                 <td::tableCellCode>"--mint-border-color"</td>
                 <td::tableCellCode>"#ebedf0"</td>
                 <td::tableCell>"Border color"</td>
               </tr>
+
               <tr::tableRow>
                 <td::tableCellCode>"--mint-text-color"</td>
                 <td::tableCellCode>"#323233"</td>
                 <td::tableCell>"Primary text color"</td>
               </tr>
+
               <tr::tableRow>
                 <td::tableCellCode>"--mint-text-color-2"</td>
                 <td::tableCellCode>"#969799"</td>
                 <td::tableCell>"Secondary text color"</td>
               </tr>
+
               <tr::tableRow>
                 <td::tableCellCode>"--mint-text-color-3"</td>
                 <td::tableCellCode>"#c8c9cc"</td>
@@ -672,7 +701,11 @@ component AddressEditPage {
       </div>
 
       if showToast {
-        <div::toast>{toastMessage}</div>
+        <div::toast>
+          {
+            toastMessage
+          }
+        </div>
       }
     </div>
   }

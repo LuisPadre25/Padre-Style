@@ -1,5 +1,4 @@
 /* MatrixPage - Demonstration page for Matrix component */
-
 component MatrixPage {
   /* Sample matrix data - basic grid */
   fun basicMatrixData : MatrixData {
@@ -150,6 +149,7 @@ component MatrixPage {
 
       <div::section>
         <Heading level="2" margin="32px 0 16px">"Basic Grid"</Heading>
+
         <Text size="base" margin="0 0 20px">
           "A simple 3x3 matrix with equal cell sizes."
         </Text>
@@ -158,20 +158,18 @@ component MatrixPage {
           <Matrix
             data={basicMatrixData()}
             cellWidth={[120, 120, 120]}
-            cellHeight={[60, 60, 60]}/>
+            cellHeight={[60, 60, 60]}
+          />
         </div>
 
         <div::codeBlock>
-          "data: [\n" +
-          "  { x: 0, y: 0, col: 1, row: 1, text: \"A1\" },\n" +
-          "  { x: 1, y: 0, col: 1, row: 1, text: \"B1\" },\n" +
-          "  // ...\n" +
-          "]"
+          "data: [\n" + "  { x: 0, y: 0, col: 1, row: 1, text: \"A1\" },\n" + "  { x: 1, y: 0, col: 1, row: 1, text: \"B1\" },\n" + "  // ...\n" + "]"
         </div>
       </div>
 
       <div::section>
         <Heading level="2" margin="32px 0 16px">"Merged Cells"</Heading>
+
         <Text size="base" margin="0 0 20px">
           "Cells can span multiple columns (col) or rows (row)."
         </Text>
@@ -180,18 +178,18 @@ component MatrixPage {
           <Matrix
             data={mergedMatrixData()}
             cellWidth={[120, 120, 120]}
-            cellHeight={[60, 60, 60]}/>
+            cellHeight={[60, 60, 60]}
+          />
         </div>
 
         <div::codeBlock>
-          "{ x: 0, y: 0, col: 2, row: 1, text: \"Merged\" }\n" +
-          "{ x: 2, y: 0, col: 1, row: 2, text: \"Tall Cell\" }\n" +
-          "{ x: 0, y: 2, col: 3, row: 1, text: \"Wide Footer\" }"
+          "{ x: 0, y: 0, col: 2, row: 1, text: \"Merged\" }\n" + "{ x: 2, y: 0, col: 1, row: 2, text: \"Tall Cell\" }\n" + "{ x: 0, y: 2, col: 3, row: 1, text: \"Wide Footer\" }"
         </div>
       </div>
 
       <div::section>
         <Heading level="2" margin="32px 0 16px">"Table Layout"</Heading>
+
         <Text size="base" margin="0 0 20px">
           "Use Matrix for table-like data with fixed headers."
         </Text>
@@ -202,30 +200,20 @@ component MatrixPage {
             cellWidth={[150, 100, 150]}
             cellHeight={[50, 45, 45, 45]}
             fixFirstRow={true}
-            maxHeight={200}/>
+            maxHeight={200}
+          />
         </div>
 
         <div::codeBlock>
-          "<Matrix\n" +
-          "  data={tableData}\n" +
-          "  fixFirstRow={true}\n" +
-          "  maxHeight={200}\n" +
-          "/>"
+          "<Matrix\n" + "  data={tableData}\n" + "  fixFirstRow={true}\n" + "  maxHeight={200}\n" + "/>"
         </div>
       </div>
 
       <div::section>
         <Heading level="2" margin="32px 0 16px">"Properties"</Heading>
+
         <div::codeBlock>
-          "data: MatrixData           - Grid data with cell definitions\n" +
-          "cellWidth: Array(Number)   - Width for each column\n" +
-          "cellHeight: Array(Number)  - Height for each row\n" +
-          "fixFirstColumn: Bool       - Fix first column on scroll\n" +
-          "fixFirstRow: Bool          - Fix first row on scroll\n" +
-          "maxWidth: Number           - Max width with horizontal scroll\n" +
-          "maxHeight: Number          - Max height with vertical scroll\n" +
-          "width: Number              - Fixed matrix width\n" +
-          "height: Number             - Fixed matrix height"
+          "data: MatrixData           - Grid data with cell definitions\n" + "cellWidth: Array(Number)   - Width for each column\n" + "cellHeight: Array(Number)  - Height for each row\n" + "fixFirstColumn: Bool       - Fix first column on scroll\n" + "fixFirstRow: Bool          - Fix first row on scroll\n" + "maxWidth: Number           - Max width with horizontal scroll\n" + "maxHeight: Number          - Max height with vertical scroll\n" + "width: Number              - Fixed matrix width\n" + "height: Number             - Fixed matrix height"
         </div>
       </div>
     </div>

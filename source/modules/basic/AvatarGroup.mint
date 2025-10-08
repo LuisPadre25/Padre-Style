@@ -1,5 +1,4 @@
 /* AvatarGroup - Display a group of avatars with overlap */
-
 component AvatarGroup {
   property avatars : Array(String) = []
   property useInitials : Bool = false
@@ -18,7 +17,7 @@ component AvatarGroup {
   property animation : String = "scaleIn"
 
   fun getOverlapOffset : String {
-    case (spacing) {
+    case spacing {
       "tight" => "-8px"
       "normal" => "-12px"
       "loose" => "-16px"
@@ -96,7 +95,8 @@ component AvatarGroup {
             animated={animated}
             animation={animation}
             bgColor="#667eea"
-            textColor="#fff"/>
+            textColor="#fff"
+          />
         </div>
       }
 
@@ -124,7 +124,8 @@ component AvatarGroup {
               }
               animated={animated}
               animation={animation}
-              bgColor="#1989fa"/>
+              bgColor="#1989fa"
+            />
           } else {
             <Avatar
               src={avatar}
@@ -146,7 +147,8 @@ component AvatarGroup {
                 }
               }
               animated={animated}
-              animation={animation}/>
+              animation={animation}
+            />
           }
         </div>
       }
