@@ -54,7 +54,13 @@ component CodesPageNew {
         badge: "",
         titleStyle: "",
         icon: "📱",
-        content: ""
+        content: "",
+        badgeVariant: "",
+        badgeSize: "",
+        badgeColor: "",
+        dotStatus: "",
+        dotSize: "",
+        dotAnimation: ""
       },
       {
         name: "barcode",
@@ -64,7 +70,13 @@ component CodesPageNew {
         badge: "",
         titleStyle: "",
         icon: "📊",
-        content: ""
+        content: "",
+        badgeVariant: "",
+        badgeSize: "",
+        badgeColor: "",
+        dotStatus: "",
+        dotSize: "",
+        dotAnimation: ""
       }
     ]
   }

@@ -9,7 +9,15 @@ type TabItem {
   badge : String,
   titleStyle : String,
   icon : String,
-  content : String
+  content : String,
+  /* Badge customization */
+  badgeVariant : String,
+  badgeSize : String,
+  badgeColor : String,
+  /* StatusDot customization */
+  dotStatus : String,
+  dotSize : String,
+  dotAnimation : String
 }
 
 /* Tabs change event data */

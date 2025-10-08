@@ -7,10 +7,10 @@ component Tabs {
   property tabs : Array(TabItem) = []
   property active : String = ""
   property type : String = "line"
-  property color : String = "#1989fa"
-  property background : String = "#fff"
+  property color : String = ""
+  property background : String = ""
   property titleActiveColor : String = ""
-  property titleInactiveColor : String = "#646566"
+  property titleInactiveColor : String = ""
   property border : Bool = false
   property shrink : Bool = false
   property ellipsis : Bool = true
@@ -20,6 +20,10 @@ component Tabs {
   property animated : Bool = false
   property animationType : String = "fadeIn"
   property animationDuration : Number = 0.3
+
+  /* Card & Layout Properties */
+  property iconLayout : String = "horizontal"
+  property cardSpacing : String = "normal"
 
   /* Advanced Features */
   property sticky : Bool = false
@@ -218,10 +222,28 @@ component Tabs {
 
   /* Helper Functions */
   fun getActiveColor : String {
-    if String.isEmpty(titleActiveColor) {
+    if !String.isEmpty(titleActiveColor) {
+      titleActiveColor
+    } else if !String.isEmpty(color) {
       color
     } else {
-      titleActiveColor
+      "var(--primary-color)"
+    }
+  }
+
+  fun getInactiveColor : String {
+    if !String.isEmpty(titleInactiveColor) {
+      titleInactiveColor
+    } else {
+      "var(--text-color)"
+    }
+  }
+
+  fun getBackground : String {
+    if !String.isEmpty(background) {
+      background
+    } else {
+      "var(--card-bg)"
     }
   }
 
@@ -252,14 +274,14 @@ component Tabs {
   /* Styles - Mobile First with Advanced Features */
   style container {
     position: relative;
-    background: #{background};
+    background: #{getBackground()};
     width: 100%;
     z-index: 99;
 
     if sticky {
       position: sticky;
       top: #{Number.toString(stickyOffsetTop)}px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 2px 8px var(--shadow-color);
     }
 
     if border {
@@ -270,7 +292,7 @@ component Tabs {
         left: 0;
         right: 0;
         height: 1px;
-        background: #ebedf0;
+        background: var(--border-color);
         transform: scaleY(0.5);
       }
     }
@@ -288,13 +310,64 @@ component Tabs {
       display: none;
     }
 
+    /* Card basic */
     if type == "card" {
       margin: 0 12px;
       border-radius: 4px;
-      background: #f7f8fa;
+      background: var(--border-color);
 
       @media (min-width: 768px) {
         margin: 0 16px;
+      }
+    }
+
+    /* Card Pill (iOS style) */
+    if type == "card-pill" {
+      margin: 0 12px;
+      padding: 4px;
+      border-radius: 50px;
+      background: var(--border-color);
+
+      @media (min-width: 768px) {
+        margin: 0 16px;
+        padding: 6px;
+      }
+    }
+
+    /* Card Elevated (Material Design) */
+    if type == "card-elevated" {
+      margin: 0 12px;
+      border-radius: 8px;
+      background: var(--card-bg);
+      box-shadow: 0 4px 12px var(--shadow-color);
+
+      @media (min-width: 768px) {
+        margin: 0 16px;
+      }
+    }
+
+    /* Card Outlined */
+    if type == "card-outlined" {
+      margin: 0 12px;
+      border-radius: 8px;
+      background: transparent;
+      border: 1px solid var(--border-color);
+
+      @media (min-width: 768px) {
+        margin: 0 16px;
+      }
+    }
+
+    /* Segment (iOS Segmented Control) */
+    if type == "segment" {
+      margin: 0 12px;
+      padding: 2px;
+      border-radius: 10px;
+      background: var(--border-color);
+
+      @media (min-width: 768px) {
+        margin: 0 16px;
+        padding: 3px;
       }
     }
 
@@ -323,29 +396,41 @@ component Tabs {
   style tab (active : Bool, disabled : Bool) {
     position: relative;
     display: flex;
-    flex-direction: row;
+    flex-direction: #{if iconLayout == "vertical" { "column" } else { "row" }};
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
     padding: 0 4px;
     font-size: 13px;
-    line-height: 40px;
+    line-height: #{if iconLayout == "vertical" { "1.2" } else { "40px" }};
     cursor: pointer;
     transition: all #{Number.toString(duration)}ms cubic-bezier(0.4, 0, 0.2, 1);
     min-width: 0;
-    gap: 4px;
+    gap: #{if iconLayout == "vertical" { "6px" } else { "4px" }};
 
-    @media (min-width: 641px) {
-      padding: 0 8px;
-      font-size: 14px;
-      line-height: 42px;
-      gap: 6px;
-    }
+    if iconLayout == "vertical" {
+      padding: 8px 4px 12px 4px;
 
-    @media (min-width: 768px) {
-      padding: 0 12px;
-      font-size: 14px;
-      line-height: 44px;
+      @media (min-width: 641px) {
+        padding: 10px 8px 14px 8px;
+      }
+
+      @media (min-width: 768px) {
+        padding: 12px 12px 16px 12px;
+      }
+    } else {
+      @media (min-width: 641px) {
+        padding: 0 8px;
+        font-size: 14px;
+        line-height: 42px;
+        gap: 6px;
+      }
+
+      @media (min-width: 768px) {
+        padding: 0 12px;
+        font-size: 14px;
+        line-height: 44px;
+      }
     }
 
     if shrink {
@@ -359,19 +444,21 @@ component Tabs {
       font-weight: 500;
       transform: scale(1.02);
     } else {
-      color: #{titleInactiveColor};
+      color: #{getInactiveColor()};
       font-weight: 400;
       transform: scale(1);
     }
 
     if disabled {
-      color: #c8c9cc;
+      color: #999;
       cursor: not-allowed;
       opacity: 0.5;
+      filter: grayscale(1);
+      pointer-events: none;
     } else {
       &:hover {
         opacity: 0.85;
-        background: rgba(0, 0, 0, 0.02);
+        background: var(--border-color);
         border-radius: 4px;
       }
 
@@ -380,17 +467,80 @@ component Tabs {
       }
     }
 
+    /* Card basic */
     if type == "card" {
-      border-right: 1px solid #ebedf0;
+      border-right: 1px solid var(--border-color);
 
       &:last-child {
         border-right: none;
       }
 
       if active {
-        background: #fff;
+        background: var(--card-bg);
         border-radius: 4px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+        box-shadow: 0 2px 4px var(--shadow-color);
+      }
+    }
+
+    /* Card Pill (iOS style) */
+    if type == "card-pill" {
+      border-radius: 50px;
+      padding: 8px 16px;
+      background: #{if active { "var(--card-bg)" } else { "transparent" }};
+      box-shadow: #{if active { "0 2px 8px var(--shadow-color)" } else { "none" }};
+      transform: #{if active { "scale(1)" } else { "scale(1)" }};
+
+      &:hover {
+        background: #{if active { "var(--card-bg)" } else { "rgba(0, 0, 0, 0.05)" }};
+        border-radius: 50px;
+      }
+    }
+
+    /* Card Elevated (Material Design) */
+    if type == "card-elevated" {
+      border-radius: 6px;
+      margin: 0 4px;
+      background: #{if active { getActiveColor() } else { "transparent" }};
+      color: #{if active { "#fff" } else { getInactiveColor() }};
+      box-shadow: #{if active { "0 6px 16px var(--shadow-color)" } else { "none" }};
+      transform: #{if active { "translateY(-2px)" } else { "translateY(0)" }};
+
+      &:hover {
+        background: #{if active { getActiveColor() } else { "var(--border-color)" }};
+        border-radius: 6px;
+      }
+    }
+
+    /* Card Outlined */
+    if type == "card-outlined" {
+      border-radius: 6px;
+      margin: 0 4px;
+      border: 2px solid #{if active { getActiveColor() } else { "transparent" }};
+      background: #{if active { "var(--card-bg)" } else { "transparent" }};
+      box-shadow: #{if active { "0 2px 8px var(--shadow-color)" } else { "none" }};
+
+      &:hover {
+        border-color: #{if active { getActiveColor() } else { "var(--border-color)" }};
+        border-radius: 6px;
+      }
+    }
+
+    /* Segment (iOS Segmented Control) */
+    if type == "segment" {
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-weight: 500;
+      background: #{if active { "var(--card-bg)" } else { "transparent" }};
+      box-shadow: #{if active { "0 3px 8px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.08)" } else { "none" }};
+      transform: #{if active { "scale(1)" } else { "scale(1)" }};
+
+      @media (min-width: 768px) {
+        padding: 8px 16px;
+      }
+
+      &:hover {
+        background: #{if active { "var(--card-bg)" } else { "rgba(0, 0, 0, 0.04)" }};
+        border-radius: 8px;
       }
     }
 
@@ -401,13 +551,14 @@ component Tabs {
 
   style tabContent {
     display: flex;
-    flex-direction: row;
+    flex-direction: #{if iconLayout == "vertical" { "column" } else { "row" }};
     align-items: center;
-    gap: 4px;
+    justify-content: center;
+    gap: #{if iconLayout == "vertical" { "4px" } else { "4px" }};
     min-width: 0;
 
     @media (min-width: 641px) {
-      gap: 6px;
+      gap: #{if iconLayout == "vertical" { "6px" } else { "6px" }};
     }
   }
 
@@ -436,11 +587,11 @@ component Tabs {
     bottom: 0;
     left: 0;
     z-index: 1;
-    background: #{color};
+    background: #{getActiveColor()};
     border-radius: 3px;
     transition: all #{Number.toString(duration)}ms cubic-bezier(0.34, 1.56, 0.64, 1);
     height: #{lineHeight};
-    box-shadow: 0 2px 4px rgba(#{color}, 0.3);
+    box-shadow: 0 2px 4px var(--shadow-color);
 
     if total > 0 {
       left: calc(#{Number.toString(index)} * #{Number.toString(100 / total)}%);
@@ -488,7 +639,28 @@ component Tabs {
                 <span::tabText>{tab.title}</span>
 
                 if tab.dot {
-                  <StatusDot status="error" size="small"/>
+                  <StatusDot
+                    status={
+                      if !String.isEmpty(tab.dotStatus) {
+                        tab.dotStatus
+                      } else {
+                        "error"
+                      }
+                    }
+                    size={
+                      if !String.isEmpty(tab.dotSize) {
+                        tab.dotSize
+                      } else {
+                        "small"
+                      }
+                    }
+                    animation={
+                      if !String.isEmpty(tab.dotAnimation) {
+                        tab.dotAnimation
+                      } else {
+                        "none"
+                      }
+                    }/>
                 } else if !String.isEmpty(tab.badge) {
                   <Badge
                     count={
@@ -497,21 +669,23 @@ component Tabs {
                     }
                     max={99}
                     showZero={false}
-                    variant="error"
-                    size="small"
+                    variant={
+                      if !String.isEmpty(tab.badgeVariant) {
+                        tab.badgeVariant
+                      } else {
+                        "error"
+                      }
+                    }
+                    size={
+                      if !String.isEmpty(tab.badgeSize) {
+                        tab.badgeSize
+                      } else {
+                        "small"
+                      }
+                    }
+                    color={tab.badgeColor}
                     standalone={true}
-                    text={
-                      Number.fromString(tab.badge)
-                      |> Maybe.map(
-                        (num : Number) : String {
-                          if num > 99 {
-                            "99+"
-                          } else {
-                            Number.toString(num)
-                          }
-                        })
-                      |> Maybe.withDefault(tab.badge)
-                    }/>
+                    text={tab.badge}/>
                 } else {
                   <></>
                 }

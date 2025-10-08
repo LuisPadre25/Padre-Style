@@ -2,6 +2,7 @@
 
 component ComponentShowcase {
   connect ViewModeStore exposing { viewMode }
+  connect ThemeStore exposing { theme }
 
   /* Props */
   property title : String = "Component"
@@ -48,7 +49,13 @@ component ComponentShowcase {
           badge: "",
           titleStyle: "",
           icon: "",
-          content: ""
+          content: "",
+          badgeVariant: "",
+          badgeSize: "",
+          badgeColor: "",
+          dotStatus: "",
+          dotSize: "",
+          dotAnimation: ""
         },
         {
           name: "usage",
@@ -58,7 +65,13 @@ component ComponentShowcase {
           badge: "",
           titleStyle: "",
           icon: "",
-          content: ""
+          content: "",
+          badgeVariant: "",
+          badgeSize: "",
+          badgeColor: "",
+          dotStatus: "",
+          dotSize: "",
+          dotAnimation: ""
         },
         {
           name: "api",
@@ -68,7 +81,13 @@ component ComponentShowcase {
           badge: "",
           titleStyle: "",
           icon: "",
-          content: ""
+          content: "",
+          badgeVariant: "",
+          badgeSize: "",
+          badgeColor: "",
+          dotStatus: "",
+          dotSize: "",
+          dotAnimation: ""
         }
       ]
 
@@ -195,6 +214,50 @@ component ComponentShowcase {
     align-items: center;
   }
 
+  /* Mobile/Tablet Layout - Simulator + Controls side by side */
+  style mobileTabletLayout {
+    display: flex;
+    gap: 24px;
+    width: 100%;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+
+    @media (max-width: 1200px) {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  /* Controls outside simulator for mobile/tablet */
+  style externalControlsCard {
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 2px 12px var(--shadow-color);
+    flex: 1;
+    min-width: 300px;
+    max-width: 400px;
+
+    @media (max-width: 1200px) {
+      max-width: 100%;
+      width: 100%;
+    }
+  }
+
+  /* Viewport Indicator */
+  style viewportIndicator {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    display: inline-block;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+  }
+
   /* Mobile Simulator Styles */
   style simulatorFrame {
     flex: 1;
@@ -212,6 +275,26 @@ component ComponentShowcase {
       max-width: 100%;
       border-radius: 24px;
       padding: 8px;
+    }
+  }
+
+  /* Tablet Simulator Styles */
+  style tabletFrame {
+    flex: 1;
+    min-width: 600px;
+    max-width: 768px;
+    background: white;
+    border-radius: 24px;
+    padding: 16px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    position: relative;
+    transition: all 0.3s ease;
+
+    @media (max-width: 768px) {
+      min-width: 280px;
+      max-width: 100%;
+      border-radius: 20px;
+      padding: 12px;
     }
   }
 
@@ -234,15 +317,33 @@ component ComponentShowcase {
 
   style simulatorScreen {
     background: linear-gradient(135deg, #f5f7fa 0%, #e4e9f2 100%);
-    min-height: 640px;
-    overflow-y: auto;
-    overflow-x: hidden;
+    height: 640px;
+    overflow: hidden;
     border-radius: 0 0 24px 24px;
     position: relative;
     transition: all 0.3s ease;
     display: flex;
     flex-direction: column;
-    padding: 20px 16px;
+
+    @media (max-width: 768px) {
+      height: 500px;
+    }
+  }
+
+  /* Tablet Screen - Fixed height for tablets */
+  style tabletScreen {
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4e9f2 100%);
+    height: 900px;
+    overflow: hidden;
+    border-radius: 0 0 24px 24px;
+    position: relative;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+
+    @media (max-width: 768px) {
+      height: 600px;
+    }
   }
 
   style previewArea {
@@ -251,6 +352,27 @@ component ComponentShowcase {
     align-items: center;
     justify-content: center;
     min-height: 200px;
+    overflow: auto;
+    padding: 20px 16px;
+
+    &::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.05);
+      border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: rgba(102, 126, 234, 0.5);
+      border-radius: 4px;
+
+      &:hover {
+        background: rgba(102, 126, 234, 0.7);
+      }
+    }
   }
 
   style controlsCard {
@@ -318,50 +440,48 @@ component ComponentShowcase {
 
   style desktopScreen {
     background: linear-gradient(135deg, #f5f7fa 0%, #e4e9f2 100%);
-    height: 720px;
+    height: 600px;
     overflow: hidden;
-    padding: 60px;
+    padding: 40px;
     display: grid;
     grid-template-columns: 1.2fr 0.8fr;
-    gap: 60px;
+    gap: 40px;
     align-items: start;
 
     @media (max-width: 1024px) {
-      padding: 40px;
-      gap: 40px;
+      padding: 30px;
+      gap: 30px;
+      height: 550px;
     }
 
     @media (max-width: 768px) {
       padding: 20px;
       gap: 20px;
       grid-template-columns: 1fr;
-      min-height: auto;
+      height: auto;
     }
   }
 
   style desktopPreviewArea {
     background: white;
     border-radius: 16px;
-    padding: 80px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 480px;
-    max-height: 600px;
+    height: 520px;
     overflow: auto;
     position: relative;
 
     @media (max-width: 1024px) {
-      padding: 40px;
-      min-height: 300px;
-      max-height: 500px;
+      padding: 30px;
+      height: 490px;
     }
 
     @media (max-width: 768px) {
       padding: 24px;
-      min-height: 200px;
-      max-height: 400px;
+      height: 400px;
       border-radius: 12px;
     }
 
@@ -386,10 +506,10 @@ component ComponentShowcase {
   }
 
   style desktopControlsCard {
-    background: #fff;
+    background: var(--card-bg);
     border-radius: 12px;
     padding: 32px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 2px 12px var(--shadow-color);
     margin-top: 0;
 
     @media (max-width: 768px) {
@@ -400,10 +520,10 @@ component ComponentShowcase {
 
   /* Documentation Styles */
   style docCard {
-    background: #fff;
+    background: var(--card-bg);
     border-radius: 16px;
     padding: 32px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 2px 12px var(--shadow-color);
     margin-bottom: 24px;
 
     @media (max-width: 768px) {
@@ -415,14 +535,14 @@ component ComponentShowcase {
   style docTitle {
     font-size: 20px;
     font-weight: 600;
-    color: #323233;
+    color: var(--heading-color);
     margin: 0 0 16px;
   }
 
   style docText {
     font-size: 15px;
     line-height: 1.6;
-    color: #646566;
+    color: var(--text-color);
     margin: 0;
   }
 
@@ -439,18 +559,18 @@ component ComponentShowcase {
   }
 
   style tableHeader {
-    background: #f7f8fa;
+    background: var(--border-color);
     text-align: left;
     padding: 12px;
     font-weight: 600;
-    color: #323233;
-    border-bottom: 2px solid #ebedf0;
+    color: var(--heading-color);
+    border-bottom: 2px solid var(--border-color);
   }
 
   style tableCell {
     padding: 12px;
-    border-bottom: 1px solid #ebedf0;
-    color: #646566;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-color);
   }
 
   style codeInline {
@@ -463,10 +583,10 @@ component ComponentShowcase {
   }
 
   style codeSection {
-    background: #fff;
+    background: var(--card-bg);
     border-radius: 16px;
     padding: 24px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 2px 12px var(--shadow-color);
     margin-bottom: 40px;
   }
 
@@ -480,13 +600,13 @@ component ComponentShowcase {
   style codeTitle {
     font-size: 16px;
     font-weight: 600;
-    color: #323233;
+    color: var(--heading-color);
     margin: 0 0 4px;
   }
 
   style exampleDescription {
     font-size: 14px;
-    color: #646566;
+    color: var(--text-color);
     margin: 4px 0 0;
     line-height: 1.5;
   }
@@ -671,53 +791,79 @@ component ComponentShowcase {
             </div>
           } else {
             <div::playgroundSection>
-              /* Mobile/Desktop Simulator */
+              /* Viewport Indicator */
+              <div::viewportIndicator>
+                {ViewModeStore.getViewportLabel()}
+              </div>
+
+              /* Mobile/Tablet/Desktop Simulator */
               if viewMode == "mobile" {
-            <div::simulatorFrame>
-              <div::simulatorNotch>
-                <div::simulatorSpeaker/>
-              </div>
-              <div::simulatorScreen>
-                /* Preview Area */
-                <div::previewArea>
-                  {previewContent}
-                </div>
+                <div::mobileTabletLayout>
+                  <div::simulatorFrame>
+                    <div::simulatorNotch>
+                      <div::simulatorSpeaker/>
+                    </div>
+                    <div::simulatorScreen>
+                      /* Preview Area - Only preview, no controls */
+                      <div::previewArea>
+                        {previewContent}
+                      </div>
+                    </div>
+                  </div>
 
-                /* Controls INSIDE Phone */
-                <div::controlsCard>
-                  {controlsContent}
+                  /* Controls OUTSIDE simulator */
+                  <div::externalControlsCard>
+                    {controlsContent}
+                  </div>
                 </div>
-              </div>
-            </div>
-          } else {
-            <div::simulatorFrame::desktopView>
-              /* Browser Bar */
-              <div::browserBar>
-                <div::browserDot::dotRed/>
-                <div::browserDot::dotYellow/>
-                <div::browserDot::dotGreen/>
-                <div::addressBar>
-                  "🔒 " + if String.isEmpty(desktopUrl) {
-                    "localhost:3000"
-                  } else {
-                    desktopUrl
-                  }
-                </div>
-              </div>
+              } else if viewMode == "tablet" {
+                <div::mobileTabletLayout>
+                  <div::tabletFrame>
+                    <div::simulatorNotch>
+                      <div::simulatorSpeaker/>
+                    </div>
+                    <div::simulatorScreen::tabletScreen>
+                      /* Preview Area - Only preview, no controls */
+                      <div::previewArea>
+                        {previewContent}
+                      </div>
+                    </div>
+                  </div>
 
-              <div::simulatorScreen::desktopScreen>
-                /* LEFT: Preview Area */
-                <div::desktopPreviewArea>
-                  {previewContent}
+                  /* Controls OUTSIDE simulator */
+                  <div::externalControlsCard>
+                    {controlsContent}
+                  </div>
                 </div>
+              } else {
+                <div::simulatorFrame::desktopView>
+                  /* Browser Bar */
+                  <div::browserBar>
+                    <div::browserDot::dotRed/>
+                    <div::browserDot::dotYellow/>
+                    <div::browserDot::dotGreen/>
+                    <div::addressBar>
+                      "🔒 " + if String.isEmpty(desktopUrl) {
+                        "localhost:3000"
+                      } else {
+                        desktopUrl
+                      }
+                    </div>
+                  </div>
 
-                /* RIGHT: Controls */
-                <div::desktopControlsCard>
-                  {controlsContent}
+                  <div::simulatorScreen::desktopScreen>
+                    /* LEFT: Preview Area */
+                    <div::desktopPreviewArea>
+                      {previewContent}
+                    </div>
+
+                    /* RIGHT: Controls */
+                    <div::desktopControlsCard>
+                      {controlsContent}
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-          }
+              }
             </div>
           }
         </div>

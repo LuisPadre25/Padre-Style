@@ -88,7 +88,13 @@ component AvatarPage {
         badge: "",
         titleStyle: "",
         icon: "",
-        content: ""
+        content: "",
+        badgeVariant: "",
+        badgeSize: "",
+        badgeColor: "",
+        dotStatus: "",
+        dotSize: "",
+        dotAnimation: ""
       },
       {
         name: "group",
@@ -98,7 +104,13 @@ component AvatarPage {
         badge: "",
         titleStyle: "",
         icon: "",
-        content: ""
+        content: "",
+        badgeVariant: "",
+        badgeSize: "",
+        badgeColor: "",
+        dotStatus: "",
+        dotSize: "",
+        dotAnimation: ""
       }
     ]
   }

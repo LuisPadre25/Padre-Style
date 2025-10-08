@@ -1,512 +1,662 @@
-/* TabsPage - Professional showcase for Tabs component */
+/* TabsPage - Tabs Component Showcase */
 
 component TabsPage {
+  connect NavigationStore exposing { setPage }
   connect ViewModeStore exposing { viewMode }
 
+  fun componentDidMount : Promise(Void) {
+    setPage("tabs")
+  }
+
+  /* State */
   state activeBasic : String = "tab1"
-  state activeIcons : String = "home"
-  state activeCard : String = "card1"
-  state activeBadge : String = "badge1"
-  state activeAnimated : String = "animate1"
-  state animationDirection : String = "right"
-
-  /* Tab Data */
-  fun getBasicTabs : Array(TabItem) {
-    [
-      {
-        name: "tab1",
-        title: "Tab 1",
-        disabled: false,
-        dot: false,
-        badge: "",
-        titleStyle: "",
-        icon: "",
-        content: ""
-      },
-      {
-        name: "tab2",
-        title: "Tab 2",
-        disabled: false,
-        dot: false,
-        badge: "",
-        titleStyle: "",
-        icon: "",
-        content: ""
-      },
-      {
-        name: "tab3",
-        title: "Tab 3",
-        disabled: false,
-        dot: false,
-        badge: "",
-        titleStyle: "",
-        icon: "",
-        content: ""
-      },
-      {
-        name: "tab4",
-        title: "Tab 4",
-        disabled: false,
-        dot: false,
-        badge: "",
-        titleStyle: "",
-        icon: "",
-        content: ""
-      }
-    ]
-  }
-
-  fun getIconTabs : Array(TabItem) {
-    [
-      {
-        name: "home",
-        title: "Home",
-        disabled: false,
-        dot: false,
-        badge: "",
-        titleStyle: "",
-        icon: "🏠",
-        content: ""
-      },
-      {
-        name: "profile",
-        title: "Profile",
-        disabled: false,
-        dot: true,
-        badge: "",
-        titleStyle: "",
-        icon: "👤",
-        content: ""
-      },
-      {
-        name: "messages",
-        title: "Messages",
-        disabled: false,
-        dot: false,
-        badge: "5",
-        titleStyle: "",
-        icon: "💬",
-        content: ""
-      },
-      {
-        name: "settings",
-        title: "Settings",
-        disabled: false,
-        dot: false,
-        badge: "",
-        titleStyle: "",
-        icon: "⚙️",
-        content: ""
-      }
-    ]
-  }
-
-  fun getBadgeTabs : Array(TabItem) {
-    [
-      {
-        name: "badge1",
-        title: "Dot",
-        disabled: false,
-        dot: true,
-        badge: "",
-        titleStyle: "",
-        icon: "🔴",
-        content: ""
-      },
-      {
-        name: "badge2",
-        title: "Count",
-        disabled: false,
-        dot: false,
-        badge: "5",
-        titleStyle: "",
-        icon: "📬",
-        content: ""
-      },
-      {
-        name: "badge3",
-        title: "Max",
-        disabled: false,
-        dot: false,
-        badge: "150",
-        titleStyle: "",
-        icon: "🔔",
-        content: ""
-      },
-      {
-        name: "badge4",
-        title: "Zero",
-        disabled: false,
-        dot: false,
-        badge: "0",
-        titleStyle: "",
-        icon: "✅",
-        content: ""
-      }
-    ]
-  }
+  state activeVertical : String = "home"
+  state activeHorizontal : String = "home"
+  state activeTextOnly : String = "home"
+  state showBorder : Bool = true
+  state showIcons : Bool = false
+  state iconLayout : String = "horizontal"
 
   /* Event Handlers */
   fun handleBasicChange (event : TabChangeEvent) : Promise(Void) {
     next { activeBasic: event.name }
   }
 
-  fun handleIconsChange (event : TabChangeEvent) : Promise(Void) {
-    next { activeIcons: event.name }
+  fun handleVerticalChange (event : TabChangeEvent) : Promise(Void) {
+    next { activeVertical: event.name }
   }
 
-  fun handleCardChange (event : TabChangeEvent) : Promise(Void) {
-    next { activeCard: event.name }
+  fun handleHorizontalChange (event : TabChangeEvent) : Promise(Void) {
+    next { activeHorizontal: event.name }
   }
 
-  fun handleBadgeChange (event : TabChangeEvent) : Promise(Void) {
-    next { activeBadge: event.name }
+  fun handleTextOnlyChange (event : TabChangeEvent) : Promise(Void) {
+    next { activeTextOnly: event.name }
   }
 
-  fun handleAnimatedChange (event : TabChangeEvent) : Promise(Void) {
-    next { activeAnimated: event.name }
+  fun handleBorderToggle (event : Html.Event) : Promise(Void) {
+    next { showBorder: !showBorder }
   }
 
-  fun handleDirectionChange (direction : String) : Promise(Void) {
-    next { animationDirection: direction }
+  fun handleIconsToggle (event : Html.Event) : Promise(Void) {
+    next { showIcons: !showIcons }
   }
 
-  fun getAnimationType : String {
-    case animationDirection {
-      "left" => "slideInLeft"
-      "right" => "slideInRight"
-      => "fadeIn"
+  fun handleIconLayoutChange (event : Html.Event) : Promise(Void) {
+    next { iconLayout: Dom.getValue(event.target) }
+  }
+
+  /* Tab Data */
+  fun getTabs : Array(TabItem) {
+    [
+      {
+        name: "tab1",
+        title: "Home",
+        disabled: false,
+        dot: false,
+        badge: "",
+        titleStyle: "",
+        icon: if showIcons { "🏠" } else { "" },
+        content: "",
+        badgeVariant: "",
+        badgeSize: "",
+        badgeColor: "",
+        dotStatus: "",
+        dotSize: "",
+        dotAnimation: ""
+      },
+      {
+        name: "tab2",
+        title: "Profile",
+        disabled: false,
+        dot: false,
+        badge: "",
+        titleStyle: "",
+        icon: if showIcons { "👤" } else { "" },
+        content: "",
+        badgeVariant: "",
+        badgeSize: "",
+        badgeColor: "",
+        dotStatus: "",
+        dotSize: "",
+        dotAnimation: ""
+      },
+      {
+        name: "tab3",
+        title: "Messages",
+        disabled: false,
+        dot: false,
+        badge: "",
+        titleStyle: "",
+        icon: if showIcons { "💬" } else { "" },
+        content: "",
+        badgeVariant: "",
+        badgeSize: "",
+        badgeColor: "",
+        dotStatus: "",
+        dotSize: "",
+        dotAnimation: ""
+      },
+      {
+        name: "tab4",
+        title: "Settings",
+        disabled: false,
+        dot: false,
+        badge: "",
+        titleStyle: "",
+        icon: if showIcons { "⚙️" } else { "" },
+        content: "",
+        badgeVariant: "",
+        badgeSize: "",
+        badgeColor: "",
+        dotStatus: "",
+        dotSize: "",
+        dotAnimation: ""
+      }
+    ]
+  }
+
+  fun getTabContent : Html {
+    case activeBasic {
+      "tab1" => <div style="text-align: center; padding: 40px; font-size: 16px; color: #646566;">
+        "🏠 Home Content"
+      </div>
+      "tab2" => <div style="text-align: center; padding: 40px; font-size: 16px; color: #646566;">
+        "👤 Profile Content"
+      </div>
+      "tab3" => <div style="text-align: center; padding: 40px; font-size: 16px; color: #646566;">
+        "💬 Messages Content"
+      </div>
+      => <div style="text-align: center; padding: 40px; font-size: 16px; color: #646566;">
+        "⚙️ Settings Content"
+      </div>
     }
   }
 
   /* Styles */
-  style container {
-    background: #f7f8fa;
-    min-height: 100vh;
-    padding: 20px;
-
-    if viewMode == "mobile" {
-      padding: 0;
-    }
+  style controlGroup {
+    margin-bottom: 20px;
   }
 
-  style simulatorFrame {
-    width: 375px;
-    height: 667px;
-    margin: 0 auto;
-    background: #000;
-    border-radius: 36px;
-    padding: 12px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-    position: relative;
-  }
-
-  style desktopView {
-    width: 100%;
-    height: auto;
-    background: transparent;
-    border-radius: 0;
-    padding: 0;
-    box-shadow: none;
-  }
-
-  style simulatorNotch {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 140px;
-    height: 28px;
-    background: #000;
-    border-radius: 0 0 20px 20px;
-    z-index: 10;
-  }
-
-  style simulatorSpeaker {
-    position: absolute;
-    top: 8px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 50px;
-    height: 5px;
-    background: #1a1a1a;
-    border-radius: 3px;
-  }
-
-  style simulatorScreen {
-    width: 100%;
-    height: 100%;
-    background: #f7f8fa;
-    border-radius: 28px;
-    overflow-y: auto;
-    overflow-x: hidden;
-  }
-
-  style desktopScreen {
-    border-radius: 0;
-    max-width: 100%;
-  }
-
-  style content {
-    background: #fff;
-    padding: 16px;
-  }
-
-  style section {
-    margin-bottom: 24px;
-    background: #fff;
-    border-radius: 8px;
-    overflow: hidden;
-
-    if viewMode == "mobile" {
-      margin-bottom: 16px;
-      border-radius: 0;
-    }
-  }
-
-  style sectionTitle {
-    padding: 16px;
+  style label {
+    display: block;
     font-size: 14px;
-    font-weight: 500;
-    color: #646566;
-    background: #f7f8fa;
-  }
-
-  style tabContent {
-    padding: 24px;
-    font-size: 14px;
-    color: #323233;
-    text-align: center;
-    background: #fff;
-  }
-
-  style pageTitle {
-    font-size: 34px;
-    font-weight: 400;
-    margin: 0 0 30px;
-    line-height: 1.5;
-    color: #333;
-    padding: 0 16px;
-
-    if viewMode == "mobile" {
-      font-size: 24px;
-      margin: 0 0 16px;
-      padding: 16px;
-    }
-  }
-
-  style pageText {
-    color: #34495e;
-    margin-top: 16px;
-    font-size: 15px;
-    line-height: 26px;
-    padding: 0 16px;
-
-    if viewMode == "mobile" {
-      font-size: 14px;
-      line-height: 22px;
-    }
-  }
-
-  style badge {
-    display: inline-block;
-    padding: 2px 8px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: #fff;
-    font-size: 12px;
-    border-radius: 4px;
-    margin-left: 8px;
-    font-weight: 500;
-  }
-
-  style animatedContent {
-    padding: 20px;
-    text-align: center;
-  }
-
-  style contentTitle {
-    font-size: 18px;
     font-weight: 600;
-    color: #323233;
+    color: var(--heading-color);
     margin-bottom: 8px;
   }
 
-  style contentText {
+  style select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
     font-size: 14px;
-    color: #646566;
-    line-height: 1.6;
+    background: var(--card-bg);
+    color: var(--text-color);
+    transition: all 0.2s ease;
+
+    &:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 2px rgba(25, 137, 250, 0.1);
+    }
   }
 
-  /* Render */
-  fun renderContent : Html {
-    <div::content>
-      <h1::pageTitle>
-        "Tabs"
-        <span::badge>"Navigation"</span>
-      </h1>
+  style checkboxGroup {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
 
-      <p::pageText>
-        "Professional mobile-first tabs navigation component."
-      </p>
+  style checkbox {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+  }
 
-      <div::section>
-        <div::sectionTitle>"Basic Line Type"</div>
+  style checkboxLabel {
+    font-size: 14px;
+    color: var(--text-color);
+    cursor: pointer;
+  }
 
-        <Tabs
-          tabs={getBasicTabs()}
-          active={activeBasic}
-          type="line"
-          color="#667eea"
-          titleActiveColor="#667eea"
-          titleInactiveColor="#646566"
-          border={true}
-          onChange={handleBasicChange}/>
+  style controlTitle {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--heading-color);
+    margin: 0 0 16px;
+  }
 
-        <div::tabContent>
-          if activeBasic == "tab1" {
-            "Content of Tab 1"
-          } else if activeBasic == "tab2" {
-            "Content of Tab 2"
-          } else if activeBasic == "tab3" {
-            "Content of Tab 3"
-          } else {
-            "Content of Tab 4"
-          }
-        </div>
-      </div>
-
-      <div::section>
-        <div::sectionTitle>"With Icons & Badges"</div>
-
-        <Tabs
-          tabs={getIconTabs()}
-          active={activeIcons}
-          type="line"
-          color="#10b981"
-          titleActiveColor="#10b981"
-          border={true}
-          onChange={handleIconsChange}/>
-
-        <div::tabContent>
-          "Selected: " {activeIcons}
-        </div>
-      </div>
-
-      <div::section>
-        <div::sectionTitle>"Card Type"</div>
-
-        <Tabs
-          tabs={getBasicTabs()}
-          active={activeCard}
-          type="card"
-          color="#8b5cf6"
-          onChange={handleCardChange}/>
-
-        <div::tabContent>
-          if activeCard == "tab1" {
-            "Card Tab 1"
-          } else if activeCard == "tab2" {
-            "Card Tab 2"
-          } else if activeCard == "tab3" {
-            "Card Tab 3"
-          } else {
-            "Card Tab 4"
-          }
-        </div>
-      </div>
-
-      <div::section>
-        <div::sectionTitle>"Badge & Dot Indicators"</div>
-
-        <Tabs
-          tabs={getBadgeTabs()}
-          active={activeBadge}
-          type="line"
-          color="#f59e0b"
-          titleActiveColor="#f59e0b"
-          border={true}
-          onChange={handleBadgeChange}/>
-
-        <div::tabContent>
-          if activeBadge == "badge1" {
-            "Tab with dot indicator"
-          } else if activeBadge == "badge2" {
-            "Tab with badge (5)"
-          } else {
-            "Tab with 99+ badge"
-          }
-        </div>
-      </div>
-
-      <div::section>
-        <div::sectionTitle>"Native Swipe Experience 👆"</div>
-
-        <Tabs
-          tabs={getBasicTabs()}
-          active={activeAnimated}
-          type="line"
-          color="#667eea"
-          titleActiveColor="#667eea"
-          border={true}
-          swipeable={false}
-          onChange={handleAnimatedChange}/>
-
-        <TabsSwipeContent
-          tabs={getBasicTabs()}
-          activeTab={activeAnimated}>
-
-          <div::tabContent>
-            <div::animatedContent>
-              <div::contentTitle>"Tab 1 Content"</div>
-              <div::contentText>"Swipe left/right! Content moves with your finger 👆"</div>
-            </div>
-          </div>
-
-          <div::tabContent>
-            <div::animatedContent>
-              <div::contentTitle>"Tab 2 Content"</div>
-              <div::contentText>"Native app feeling - drag to see next/previous ✨"</div>
-            </div>
-          </div>
-
-          <div::tabContent>
-            <div::animatedContent>
-              <div::contentTitle>"Tab 3 Content"</div>
-              <div::contentText>"Like Instagram Stories or ViewPager 🚀"</div>
-            </div>
-          </div>
-
-          <div::tabContent>
-            <div::animatedContent>
-              <div::contentTitle>"Tab 4 Content"</div>
-              <div::contentText>"Pure Mint Lang carousel magic 💚"</div>
-            </div>
-          </div>
-
-        </TabsSwipeContent>
-      </div>
-    </div>
+  style tabsContainer {
+    background: var(--card-bg);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px var(--shadow-color);
   }
 
   fun render : Html {
-    <div::container>
-      if viewMode == "mobile" {
-        <div::simulatorFrame>
-          <div::simulatorNotch>
-            <div::simulatorSpeaker/>
-          </div>
-
-          <div::simulatorScreen>
-            {renderContent()}
-          </div>
-        </div>
-      } else {
-        <div::simulatorFrame::desktopView>
-          <div::simulatorScreen::desktopScreen>
-            {renderContent()}
+    <ComponentShowcase
+      title="Tabs"
+      description="Professional mobile-first navigation component with swipe gestures, sticky positioning, and auto-scroll"
+      badge="Navigation"
+      previewContent={
+        <div style="width: 100%;">
+          <div::tabsContainer>
+            <Tabs
+              tabs={getTabs()}
+              active={activeBasic}
+              type="line"
+              border={showBorder}
+              iconLayout={iconLayout}
+              ellipsis={true}
+              onChange={handleBasicChange}/>
+            {getTabContent()}
           </div>
         </div>
       }
-    </div>
+      controlsContent={
+        <div>
+          <h4::controlTitle>"Tabs Configuration"</h4>
+
+          <div::controlGroup>
+            <label::label>"Icon Layout"</label>
+            <select::select value={iconLayout} onChange={handleIconLayoutChange}>
+              <option value="horizontal">"Horizontal (Left)"</option>
+              <option value="vertical">"Vertical (Top)"</option>
+            </select>
+          </div>
+
+          <div::controlGroup>
+            <label::label>"Options"</label>
+
+            <div::checkboxGroup>
+              <input::checkbox
+                type="checkbox"
+                checked={showBorder}
+                onChange={handleBorderToggle}/>
+              <label::checkboxLabel>"Show Border"</label>
+            </div>
+
+            <div::checkboxGroup>
+              <input::checkbox
+                type="checkbox"
+                checked={showIcons}
+                onChange={handleIconsToggle}/>
+              <label::checkboxLabel>"Show Icons"</label>
+            </div>
+          </div>
+
+          <div::controlGroup>
+            <label::label>"Active Tab"</label>
+            <div style="padding: 8px 12px; background: var(--border-color); border-radius: 6px; font-size: 14px; color: var(--text-color); font-weight: 500;">
+              {activeBasic}
+            </div>
+          </div>
+        </div>
+      }
+      usageText="Tabs is a mobile-first navigation component with line-style tabs, supporting icons, badges, swipe gestures, sticky positioning, and responsive ellipsis truncation."
+      codeExamples={
+        [
+          {
+            title: "Vertical Icons Layout",
+            description: "Icons above text - perfect for mobile bottom navigation",
+            snippet: {
+              code:
+                "<Tabs\n" +
+                "  tabs={[\n" +
+                "    { name: \"home\", title: \"Home\", icon: \"🏠\", ... },\n" +
+                "    { name: \"search\", title: \"Search\", icon: \"🔍\", ... },\n" +
+                "    { name: \"profile\", title: \"Profile\", icon: \"👤\", ... }\n" +
+                "  ]}\n" +
+                "  active=\"home\"\n" +
+                "  type=\"line\"\n" +
+                "  iconLayout=\"vertical\"\n" +
+                "  border={true}\n" +
+                "  onChange={handleChange}/>",
+              language: "mint"
+            },
+            previewContent:
+              <Tabs
+                tabs={[
+                  {
+                    name: "home",
+                    title: "Home",
+                    disabled: false,
+                    dot: false,
+                    badge: "",
+                    titleStyle: "",
+                    icon: "🏠",
+                    content: "",
+                    badgeVariant: "",
+                    badgeSize: "",
+                    badgeColor: "",
+                    dotStatus: "",
+                    dotSize: "",
+                    dotAnimation: ""
+                  },
+                  {
+                    name: "search",
+                    title: "Search",
+                    disabled: false,
+                    dot: false,
+                    badge: "",
+                    titleStyle: "",
+                    icon: "🔍",
+                    content: "",
+                    badgeVariant: "",
+                    badgeSize: "",
+                    badgeColor: "",
+                    dotStatus: "",
+                    dotSize: "",
+                    dotAnimation: ""
+                  },
+                  {
+                    name: "profile",
+                    title: "Profile",
+                    disabled: false,
+                    dot: false,
+                    badge: "",
+                    titleStyle: "",
+                    icon: "👤",
+                    content: "",
+                    badgeVariant: "",
+                    badgeSize: "",
+                    badgeColor: "",
+                    dotStatus: "",
+                    dotSize: "",
+                    dotAnimation: ""
+                  }
+                ]}
+                active={activeVertical}
+                type="line"
+                border={true}
+                iconLayout="vertical"
+                onChange={handleVerticalChange}/>,
+            showReplay: true
+          },
+          {
+            title: "Horizontal Icons Layout",
+            description: "Icons to the left of text - traditional tab style",
+            snippet: {
+              code:
+                "<Tabs\n" +
+                "  tabs={[\n" +
+                "    { name: \"home\", title: \"Home\", icon: \"🏠\", ... },\n" +
+                "    { name: \"profile\", title: \"Profile\", icon: \"👤\", ... },\n" +
+                "    { name: \"messages\", title: \"Messages\", icon: \"💬\", ... },\n" +
+                "    { name: \"settings\", title: \"Settings\", icon: \"⚙️\", ... }\n" +
+                "  ]}\n" +
+                "  active=\"home\"\n" +
+                "  type=\"line\"\n" +
+                "  iconLayout=\"horizontal\"\n" +
+                "  border={true}\n" +
+                "  onChange={handleChange}/>",
+              language: "mint"
+            },
+            previewContent:
+              <Tabs
+                tabs={[
+                  {
+                    name: "home",
+                    title: "Home",
+                    disabled: false,
+                    dot: false,
+                    badge: "",
+                    titleStyle: "",
+                    icon: "🏠",
+                    content: "",
+                    badgeVariant: "",
+                    badgeSize: "",
+                    badgeColor: "",
+                    dotStatus: "",
+                    dotSize: "",
+                    dotAnimation: ""
+                  },
+                  {
+                    name: "profile",
+                    title: "Profile",
+                    disabled: false,
+                    dot: false,
+                    badge: "",
+                    titleStyle: "",
+                    icon: "👤",
+                    content: "",
+                    badgeVariant: "",
+                    badgeSize: "",
+                    badgeColor: "",
+                    dotStatus: "",
+                    dotSize: "",
+                    dotAnimation: ""
+                  },
+                  {
+                    name: "messages",
+                    title: "Messages",
+                    disabled: false,
+                    dot: false,
+                    badge: "",
+                    titleStyle: "",
+                    icon: "💬",
+                    content: "",
+                    badgeVariant: "",
+                    badgeSize: "",
+                    badgeColor: "",
+                    dotStatus: "",
+                    dotSize: "",
+                    dotAnimation: ""
+                  },
+                  {
+                    name: "settings",
+                    title: "Settings",
+                    disabled: false,
+                    dot: false,
+                    badge: "",
+                    titleStyle: "",
+                    icon: "⚙️",
+                    content: "",
+                    badgeVariant: "",
+                    badgeSize: "",
+                    badgeColor: "",
+                    dotStatus: "",
+                    dotSize: "",
+                    dotAnimation: ""
+                  }
+                ]}
+                active={activeHorizontal}
+                type="line"
+                border={true}
+                iconLayout="horizontal"
+                onChange={handleHorizontalChange}/>,
+            showReplay: true
+          },
+          {
+            title: "Text Only Tabs",
+            description: "Simple tabs without icons - clean and minimal",
+            snippet: {
+              code:
+                "<Tabs\n" +
+                "  tabs={[\n" +
+                "    { name: \"home\", title: \"Home\", ... },\n" +
+                "    { name: \"profile\", title: \"Profile\", ... },\n" +
+                "    { name: \"messages\", title: \"Messages\", ... },\n" +
+                "    { name: \"settings\", title: \"Settings\", ... }\n" +
+                "  ]}\n" +
+                "  active=\"home\"\n" +
+                "  type=\"line\"\n" +
+                "  border={true}\n" +
+                "  onChange={handleChange}/>",
+              language: "mint"
+            },
+            previewContent:
+              <Tabs
+                tabs={[
+                  {
+                    name: "home",
+                    title: "Home",
+                    disabled: false,
+                    dot: false,
+                    badge: "",
+                    titleStyle: "",
+                    icon: "",
+                    content: "",
+                    badgeVariant: "",
+                    badgeSize: "",
+                    badgeColor: "",
+                    dotStatus: "",
+                    dotSize: "",
+                    dotAnimation: ""
+                  },
+                  {
+                    name: "profile",
+                    title: "Profile",
+                    disabled: false,
+                    dot: false,
+                    badge: "",
+                    titleStyle: "",
+                    icon: "",
+                    content: "",
+                    badgeVariant: "",
+                    badgeSize: "",
+                    badgeColor: "",
+                    dotStatus: "",
+                    dotSize: "",
+                    dotAnimation: ""
+                  },
+                  {
+                    name: "messages",
+                    title: "Messages",
+                    disabled: false,
+                    dot: false,
+                    badge: "",
+                    titleStyle: "",
+                    icon: "",
+                    content: "",
+                    badgeVariant: "",
+                    badgeSize: "",
+                    badgeColor: "",
+                    dotStatus: "",
+                    dotSize: "",
+                    dotAnimation: ""
+                  },
+                  {
+                    name: "settings",
+                    title: "Settings",
+                    disabled: false,
+                    dot: false,
+                    badge: "",
+                    titleStyle: "",
+                    icon: "",
+                    content: "",
+                    badgeVariant: "",
+                    badgeSize: "",
+                    badgeColor: "",
+                    dotStatus: "",
+                    dotSize: "",
+                    dotAnimation: ""
+                  }
+                ]}
+                active={activeTextOnly}
+                type="line"
+                border={true}
+                onChange={handleTextOnlyChange}/>,
+            showReplay: true
+          }
+        ]
+      }
+      apiProperties={
+        [
+          {
+            name: "tabs",
+            description: "Array of tab items to display",
+            type: "Array(TabItem)",
+            defaultValue: "[]"
+          },
+          {
+            name: "active",
+            description: "Name of the currently active tab",
+            type: "String",
+            defaultValue: "\"\""
+          },
+          {
+            name: "type",
+            description: "Tab style: currently only 'line' is supported (bottom line indicator)",
+            type: "String",
+            defaultValue: "\"line\""
+          },
+          {
+            name: "iconLayout",
+            description: "Icon position: 'horizontal' (left of text) or 'vertical' (above text)",
+            type: "String",
+            defaultValue: "\"horizontal\""
+          },
+          {
+            name: "color",
+            description: "Primary color (uses theme if not set)",
+            type: "String",
+            defaultValue: "\"\""
+          },
+          {
+            name: "background",
+            description: "Background color (uses theme if not set)",
+            type: "String",
+            defaultValue: "\"\""
+          },
+          {
+            name: "titleActiveColor",
+            description: "Active tab text color",
+            type: "String",
+            defaultValue: "\"\""
+          },
+          {
+            name: "titleInactiveColor",
+            description: "Inactive tab text color",
+            type: "String",
+            defaultValue: "\"\""
+          },
+          {
+            name: "border",
+            description: "Show bottom border",
+            type: "Bool",
+            defaultValue: "false"
+          },
+          {
+            name: "shrink",
+            description: "Shrink tabs to content width",
+            type: "Bool",
+            defaultValue: "false"
+          },
+          {
+            name: "ellipsis",
+            description: "Truncate long tab titles",
+            type: "Bool",
+            defaultValue: "true"
+          },
+          {
+            name: "lineWidth",
+            description: "Width of active line indicator",
+            type: "String",
+            defaultValue: "\"40px\""
+          },
+          {
+            name: "lineHeight",
+            description: "Height of active line indicator",
+            type: "String",
+            defaultValue: "\"3px\""
+          },
+          {
+            name: "duration",
+            description: "Animation duration in ms",
+            type: "Number",
+            defaultValue: "300"
+          },
+          {
+            name: "sticky",
+            description: "Enable sticky positioning",
+            type: "Bool",
+            defaultValue: "false"
+          },
+          {
+            name: "stickyOffsetTop",
+            description: "Top offset when sticky",
+            type: "Number",
+            defaultValue: "0"
+          },
+          {
+            name: "swipeable",
+            description: "Enable swipe gestures",
+            type: "Bool",
+            defaultValue: "true"
+          }
+        ]
+      }
+      events={
+        [
+          {
+            name: "onChange",
+            description: "Fired when tab changes",
+            type: "TabChangeEvent",
+            defaultValue: "{ name, title, index }"
+          },
+          {
+            name: "onClick",
+            description: "Fired when tab is clicked",
+            type: "TabClickEvent",
+            defaultValue: "{ name, title, index, disabled }"
+          },
+          {
+            name: "onDisabled",
+            description: "Fired when disabled tab is clicked",
+            type: "TabClickEvent",
+            defaultValue: "{ name, title, index, disabled }"
+          },
+          {
+            name: "onSwipe",
+            description: "Fired on swipe gesture",
+            type: "String",
+            defaultValue: "direction: 'left' | 'right'"
+          }
+        ]
+      }/>
   }
 }

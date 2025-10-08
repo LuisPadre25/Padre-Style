@@ -271,7 +271,13 @@ component CollapsePage {
         badge: "",
         titleStyle: "",
         icon: "❓",
-        content: ""
+        content: "",
+        badgeVariant: "",
+        badgeSize: "",
+        badgeColor: "",
+        dotStatus: "",
+        dotSize: "",
+        dotAnimation: ""
       },
       {
         name: "forms",
@@ -281,7 +287,13 @@ component CollapsePage {
         badge: "",
         titleStyle: "",
         icon: "📝",
-        content: ""
+        content: "",
+        badgeVariant: "",
+        badgeSize: "",
+        badgeColor: "",
+        dotStatus: "",
+        dotSize: "",
+        dotAnimation: ""
       }
     ]
   }

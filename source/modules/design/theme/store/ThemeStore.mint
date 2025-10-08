@@ -32,17 +32,17 @@ store ThemeStore {
           root.style.setProperty('--shadow-color', 'rgba(0, 0, 0, 0.05)');
           break;
         case 'dark':
-          root.style.setProperty('--primary-color', '#1989fa');
-          root.style.setProperty('--bg-color', '#0f0f0f');
-          root.style.setProperty('--text-color', '#e0e0e0');
-          root.style.setProperty('--card-bg', '#1a1a1a');
-          root.style.setProperty('--navbar-bg', '#1a1a1a');
-          root.style.setProperty('--navbar-text', '#ffffff');
-          root.style.setProperty('--sidebar-bg', '#1a1a1a');
-          root.style.setProperty('--sidebar-text', '#b0b0b0');
-          root.style.setProperty('--heading-color', '#ffffff');
-          root.style.setProperty('--border-color', '#2a2a2a');
-          root.style.setProperty('--shadow-color', 'rgba(0, 0, 0, 0.3)');
+          root.style.setProperty('--primary-color', '#4A9EFF');
+          root.style.setProperty('--bg-color', '#18191A');
+          root.style.setProperty('--text-color', '#E4E6EB');
+          root.style.setProperty('--card-bg', '#242526');
+          root.style.setProperty('--navbar-bg', '#242526');
+          root.style.setProperty('--navbar-text', '#E4E6EB');
+          root.style.setProperty('--sidebar-bg', '#242526');
+          root.style.setProperty('--sidebar-text', '#B0B3B8');
+          root.style.setProperty('--heading-color', '#E4E6EB');
+          root.style.setProperty('--border-color', '#3A3B3C');
+          root.style.setProperty('--shadow-color', 'rgba(0, 0, 0, 0.5)');
           break;
         case 'light':
           root.style.setProperty('--primary-color', '#1989fa');
