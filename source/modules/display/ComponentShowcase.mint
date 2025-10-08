@@ -238,10 +238,30 @@ component ComponentShowcase {
     flex: 1;
     min-width: 300px;
     max-width: 400px;
+    max-height: 640px;
+    overflow-y: auto;
 
     @media (max-width: 1200px) {
       max-width: 100%;
       width: 100%;
+    }
+
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.05);
+      border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: rgba(102, 126, 234, 0.5);
+      border-radius: 4px;
+
+      &:hover {
+        background: rgba(102, 126, 234, 0.7);
+      }
     }
   }
 
@@ -511,10 +531,30 @@ component ComponentShowcase {
     padding: 32px;
     box-shadow: 0 2px 12px var(--shadow-color);
     margin-top: 0;
+    max-height: 520px;
+    overflow-y: auto;
 
     @media (max-width: 768px) {
       padding: 20px;
       border-radius: 8px;
+    }
+
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #1989fa;
+      border-radius: 4px;
+
+      &:hover {
+        background: #1570d1;
+      }
     }
   }
 

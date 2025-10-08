@@ -35,7 +35,8 @@ module SidebarConfig {
         title: "Layout Utilities",
         icon: "📐",
         items: [
-          { id: "grid", label: "Grid", route: "/grid-layout", subtitle: "CSS Grid", badge: "" }
+          { id: "grid", label: "Grid", route: "/grid-layout", subtitle: "CSS Grid", badge: "" },
+          { id: "flex", label: "Flex", route: "/flex", subtitle: "Columns", badge: "NEW" }
         ]
       },
       {

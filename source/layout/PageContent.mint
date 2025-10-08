@@ -98,6 +98,9 @@ component PageContent {
       "grid-layout" =>
         <LayoutPage/>
 
+      "flex" =>
+        <FlexPage/>
+
       "calendar" =>
         <>
           <h1::pageTitle>"Calendar Component"</h1>
