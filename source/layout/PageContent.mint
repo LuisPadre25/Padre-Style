@@ -95,7 +95,7 @@ component PageContent {
           </div>
         </>
 
-      "layout" =>
+      "grid-layout" =>
         <LayoutPage/>
 
       "calendar" =>

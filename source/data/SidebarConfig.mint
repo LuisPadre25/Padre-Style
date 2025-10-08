@@ -25,10 +25,17 @@ module SidebarConfig {
           { id: "cell", label: "Cell", route: "/cell", subtitle: "", badge: "" },
           { id: "icon", label: "Icon", route: "/icon", subtitle: "", badge: "" },
           { id: "image", label: "Image", route: "/image", subtitle: "", badge: "" },
-          { id: "layout", label: "Layout", route: "/layout", subtitle: "", badge: "" },
           { id: "popup", label: "Popup", route: "/popup", subtitle: "", badge: "" },
           { id: "space", label: "Space", route: "/space", subtitle: "", badge: "" },
           { id: "toast", label: "Toast", route: "/toast", subtitle: "", badge: "" }
+        ]
+      },
+      {
+        id: "layout",
+        title: "Layout Utilities",
+        icon: "📐",
+        items: [
+          { id: "grid", label: "Grid", route: "/grid-layout", subtitle: "CSS Grid", badge: "" }
         ]
       },
       {

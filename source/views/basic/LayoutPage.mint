@@ -5,7 +5,7 @@ component LayoutPage {
   connect ViewModeStore exposing { viewMode }
 
   fun componentDidMount : Promise(Void) {
-    setPage("layout")
+    setPage("grid-layout")
   }
 
   /* State for interactive controls */
