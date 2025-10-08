@@ -60,14 +60,6 @@ component MatrixPage {
     max-width: 1200px;
   }
 
-  style pageTitle {
-    font-size: 34px;
-    font-weight: 400;
-    margin: 0 0 12px;
-    line-height: 1.5;
-    color: #333;
-  }
-
   style pageSubtitle {
     color: rgba(52, 73, 94, 0.7);
     margin-bottom: 30px;
@@ -77,13 +69,6 @@ component MatrixPage {
 
   style section {
     margin-bottom: 48px;
-  }
-
-  style sectionTitle {
-    font-size: 24px;
-    font-weight: 500;
-    margin: 0 0 16px;
-    color: #333;
   }
 
   style sectionDescription {
@@ -145,15 +130,15 @@ component MatrixPage {
   /* Render */
   fun render : Html {
     <div::container>
-      <h1::pageTitle>
+      <Heading level="1" margin="0 0 24px">
         "Matrix"
         <span::badge>"Grid Layout"</span>
-      </h1>
+      </Heading>
 
-      <p::pageSubtitle>
+      <Text size="lg" margin="0 0 32px">
         "Flexible grid layout component with support for merged cells and fixed headers. "
         "Perfect for complex table layouts and dashboard grids."
-      </p>
+      </Text>
 
       <ul::featureList>
         <li::featureItem>"Support for merged cells (colspan/rowspan)"</li>
@@ -164,10 +149,10 @@ component MatrixPage {
       </ul>
 
       <div::section>
-        <h2::sectionTitle>"Basic Grid"</h2>
-        <p::sectionDescription>
+        <Heading level="2" margin="32px 0 16px">"Basic Grid"</Heading>
+        <Text size="base" margin="0 0 20px">
           "A simple 3x3 matrix with equal cell sizes."
-        </p>
+        </Text>
 
         <div::demoBox>
           <Matrix
@@ -186,10 +171,10 @@ component MatrixPage {
       </div>
 
       <div::section>
-        <h2::sectionTitle>"Merged Cells"</h2>
-        <p::sectionDescription>
+        <Heading level="2" margin="32px 0 16px">"Merged Cells"</Heading>
+        <Text size="base" margin="0 0 20px">
           "Cells can span multiple columns (col) or rows (row)."
-        </p>
+        </Text>
 
         <div::demoBox>
           <Matrix
@@ -206,10 +191,10 @@ component MatrixPage {
       </div>
 
       <div::section>
-        <h2::sectionTitle>"Table Layout"</h2>
-        <p::sectionDescription>
+        <Heading level="2" margin="32px 0 16px">"Table Layout"</Heading>
+        <Text size="base" margin="0 0 20px">
           "Use Matrix for table-like data with fixed headers."
-        </p>
+        </Text>
 
         <div::demoBox>
           <Matrix
@@ -230,7 +215,7 @@ component MatrixPage {
       </div>
 
       <div::section>
-        <h2::sectionTitle>"Properties"</h2>
+        <Heading level="2" margin="32px 0 16px">"Properties"</Heading>
         <div::codeBlock>
           "data: MatrixData           - Grid data with cell definitions\n" +
           "cellWidth: Array(Number)   - Width for each column\n" +

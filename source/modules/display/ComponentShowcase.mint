@@ -176,29 +176,17 @@ component ComponentShowcase {
     }
   }
 
-  style pageTitle {
-    font-size: 34px;
-    font-weight: 400;
+  style titleContainer {
     margin: 0 0 12px;
-    line-height: 1.5;
-    color: #333;
-
-    @media (max-width: 768px) {
-      font-size: 24px;
-    }
-  }
-
-  style pageSubtitle {
-    color: rgba(52, 73, 94, 0.7);
-    margin-bottom: 30px;
-    font-size: 16px;
-    line-height: 26px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
   }
 
   style badge {
     display: inline-block;
     padding: 4px 10px;
-    background: #1989fa;
+    background: var(--primary-color);
     color: #fff;
     font-size: 12px;
     border-radius: 4px;
@@ -283,10 +271,10 @@ component ComponentShowcase {
     flex: 1;
     min-width: 320px;
     max-width: 375px;
-    background: white;
+    background: var(--card-bg);
     border-radius: 36px;
     padding: 12px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 20px 60px var(--shadow-color);
     position: relative;
     transition: all 0.3s ease;
 
@@ -303,10 +291,10 @@ component ComponentShowcase {
     flex: 1;
     min-width: 600px;
     max-width: 768px;
-    background: white;
+    background: var(--card-bg);
     border-radius: 24px;
     padding: 16px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 20px 60px var(--shadow-color);
     position: relative;
     transition: all 0.3s ease;
 
@@ -320,7 +308,7 @@ component ComponentShowcase {
 
   style simulatorNotch {
     height: 20px;
-    background: #1a1a1a;
+    background: var(--bg-color);
     border-radius: 24px 24px 0 0;
     position: relative;
     display: flex;
@@ -331,7 +319,7 @@ component ComponentShowcase {
   style simulatorSpeaker {
     width: 80px;
     height: 4px;
-    background: #2a2a2a;
+    background: var(--border-color);
     border-radius: 2px;
   }
 
@@ -409,8 +397,8 @@ component ComponentShowcase {
     max-width: 1200px;
     border-radius: 12px;
     padding: 0;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-    background: #2a2a2a;
+    box-shadow: 0 20px 60px var(--shadow-color);
+    background: var(--bg-color);
     overflow: hidden;
 
     @media (max-width: 768px) {
@@ -420,13 +408,13 @@ component ComponentShowcase {
   }
 
   style browserBar {
-    background: #f5f5f5;
+    background: var(--card-bg);
     height: 40px;
     display: flex;
     align-items: center;
     padding: 0 16px;
     gap: 8px;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid var(--border-color);
   }
 
   style browserDot {
@@ -449,12 +437,12 @@ component ComponentShowcase {
 
   style addressBar {
     flex: 1;
-    background: white;
-    border: 1px solid #ddd;
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
     border-radius: 6px;
     padding: 6px 12px;
     font-size: 12px;
-    color: #666;
+    color: var(--text-color);
     margin-left: 12px;
   }
 
@@ -572,19 +560,6 @@ component ComponentShowcase {
     }
   }
 
-  style docTitle {
-    font-size: 20px;
-    font-weight: 600;
-    color: var(--heading-color);
-    margin: 0 0 16px;
-  }
-
-  style docText {
-    font-size: 15px;
-    line-height: 1.6;
-    color: var(--text-color);
-    margin: 0;
-  }
 
   style table {
     width: 100%;
@@ -614,12 +589,12 @@ component ComponentShowcase {
   }
 
   style codeInline {
-    background: #f7f8fa;
+    background: var(--code-bg, var(--card-bg));
     padding: 2px 8px;
     border-radius: 4px;
     font-family: 'Courier New', monospace;
     font-size: 13px;
-    color: #d63200;
+    color: var(--primary-color);
   }
 
   style codeSection {
@@ -790,14 +765,16 @@ component ComponentShowcase {
   /* Render */
   fun render : Html {
     <div::container>
-      <h1::pageTitle>
-        {title}
+      <div::titleContainer>
+        <Heading level="1" margin="0">
+          {title}
+        </Heading>
         <span::badge>{badge}</span>
-      </h1>
+      </div>
 
-      <p::pageSubtitle>
+      <Text size="base" margin="0 0 30px">
         {description}
-      </p>
+      </Text>
 
       /* Tab Navigation */
       <Tabs
@@ -911,10 +888,10 @@ component ComponentShowcase {
         <div>
           if !String.isEmpty(usageText) {
             <div::docCard>
-              <h3::docTitle>"Usage"</h3>
-              <p::docText>
+              <Heading level="3" margin="0 0 16px">"Usage"</Heading>
+              <Text size="base" margin="0">
                 {usageText}
-              </p>
+              </Text>
             </div>
           } else {
             <></>
@@ -952,7 +929,7 @@ component ComponentShowcase {
           /* Props table */
           if !Array.isEmpty(apiProperties) {
             <div::docCard>
-              <h3::docTitle>"Props"</h3>
+              <Heading level="3" margin="0 0 16px">"Props"</Heading>
               <table::table>
                 <thead>
                   <tr>
@@ -981,7 +958,7 @@ component ComponentShowcase {
           /* Events table */
           if !Array.isEmpty(events) {
             <div::docCard>
-              <h3::docTitle>"Events"</h3>
+              <Heading level="3" margin="0 0 16px">"Events"</Heading>
               <table::table>
                 <thead>
                   <tr>
@@ -1010,7 +987,7 @@ component ComponentShowcase {
           /* Methods table */
           if !Array.isEmpty(methods) {
             <div::docCard>
-              <h3::docTitle>"Methods"</h3>
+              <Heading level="3" margin="0 0 16px">"Methods"</Heading>
               <table::table>
                 <thead>
                   <tr>
@@ -1039,7 +1016,7 @@ component ComponentShowcase {
           /* Slots table */
           if !Array.isEmpty(slots) {
             <div::docCard>
-              <h3::docTitle>"Slots"</h3>
+              <Heading level="3" margin="0 0 16px">"Slots"</Heading>
               <table::table>
                 <thead>
                   <tr>

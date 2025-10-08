@@ -204,10 +204,10 @@ component CodesPage {
   fun render : Html {
     <div::container>
       <div::header>
-        <h1::title>"QR Codes & Barcodes"</h1>
-        <p::subtitle>
+        <Heading level="1" margin="0 0 24px">"QR Codes & Barcodes"</Heading>
+        <Text size="lg" margin="0 0 40px">
           "Generate scannable QR codes and CODE128 barcodes in real-time"
-        </p>
+        </Text>
       </div>
 
       <div::section>
@@ -219,10 +219,10 @@ component CodesPage {
 
         <div::grid>
           <div>
-            <p::info>
+            <Text size="sm" margin="16px 0 0">
               "📋 Current Content: "
               {qrText}
-            </p>
+            </Text>
 
             <div::sectionSubtitle>"📚 Click an example to load:"</div>
 
@@ -248,10 +248,10 @@ component CodesPage {
 
         <div::grid>
           <div>
-            <p::info>
+            <Text size="sm" margin="16px 0 0">
               "📋 Current Text: "
               {barcodeText}
-            </p>
+            </Text>
 
             <div::sectionSubtitle>"📚 Click an example to load:"</div>
 

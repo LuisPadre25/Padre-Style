@@ -63,6 +63,10 @@ routes {
     NavigationStore.setPageAndSection("flex", "Layout Utilities")
   }
 
+  /typography {
+    NavigationStore.setPageAndSection("typography", "Typography")
+  }
+
   /calendar {
     NavigationStore.setPageAndSection("calendar", "Form Components")
   }

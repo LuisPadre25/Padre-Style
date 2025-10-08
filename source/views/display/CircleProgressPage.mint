@@ -78,7 +78,7 @@ component CircleProgressPage {
   /* Get controls content */
   fun getControlsContent : Html {
     <div>
-      <h3::controlsTitle>"CircleProgress Controls"</h3>
+      <Heading level="4" margin="0 0 16px">"CircleProgress Controls"</Heading>
 
       <div::controlGroup>
         <div::controlLabel>"Percentage"</div>
@@ -448,7 +448,7 @@ component CircleProgressPage {
   fun getAdditionalApiDocs : Html {
     <div>
       <div::docCard>
-        <h3::docTitle>"Sizes (Mobile-First)"</h3>
+        <Heading level="3" margin="0 0 16px">"Sizes (Mobile-First)"</Heading>
         <table::apiTable>
           <thead>
             <tr>
@@ -482,7 +482,7 @@ component CircleProgressPage {
       </div>
 
       <div::docCard>
-        <h3::docTitle>"Variants"</h3>
+        <Heading level="3" margin="0 0 16px">"Variants"</Heading>
         <table::apiTable>
           <thead>
             <tr>
@@ -522,7 +522,7 @@ component CircleProgressPage {
       </div>
 
       <div::docCard>
-        <h3::docTitle>"Status States"</h3>
+        <Heading level="3" margin="0 0 16px">"Status States"</Heading>
         <table::apiTable>
           <thead>
             <tr>
@@ -552,7 +552,7 @@ component CircleProgressPage {
       </div>
 
       <div::docCard>
-        <h3::docTitle>"Best Practices"</h3>
+        <Heading level="3" margin="0 0 16px">"Best Practices"</Heading>
         <ul::featureList>
           <li::featureItem>"💡 Use " <code::codeInline>"status=\"success\""</code> " when progress reaches 100%"</li>
           <li::featureItem>"💡 Add " <code::codeInline>"label"</code> " for clarity (e.g., \"Upload\", \"Processing\")"</li>
@@ -565,10 +565,10 @@ component CircleProgressPage {
       </div>
 
       <div::docCard>
-        <h3::docTitle>"Common Patterns"</h3>
-        <div::docText>
+        <Heading level="3" margin="0 0 16px">"Common Patterns"</Heading>
+        <Text size="base" margin="0 0 16px">
           <strong>"File Upload Progress:"</strong>
-        </div>
+        </Text>
         <pre::codeExample>
 "<CircleProgress\n" +
 "  percentage={uploadProgress}\n" +
@@ -584,9 +584,9 @@ component CircleProgressPage {
 "  }/>"
         </pre>
 
-        <div::docText>
+        <Text size="base" margin="0 0 16px">
           <strong>"Task Completion:"</strong>
-        </div>
+        </Text>
         <pre::codeExample>
 "<CircleProgress\n" +
 "  percentage={completedTasks / totalTasks * 100}\n" +
@@ -595,9 +595,9 @@ component CircleProgressPage {
 "  label=\"Tasks Complete\"/>"
         </pre>
 
-        <div::docText>
+        <Text size="base" margin="0 0 16px">
           <strong>"Storage Usage:"</strong>
-        </div>
+        </Text>
         <pre::codeExample>
 "<CircleProgress\n" +
 "  percentage={usedSpace / totalSpace * 100}\n" +
@@ -624,13 +624,6 @@ component CircleProgressPage {
     align-items: center;
     justify-content: center;
     min-height: 160px;
-  }
-
-  style controlsTitle {
-    font-size: 15px;
-    font-weight: 600;
-    margin: 0 0 16px;
-    color: #323233;
   }
 
   style controlGroup {
@@ -706,20 +699,6 @@ component CircleProgressPage {
     padding: 32px;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
     margin-bottom: 24px;
-  }
-
-  style docTitle {
-    font-size: 20px;
-    font-weight: 600;
-    color: #323233;
-    margin: 0 0 16px;
-  }
-
-  style docText {
-    font-size: 15px;
-    line-height: 1.6;
-    color: #646566;
-    margin: 0 0 16px;
   }
 
   style apiTable {

@@ -83,7 +83,7 @@ component EnterExitPage {
   /* Get controls content */
   fun getControlsContent : Html {
     <div>
-      <h3::controlsTitle>"Animation Controls"</h3>
+      <Heading level="4" margin="0 0 12px">"Animation Controls"</Heading>
 
       <div::activeAnimationBadge>
         "Active: " <strong>{getAnimationLabel(selectedAnimation)}</strong>
@@ -216,7 +216,7 @@ component EnterExitPage {
                 "    animation=\"fadeInUp\"\n" +
                 "    duration={0.5}\n" +
                 "    delay={0.2}\n" +
-                "    content={<p>\"Subtitle\"</p>}/>\n\n" +
+                "    content={<p>\"Subtitle\"</Text>}/>\n\n" +
                 "  <EnterExit\n" +
                 "    animation=\"fadeInUp\"\n" +
                 "    duration={0.5}\n" +
@@ -337,7 +337,7 @@ component EnterExitPage {
   fun getAdditionalApiDocs : Html {
     <div>
       <div::docCard>
-        <h3::docTitle>"Available Animations"</h3>
+        <Heading level="3" margin="0 0 16px">"Available Animations"</Heading>
         <table::apiTable>
           <thead>
             <tr>
@@ -359,7 +359,7 @@ component EnterExitPage {
       </div>
 
       <div::docCard>
-        <h3::docTitle>"Easing Functions"</h3>
+        <Heading level="3" margin="0 0 16px">"Easing Functions"</Heading>
         <table::apiTable>
           <thead>
             <tr>
@@ -394,10 +394,10 @@ component EnterExitPage {
       </div>
 
       <div::docCard>
-        <h3::docTitle>"Custom Cubic-Bezier Functions"</h3>
-        <p::docText>
+        <Heading level="3" margin="0 0 16px">"Custom Cubic-Bezier Functions"</Heading>
+        <Text size="base" margin="0">
           "Try these pre-made cubic-bezier curves in the preview above:"
-        </p>
+        </Text>
         <table::apiTable>
           <thead>
             <tr>
@@ -429,9 +429,9 @@ component EnterExitPage {
             </tr>
           </tbody>
         </table>
-        <p::docText>
+        <Text size="base" margin="0">
           "💡 Tip: Use " <code::codeInline>"cubic-bezier: bouncy"</code> " from the easing selector to see the effect in real-time!"
-        </p>
+        </Text>
       </div>
     </div>
   }
@@ -439,7 +439,7 @@ component EnterExitPage {
   /* Get preview header content */
   fun getPreviewHeader : Html {
     <div::animationSelectorCard>
-      <h3::controlsTitle>"Choose Animation Type"</h3>
+      <Heading level="4" margin="0 0 12px">"Choose Animation Type"</Heading>
       <div::animationGrid>
         for item of getAnimations() {
           <div::animationCard
@@ -473,13 +473,6 @@ component EnterExitPage {
     font-size: 14px;
     font-weight: 600;
     box-shadow: 0 10px 40px rgba(102, 126, 234, 0.4);
-  }
-
-  style controlsTitle {
-    font-size: 15px;
-    font-weight: 600;
-    margin: 0 0 12px;
-    color: #323233;
   }
 
   style activeAnimationBadge {
@@ -638,20 +631,6 @@ component EnterExitPage {
     padding: 32px;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
     margin-bottom: 24px;
-  }
-
-  style docTitle {
-    font-size: 20px;
-    font-weight: 600;
-    color: #323233;
-    margin: 0 0 16px;
-  }
-
-  style docText {
-    font-size: 15px;
-    line-height: 1.6;
-    color: #646566;
-    margin: 0;
   }
 
   style apiTable {

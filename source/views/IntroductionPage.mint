@@ -639,14 +639,18 @@ component IntroductionPage {
         <div::heroContent>
           <div::badge class="animate-on-scroll">"KINETIC UI"</div>
 
-          <h1::mainTitle class="animate-on-scroll">
-            "Mint Wū"
-          </h1>
+          <div class="animate-on-scroll">
+            <Heading level="1" margin="0">
+              "Mint Wū"
+            </Heading>
+          </div>
 
-          <p::subtitle class="animate-on-scroll">
-            "Motion-first UI components that bring your interfaces to life. "
-            "Built for Mint Lang with fluid animations and interactive experiences."
-          </p>
+          <div class="animate-on-scroll">
+            <Text size="lg" margin="0 0 40px">
+              "Motion-first UI components that bring your interfaces to life. "
+              "Built for Mint Lang with fluid animations and interactive experiences."
+            </Text>
+          </div>
 
           <div::ctaGroup>
             <button::magneticBtn::primaryBtn class="magnetic-btn">"Start Creating"</button>
@@ -657,59 +661,59 @@ component IntroductionPage {
 
       <div::featuresSection>
         <div::sectionHeader class="animate-on-scroll">
-          <h2::sectionTitle>"Built for Motion"</h2>
-          <p::sectionDesc>
+          <Heading level="2" margin="0 0 16px">"Built for Motion"</Heading>
+          <Text size="base" margin="0 0 32px">
             "Every interaction designed to feel natural, responsive, and delightful"
-          </p>
+          </Text>
         </div>
 
         <div::featuresGrid>
           <div::featureCard class="animate-on-scroll">
             <span::featureIcon>"⚡"</span>
-            <h3::featureTitle>"Lightning Fast"</h3>
-            <p::featureDesc>
+            <Heading level="3" margin="0 0 8px">"Lightning Fast"</Heading>
+            <Text size="sm" margin="0">
               "60fps animations powered by GPU acceleration. Smooth performance even on low-end devices."
-            </p>
+            </Text>
           </div>
 
           <div::featureCard class="animate-on-scroll">
             <span::featureIcon>"🎨"</span>
-            <h3::featureTitle>"Gesture Based"</h3>
-            <p::featureDesc>
+            <Heading level="3" margin="0 0 8px">"Gesture Based"</Heading>
+            <Text size="sm" margin="0">
               "Natural touch interactions with spring physics and momentum scrolling built-in."
-            </p>
+            </Text>
           </div>
 
           <div::featureCard class="animate-on-scroll">
             <span::featureIcon>"🎯"</span>
-            <h3::featureTitle>"Layout Aware"</h3>
-            <p::featureDesc>
+            <Heading level="3" margin="0 0 8px">"Layout Aware"</Heading>
+            <Text size="sm" margin="0">
               "Automatic layout animations when elements resize, reorder, or change position."
-            </p>
+            </Text>
           </div>
 
           <div::featureCard class="animate-on-scroll">
             <span::featureIcon>"🔮"</span>
-            <h3::featureTitle>"Scroll Magic"</h3>
-            <p::featureDesc>
+            <Heading level="3" margin="0 0 8px">"Scroll Magic"</Heading>
+            <Text size="sm" margin="0">
               "Parallax, reveal, and scroll-driven animations with precise control and easing."
-            </p>
+            </Text>
           </div>
 
           <div::featureCard class="animate-on-scroll">
             <span::featureIcon>"✨"</span>
-            <h3::featureTitle>"Micro-interactions"</h3>
-            <p::featureDesc>
+            <Heading level="3" margin="0 0 8px">"Micro-interactions"</Heading>
+            <Text size="sm" margin="0">
               "Delightful details like magnetic buttons, ripple effects, and hover transformations."
-            </p>
+            </Text>
           </div>
 
           <div::featureCard class="animate-on-scroll">
             <span::featureIcon>"🚀"</span>
-            <h3::featureTitle>"Page Transitions"</h3>
-            <p::featureDesc>
+            <Heading level="3" margin="0 0 8px">"Page Transitions"</Heading>
+            <Text size="sm" margin="0">
               "Seamless route transitions with shared element animations and custom easing."
-            </p>
+            </Text>
           </div>
         </div>
       </div>
@@ -717,11 +721,11 @@ component IntroductionPage {
       <div::showcaseSection>
         <div::showcaseGrid>
           <div::showcaseContent class="animate-on-scroll">
-            <h2::showcaseTitle>"Interactive By Default"</h2>
-            <p::showcaseText>
+            <Heading level="2" margin="0 0 20px">"Interactive By Default"</Heading>
+            <Text size="base" margin="0">
               "Every component responds to your cursor, touch, and scroll. "
               "Built with spring physics for natural motion that feels alive."
-            </p>
+            </Text>
             <button::magneticBtn::primaryBtn class="magnetic-btn">"Explore Components"</button>
           </div>
 
@@ -753,10 +757,14 @@ component IntroductionPage {
       </div>
 
       <div::ctaSection>
-        <h2::ctaTitle class="animate-on-scroll">"Ready to Create Magic?"</h2>
-        <p::ctaSubtitle class="animate-on-scroll">
-          "Start building beautiful, animated interfaces today"
-        </p>
+        <div class="animate-on-scroll">
+          <Heading level="2" margin="0 0 20px">"Ready to Create Magic?"</Heading>
+        </div>
+        <div class="animate-on-scroll">
+          <Text size="lg" margin="0 0 32px">
+            "Start building beautiful, animated interfaces today"
+          </Text>
+        </div>
         <div::ctaGroup>
           <button::magneticBtn::primaryBtn class="magnetic-btn">"Get Started Free"</button>
           <button::magneticBtn::secondaryBtn class="magnetic-btn">"Browse Documentation"</button>

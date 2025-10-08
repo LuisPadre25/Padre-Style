@@ -301,13 +301,13 @@ component AvatarPage {
   /* Get controls content */
   fun getControlsContent : Html {
     <div>
-      <h3::controlsTitle>
+      <Heading level="4" margin="0 0 16px">
         if componentType == "avatar" {
           "Avatar Controls"
         } else {
           "Avatar Group Controls"
         }
-      </h3>
+      </Heading>
 
       <div::controlGroup>
         <div::controlLabel>"Component Type"</div>
@@ -1053,7 +1053,7 @@ component AvatarPage {
   fun getAdditionalApiDocs : Html {
     <div>
       <div::docCard>
-        <h3::docTitle>"Size Reference"</h3>
+        <Heading level="3" margin="0 0 16px">"Size Reference"</Heading>
         <table::apiTable>
           <thead>
             <tr>
@@ -1111,10 +1111,10 @@ component AvatarPage {
       </div>
 
       <div::docCard>
-        <h3::docTitle>"Content Priority"</h3>
-        <p::docText>
+        <Heading level="3" margin="0 0 16px">"Content Priority"</Heading>
+        <Text size="base" margin="0 0 16px">
           "The Avatar component displays content in the following priority order:"
-        </p>
+        </Text>
         <table::apiTable>
           <thead>
             <tr>
@@ -1154,10 +1154,10 @@ component AvatarPage {
       </div>
 
       <div::docCard>
-        <h3::docTitle>"Status Indicator States"</h3>
-        <p::docText>
+        <Heading level="3" margin="0 0 16px">"Status Indicator States"</Heading>
+        <Text size="base" margin="0 0 16px">
           "The Avatar component supports semantic status indicators with predefined colors:"
-        </p>
+        </Text>
         <table::apiTable>
           <thead>
             <tr>
@@ -1192,10 +1192,10 @@ component AvatarPage {
       </div>
 
       <div::docCard>
-        <h3::docTitle>"Avatar Group Component"</h3>
-        <p::docText>
+        <Heading level="3" margin="0 0 16px">"Avatar Group Component"</Heading>
+        <Text size="base" margin="0 0 16px">
           "Display multiple avatars with overlap effect using the AvatarGroup component:"
-        </p>
+        </Text>
         <pre::codeExample>
 "<AvatarGroup\n" +
 "  avatars={[\n" +
@@ -1212,16 +1212,16 @@ component AvatarPage {
 "  shape=\"circle\"\n" +
 "  bordered={true}/>"
         </pre>
-        <p::docText>
+        <Text size="base" margin="0 0 16px">
           "Props: " <code::codeInline>"avatars"</code> " (Array), " <code::codeInline>"size"</code> ", " <code::codeInline>"max"</code> " (number to show), " <code::codeInline>"spacing"</code> " (tight/normal/loose), " <code::codeInline>"shape"</code> ", " <code::codeInline>"bordered"</code>
-        </p>
+        </Text>
       </div>
 
       <div::docCard>
-        <h3::docTitle>"Mobile Responsiveness"</h3>
-        <p::docText>
+        <Heading level="3" margin="0 0 16px">"Mobile Responsiveness"</Heading>
+        <Text size="base" margin="0 0 16px">
           "The Avatar component is mobile-first and includes:"
-        </p>
+        </Text>
         <ul::featureList>
           <li::featureItem>"✓ Minimum 44px touch target on mobile devices (iOS/Android)"</li>
           <li::featureItem>"✓ Responsive badge scaling for better visibility on small screens"</li>
@@ -1232,7 +1232,7 @@ component AvatarPage {
       </div>
 
       <div::docCard>
-        <h3::docTitle>"Best Practices"</h3>
+        <Heading level="3" margin="0 0 16px">"Best Practices"</Heading>
         <ul::featureList>
           <li::featureItem>"💡 Use " <code::codeInline>"md"</code> " size (40px) for most UI elements"</li>
           <li::featureItem>"💡 Always provide meaningful " <code::codeInline>"alt"</code> " text for images"</li>
@@ -1257,12 +1257,6 @@ component AvatarPage {
     justify-content: center;
   }
 
-  style controlsTitle {
-    font-size: 15px;
-    font-weight: 600;
-    margin: 0 0 16px;
-    color: #323233;
-  }
 
   style controlGroup {
     margin-bottom: 20px;
@@ -1339,19 +1333,6 @@ component AvatarPage {
     margin-bottom: 24px;
   }
 
-  style docTitle {
-    font-size: 20px;
-    font-weight: 600;
-    color: #323233;
-    margin: 0 0 16px;
-  }
-
-  style docText {
-    font-size: 15px;
-    line-height: 1.6;
-    color: #646566;
-    margin: 0 0 16px;
-  }
 
   style apiTable {
     width: 100%;

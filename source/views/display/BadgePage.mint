@@ -51,7 +51,7 @@ component BadgePage {
   /* Get controls content */
   fun getControlsContent : Html {
     <div>
-      <h3::controlsTitle>"Badge Controls"</h3>
+      <Heading level="4" margin="0 0 16px">"Badge Controls"</Heading>
 
       <div::controlGroup>
         <div::controlLabel>"Count Value"</div>
@@ -418,7 +418,7 @@ component BadgePage {
   fun getAdditionalApiDocs : Html {
     <div>
       <div::docCard>
-        <h3::docTitle>"Variants"</h3>
+        <Heading level="3" margin="0 0 16px">"Variants"</Heading>
         <table::apiTable>
           <thead>
             <tr>
@@ -463,7 +463,7 @@ component BadgePage {
       </div>
 
       <div::docCard>
-        <h3::docTitle>"Sizes"</h3>
+        <Heading level="3" margin="0 0 16px">"Sizes"</Heading>
         <table::apiTable>
           <thead>
             <tr>
@@ -493,7 +493,7 @@ component BadgePage {
       </div>
 
       <div::docCard>
-        <h3::docTitle>"Badge Types"</h3>
+        <Heading level="3" margin="0 0 16px">"Badge Types"</Heading>
         <table::apiTable>
           <thead>
             <tr>
@@ -523,7 +523,7 @@ component BadgePage {
       </div>
 
       <div::docCard>
-        <h3::docTitle>"Best Practices"</h3>
+        <Heading level="3" margin="0 0 16px">"Best Practices"</Heading>
         <ul::featureList>
           <li::featureItem>"💡 Use " <code::codeInline>"max={99}"</code> " to show '99+' for large counts"</li>
           <li::featureItem>"💡 Keep text short (1-3 chars) for readability"</li>
@@ -582,12 +582,6 @@ component BadgePage {
     color: #666;
   }
 
-  style controlsTitle {
-    font-size: 15px;
-    font-weight: 600;
-    margin: 0 0 16px;
-    color: #323233;
-  }
 
   style controlGroup {
     margin-bottom: 20px;
@@ -664,19 +658,6 @@ component BadgePage {
     margin-bottom: 24px;
   }
 
-  style docTitle {
-    font-size: 20px;
-    font-weight: 600;
-    color: #323233;
-    margin: 0 0 16px;
-  }
-
-  style docText {
-    font-size: 15px;
-    line-height: 1.6;
-    color: #646566;
-    margin: 0 0 16px;
-  }
 
   style apiTable {
     width: 100%;

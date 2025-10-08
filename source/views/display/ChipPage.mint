@@ -97,7 +97,7 @@ component ChipPage {
   /* Get controls content */
   fun getControlsContent : Html {
     <div>
-      <h3::controlsTitle>"Chip Controls"</h3>
+      <Heading level="4" margin="0 0 16px">"Chip Controls"</Heading>
 
       <div::controlGroup>
         <div::controlLabel>"Variant"</div>
@@ -427,12 +427,6 @@ component ChipPage {
     padding: 20px;
   }
 
-  style controlsTitle {
-    font-size: 15px;
-    font-weight: 600;
-    margin: 0 0 16px;
-    color: #323233;
-  }
 
   style controlGroup {
     margin-bottom: 20px;

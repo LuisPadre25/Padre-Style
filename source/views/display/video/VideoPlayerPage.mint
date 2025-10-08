@@ -9,22 +9,6 @@ component VideoPlayerPage {
     margin-bottom: 40px;
   }
 
-  style title {
-    font-size: 32px;
-    font-weight: 600;
-    margin: 0 0 12px;
-    color: var(--heading-color, #1a1a1a);
-    transition: color 0.3s ease;
-  }
-
-  style subtitle {
-    font-size: 16px;
-    color: var(--text-color, #666);
-    margin: 0;
-    line-height: 1.6;
-    transition: color 0.3s ease;
-  }
-
   style section {
     background: var(--card-bg, white);
     border-radius: 16px;
@@ -32,17 +16,6 @@ component VideoPlayerPage {
     margin-bottom: 32px;
     box-shadow: 0 2px 8px var(--shadow-color, rgba(0, 0, 0, 0.05));
     transition: all 0.3s ease;
-  }
-
-  style sectionTitle {
-    font-size: 24px;
-    font-weight: 600;
-    margin: 0 0 24px;
-    color: var(--heading-color, #2c3e50);
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    transition: color 0.3s ease;
   }
 
   style grid {
@@ -68,14 +41,6 @@ component VideoPlayerPage {
     transition: all 0.3s ease;
   }
 
-  style demoTitle {
-    font-size: 16px;
-    font-weight: 600;
-    margin: 0 0 16px;
-    color: var(--text-color, #333);
-    transition: color 0.3s ease;
-  }
-
   style features {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -99,22 +64,6 @@ component VideoPlayerPage {
   style featureIcon {
     font-size: 28px;
     margin-bottom: 8px;
-  }
-
-  style featureTitle {
-    font-size: 14px;
-    font-weight: 600;
-    margin: 0 0 4px;
-    color: var(--heading-color, #1a1a1a);
-    transition: color 0.3s ease;
-  }
-
-  style featureDesc {
-    font-size: 13px;
-    color: var(--text-color, #666);
-    margin: 0;
-    line-height: 1.4;
-    transition: color 0.3s ease;
   }
 
   style info {
@@ -170,21 +119,21 @@ component VideoPlayerPage {
   fun render : Html {
     <div::container>
       <div::header>
-        <h1::title>"🎬 Video Players"</h1>
-        <p::subtitle>
+        <Heading level="1" margin="0 0 16px">"🎬 Video Players"</Heading>
+        <Text size="lg" margin="0 0 40px">
           "Professional video player with all advanced features: keyboard shortcuts, playlist, quality selector, subtitles, analytics, mini-player, PiP, and external platform support (YouTube, Vimeo)"
-        </p>
+        </Text>
       </div>
 
       <div::section>
-        <h2::sectionTitle>
+        <Heading level="2" margin="32px 0 20px">
           "🚀 Pro Video Player"
           <span::badge>"Ultimate"</span>
-        </h2>
+        </Heading>
 
         <div::grid>
           <div::demoCard>
-            <h3::demoTitle>"Full-Featured Professional Player with Playlist"</h3>
+            <Heading level="3" margin="0 0 12px">"Full-Featured Professional Player with Playlist"</Heading>
 
             <ProVideoPlayer
               sources={
@@ -230,13 +179,13 @@ component VideoPlayerPage {
               keyboard={true}
               analytics={true}/>
 
-            <p::info>
+            <Text size="sm" margin="8px 0 0">
               "🔥 Professional player with: Keyboard shortcuts (Space, ←→ seek, ↑↓ volume, F fullscreen, M mute, J/L 10s jumps, 0-9 percentage jumps), seek preview, buffer indicator, playlist, mini-player mode, analytics tracking, and all controls!"
-            </p>
+            </Text>
           </div>
 
           <div::demoCard>
-            <h3::demoTitle>"Pro Player - Single Video with Auto-play"</h3>
+            <Heading level="3" margin="0 0 12px">"Pro Player - Single Video with Auto-play"</Heading>
 
             <ProVideoPlayer
               sources={
@@ -251,22 +200,22 @@ component VideoPlayerPage {
               muted={true}
               keyboard={true}/>
 
-            <p::info>
+            <Text size="sm" margin="8px 0 0">
               "⚡ All pro features in a single video configuration"
-            </p>
+            </Text>
           </div>
         </div>
       </div>
 
       <div::section>
-        <h2::sectionTitle>
+        <Heading level="2" margin="32px 0 20px">
           "🌐 Embed Player (YouTube, Vimeo, Dailymotion)"
           <span::badge>"External"</span>
-        </h2>
+        </Heading>
 
         <div::grid2>
           <div::demoCard>
-            <h3::demoTitle>"YouTube Video"</h3>
+            <Heading level="3" margin="0 0 12px">"YouTube Video"</Heading>
 
             <EmbedPlayer
               url="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
@@ -274,13 +223,13 @@ component VideoPlayerPage {
               height="400px"
               controls={true}/>
 
-            <p::info>
+            <Text size="sm" margin="8px 0 0">
               "📺 Supports standard YouTube URLs, short URLs (youtu.be), and embed URLs"
-            </p>
+            </Text>
           </div>
 
           <div::demoCard>
-            <h3::demoTitle>"Vimeo Video"</h3>
+            <Heading level="3" margin="0 0 12px">"Vimeo Video"</Heading>
 
             <EmbedPlayer
               url="https://vimeo.com/148751763"
@@ -288,15 +237,15 @@ component VideoPlayerPage {
               height="400px"
               controls={true}/>
 
-            <p::info>
+            <Text size="sm" margin="8px 0 0">
               "🎬 Clean Vimeo player integration with responsive design"
-            </p>
+            </Text>
           </div>
         </div>
       </div>
 
       <div::section>
-        <h2::sectionTitle>"✨ Feature Comparison"</h2>
+        <Heading level="2" margin="32px 0 20px">"✨ Feature Comparison"</Heading>
 
         <table::comparisonTable>
           <thead>
@@ -452,121 +401,121 @@ component VideoPlayerPage {
       </div>
 
       <div::section>
-        <h2::sectionTitle>"🎯 All Features"</h2>
+        <Heading level="2" margin="32px 0 20px">"🎯 All Features"</Heading>
 
         <div::features>
           <div::feature>
             <div::featureIcon>"▶️"</div>
-            <h3::featureTitle>"Play/Pause"</h3>
-            <p::featureDesc>"Smooth playback control with visual feedback"</p>
+            <Heading level="4" margin="0 0 8px">"Play/Pause"</Heading>
+            <Text size="sm" margin="0">"Smooth playback control with visual feedback"</Text>
           </div>
 
           <div::feature>
             <div::featureIcon>"⏱️"</div>
-            <h3::featureTitle>"Speed Control"</h3>
-            <p::featureDesc>"0.25x to 2x playback speed"</p>
+            <Heading level="4" margin="0 0 8px">"Speed Control"</Heading>
+            <Text size="sm" margin="0">"0.25x to 2x playback speed"</Text>
           </div>
 
           <div::feature>
             <div::featureIcon>"🔊"</div>
-            <h3::featureTitle>"Volume"</h3>
-            <p::featureDesc>"Slider control with mute toggle"</p>
+            <Heading level="4" margin="0 0 8px">"Volume"</Heading>
+            <Text size="sm" margin="0">"Slider control with mute toggle"</Text>
           </div>
 
           <div::feature>
             <div::featureIcon>"⚙️"</div>
-            <h3::featureTitle>"Quality"</h3>
-            <p::featureDesc>"Multiple quality options"</p>
+            <Heading level="4" margin="0 0 8px">"Quality"</Heading>
+            <Text size="sm" margin="0">"Multiple quality options"</Text>
           </div>
 
           <div::feature>
             <div::featureIcon>"CC"</div>
-            <h3::featureTitle>"Subtitles"</h3>
-            <p::featureDesc>"VTT caption track support"</p>
+            <Heading level="4" margin="0 0 8px">"Subtitles"</Heading>
+            <Text size="sm" margin="0">"VTT caption track support"</Text>
           </div>
 
           <div::feature>
             <div::featureIcon>"⛶"</div>
-            <h3::featureTitle>"Fullscreen"</h3>
-            <p::featureDesc>"Native fullscreen API"</p>
+            <Heading level="4" margin="0 0 8px">"Fullscreen"</Heading>
+            <Text size="sm" margin="0">"Native fullscreen API"</Text>
           </div>
 
           <div::feature>
             <div::featureIcon>"⧉"</div>
-            <h3::featureTitle>"PiP Mode"</h3>
-            <p::featureDesc>"Picture-in-Picture support"</p>
+            <Heading level="4" margin="0 0 8px">"PiP Mode"</Heading>
+            <Text size="sm" margin="0">"Picture-in-Picture support"</Text>
           </div>
 
           <div::feature>
             <div::featureIcon>"🎨"</div>
-            <h3::featureTitle>"Theming"</h3>
-            <p::featureDesc>"Full CSS variable support"</p>
+            <Heading level="4" margin="0 0 8px">"Theming"</Heading>
+            <Text size="sm" margin="0">"Full CSS variable support"</Text>
           </div>
 
           <div::feature>
             <div::featureIcon>"⌨️"</div>
-            <h3::featureTitle>"Keyboard"</h3>
-            <p::featureDesc>"Space, arrows shortcuts"</p>
+            <Heading level="4" margin="0 0 8px">"Keyboard"</Heading>
+            <Text size="sm" margin="0">"Space, arrows shortcuts"</Text>
           </div>
 
           <div::feature>
             <div::featureIcon>"📱"</div>
-            <h3::featureTitle>"Responsive"</h3>
-            <p::featureDesc>"Mobile-friendly design"</p>
+            <Heading level="4" margin="0 0 8px">"Responsive"</Heading>
+            <Text size="sm" margin="0">"Mobile-friendly design"</Text>
           </div>
 
           <div::feature>
             <div::featureIcon>"🌐"</div>
-            <h3::featureTitle>"Embeds"</h3>
-            <p::featureDesc>"YouTube, Vimeo, Dailymotion"</p>
+            <Heading level="4" margin="0 0 8px">"Embeds"</Heading>
+            <Text size="sm" margin="0">"YouTube, Vimeo, Dailymotion"</Text>
           </div>
 
           <div::feature>
             <div::featureIcon>"⚡"</div>
-            <h3::featureTitle>"Performance"</h3>
-            <p::featureDesc>"Optimized HTML5 video"</p>
+            <Heading level="4" margin="0 0 8px">"Performance"</Heading>
+            <Text size="sm" margin="0">"Optimized HTML5 video"</Text>
           </div>
 
           <div::feature>
             <div::featureIcon>"🎮"</div>
-            <h3::featureTitle>"Playlist"</h3>
-            <p::featureDesc>"Auto-advance queue system"</p>
+            <Heading level="4" margin="0 0 8px">"Playlist"</Heading>
+            <Text size="sm" margin="0">"Auto-advance queue system"</Text>
           </div>
 
           <div::feature>
             <div::featureIcon>"📊"</div>
-            <h3::featureTitle>"Analytics"</h3>
-            <p::featureDesc>"Track play, pause, seek, watch time"</p>
+            <Heading level="4" margin="0 0 8px">"Analytics"</Heading>
+            <Text size="sm" margin="0">"Track play, pause, seek, watch time"</Text>
           </div>
 
           <div::feature>
             <div::featureIcon>"🔍"</div>
-            <h3::featureTitle>"Seek Preview"</h3>
-            <p::featureDesc>"Hover to preview timestamp"</p>
+            <Heading level="4" margin="0 0 8px">"Seek Preview"</Heading>
+            <Text size="sm" margin="0">"Hover to preview timestamp"</Text>
           </div>
 
           <div::feature>
             <div::featureIcon>"📦"</div>
-            <h3::featureTitle>"Buffer Bar"</h3>
-            <p::featureDesc>"Visual buffering indicator"</p>
+            <Heading level="4" margin="0 0 8px">"Buffer Bar"</Heading>
+            <Text size="sm" margin="0">"Visual buffering indicator"</Text>
           </div>
 
           <div::feature>
             <div::featureIcon>"🎬"</div>
-            <h3::featureTitle>"Mini Player"</h3>
-            <p::featureDesc>"Floating player mode"</p>
+            <Heading level="4" margin="0 0 8px">"Mini Player"</Heading>
+            <Text size="sm" margin="0">"Floating player mode"</Text>
           </div>
 
           <div::feature>
             <div::featureIcon>"🎯"</div>
-            <h3::featureTitle>"Precise Control"</h3>
-            <p::featureDesc>"Frame-accurate seeking"</p>
+            <Heading level="4" margin="0 0 8px">"Precise Control"</Heading>
+            <Text size="sm" margin="0">"Frame-accurate seeking"</Text>
           </div>
 
           <div::feature>
             <div::featureIcon>"🔢"</div>
-            <h3::featureTitle>"Jump to %"</h3>
-            <p::featureDesc>"Press 0-9 for percentage"</p>
+            <Heading level="4" margin="0 0 8px">"Jump to %"</Heading>
+            <Text size="sm" margin="0">"Press 0-9 for percentage"</Text>
           </div>
         </div>
       </div>

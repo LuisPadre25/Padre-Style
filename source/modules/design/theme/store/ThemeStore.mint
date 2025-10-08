@@ -30,19 +30,35 @@ store ThemeStore {
           root.style.setProperty('--heading-color', '#1a1a1a');
           root.style.setProperty('--border-color', '#f7f8fa');
           root.style.setProperty('--shadow-color', 'rgba(0, 0, 0, 0.05)');
+          root.style.setProperty('--font-sans', '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif');
+          root.style.setProperty('--font-serif', 'Georgia, Cambria, "Times New Roman", Times, serif');
+          root.style.setProperty('--font-mono', '"SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace');
+          root.style.setProperty('--font-body', 'var(--font-sans)');
+          root.style.setProperty('--font-heading', 'var(--font-sans)');
+          root.style.setProperty('--font-code', 'var(--font-mono)');
           break;
         case 'dark':
-          root.style.setProperty('--primary-color', '#4A9EFF');
-          root.style.setProperty('--bg-color', '#18191A');
-          root.style.setProperty('--text-color', '#E4E6EB');
-          root.style.setProperty('--card-bg', '#242526');
-          root.style.setProperty('--navbar-bg', '#242526');
-          root.style.setProperty('--navbar-text', '#E4E6EB');
-          root.style.setProperty('--sidebar-bg', '#242526');
-          root.style.setProperty('--sidebar-text', '#B0B3B8');
-          root.style.setProperty('--heading-color', '#E4E6EB');
-          root.style.setProperty('--border-color', '#3A3B3C');
-          root.style.setProperty('--shadow-color', 'rgba(0, 0, 0, 0.5)');
+          root.style.setProperty('--primary-color', '#60A5FA');
+          root.style.setProperty('--bg-color', '#0f1117');
+          root.style.setProperty('--text-color', '#e4e6eb');
+          root.style.setProperty('--card-bg', '#1a1d24');
+          root.style.setProperty('--navbar-bg', '#1a1d24');
+          root.style.setProperty('--navbar-text', '#e4e6eb');
+          root.style.setProperty('--sidebar-bg', '#1a1d24');
+          root.style.setProperty('--sidebar-text', '#b0b3b8');
+          root.style.setProperty('--heading-color', '#f0f2f5');
+          root.style.setProperty('--border-color', '#2a2e38');
+          root.style.setProperty('--shadow-color', 'rgba(0, 0, 0, 0.6)');
+          root.style.setProperty('--input-bg', '#242831');
+          root.style.setProperty('--input-border', '#3a3f4d');
+          root.style.setProperty('--hover-bg', 'rgba(96, 165, 250, 0.1)');
+          root.style.setProperty('--code-bg', '#1e2128');
+          root.style.setProperty('--font-sans', 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif');
+          root.style.setProperty('--font-serif', 'Georgia, Cambria, "Times New Roman", Times, serif');
+          root.style.setProperty('--font-mono', '"JetBrains Mono", "Fira Code", "SF Mono", Monaco, "Cascadia Code", monospace');
+          root.style.setProperty('--font-body', 'var(--font-sans)');
+          root.style.setProperty('--font-heading', 'var(--font-sans)');
+          root.style.setProperty('--font-code', 'var(--font-mono)');
           break;
         case 'light':
           root.style.setProperty('--primary-color', '#1989fa');
@@ -56,6 +72,12 @@ store ThemeStore {
           root.style.setProperty('--heading-color', '#000000');
           root.style.setProperty('--border-color', '#e8e8e8');
           root.style.setProperty('--shadow-color', 'rgba(0, 0, 0, 0.08)');
+          root.style.setProperty('--font-sans', '"Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif');
+          root.style.setProperty('--font-serif', 'Georgia, Cambria, "Times New Roman", Times, serif');
+          root.style.setProperty('--font-mono', 'Consolas, Monaco, "Courier New", monospace');
+          root.style.setProperty('--font-body', 'var(--font-sans)');
+          root.style.setProperty('--font-heading', 'var(--font-sans)');
+          root.style.setProperty('--font-code', 'var(--font-mono)');
           break;
         case 'blue':
           root.style.setProperty('--primary-color', '#2a5298');
@@ -69,6 +91,12 @@ store ThemeStore {
           root.style.setProperty('--heading-color', '#1e3c72');
           root.style.setProperty('--border-color', '#d0dce8');
           root.style.setProperty('--shadow-color', 'rgba(30, 60, 114, 0.1)');
+          root.style.setProperty('--font-sans', '"Segoe UI", Tahoma, Geneva, Verdana, sans-serif');
+          root.style.setProperty('--font-serif', '"Merriweather", Georgia, Cambria, "Times New Roman", serif');
+          root.style.setProperty('--font-mono', '"Courier New", Courier, monospace');
+          root.style.setProperty('--font-body', 'var(--font-sans)');
+          root.style.setProperty('--font-heading', 'var(--font-serif)');
+          root.style.setProperty('--font-code', 'var(--font-mono)');
           break;
         case 'green':
           root.style.setProperty('--primary-color', '#71b280');
@@ -82,6 +110,12 @@ store ThemeStore {
           root.style.setProperty('--heading-color', '#134e5e');
           root.style.setProperty('--border-color', '#c7e6d1');
           root.style.setProperty('--shadow-color', 'rgba(19, 78, 94, 0.1)');
+          root.style.setProperty('--font-sans', 'Verdana, Geneva, Tahoma, sans-serif');
+          root.style.setProperty('--font-serif', '"Playfair Display", Georgia, "Times New Roman", serif');
+          root.style.setProperty('--font-mono', 'Monaco, "Lucida Console", monospace');
+          root.style.setProperty('--font-body', 'var(--font-serif)');
+          root.style.setProperty('--font-heading', 'var(--font-serif)');
+          root.style.setProperty('--font-code', 'var(--font-mono)');
           break;
       }
     })()

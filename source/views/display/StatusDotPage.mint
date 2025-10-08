@@ -51,7 +51,7 @@ component StatusDotPage {
   /* Get controls content */
   fun getControlsContent : Html {
     <div>
-      <h3::controlsTitle>"StatusDot Controls"</h3>
+      <Heading level="4" margin="0 0 16px">"StatusDot Controls"</Heading>
 
       <div::controlGroup>
         <div::controlLabel>"Status"</div>
@@ -324,7 +324,7 @@ component StatusDotPage {
   fun getAdditionalApiDocs : Html {
     <div>
       <div::docCard>
-        <h3::docTitle>"Status Colors"</h3>
+        <Heading level="3" margin="0 0 16px">"Status Colors"</Heading>
         <table::apiTable>
           <thead>
             <tr>
@@ -384,7 +384,7 @@ component StatusDotPage {
       </div>
 
       <div::docCard>
-        <h3::docTitle>"Sizes (Mobile-First)"</h3>
+        <Heading level="3" margin="0 0 16px">"Sizes (Mobile-First)"</Heading>
         <table::apiTable>
           <thead>
             <tr>
@@ -418,7 +418,7 @@ component StatusDotPage {
       </div>
 
       <div::docCard>
-        <h3::docTitle>"Animations"</h3>
+        <Heading level="3" margin="0 0 16px">"Animations"</Heading>
         <table::apiTable>
           <thead>
             <tr>
@@ -453,7 +453,7 @@ component StatusDotPage {
       </div>
 
       <div::docCard>
-        <h3::docTitle>"Best Practices"</h3>
+        <Heading level="3" margin="0 0 16px">"Best Practices"</Heading>
         <ul::featureList>
           <li::featureItem>"💡 Use " <code::codeInline>"online"</code> "/" <code::codeInline>"offline"</code> " for user presence"</li>
           <li::featureItem>"💡 Use " <code::codeInline>"animation=\"pulse\""</code> " for active/online users"</li>
@@ -474,13 +474,6 @@ component StatusDotPage {
     align-items: center;
     justify-content: center;
     min-height: 120px;
-  }
-
-  style controlsTitle {
-    font-size: 15px;
-    font-weight: 600;
-    margin: 0 0 16px;
-    color: #323233;
   }
 
   style controlGroup {
@@ -556,13 +549,6 @@ component StatusDotPage {
     padding: 32px;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
     margin-bottom: 24px;
-  }
-
-  style docTitle {
-    font-size: 20px;
-    font-weight: 600;
-    color: #323233;
-    margin: 0 0 16px;
   }
 
   style apiTable {

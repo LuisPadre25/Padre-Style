@@ -141,13 +141,6 @@ component LayoutPage {
     }
   }
 
-  style controlTitle {
-    font-size: 16px;
-    font-weight: 600;
-    color: #323233;
-    margin: 0 0 16px;
-  }
-
   style hint {
     display: block;
     font-size: 12px;
@@ -172,7 +165,7 @@ component LayoutPage {
       }
       controlsContent={
         <div>
-          <h4::controlTitle>"Grid Configuration"</h4>
+          <Heading level="4" margin="0 0 16px">"Grid Configuration"</Heading>
 
           <div::controlGroup>
             <label::label>{getColsLabel()}</label>

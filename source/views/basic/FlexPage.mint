@@ -318,16 +318,6 @@ component FlexPage {
           </div>
 
           <div::controlGroup>
-            <div::checkboxGroup>
-              <input::checkbox
-                type="checkbox"
-                checked={multiline}
-                onChange={handleMultilineToggle}/>
-              <label::checkboxLabel>"Enable Multiline (Wrap)"</label>
-            </div>
-          </div>
-
-          <div::controlGroup>
             <label::label>"Columns"</label>
             for (col of dynamicColumns) {
               <div::columnControl>

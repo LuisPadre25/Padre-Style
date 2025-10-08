@@ -301,7 +301,7 @@ component CollapsePage {
   /* Get controls content */
   fun getControlsContent : Html {
     <div>
-      <h3::controlsTitle>"Collapse Controls"</h3>
+      <Heading level="4" margin="0 0 16px">"Collapse Controls"</Heading>
 
       <div::controlGroup>
         <div::controlLabel>"Width"</div>
@@ -532,13 +532,6 @@ component CollapsePage {
     &:active {
       transform: translateY(0);
     }
-  }
-
-  style controlsTitle {
-    font-size: 15px;
-    font-weight: 600;
-    margin: 0 0 16px;
-    color: #323233;
   }
 
   style controlGroup {

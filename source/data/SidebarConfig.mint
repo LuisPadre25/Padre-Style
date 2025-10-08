@@ -31,6 +31,14 @@ module SidebarConfig {
         ]
       },
       {
+        id: "typography",
+        title: "Typography",
+        icon: "📝",
+        items: [
+          { id: "typography", label: "Typography", route: "/typography", subtitle: "Text Components", badge: "NEW" }
+        ]
+      },
+      {
         id: "layout",
         title: "Layout Utilities",
         icon: "📐",

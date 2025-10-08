@@ -191,13 +191,6 @@ component DialogPage {
     gap: 12px;
   }
 
-  style exampleTitle {
-    font-size: 16px;
-    font-weight: 600;
-    color: #323233;
-    margin: 0;
-  }
-
   style exampleDescription {
     font-size: 14px;
     color: #646566;
@@ -229,48 +222,48 @@ component DialogPage {
 
           <div::examplesGrid>
             <div::exampleCard>
-              <h4::exampleTitle>"Basic Alert"</h4>
-              <p::exampleDescription>"Simple alert dialog with OK button"</p>
+              <Heading level="4" margin="0 0 12px">"Basic Alert"</Heading>
+              <Text size="sm" margin="0 0 12px">"Simple alert dialog with OK button"</Text>
               <button::exampleButton onClick={showBasicAlert}>
                 "Show Alert"
               </button>
             </div>
 
             <div::exampleCard>
-              <h4::exampleTitle>"Confirmation"</h4>
-              <p::exampleDescription>"Confirm/Cancel dialog for dangerous actions"</p>
+              <Heading level="4" margin="0 0 12px">"Confirmation"</Heading>
+              <Text size="sm" margin="0 0 12px">"Confirm/Cancel dialog for dangerous actions"</Text>
               <button::exampleButton onClick={showConfirmation}>
                 "Show Confirmation"
               </button>
             </div>
 
             <div::exampleCard>
-              <h4::exampleTitle>"Round Theme"</h4>
-              <p::exampleDescription>"Modern round button style"</p>
+              <Heading level="4" margin="0 0 12px">"Round Theme"</Heading>
+              <Text size="sm" margin="0 0 12px">"Modern round button style"</Text>
               <button::exampleButton onClick={showRoundTheme}>
                 "Show Round Theme"
               </button>
             </div>
 
             <div::exampleCard>
-              <h4::exampleTitle>"Left Aligned"</h4>
-              <p::exampleDescription>"Left-aligned text for longer content"</p>
+              <Heading level="4" margin="0 0 12px">"Left Aligned"</Heading>
+              <Text size="sm" margin="0 0 12px">"Left-aligned text for longer content"</Text>
               <button::exampleButton onClick={showLeftAlign}>
                 "Show Left Align"
               </button>
             </div>
 
             <div::exampleCard>
-              <h4::exampleTitle>"Validation Hook"</h4>
-              <p::exampleDescription>"Dialog with beforeClose validation"</p>
+              <Heading level="4" margin="0 0 12px">"Validation Hook"</Heading>
+              <Text size="sm" margin="0 0 12px">"Dialog with beforeClose validation"</Text>
               <button::exampleButton onClick={showWithValidation}>
                 "Show Validation"
               </button>
             </div>
 
             <div::exampleCard>
-              <h4::exampleTitle>"No Overlay Close"</h4>
-              <p::exampleDescription>"Requires explicit button click"</p>
+              <Heading level="4" margin="0 0 12px">"No Overlay Close"</Heading>
+              <Text size="sm" margin="0 0 12px">"Requires explicit button click"</Text>
               <button::exampleButton onClick={showNoOverlayClose}>
                 "Show No Overlay"
               </button>

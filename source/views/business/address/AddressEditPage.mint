@@ -334,19 +334,19 @@ component AddressEditPage {
   fun render : Html {
     <div::container>
       <div::header>
-        <h1::title>"📍 AddressEdit"</h1>
-        <p::subtitle>
+        <Heading level="1" margin="0 0 24px">"📍 AddressEdit"</Heading>
+        <Text size="lg" margin="0 0 40px">
           "Create, update, and delete receiving addresses with validation and search functionality"
-        </p>
+        </Text>
       </div>
 
       <div::content>
         /* Basic Usage */
         <div::demoSection>
-          <h2::sectionTitle>
+          <Heading level="2" margin="32px 0 16px">
             "📱 Basic Usage"
             <span::badge>"Mobile"</span>
-          </h2>
+          </Heading>
 
           <div::exampleTabs>
             <button::tabButton
@@ -453,7 +453,7 @@ component AddressEditPage {
 
         /* Props API */
         <div::demoSection>
-          <h2::sectionTitle>"📋 Props"</h2>
+          <Heading level="2" margin="32px 0 16px">"📋 Props"</Heading>
 
           <table::apiTable>
             <thead::tableHead>
@@ -531,7 +531,7 @@ component AddressEditPage {
 
         /* Events API */
         <div::demoSection>
-          <h2::sectionTitle>"⚡ Events"</h2>
+          <Heading level="2" margin="32px 0 16px">"⚡ Events"</Heading>
 
           <table::apiTable>
             <thead::tableHead>
@@ -578,7 +578,7 @@ component AddressEditPage {
 
         /* Types */
         <div::demoSection>
-          <h2::sectionTitle>"📦 Types"</h2>
+          <Heading level="2" margin="32px 0 16px">"📦 Types"</Heading>
 
           <div::codeBlock>
             "type AddressEditInfo {\n"
@@ -600,7 +600,7 @@ component AddressEditPage {
 
         /* CSS Variables */
         <div::demoSection>
-          <h2::sectionTitle>"🎨 CSS Variables"</h2>
+          <Heading level="2" margin="32px 0 16px">"🎨 CSS Variables"</Heading>
 
           <table::apiTable>
             <thead::tableHead>

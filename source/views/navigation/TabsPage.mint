@@ -182,13 +182,6 @@ component TabsPage {
     cursor: pointer;
   }
 
-  style controlTitle {
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--heading-color);
-    margin: 0 0 16px;
-  }
-
   style tabsContainer {
     background: var(--card-bg);
     border-radius: 12px;
@@ -218,7 +211,7 @@ component TabsPage {
       }
       controlsContent={
         <div>
-          <h4::controlTitle>"Tabs Configuration"</h4>
+          <Heading level="4" margin="0 0 16px">"Tabs Configuration"</Heading>
 
           <div::controlGroup>
             <label::label>"Icon Layout"</label>
