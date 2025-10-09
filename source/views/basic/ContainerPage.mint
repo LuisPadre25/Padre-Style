@@ -1,16 +1,12 @@
 /* ContainerPage - Showcase for Container component */
 component ContainerPage {
-  connect NavigationStore exposing { setPage }
+  connect ThemeStore exposing { theme }
 
   /* State for component controls */
   state width : String = "1200px"
 
   state fluid : Bool = false
   state padding : String = ""
-
-  fun componentDidMount : Promise(Void) {
-    setPage("container")
-  }
 
   /* Event handlers */
   fun handleWidthChange (event : Html.Event) : Promise(Void) {
@@ -66,47 +62,47 @@ component ContainerPage {
   /* Get controls content */
   fun getControlsContent : Html {
     <div>
-      <Heading level="4" margin="0 0 16px">"Container Controls"</Heading>
+      <div::controlsGrid>
+        <div::controlGroup>
+          <span::controlLabel>"Width"</span>
 
-      <div::controlGroup>
-        <Text size="sm" weight="semibold" color="#323233" margin="0 0 8px">
-          "Width"
-        </Text>
+          <input::input
+            type="text"
+            value={width}
+            placeholder="e.g. 1200px, 90%, 60rem"
+            onInput={handleWidthChange}
+          />
 
-        <input::input
-          type="text"
-          value={width}
-          placeholder="e.g. 1200px, 90%, 60rem"
-          onInput={handleWidthChange}
-        />
+          <span
+            style="font-size: 12px; color: #969799; margin-top: 4px; display: block;"
+          >"Use any CSS value: px, %, rem, vw, etc."</span>
+        </div>
 
-        <Text size="xs" color="#969799" margin="8px 0 0">
-          "Use any CSS value: px, %, rem, vw, etc."
-        </Text>
-      </div>
+        <div::controlGroup>
+          <span::controlLabel>"Padding"</span>
 
-      <div::controlGroup>
-        <Text size="sm" weight="semibold" color="#323233" margin="0 0 8px">
-          "Padding"
-        </Text>
+          <input::input
+            type="text"
+            value={padding}
+            placeholder="Auto (16px mobile, 24px tablet, 32px desktop)"
+            onInput={handlePaddingChange}
+          />
+        </div>
 
-        <input::input
-          type="text"
-          value={padding}
-          placeholder="Auto (16px mobile, 24px tablet, 32px desktop)"
-          onInput={handlePaddingChange}
-        />
-      </div>
+        <div::controlGroup>
+          <span::controlLabel>"Options"</span>
 
-      <div::controlGroup>
-        <Text size="sm" weight="semibold" color="#323233" margin="0 0 8px">
-          "Options"
-        </Text>
+          <div>
+            <label::checkboxLabel>
+              <input::checkbox
+                type="checkbox"
+                checked={fluid}
+                onChange={(e : Html.Event) : Promise(Void) { toggleFluid() }}
+              />
 
-        <div::buttonGroup>
-          <button::toggleButton(fluid)
-            onClick={(e : Html.Event) : Promise(Void) { toggleFluid() }}
-          >"Fluid (100%)"</button>
+              "Fluid (100%)"
+            </label>
+          </div>
         </div>
       </div>
     </div>
@@ -275,37 +271,57 @@ component ContainerPage {
     border: 2px solid #e0e0e0;
   }
 
-  style controlGroup {
-    margin-bottom: 20px;
-  }
+  style controlsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
 
-  style buttonGroup {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-
-  style toggleButton (active : Bool) {
-    padding: 8px 16px;
-    border-radius: 6px;
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s;
-    background: transparent;
-
-    if active {
-      border: 2px solid #52c41a;
-      background: #52c41a;
-      color: #fff;
-    } else {
-      border: 2px solid #d9d9d9;
-      background: #fff;
-      color: #666;
+    @media (max-width: 640px) {
+      grid-template-columns: 1fr;
+      gap: 12px;
     }
+  }
 
-    &:hover {
-      transform: translateY(-2px);
+  style controlGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  style controlLabel {
+    font-size: 13px;
+    font-weight: 600;
+    color: #374151;
+
+    @media (max-width: 640px) {
+      font-size: 12px;
+    }
+  }
+
+  style checkboxLabel {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    user-select: none;
+    font-size: 13px;
+    color: #374151;
+    min-height: 44px;
+
+    @media (max-width: 640px) {
+      font-size: 12px;
+    }
+  }
+
+  style checkbox {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+
+    @media (max-width: 640px) {
+      width: 24px;
+      height: 24px;
     }
   }
 

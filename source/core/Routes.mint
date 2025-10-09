@@ -63,6 +63,18 @@ routes {
     NavigationStore.setPageAndSection("flex", "Layout Utilities")
   }
 
+  /hero {
+    NavigationStore.setPageAndSection("hero", "Layout Utilities")
+  }
+
+  /section {
+    NavigationStore.setPageAndSection("section", "Layout Utilities")
+  }
+
+  /container {
+    NavigationStore.setPageAndSection("container", "Layout Utilities")
+  }
+
   /typography {
     NavigationStore.setPageAndSection("typography", "Typography")
   }

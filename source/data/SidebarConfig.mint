@@ -120,6 +120,20 @@ module SidebarConfig {
               badge: ""
             },
             {
+              id: "hero",
+              label: "Hero",
+              route: "/hero",
+              subtitle: "Landing Section",
+              badge: "NEW"
+            },
+            {
+              id: "section",
+              label: "Section",
+              route: "/section",
+              subtitle: "Content Divider",
+              badge: "NEW"
+            },
+            {
               id: "container",
               label: "Container",
               route: "/container",

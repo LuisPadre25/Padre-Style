@@ -78,6 +78,10 @@ component PageContent {
 
       "flex" => <FlexPage/>
 
+      "hero" => <HeroPage/>
+
+      "section" => <SectionPage/>
+
       "container" => <ContainerPage/>
 
       "typography" => <TypographyPage/>

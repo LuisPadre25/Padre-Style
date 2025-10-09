@@ -1,11 +1,7 @@
 /* FlexPage - Columns & Column Components Showcase */
 component FlexPage {
-  connect NavigationStore exposing { setPage }
+  connect ThemeStore exposing { theme }
   connect ViewModeStore exposing { viewMode }
-
-  fun componentDidMount : Promise(Void) {
-    setPage("flex")
-  }
 
   /* State for examples */
   state activeExample : String = "basic"

@@ -1,11 +1,7 @@
 /* LayoutPage - Grid Component Showcase */
 component LayoutPage {
-  connect NavigationStore exposing { setPage }
+  connect ThemeStore exposing { theme }
   connect ViewModeStore exposing { viewMode }
-
-  fun componentDidMount : Promise(Void) {
-    setPage("grid-layout")
-  }
 
   /* State for interactive controls */
   state cols : String = "3"
