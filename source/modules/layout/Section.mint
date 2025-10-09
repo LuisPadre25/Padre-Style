@@ -8,7 +8,6 @@ component Section {
   /* Layout */
   property size : String = "medium"
   property maxWidth : String = "1200px"
-  property centered : Bool = true
 
   /* Style */
   property bgColor : String = ""
@@ -41,51 +40,37 @@ component Section {
     }
   }
 
-  /* Get padding based on size */
-  fun getPadding : String {
-    case size {
-      "small" => "32px 16px"
-      "medium" => "64px 24px"
-      "large" => "96px 32px"
-      => "64px 24px"
-    }
-  }
 
   /* Styles */
   style section {
     background-color: #{getBgColor()};
     color: #{getTextColor()};
-    padding: #{getPadding()};
+    padding-top: #{getPaddingTop()};
+    padding-bottom: #{getPaddingBottom()};
     position: relative;
 
     if bordered {
       border-top: 1px solid #e5e7eb;
       border-bottom: 1px solid #e5e7eb;
     }
+  }
 
-    @media (max-width: 768px) {
-      if size == "large" {
-        padding: 64px 16px;
-      }
-
-      if size == "medium" {
-        padding: 48px 16px;
-      }
-
-      if size == "small" {
-        padding: 24px 16px;
-      }
+  /* Get vertical padding based on size */
+  fun getPaddingTop : String {
+    case size {
+      "small" => "32px"
+      "medium" => "64px"
+      "large" => "96px"
+      => "64px"
     }
   }
 
-  style container {
-    max-width: #{maxWidth};
-    width: 100%;
-    box-sizing: border-box;
-
-    if centered {
-      margin-left: auto;
-      margin-right: auto;
+  fun getPaddingBottom : String {
+    case size {
+      "small" => "32px"
+      "medium" => "64px"
+      "large" => "96px"
+      => "64px"
     }
   }
 
@@ -134,7 +119,7 @@ component Section {
 
   fun render : Html {
     <section::section>
-      <div::container>
+      <Container width={maxWidth}>
         if String.isNotEmpty(title) || String.isNotEmpty(subtitle) {
           <div::header>
             if String.isNotEmpty(title) {
@@ -166,7 +151,7 @@ component Section {
             child
           }
         </div>
-      </div>
+      </Container>
     </section>
   }
 }

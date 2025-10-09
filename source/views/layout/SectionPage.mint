@@ -6,7 +6,6 @@ component SectionPage {
   state selectedSize : String = "medium"
   state selectedVariant : String = "default"
   state bordered : Bool = false
-  state centered : Bool = true
 
   /* Handle control changes */
   fun handleSizeChange (newSize : String) : Promise(Void) {
@@ -19,10 +18,6 @@ component SectionPage {
 
   fun toggleBordered : Promise(Void) {
     next { bordered: !bordered }
-  }
-
-  fun toggleCentered : Promise(Void) {
-    next { centered: !centered }
   }
 
   /* Styles for controls */
@@ -133,7 +128,6 @@ component SectionPage {
         size={selectedSize}
         variant={selectedVariant}
         bordered={bordered}
-        centered={centered}
       >
         <div::demoContent>
           <Text color="#6b7280">
@@ -222,16 +216,6 @@ component SectionPage {
               />
 
               "Bordered"
-            </label>
-
-            <label::checkboxLabel>
-              <input::checkbox
-                type="checkbox"
-                checked={centered}
-                onChange={(e : Html.Event) : Promise(Void) { toggleCentered() }}
-              />
-
-              "Centered"
             </label>
           </div>
         </div>
@@ -433,16 +417,9 @@ component SectionPage {
       {
         name: "maxWidth",
         description:
-          "Maximum width of section content container. Default 1200px. Use custom values like \"800px\" or \"100%\" for full width.",
+          "Maximum width of section content. Passed to internal Container component. Default 1200px. Use \"800px\", \"90%\", etc. Content is automatically centered with responsive padding.",
         type: "String",
         defaultValue: "\"1200px\""
-      },
-      {
-        name: "centered",
-        description:
-          "Centers the content container horizontally. When true, applies auto left/right margins to center content.",
-        type: "Bool",
-        defaultValue: "true"
       },
       {
         name: "bgColor",
