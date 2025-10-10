@@ -11,6 +11,8 @@ component Navbar {
     z-index: 100;
     box-shadow: 0 2px 8px var(--shadow-color, rgba(0, 0, 0, 0.05));
     transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
   }
 
   style row {

@@ -410,6 +410,143 @@ component ComponentShowcase {
     }
   }
 
+  /* Tablet Camera - Same style as mobile notch */
+  style tabletCamera {
+    position: absolute;
+    top: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 18px;
+    background: #000;
+    border-radius: 0 0 10px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    z-index: 5;
+
+    @media (max-width: 768px) {
+      width: 50px;
+      height: 16px;
+      border-radius: 0 0 8px 8px;
+      top: 4px;
+    }
+  }
+
+  /* Tablet Camera Dot */
+  style tabletCameraDot {
+    width: 6px;
+    height: 6px;
+    background: #1a1a1a;
+    border-radius: 50%;
+    border: 1px solid #333;
+
+    @media (max-width: 768px) {
+      width: 5px;
+      height: 5px;
+    }
+  }
+
+  /* Tablet Status Bar (no notch) */
+  style tabletStatusBar {
+    height: 24px;
+    background: var(--bg-color);
+    border-radius: 20px 20px 0 0;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #000;
+
+    @media (max-width: 768px) {
+      padding: 0 16px;
+      font-size: 11px;
+    }
+  }
+
+  /* Safari Top Bar for Tablet */
+  style safariTopBar {
+    height: 44px;
+    background: rgba(248, 248, 248, 0.95);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    gap: 12px;
+
+    @media (max-width: 768px) {
+      height: 40px;
+      padding: 0 12px;
+      gap: 10px;
+    }
+  }
+
+  style safariTopLeft {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  style safariTopRight {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  /* Touch ID Button - Home button with fingerprint */
+  style touchIdButton {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e0e3e8 100%);
+    border: 2px solid rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.5),
+                inset 0 -2px 4px rgba(0, 0, 0, 0.1),
+                0 2px 8px rgba(0, 0, 0, 0.15);
+    z-index: 10;
+
+    &::before {
+      content: "";
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid rgba(0, 0, 0, 0.12);
+      background: linear-gradient(135deg, transparent 0%, rgba(0, 0, 0, 0.03) 100%);
+    }
+
+    &:active {
+      transform: translateX(-50%) scale(0.95);
+      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.15),
+                  0 1px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    @media (max-width: 768px) {
+      width: 48px;
+      height: 48px;
+      bottom: 16px;
+
+      &::before {
+        width: 34px;
+        height: 34px;
+      }
+    }
+  }
+
   /* iOS Status Bar */
   style iosStatusBar {
     height: 44px;
@@ -569,7 +706,7 @@ component ComponentShowcase {
   /* Tablet Screen - Fixed height for tablets */
   style tabletScreen {
     background: linear-gradient(135deg, #f5f7fa 0%, #e4e9f2 100%);
-    height: 856px;
+    height: 788px;
     overflow: hidden;
     border-radius: 0 0 20px 20px;
     position: relative;
@@ -578,7 +715,7 @@ component ComponentShowcase {
     flex-direction: column;
 
     @media (max-width: 768px) {
-      height: 556px;
+      height: 492px;
       border-radius: 0 0 18px 18px;
     }
   }
@@ -757,7 +894,10 @@ component ComponentShowcase {
   }
 
   style desktopScreen {
-    background: linear-gradient(135deg, #f5f7fa 0%, #e4e9f2 100%);
+    background: linear-gradient(135deg, rgba(245, 247, 250, 0.9) 0%, rgba(228, 233, 242, 0.9) 100%),
+                url('https://img.freepik.com/foto-gratis/hojas-otono-transparentes-vividas_23-2148239689.jpg');
+    background-size: cover;
+    background-position: center;
     border-radius: 8px;
     padding: 20px;
     display: grid;
@@ -1211,18 +1351,37 @@ component ComponentShowcase {
               } else if viewMode == "tablet" {
                 <div::mobileTabletLayout>
                   <div::tabletFrame>
-                    /* iOS Status Bar */
-                    <div::iosStatusBar>
-                      <div::statusBarLeft>"9:41"</div>
+                    /* Tablet Camera */
+                    <div::tabletCamera>
+                      <div::tabletCameraDot/>
+                    </div>
 
-                      <div::statusBarCenter>
-                        <div::notchCamera><div::cameraDot/></div>
-                      </div>
+                    /* Tablet Status Bar (no notch) */
+                    <div::tabletStatusBar>
+                      <div::statusBarLeft>"9:41 AM"</div>
 
                       <div::statusBarRight>
-                        <Icon name="signal" size="xs"/>
                         <Icon name="wifi" size="xs"/>
                         <Icon name="battery-full" size="xs"/>
+                      </div>
+                    </div>
+
+                    /* Safari Top Bar */
+                    <div::safariTopBar>
+                      <div::safariTopLeft>
+                        <div::safariButton><Icon name="chevron-left" size="sm"/></div>
+                        <div::safariButton><Icon name="chevron-right" size="sm"/></div>
+                      </div>
+
+                      <div::safariUrlBar>
+                        <Icon name="lock" size="xs"/>
+                        <span>"localhost:3000"</span>
+                      </div>
+
+                      <div::safariTopRight>
+                        <div::safariButton><Icon name="refresh" size="sm"/></div>
+                        <div::safariButton><Icon name="share" size="sm"/></div>
+                        <div::safariButton><Icon name="book-open" size="sm"/></div>
                       </div>
                     </div>
 
@@ -1232,24 +1391,6 @@ component ComponentShowcase {
                         {
                           previewContent
                         }
-                      </div>
-
-                      /* Safari Bottom Bar */
-                      <div::safariBottomBar>
-                        <div::safariButton><Icon name="chevron-left" size="sm"/></div>
-
-                        <div::safariButton>
-                          <Icon name="chevron-right" size="sm"/>
-                        </div>
-
-                        <div::safariUrlBar>
-                          <Icon name="lock" size="xs"/>
-                          <span>"localhost:3000"</span>
-                        </div>
-
-                        <div::safariButton><Icon name="refresh" size="sm"/></div>
-
-                        <div::safariButton><Icon name="copy" size="sm"/></div>
                       </div>
                     </div>
                   </div>
