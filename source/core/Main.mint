@@ -1,8 +1,13 @@
 // This is the component which gets rendered on the screen
 component Main {
   connect ThemeStore exposing { theme }
+  connect IconRegistry exposing { initializeDefaults }
 
   fun componentDidMount : Promise(Void) {
+    /* Initialize icon registry */
+    initializeDefaults()
+
+    /* Initialize theme and navigation */
     `
     (() => {
       #{ThemeStore.initialize}();

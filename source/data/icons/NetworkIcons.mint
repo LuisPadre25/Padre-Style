@@ -6,14 +6,11 @@ module NetworkIcons {
   const WIFI_HIGH =
     "<path d='M12 20h.01'/><path d='M5 12.859a10 10 0 0 1 14 0'/><path d='M8.5 16.429a5 5 0 0 1 7 0'/>"
 
-  const WIFI_LOW =
-    "<path d='M12 20h.01'/><path d='M8.5 16.429a5 5 0 0 1 7 0'/>"
+  const WIFI_LOW = "<path d='M12 20h.01'/><path d='M8.5 16.429a5 5 0 0 1 7 0'/>"
 
-  const WIFI_ZERO =
-    "<path d='M12 20h.01'/>"
+  const WIFI_ZERO = "<path d='M12 20h.01'/>"
 
-  const BLUETOOTH =
-    "<path d='m7 7 10 10-5 5V2l5 5L7 17'/>"
+  const BLUETOOTH = "<path d='m7 7 10 10-5 5V2l5 5L7 17'/>"
 
   const CAST =
     "<path d='M2 16.1A5 5 0 0 1 5.9 20M2 12.05A9 9 0 0 1 9.95 20M2 8V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-6'/><line x1='2' y1='20' x2='2.01' y2='20'/>"
@@ -27,11 +24,9 @@ module NetworkIcons {
   const SIGNAL_MEDIUM =
     "<path d='M2 20h.01'/><path d='M7 20v-4'/><path d='M12 20v-8'/>"
 
-  const SIGNAL_LOW =
-    "<path d='M2 20h.01'/><path d='M7 20v-4'/>"
+  const SIGNAL_LOW = "<path d='M2 20h.01'/><path d='M7 20v-4'/>"
 
-  const SIGNAL_ZERO =
-    "<path d='M2 20h.01'/>"
+  const SIGNAL_ZERO = "<path d='M2 20h.01'/>"
 
   const ROUTER =
     "<rect width='20' height='8' x='2' y='14' rx='2'/><path d='M6.01 18H6'/><path d='M10.01 18H10'/><path d='M15 10v4'/><path d='M17.84 7.17a4 4 0 0 0-5.66 0'/><path d='M20.66 4.34a8 8 0 0 0-11.31 0'/>"

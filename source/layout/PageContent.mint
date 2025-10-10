@@ -112,6 +112,8 @@ component PageContent {
 
       "tabs" => <TabsPage/>
 
+      "navbar" => <NavBarPage/>
+
       "address-edit" => <AddressEditPage/>
 
       "enter-exit" => <EnterExitPage/>

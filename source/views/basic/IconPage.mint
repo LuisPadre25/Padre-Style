@@ -1706,7 +1706,6 @@ component IconPage {
             <Icon name="domestic-service" size="xl" variant="info"/>
             <span::cardTitle>"domestic-service"</span>
           </div>
-
         </div>
       </div>
 

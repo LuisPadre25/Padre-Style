@@ -4,6 +4,7 @@ component HeroPage {
 
   /* State for preview controls */
   state selectedSize : String = "medium"
+
   state selectedVariant : String = "primary"
   state textAlign : String = "center"
   state withImage : Bool = false
@@ -240,9 +241,7 @@ component HeroPage {
 
             <button::button(selectedVariant == "dark")
               onClick={
-                (e : Html.Event) : Promise(Void) {
-                  handleVariantChange("dark")
-                }
+                (e : Html.Event) : Promise(Void) { handleVariantChange("dark") }
               }
             >"Dark"</button>
           </div>
@@ -392,9 +391,7 @@ component HeroPage {
             bgImage="https://images.unsplash.com/photo-1557683316-973673baf926?w=800"
             overlay={true}
             size="small"
-          >
-            <button::demoButton("solid")>"Explore"</button>
-          </Hero>,
+          ><button::demoButton("solid")>"Explore"</button></Hero>,
         showReplay: false
       },
       {
@@ -413,9 +410,7 @@ component HeroPage {
             textAlign="left"
             variant="secondary"
             size="small"
-          >
-            <button::demoButton("solid")>"Start Writing"</button>
-          </Hero>,
+          ><button::demoButton("solid")>"Start Writing"</button></Hero>,
         showReplay: false
       }
     ]

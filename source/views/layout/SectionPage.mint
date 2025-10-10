@@ -4,6 +4,7 @@ component SectionPage {
 
   /* State for preview controls */
   state selectedSize : String = "medium"
+
   state selectedVariant : String = "default"
   state bordered : Bool = false
 
@@ -241,9 +242,7 @@ component SectionPage {
             subtitle="Getting started with sections"
             size="small"
           >
-            <div::demoContent>
-              <Text color="#6b7280">"Your content here"</Text>
-            </div>
+            <div::demoContent><Text color="#6b7280">"Your content here"</Text></div>
           </Section>,
         showReplay: false
       },
@@ -259,15 +258,11 @@ component SectionPage {
         previewContent:
           <div style="display: flex; flex-direction: column; gap: 0;">
             <Section title="Small Section" size="small">
-              <div::demoContent>
-                <Text color="#6b7280">"Less padding"</Text>
-              </div>
+              <div::demoContent><Text color="#6b7280">"Less padding"</Text></div>
             </Section>
 
             <Section title="Medium Section" size="small">
-              <div::demoContent>
-                <Text color="#6b7280">"Default padding"</Text>
-              </div>
+              <div::demoContent><Text color="#6b7280">"Default padding"</Text></div>
             </Section>
           </div>,
         showReplay: false
@@ -337,9 +332,7 @@ component SectionPage {
         previewContent:
           <div style="display: flex; flex-direction: column; gap: 0;">
             <Section title="Features" variant="light" size="small">
-              <div::demoContent>
-                <Text color="#6b7280">"Feature list here"</Text>
-              </div>
+              <div::demoContent><Text color="#6b7280">"Feature list here"</Text></div>
             </Section>
 
             <Section title="Pricing" variant="primary" size="small">
@@ -349,9 +342,7 @@ component SectionPage {
             </Section>
 
             <Section title="Contact" variant="success" size="small">
-              <div::demoContent>
-                <Text color="#6b7280">"Contact form here"</Text>
-              </div>
+              <div::demoContent><Text color="#6b7280">"Contact form here"</Text></div>
             </Section>
           </div>,
         showReplay: false

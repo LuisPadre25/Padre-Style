@@ -2,15 +2,18 @@
 component Section {
   /* Content */
   property children : Array(Html) = []
+
   property title : String = ""
   property subtitle : String = ""
 
   /* Layout */
   property size : String = "medium"
+
   property maxWidth : String = "1200px"
 
   /* Style */
   property bgColor : String = ""
+
   property variant : String = "default"
   property bordered : Bool = false
 
@@ -39,7 +42,6 @@ component Section {
       => "inherit"
     }
   }
-
 
   /* Styles */
   style section {

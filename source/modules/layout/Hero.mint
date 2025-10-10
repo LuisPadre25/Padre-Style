@@ -2,6 +2,7 @@
 component Hero {
   /* Content */
   property title : String = ""
+
   property subtitle : String = ""
   property children : Array(Html) = []
 
@@ -10,12 +11,14 @@ component Hero {
 
   /* Style */
   property variant : String = "primary"
+
   property bgImage : String = ""
   property overlay : Bool = false
   property textAlign : String = "center"
 
   /* Custom styles */
   property bgColor : String = ""
+
   property textColor : String = ""
 
   /* Get background color based on variant */

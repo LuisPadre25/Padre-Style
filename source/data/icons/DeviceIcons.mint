@@ -75,8 +75,7 @@ module DeviceIcons {
   const WIFI_OFF =
     "<line x1='1' x2='23' y1='1' y2='23'/><path d='M16.72 11.06A10.94 10.94 0 0 1 19 12.55'/><path d='M5 12.55a10.94 10.94 0 0 1 5.17-2.39'/><path d='M10.71 5.05A16 16 0 0 1 22.58 9'/><path d='M1.42 9a15.91 15.91 0 0 1 4.7-2.88'/><path d='M8.53 16.11a6 6 0 0 1 6.95 0'/><line x1='12' x2='12.01' y1='20' y2='20'/>"
 
-  const BLUETOOTH =
-    "<path d='m7 7 10 10-5 5V2l5 5L7 17'/>"
+  const BLUETOOTH = "<path d='m7 7 10 10-5 5V2l5 5L7 17'/>"
 
   const CPU =
     "<rect width='16' height='16' x='4' y='4' rx='2' ry='2'/><rect width='6' height='6' x='9' y='9'/><line x1='9' x2='9' y1='1' y2='4'/><line x1='15' x2='15' y1='1' y2='4'/><line x1='9' x2='9' y1='20' y2='23'/><line x1='15' x2='15' y1='20' y2='23'/><line x1='20' x2='23' y1='9' y2='9'/><line x1='20' x2='23' y1='14' y2='14'/><line x1='1' x2='4' y1='9' y2='9'/><line x1='1' x2='4' y1='14' y2='14'/>"
