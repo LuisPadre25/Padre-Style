@@ -135,6 +135,10 @@ routes {
     NavigationStore.setPageAndSection("matrix", "Display Components")
   }
 
+  /highlight {
+    NavigationStore.setPageAndSection("highlight", "Display Components")
+  }
+
   /tabs {
     NavigationStore.setPageAndSection("tabs", "Navigation Components")
   }
