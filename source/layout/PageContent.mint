@@ -114,9 +114,13 @@ component PageContent {
 
       "tabs" => <TabsPage/>
 
+      "index-bar" => <IndexBarPage/>
+
       "navbar" => <NavBarPage/>
 
       "address-edit" => <AddressEditPage/>
+
+      "action-sheet" => <ActionSheetPage/>
 
       "enter-exit" => <EnterExitPage/>
 

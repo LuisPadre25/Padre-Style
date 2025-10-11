@@ -139,8 +139,20 @@ routes {
     NavigationStore.setPageAndSection("tabs", "Navigation Components")
   }
 
+  /index-bar {
+    NavigationStore.setPageAndSection("index-bar", "Navigation Components")
+  }
+
   /address-edit {
     NavigationStore.setPageAndSection("address-edit", "Business Components")
+  }
+
+  /action-sheet {
+    NavigationStore.setPageAndSection("action-sheet", "Action Components")
+  }
+
+  /dialog {
+    NavigationStore.setPageAndSection("dialog", "Action Components")
   }
 
   /codes {
