@@ -78,6 +78,8 @@ component PageContent {
 
       "flex" => <FlexPage/>
 
+      "columns" => <ColumnsPage/>
+
       "hero" => <HeroPage/>
 
       "section" => <SectionPage/>

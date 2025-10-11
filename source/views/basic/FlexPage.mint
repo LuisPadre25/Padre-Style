@@ -1,111 +1,36 @@
-/* FlexPage - Columns & Column Components Showcase */
+/* FlexPage - Flex Layout Component Showcase */
 component FlexPage {
-  connect ThemeStore exposing { theme }
-  connect ViewModeStore exposing { viewMode }
+  /* State for interactive preview */
+  state direction : String = "row"
 
-  /* State for examples */
-  state activeExample : String = "basic"
+  state justify : String = "flex-start"
+  state align : String = "stretch"
+  state gap : String = "12px"
+  state wrap : Bool = false
 
-  state gap : String = "1rem"
-  state multiline : Bool = true
-  state vAlign : String = "stretch"
-  state direction : String = "horizontal"
-
-  /* Dynamic columns state */
-  state dynamicColumns : Array(DynamicColumn) =
-    [{ id: "1", size: "5", offset: "0" }, { id: "2", size: "5", offset: "0" }]
-
-  state columnCounter : Number = 2
-
-  /* Event handlers */
-  fun handleGapChange (event : Html.Event) : Promise(Void) {
-    next { gap: Dom.getValue(event.target) }
-  }
-
-  fun handleMultilineToggle (event : Html.Event) : Promise(Void) {
-    {
-      let isChecked =
-        `#{event}.target.checked`
-
-      next { multiline: isChecked }
-    }
-  }
-
-  fun handleVAlignChange (event : Html.Event) : Promise(Void) {
-    next { vAlign: Dom.getValue(event.target) }
-  }
-
+  /* Handlers */
   fun handleDirectionChange (event : Html.Event) : Promise(Void) {
     next { direction: Dom.getValue(event.target) }
   }
 
-  /* Dynamic column handlers */
-  fun addColumn : Promise(Void) {
+  fun handleJustifyChange (event : Html.Event) : Promise(Void) {
+    next { justify: Dom.getValue(event.target) }
+  }
+
+  fun handleAlignChange (event : Html.Event) : Promise(Void) {
+    next { align: Dom.getValue(event.target) }
+  }
+
+  fun handleGapChange (event : Html.Event) : Promise(Void) {
+    next { gap: Dom.getValue(event.target) }
+  }
+
+  fun handleWrapToggle (event : Html.Event) : Promise(Void) {
     {
-      let newCounter =
-        columnCounter + 1
+      let isChecked =
+        `#{event}.target.checked`
 
-      let newId =
-        Number.toString(newCounter)
-
-      let newColumns =
-        `[
-          ...#{dynamicColumns},
-          { id: #{newId}, size: "auto", offset: "0" }
-        ]`
-
-      next { columnCounter: newCounter, dynamicColumns: newColumns }
-    }
-  }
-
-  fun removeColumn (id : String) : Promise(Void) {
-    next {
-      dynamicColumns:
-        Array.reject(dynamicColumns, (col : DynamicColumn) { col.id == id })
-    }
-  }
-
-  fun updateColumnSize (id : String, newSize : String) : Promise(Void) {
-    next {
-      dynamicColumns:
-        Array.map(dynamicColumns,
-          (col : DynamicColumn) {
-            if col.id == id {
-              { id: col.id, size: newSize, offset: col.offset }
-            } else {
-              col
-            }
-          })
-    }
-  }
-
-  fun updateColumnOffset (id : String, newOffset : String) : Promise(Void) {
-    next {
-      dynamicColumns:
-        Array.map(dynamicColumns,
-          (col : DynamicColumn) {
-            if col.id == id {
-              { id: col.id, size: col.size, offset: newOffset }
-            } else {
-              col
-            }
-          })
-    }
-  }
-
-  /* Get color for column ID */
-  fun getColumnColor (colId : String) : String {
-    case colId {
-      "1" => "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"
-      "2" => "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)"
-      "3" => "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
-      "4" => "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"
-      "5" => "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)"
-      "6" => "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
-      "7" => "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"
-      "8" => "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)"
-      "9" => "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
-      => "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+      next { wrap: isChecked }
     }
   }
 
@@ -157,151 +82,61 @@ component FlexPage {
     cursor: pointer;
   }
 
-  style columnControl {
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    padding: 12px;
-    margin-bottom: 12px;
-  }
-
-  style columnHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 12px;
-  }
-
-  style columnTitle {
-    font-weight: 600;
-    color: var(--heading-color);
-  }
-
-  style removeButton {
-    background: #ef4444;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    padding: 6px 12px;
-    font-size: 12px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-
-    &:hover {
-      background: #dc2626;
-    }
-  }
-
-  style addButton {
-    background: var(--primary-color);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    padding: 10px 16px;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    width: 100%;
-    margin-top: 12px;
-
-    &:hover {
-      background: #0c7cd5;
-    }
-  }
-
-  style columnRow {
-    display: flex;
-    gap: 12px;
-  }
-
-  style columnField {
-    flex: 1;
-  }
-
   style demoBox {
+    padding: 1.5rem;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
-    padding: 1.5rem;
     border-radius: 8px;
     text-align: center;
     font-weight: 500;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    font-size: 14px;
-    word-break: break-word;
   }
 
   style demoBox2 {
+    padding: 1.5rem;
     background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
     color: white;
-    padding: 1.5rem;
     border-radius: 8px;
     text-align: center;
     font-weight: 500;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    font-size: 14px;
-    word-break: break-word;
   }
 
   style demoBox3 {
+    padding: 1.5rem;
     background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
     color: white;
-    padding: 1.5rem;
     border-radius: 8px;
     text-align: center;
     font-weight: 500;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    font-size: 14px;
-    word-break: break-word;
+  }
+
+  style demoCard {
+    padding: 1.5rem;
+    background: #f7f8fa;
+    border-radius: 8px;
+    color: #323233;
   }
 
   fun render : Html {
     <ComponentShowcase
-      title="Flex (Columns & Column)"
-      description="Flexible column-based layout system using Flexbox with size fractions (1-10), offset support, and responsive breakpoints. Gap fixed at 1rem (16px)."
-      badge="Layout"
+      title="Flex"
+      description="Pure flexbox component with flex property for proportional growth, visual properties (background, borderRadius, padding), and overflow control. Use this for navbars, cards, app layouts, and any flexbox pattern. For Bootstrap-style grids with fractions and responsive breakpoints, use Columns component instead."
+      badge="Flexbox"
       previewContent={
         <div style="width: 100%;">
-          <Columns
-            gap={gap}
-            multiline={multiline}
-            vAlign={vAlign}
+          <Flex
             direction={direction}
+            justify={justify}
+            align={align}
+            gap={gap}
+            wrap={wrap}
           >
-            for col of dynamicColumns {
-              <Column size={col.size} offset={col.offset}>
-                <div
-                  style={
-                    "background: " + getColumnColor(col.id) + "; color: white; padding: 2rem; border-radius: 8px; text-align: center; font-weight: 500; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);"
-                  }
-                >
-                  <div>
-                    "Column "
-
-                    {
-                      col.id
-                    }
-                  </div>
-
-                  <div style="font-size: 12px; margin-top: 8px; opacity: 0.9;">
-                    "size: "
-
-                    {
-                      col.size
-                    }
-
-                    if col.offset != "0" {
-                      " | offset: "
-
-                      {
-                        col.offset
-                      }
-                    }
-                  </div>
-                </div>
-              </Column>
-            }
-          </Columns>
+            <div::demoBox>"Box 1"</div>
+            <div::demoBox2>"Box 2"</div>
+            <div::demoBox3>"Box 3"</div>
+          </Flex>
         </div>
       }
       controlsContent={
@@ -310,202 +145,349 @@ component FlexPage {
             <label::label>"Direction"</label>
 
             <select::select value={direction} onChange={handleDirectionChange}>
-              <option value="horizontal">"Horizontal (Row)"</option>
-              <option value="vertical">"Vertical (Column)"</option>
+              <option value="row">"Row (Horizontal)"</option>
+              <option value="column">"Column (Vertical)"</option>
             </select>
           </div>
 
           <div::controlGroup>
-            <label::label>"Vertical Alignment"</label>
+            <label::label>"Justify Content"</label>
 
-            <select::select value={vAlign} onChange={handleVAlignChange}>
-              <option value="stretch">"Stretch"</option>
-              <option value="top">"Top"</option>
+            <select::select value={justify} onChange={handleJustifyChange}>
+              <option value="flex-start">"Flex Start"</option>
               <option value="center">"Center"</option>
-              <option value="bottom">"Bottom"</option>
+              <option value="flex-end">"Flex End"</option>
+              <option value="space-between">"Space Between"</option>
+              <option value="space-around">"Space Around"</option>
+              <option value="space-evenly">"Space Evenly"</option>
             </select>
           </div>
 
           <div::controlGroup>
-            <label::label>"Columns"</label>
+            <label::label>"Align Items"</label>
 
-            for col of dynamicColumns {
-              <div::columnControl>
-                <div::columnHeader>
-                  <div::columnTitle>
-                    "Column "
+            <select::select value={align} onChange={handleAlignChange}>
+              <option value="stretch">"Stretch"</option>
+              <option value="flex-start">"Flex Start"</option>
+              <option value="center">"Center"</option>
+              <option value="flex-end">"Flex End"</option>
+            </select>
+          </div>
 
-                    {
-                      col.id
-                    }
-                  </div>
+          <div::controlGroup>
+            <label::label>"Gap"</label>
 
-                  if Array.size(dynamicColumns) > 1 {
-                    <button::removeButton onClick={() { removeColumn(col.id) }}>
-                      "Remove"
-                    </button>
-                  }
-                </div>
+            <select::select value={gap} onChange={handleGapChange}>
+              <option value="0">"0"</option>
+              <option value="4px">"4px"</option>
+              <option value="8px">"8px"</option>
+              <option value="12px">"12px"</option>
+              <option value="16px">"16px"</option>
+              <option value="24px">"24px"</option>
+              <option value="32px">"32px"</option>
+            </select>
+          </div>
 
-                <div::columnRow>
-                  <div::columnField>
-                    <label::label>"Size"</label>
+          <div::controlGroup>
+            <div::checkboxGroup>
+              <input::checkbox
+                type="checkbox"
+                checked={wrap}
+                onChange={handleWrapToggle}
+              />
 
-                    <select::select
-                      value={col.size}
-                      onChange={
-                        (e : Html.Event) {
-                          updateColumnSize(col.id, Dom.getValue(e.target))
-                        }
-                      }
-                    >
-                      <option value="auto">"Auto (flexible)"</option>
-                      <option value="1">"1 (10%)"</option>
-                      <option value="2">"2 (20%)"</option>
-                      <option value="3">"3 (30%)"</option>
-                      <option value="4">"4 (40%)"</option>
-                      <option value="5">"5 (50%)"</option>
-                      <option value="6">"6 (60%)"</option>
-                      <option value="7">"7 (70%)"</option>
-                      <option value="8">"8 (80%)"</option>
-                      <option value="9">"9 (90%)"</option>
-                      <option value="10">"10 (100%)"</option>
-                    </select>
-                  </div>
-
-                  <div::columnField>
-                    <label::label>"Offset"</label>
-
-                    <select::select
-                      value={col.offset}
-                      onChange={
-                        (e : Html.Event) {
-                          updateColumnOffset(col.id, Dom.getValue(e.target))
-                        }
-                      }
-                    >
-                      <option value="0">"0 (None)"</option>
-                      <option value="1">"1 (10%)"</option>
-                      <option value="2">"2 (20%)"</option>
-                      <option value="3">"3 (30%)"</option>
-                      <option value="4">"4 (40%)"</option>
-                      <option value="5">"5 (50%)"</option>
-                      <option value="6">"6 (60%)"</option>
-                      <option value="7">"7 (70%)"</option>
-                      <option value="8">"8 (80%)"</option>
-                      <option value="9">"9 (90%)"</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-            }
-
-            <button::addButton onClick={addColumn}>"+ Add Column"</button>
+              <label::checkboxLabel>"Wrap"</label>
+            </div>
           </div>
         </div>
       }
-      usageText="Columns is a flexible layout system based on Flexbox. Use Column components inside Columns with size props (1-10 representing 10%-100%), auto for flexible columns, or custom sizes. Supports offset and responsive breakpoints."
+      usageText="Flex is a pure flexbox component. Use flex='1' for equal growth, flex='2' for 2x width, etc. Automatic features: box-sizing: border-box (always), width: 100% (default), width: auto (when flex is set). Includes visual props (background, borderRadius, padding, margin) and overflow control. Perfect for navbars (justify='space-between'), cards (background + borderRadius), app layouts (flex='1' for growing sections), and any flexbox pattern. ⚠️ For Bootstrap-style grids with size fractions (1-10) and responsive breakpoints, use Columns component instead."
       codeExamples={
         [
           {
-            title: "Basic Columns - Equal Width",
-            description: "Auto columns distribute space equally",
+            title: "Basic Row Layout",
+            description: "Simple horizontal layout with gap",
             snippet:
               {
                 code:
-                  "<Columns gap=\"1rem\">\n" + "  <Column size=\"auto\">\n" + "    <div>Column 1</div>\n" + "  </Column>\n" + "  <Column size=\"auto\">\n" + "    <div>Column 2</div>\n" + "  </Column>\n" + "  <Column size=\"auto\">\n" + "    <div>Column 3</div>\n" + "  </Column>\n" + "</Columns>",
+                  "<Flex gap=\"12px\">\n" + "  <div>Item 1</div>\n" + "  <div>Item 2</div>\n" + "  <div>Item 3</div>\n" + "</Flex>",
                 language: "mint"
               },
             previewContent:
               <div style="width: 100%;">
-                <Columns gap="1rem">
-                  <Column size="auto"><div::demoBox>"Column 1"</div></Column>
-                  <Column size="auto"><div::demoBox2>"Column 2"</div></Column>
-                  <Column size="auto"><div::demoBox3>"Column 3"</div></Column>
-                </Columns>
+                <Flex gap="12px">
+                  <div::demoBox>"Item 1"</div>
+                  <div::demoBox2>"Item 2"</div>
+                  <div::demoBox3>"Item 3"</div>
+                </Flex>
               </div>,
             showReplay: false
           },
           {
-            title: "Fixed Sizes - Fractions",
-            description: "Size 1-10 represents 10%-100%",
+            title: "Column Layout",
+            description: "Vertical stacking of items",
             snippet:
               {
                 code:
-                  "<Columns gap=\"1rem\">\n" + "  <Column size=\"2\">\n" + "    <div>20% (size=2)</div>\n" + "  </Column>\n" + "  <Column size=\"5\">\n" + "    <div>50% (size=5)</div>\n" + "  </Column>\n" + "  <Column size=\"3\">\n" + "    <div>30% (size=3)</div>\n" + "  </Column>\n" + "</Columns>",
+                  "<Flex direction=\"column\" gap=\"12px\">\n" + "  <div>Item 1</div>\n" + "  <div>Item 2</div>\n" + "  <div>Item 3</div>\n" + "</Flex>",
                 language: "mint"
               },
             previewContent:
               <div style="width: 100%;">
-                <Columns gap="1rem">
-                  <Column size="2"><div::demoBox>"20%"</div></Column>
-                  <Column size="5"><div::demoBox2>"50%"</div></Column>
-                  <Column size="3"><div::demoBox3>"30%"</div></Column>
-                </Columns>
+                <Flex direction="column" gap="12px">
+                  <div::demoBox>"Item 1"</div>
+                  <div::demoBox2>"Item 2"</div>
+                  <div::demoBox3>"Item 3"</div>
+                </Flex>
               </div>,
             showReplay: false
           },
           {
-            title: "Mixed Sizes",
-            description: "Combine fixed and auto columns",
+            title: "Flex Property - Equal Growth",
+            description: "Items grow equally to fill space",
             snippet:
               {
                 code:
-                  "<Columns gap=\"1rem\">\n" + "  <Column size=\"3\">\n" + "    <div>30% fixed</div>\n" + "  </Column>\n" + "  <Column size=\"auto\">\n" + "    <div>Auto fills remaining</div>\n" + "  </Column>\n" + "  <Column size=\"2\">\n" + "    <div>20% fixed</div>\n" + "  </Column>\n" + "</Columns>",
+                  "<Flex gap=\"12px\">\n" + "  <Flex flex=\"1\"><div>Flex 1</div></Flex>\n" + "  <Flex flex=\"1\"><div>Flex 1</div></Flex>\n" + "  <Flex flex=\"1\"><div>Flex 1</div></Flex>\n" + "</Flex>",
                 language: "mint"
               },
             previewContent:
               <div style="width: 100%;">
-                <Columns gap="1rem">
-                  <Column size="3"><div::demoBox>"30% fixed"</div></Column>
-                  <Column size="auto"><div::demoBox2>"Auto"</div></Column>
-                  <Column size="2"><div::demoBox3>"20% fixed"</div></Column>
-                </Columns>
+                <Flex gap="12px">
+                  <Flex flex="1"><div::demoBox>"Flex 1"</div></Flex>
+                  <Flex flex="1"><div::demoBox2>"Flex 1"</div></Flex>
+                  <Flex flex="1"><div::demoBox3>"Flex 1"</div></Flex>
+                </Flex>
               </div>,
             showReplay: false
           },
           {
-            title: "Offset",
-            description: "Push columns with offset",
+            title: "Flex Property - Different Proportions",
+            description: "Control growth ratio with flex values",
             snippet:
               {
                 code:
-                  "<Columns gap=\"1rem\">\n" + "  <Column size=\"3\" offset=\"2\">\n" + "    <div>30% with 20% offset</div>\n" + "  </Column>\n" + "  <Column size=\"4\">\n" + "    <div>40%</div>\n" + "  </Column>\n" + "</Columns>",
+                  "<Flex gap=\"12px\">\n" + "  <Flex flex=\"1\"><div>1x</div></Flex>\n" + "  <Flex flex=\"2\"><div>2x wider</div></Flex>\n" + "  <Flex flex=\"1\"><div>1x</div></Flex>\n" + "</Flex>",
                 language: "mint"
               },
             previewContent:
               <div style="width: 100%;">
-                <Columns gap="1rem">
-                  <Column size="3" offset="2"><div::demoBox>"30% + offset"</div></Column>
-                  <Column size="4"><div::demoBox2>"40%"</div></Column>
-                </Columns>
+                <Flex gap="12px">
+                  <Flex flex="1"><div::demoBox>"1x"</div></Flex>
+                  <Flex flex="2"><div::demoBox2>"2x wider"</div></Flex>
+                  <Flex flex="1"><div::demoBox3>"1x"</div></Flex>
+                </Flex>
               </div>,
             showReplay: false
           },
           {
-            title: "Responsive Columns",
-            description: "Different sizes per breakpoint",
+            title: "Centering Content",
+            description: "Horizontal and vertical centering",
             snippet:
               {
                 code:
-                  "<Columns gap=\"1rem\" multiline={true}>\n" + "  <Column size=\"10\" sizeTablet=\"5\" sizeDesktop=\"3\">\n" + "    <div>100% mobile, 50% tablet, 30% desktop</div>\n" + "  </Column>\n" + "  <Column size=\"10\" sizeTablet=\"5\" sizeDesktop=\"3\">\n" + "    <div>100% mobile, 50% tablet, 30% desktop</div>\n" + "  </Column>\n" + "  <Column size=\"10\" sizeTablet=\"10\" sizeDesktop=\"4\">\n" + "    <div>100% mobile, 100% tablet, 40% desktop</div>\n" + "  </Column>\n" + "</Columns>",
+                  "<Flex justify=\"center\" align=\"center\" height=\"150px\">\n" + "  <div>Centered</div>\n" + "</Flex>",
                 language: "mint"
               },
             previewContent:
               <div style="width: 100%;">
-                <Columns gap="1rem" multiline={true}>
-                  <Column size="10" sizeTablet="5" sizeDesktop="3">
-                    <div::demoBox>"Responsive 1"</div>
-                  </Column>
+                <Flex
+                  justify="center"
+                  align="center"
+                  height="150px"
+                  background="#f7f8fa"
+                  borderRadius="8px"
+                >
+                  <div::demoBox>"Centered"</div>
+                </Flex>
+              </div>,
+            showReplay: false
+          },
+          {
+            title: "Space Between",
+            description: "Distribute items with space between",
+            snippet:
+              {
+                code:
+                  "<Flex justify=\"space-between\">\n" + "  <div>Left</div>\n" + "  <div>Right</div>\n" + "</Flex>",
+                language: "mint"
+              },
+            previewContent:
+              <div style="width: 100%;">
+                <Flex justify="space-between">
+                  <div::demoBox>"Left"</div>
+                  <div::demoBox3>"Right"</div>
+                </Flex>
+              </div>,
+            showReplay: false
+          },
+          {
+            title: "Visual Properties - Cards",
+            description: "Create cards with background and border radius",
+            snippet:
+              {
+                code:
+                  "<Flex\n" + "  direction=\"column\"\n" + "  gap=\"12px\"\n" + "  background=\"#f7f8fa\"\n" + "  borderRadius=\"12px\"\n" + "  padding=\"24px\"\n" + ">\n" + "  <div>Card Content</div>\n" + "</Flex>",
+                language: "mint"
+              },
+            previewContent:
+              <div style="width: 100%;">
+                <Flex
+                  direction="column"
+                  gap="12px"
+                  background="#f7f8fa"
+                  borderRadius="12px"
+                  padding="24px"
+                >
+                  <Text weight="600">"Card Title"</Text>
+                  <Text>"This Flex has background, border radius, and padding."</Text>
+                </Flex>
+              </div>,
+            showReplay: false
+          },
+          {
+            title: "Multiple Cards",
+            description: "Row of equal-width cards",
+            snippet:
+              {
+                code:
+                  "<Flex gap=\"16px\">\n" + "  <Flex flex=\"1\" background=\"#07c160\" borderRadius=\"12px\" padding=\"20px\">\n" + "    <div>Card 1</div>\n" + "  </Flex>\n" + "  <Flex flex=\"1\" background=\"#1989fa\" borderRadius=\"12px\" padding=\"20px\">\n" + "    <div>Card 2</div>\n" + "  </Flex>\n" + "  <Flex flex=\"1\" background=\"#ff976a\" borderRadius=\"12px\" padding=\"20px\">\n" + "    <div>Card 3</div>\n" + "  </Flex>\n" + "</Flex>",
+                language: "mint"
+              },
+            previewContent:
+              <div style="width: 100%;">
+                <Flex gap="16px">
+                  <Flex
+                    flex="1"
+                    background="#07c160"
+                    borderRadius="12px"
+                    padding="20px"
+                  >
+                    <Text color="#ffffff">"Card 1"</Text>
+                  </Flex>
 
-                  <Column size="10" sizeTablet="5" sizeDesktop="3">
-                    <div::demoBox2>"Responsive 2"</div>
-                  </Column>
+                  <Flex
+                    flex="1"
+                    background="#1989fa"
+                    borderRadius="12px"
+                    padding="20px"
+                  >
+                    <Text color="#ffffff">"Card 2"</Text>
+                  </Flex>
 
-                  <Column size="10" sizeTablet="10" sizeDesktop="4">
-                    <div::demoBox3>"Responsive 3"</div>
-                  </Column>
-                </Columns>
+                  <Flex
+                    flex="1"
+                    background="#ff976a"
+                    borderRadius="12px"
+                    padding="20px"
+                  >
+                    <Text color="#ffffff">"Card 3"</Text>
+                  </Flex>
+                </Flex>
+              </div>,
+            showReplay: false
+          },
+          {
+            title: "Overflow - Scrollable Content",
+            description: "Fixed height with scrollable overflow",
+            snippet:
+              {
+                code:
+                  "<Flex\n" + "  direction=\"column\"\n" + "  height=\"200px\"\n" + "  overflow=\"auto\"\n" + "  background=\"#f7f8fa\"\n" + "  borderRadius=\"8px\"\n" + "  padding=\"16px\"\n" + "  gap=\"8px\"\n" + ">\n" + "  <div>Item 1</div>\n" + "  <div>Item 2</div>\n" + "  <div>Item 3</div>\n" + "  <div>Item 4</div>\n" + "  <div>Item 5</div>\n" + "</Flex>",
+                language: "mint"
+              },
+            previewContent:
+              <div style="width: 100%;">
+                <Flex
+                  direction="column"
+                  height="200px"
+                  overflow="auto"
+                  background="#f7f8fa"
+                  borderRadius="8px"
+                  padding="16px"
+                  gap="8px"
+                >
+                  <div::demoCard>"Item 1"</div>
+                  <div::demoCard>"Item 2"</div>
+                  <div::demoCard>"Item 3"</div>
+                  <div::demoCard>"Item 4"</div>
+                  <div::demoCard>"Item 5 (scroll)"</div>
+                </Flex>
+              </div>,
+            showReplay: false
+          },
+          {
+            title: "App Layout Example",
+            description: "Complete navbar + sidebar + content layout",
+            snippet:
+              {
+                code:
+                  "<Flex direction=\"column\" height=\"400px\">\n" + "  {/* Navbar */}\n" + "  <Flex justify=\"space-between\" align=\"center\" padding=\"16px 24px\" background=\"#1989fa\">\n" + "    <div>Logo</div>\n" + "    <div>Menu</div>\n" + "  </Flex>\n" + "\n" + "  {/* Main Area */}\n" + "  <Flex flex=\"1\" overflow=\"hidden\">\n" + "    {/* Sidebar */}\n" + "    <Flex direction=\"column\" width=\"200px\" background=\"#f7f8fa\" padding=\"16px\" gap=\"8px\">\n" + "      <div>Home</div>\n" + "      <div>Settings</div>\n" + "    </Flex>\n" + "\n" + "    {/* Content */}\n" + "    <Flex flex=\"1\" padding=\"24px\" overflow=\"auto\">\n" + "      <div>Main Content</div>\n" + "    </Flex>\n" + "  </Flex>\n" + "</Flex>",
+                language: "mint"
+              },
+            previewContent:
+              <div style="width: 100%;">
+                <Flex
+                  direction="column"
+                  height="400px"
+                  background="#ffffff"
+                  borderRadius="12px"
+                  overflow="hidden"
+                >
+                  <Flex
+                    justify="space-between"
+                    align="center"
+                    padding="16px 24px"
+                    background="#1989fa"
+                  >
+                    <Text color="#ffffff" weight="600">"App Title"</Text>
+                    <Text color="#ffffff">"Menu"</Text>
+                  </Flex>
+
+                  <Flex flex="1" overflow="hidden">
+                    <Flex
+                      direction="column"
+                      width="200px"
+                      background="#f7f8fa"
+                      padding="16px"
+                      gap="8px"
+                    >
+                      <div::demoCard>"Home"</div>
+                      <div::demoCard>"Dashboard"</div>
+                      <div::demoCard>"Settings"</div>
+                    </Flex>
+
+                    <Flex
+                      direction="column"
+                      flex="1"
+                      padding="24px"
+                      overflow="auto"
+                      gap="16px"
+                    >
+                      <Text weight="600">"Main Content Area"</Text>
+
+                      <Flex gap="12px">
+                        <Flex
+                          flex="1"
+                          background="#e4e9f2"
+                          borderRadius="8px"
+                          padding="20px"
+                        >
+                          <Text>"Card 1"</Text>
+                        </Flex>
+
+                        <Flex
+                          flex="1"
+                          background="#e4e9f2"
+                          borderRadius="8px"
+                          padding="20px"
+                        >
+                          <Text>"Card 2"</Text>
+                        </Flex>
+                      </Flex>
+                    </Flex>
+                  </Flex>
+                </Flex>
               </div>,
             showReplay: false
           }
@@ -514,89 +496,90 @@ component FlexPage {
       apiProperties={
         [
           {
-            name: "Columns Properties",
-            description: "Container component properties",
+            name: "Flex Properties",
+            description: "Pure flexbox component. ✅ Has: flex property, visual props (background, borderRadius), overflow. ❌ No: size fractions, offset, responsive breakpoints - use Columns for those.",
             type: "Component",
             defaultValue: ""
           },
           {
-            name: "gap",
-            description: "Space between columns (CSS value)",
+            name: "direction",
+            description: "Flex direction: 'row' or 'column'",
             type: "String",
-            defaultValue: "\"0.75rem\""
+            defaultValue: "\"row\""
           },
           {
-            name: "multiline",
-            description: "Allow columns to wrap to next line",
-            type: "Bool",
-            defaultValue: "false"
-          },
-          {
-            name: "vAlign",
+            name: "justify",
             description:
-              "Vertical alignment: 'top', 'center', 'bottom', 'stretch'",
-            type: "String",
-            defaultValue: "\"stretch\""
-          },
-          {
-            name: "hAlign",
-            description:
-              "Horizontal alignment: 'left', 'center', 'right', 'space-between', 'space-around'",
+              "Justify content: 'flex-start', 'center', 'flex-end', 'space-between', 'space-around', 'space-evenly'",
             type: "String",
             defaultValue: "\"flex-start\""
           },
           {
-            name: "centered",
-            description: "Center all columns",
-            type: "Bool",
-            defaultValue: "false"
-          },
-          {
-            name: "Column Properties",
-            description: "Individual column properties",
-            type: "Component",
-            defaultValue: ""
-          },
-          {
-            name: "size",
-            description: "Column size: '1'-'10' (10%-100%), 'auto', or 'custom'",
-            type: "String",
-            defaultValue: "\"auto\""
-          },
-          {
-            name: "customSize",
+            name: "align",
             description:
-              "Custom CSS size when size='custom' (e.g., '300px', '25%')",
+              "Align items: 'stretch', 'flex-start', 'center', 'flex-end'",
             type: "String",
-            defaultValue: "\"\""
+            defaultValue: "\"stretch\""
           },
           {
-            name: "offset",
-            description: "Left margin offset: '0'-'9' (0%-90%)",
+            name: "gap",
+            description: "Space between items (CSS value)",
             type: "String",
             defaultValue: "\"0\""
           },
           {
-            name: "sizeTablet",
-            description: "Size for tablet+ (768px)",
+            name: "wrap",
+            description: "Allow items to wrap to next line",
+            type: "Bool",
+            defaultValue: "false"
+          },
+          {
+            name: "flex",
+            description:
+              "Flex grow/shrink value for proportional sizing (e.g., '1', '2'). Automatically sets width to 'auto'. Note: This is NOT the same as Column's size='1-10' fractions.",
             type: "String",
             defaultValue: "\"\""
           },
           {
-            name: "sizeDesktop",
-            description: "Size for desktop+ (1024px)",
+            name: "width",
+            description:
+              "Width (CSS value). Default: '100%' when no flex, 'auto' when flex is set",
             type: "String",
             defaultValue: "\"\""
           },
           {
-            name: "offsetTablet",
-            description: "Offset for tablet+ (768px)",
+            name: "height",
+            description: "Height (CSS value)",
             type: "String",
             defaultValue: "\"\""
           },
           {
-            name: "offsetDesktop",
-            description: "Offset for desktop+ (1024px)",
+            name: "padding",
+            description: "Internal spacing (CSS value)",
+            type: "String",
+            defaultValue: "\"\""
+          },
+          {
+            name: "margin",
+            description: "External spacing (CSS value)",
+            type: "String",
+            defaultValue: "\"\""
+          },
+          {
+            name: "overflow",
+            description: "Overflow behavior: 'auto', 'hidden', 'scroll', etc.",
+            type: "String",
+            defaultValue: "\"\""
+          },
+          {
+            name: "background",
+            description: "Background color or gradient (CSS value)",
+            type: "String",
+            defaultValue: "\"\""
+          },
+          {
+            name: "borderRadius",
+            description: "Border radius (CSS value)",
             type: "String",
             defaultValue: "\"\""
           }

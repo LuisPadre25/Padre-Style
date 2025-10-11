@@ -116,7 +116,14 @@ module SidebarConfig {
               id: "flex",
               label: "Flex",
               route: "/flex",
-              subtitle: "Columns",
+              subtitle: "Flexible Layout",
+              badge: "NEW"
+            },
+            {
+              id: "columns",
+              label: "Columns",
+              route: "/columns",
+              subtitle: "Grid System",
               badge: ""
             },
             {

@@ -63,6 +63,10 @@ routes {
     NavigationStore.setPageAndSection("flex", "Layout Utilities")
   }
 
+  /columns {
+    NavigationStore.setPageAndSection("columns", "Layout Utilities")
+  }
+
   /hero {
     NavigationStore.setPageAndSection("hero", "Layout Utilities")
   }
