@@ -44,7 +44,12 @@
       "WebFetch(domain:api.github.com)",
       "WebFetch(domain:stackoverflow.blog)",
       "Bash(cat:*)",
-      "Bash(rm:*)"
+      "Bash(rm:*)",
+      "Bash(del nul)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(del \"C:\\Users\\Administrator\\Documents\\GitHub\\Padre-Style\\source\\core\\types\\ButtonStyle.mint\")"
     ],
     "deny": [],
     "ask": []
