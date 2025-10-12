@@ -44,7 +44,11 @@
       "WebFetch(domain:api.github.com)",
       "WebFetch(domain:stackoverflow.blog)",
       "Bash(cat:*)",
-      "Bash(rm:*)"
+      "Bash(rm:*)",
+      "Bash(git pull:*)",
+      "Bash(git stash:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
     ],
     "deny": [],
     "ask": []
