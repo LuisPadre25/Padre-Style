@@ -48,7 +48,10 @@
       "Bash(git pull:*)",
       "Bash(git stash:*)",
       "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(del nul)",
+      "Bash(git push:*)",
+      "Bash(del \"C:\\Users\\Administrator\\Documents\\GitHub\\Padre-Style\\source\\core\\types\\ButtonStyle.mint\")"
     ],
     "deny": [],
     "ask": []

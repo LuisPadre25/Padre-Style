@@ -62,17 +62,7 @@ component PageContent {
 
       "icon" => <IconPage/>
 
-      "button" =>
-        <>
-          <Heading level="1" margin="0 0 30px">"Button Component"</Heading>
-
-          <Text margin="16px 0">
-            "Buttons allow users to take actions with a single tap."
-          </Text>
-
-          <Heading level="2" margin="52px 0 20px">"Basic Usage"</Heading>
-          <div::codeBlock>"<button>Click me</button>"</div>
-        </>
+      "button" => <ButtonPage/>
 
       "grid-layout" => <LayoutPage/>
 
@@ -112,11 +102,17 @@ component PageContent {
 
       "matrix" => <MatrixPage/>
 
+      "highlight" => <HighlightPage/>
+
       "tabs" => <TabsPage/>
+
+      "index-bar" => <IndexBarPage/>
 
       "navbar" => <NavBarPage/>
 
       "address-edit" => <AddressEditPage/>
+
+      "action-sheet" => <ActionSheetPage/>
 
       "enter-exit" => <EnterExitPage/>
 

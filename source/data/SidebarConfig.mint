@@ -464,6 +464,13 @@ module SidebarConfig {
               route: "/matrix",
               subtitle: "Grid Layout",
               badge: "NEW"
+            },
+            {
+              id: "highlight",
+              label: "Highlight",
+              route: "/highlight",
+              subtitle: "Text Search",
+              badge: "NEW"
             }
           ]
       },
