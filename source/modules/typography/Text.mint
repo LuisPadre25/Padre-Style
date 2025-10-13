@@ -43,17 +43,89 @@ component Text {
 
   /* Styles */
   style text {
-    font-size: #{getFontSize()};
-    line-height: #{lineHeight};
-    font-weight: #{weight};
-    color: #{getColor()};
-    text-align: #{align};
-    margin: #{margin};
-    font-family: #{getFontFamily()};
+    /* Size variants */
+    &.size-xs {
+      font-size: 12px;
+    }
+
+    &.size-sm {
+      font-size: 14px;
+    }
+
+    &.size-base {
+      font-size: 16px;
+    }
+
+    &.size-lg {
+      font-size: 18px;
+    }
+
+    &.size-xl {
+      font-size: 20px;
+    }
+
+    /* Weight variants */
+    &.weight-300 {
+      font-weight: 300;
+    }
+
+    &.weight-400 {
+      font-weight: 400;
+    }
+
+    &.weight-500 {
+      font-weight: 500;
+    }
+
+    &.weight-600 {
+      font-weight: 600;
+    }
+
+    &.weight-700 {
+      font-weight: 700;
+    }
+
+    /* Align variants */
+    &.align-left {
+      text-align: left;
+    }
+
+    &.align-center {
+      text-align: center;
+    }
+
+    &.align-right {
+      text-align: right;
+    }
+
+    &.align-justify {
+      text-align: justify;
+    }
   }
 
   fun render : Html {
-    <p::text>
+    <p::text
+      class={"size-" + size + " weight-" + weight + " align-" + align}
+      style={
+        (if String.isNotEmpty(color) {
+          "color: " + color + ";"
+        } else {
+          "color: var(--text-color);"
+        }) + (if lineHeight != "1.6" {
+          " line-height: " + lineHeight + ";"
+        } else {
+          ""
+        }) + (if margin != "0" {
+          " margin: " + margin + ";"
+        } else {
+          ""
+        }) + (if String.isNotEmpty(fontFamily) {
+          " font-family: " + fontFamily + ";"
+        } else {
+          " font-family: var(--font-body);"
+        })
+      }
+    >
       for child of children {
         child
       }

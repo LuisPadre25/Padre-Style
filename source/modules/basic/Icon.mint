@@ -237,36 +237,90 @@ component Icon {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: #{getSizeValue()};
-    height: #{getSizeValue()};
-    color: #{getColor()};
 
     if clickable {
       cursor: pointer;
     }
 
-    if String.isNotEmpty(bgColor) {
-      background-color: #{bgColor};
+    /* Sizes */
+    &.size-xs {
+      width: 16px;
+      height: 16px;
+    }
+
+    &.size-sm {
+      width: 20px;
+      height: 20px;
+    }
+
+    &.size-md {
+      width: 24px;
+      height: 24px;
+    }
+
+    &.size-lg {
+      width: 32px;
+      height: 32px;
+    }
+
+    &.size-xl {
+      width: 40px;
+      height: 40px;
+    }
+
+    &.size-xxl {
+      width: 48px;
+      height: 48px;
+    }
+
+    /* Colors - Variants */
+    &.color-primary {
+      color: #1989fa;
+    }
+
+    &.color-success {
+      color: #10b981;
+    }
+
+    &.color-warning {
+      color: #f59e0b;
+    }
+
+    &.color-error {
+      color: #ef4444;
+    }
+
+    &.color-info {
+      color: #3b82f6;
+    }
+
+    &.color-muted {
+      color: #9ca3af;
+    }
+
+    &.color-current {
+      color: currentColor;
+    }
+
+    /* Background color - when bgColor is set */
+    &.has-bg {
       border-radius: 50%;
       padding: 8px;
     }
 
-    if String.isNotEmpty(getTransform()) {
-      transform: #{getTransform()};
-    }
-
     /* Animations */
-    if spin {
+    &.spin {
       animation: iconSpin 1s linear infinite;
     }
 
-    if pulse {
+    &.pulse {
       animation: iconPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
     }
 
     /* Responsive scaling - adjust for smaller screens */
     @media (max-width: 640px) {
-      if size == "xl" || size == "xxl" {
+      &.size-xl,
+      &.size-xxl {
         width: 32px;
         height: 32px;
       }
@@ -405,12 +459,68 @@ component Icon {
     }
   }
 
+  /* Get color class */
+  fun getColorClass : String {
+    if String.isNotEmpty(color) {
+      "color-current"
+    } else {
+      case variant {
+        "primary" => "color-primary"
+        "success" => "color-success"
+        "warning" => "color-warning"
+        "error" => "color-error"
+        "info" => "color-info"
+        "muted" => "color-muted"
+        => "color-current"
+      }
+    }
+  }
+
   /* Render icon content */
   fun renderIconContent : Html {
     let svgContent =
       getSvg()
 
-    <div::iconContainer>
+    <div::iconContainer
+      class={
+        "size-" + (if String.isNotEmpty(customSize) {
+          "md"
+        } else {
+          size
+        }) + " " + getColorClass() + (if String.isNotEmpty(bgColor) {
+          " has-bg"
+        } else {
+          ""
+        }) + (if spin {
+          " spin"
+        } else {
+          ""
+        }) + (if pulse {
+          " pulse"
+        } else {
+          ""
+        })
+      }
+      style={
+        (if String.isNotEmpty(customSize) {
+          "width: " + customSize + "; height: " + customSize + ";"
+        } else {
+          ""
+        }) + (if String.isNotEmpty(bgColor) {
+          " background-color: " + bgColor + ";"
+        } else {
+          ""
+        }) + (if String.isNotEmpty(color) {
+          " color: " + color + ";"
+        } else {
+          ""
+        }) + (if String.isNotEmpty(getTransform()) {
+          " transform: " + getTransform() + ";"
+        } else {
+          ""
+        })
+      }
+    >
       if String.isNotEmpty(svgContent) {
         renderSvg()
       } else if String.isNotEmpty(emoji) {

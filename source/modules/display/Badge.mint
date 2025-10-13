@@ -124,28 +124,63 @@ component Badge {
     font-weight: 400;
     white-space: nowrap;
     text-align: center;
-    background: #{getVariantColor()};
-    color: #{textColor};
     box-shadow: 0 0 0 1px #fff;
     z-index: 10;
 
+    /* Variant colors */
+    &.variant-success {
+      background: #52c41a;
+      color: #fff;
+    }
+
+    &.variant-processing {
+      background: #1890ff;
+      color: #fff;
+    }
+
+    &.variant-error {
+      background: #ff4d4f;
+      color: #fff;
+    }
+
+    &.variant-warning {
+      background: #faad14;
+      color: #fff;
+    }
+
+    &.variant-info {
+      background: #1890ff;
+      color: #fff;
+    }
+
+    &.variant-default {
+      background: #ff4d4f;
+      color: #fff;
+    }
+
     /* Positioning */
-    if position == "topRight" {
+    &.pos-topRight {
       top: 0;
       right: 0;
       transform: translate(50%, -50%);
       transform-origin: 100% 0%;
-    } else if position == "topLeft" {
+    }
+
+    &.pos-topLeft {
       top: 0;
       left: 0;
       transform: translate(-50%, -50%);
       transform-origin: 0% 0%;
-    } else if position == "bottomRight" {
+    }
+
+    &.pos-bottomRight {
       bottom: 0;
       right: 0;
       transform: translate(50%, 50%);
       transform-origin: 100% 100%;
-    } else if position == "bottomLeft" {
+    }
+
+    &.pos-bottomLeft {
       bottom: 0;
       left: 0;
       transform: translate(-50%, 50%);
@@ -153,21 +188,25 @@ component Badge {
     }
 
     /* Size variants */
-    if size == "small" {
+    &.size-small {
       height: 18px;
       padding: 0 6px;
       font-size: 12px;
       line-height: 18px;
       border-radius: 9px;
       min-width: 18px;
-    } else if size == "large" {
+    }
+
+    &.size-large {
       height: 24px;
       padding: 0 10px;
       font-size: 14px;
       line-height: 24px;
       border-radius: 12px;
       min-width: 24px;
-    } else {
+    }
+
+    &.size-default {
       height: 20px;
       padding: 0 8px;
       font-size: 12px;
@@ -182,25 +221,55 @@ component Badge {
     position: absolute;
     width: 6px;
     height: 6px;
-    background: #{getVariantColor()};
     border-radius: 100%;
     box-shadow: 0 0 0 1px #fff;
     z-index: 10;
 
+    /* Variant colors */
+    &.variant-success {
+      background: #52c41a;
+    }
+
+    &.variant-processing {
+      background: #1890ff;
+    }
+
+    &.variant-error {
+      background: #ff4d4f;
+    }
+
+    &.variant-warning {
+      background: #faad14;
+    }
+
+    &.variant-info {
+      background: #1890ff;
+    }
+
+    &.variant-default {
+      background: #ff4d4f;
+    }
+
     /* Positioning */
-    if position == "topRight" {
+    &.pos-topRight {
       top: 0;
       right: 0;
       transform: translate(50%, -50%);
-    } else if position == "topLeft" {
+    }
+
+    &.pos-topLeft {
       top: 0;
       left: 0;
       transform: translate(-50%, -50%);
-    } else if position == "bottomRight" {
+    }
+
+    &.pos-bottomRight {
       bottom: 0;
       right: 0;
       transform: translate(50%, 50%);
-    } else if position == "bottomLeft" {
+    }
+
+    &.pos-bottomLeft {
       bottom: 0;
       left: 0;
       transform: translate(-50%, 50%);
@@ -217,23 +286,59 @@ component Badge {
     font-weight: 400;
     white-space: nowrap;
     text-align: center;
-    background: #{getVariantColor()};
-    color: #{textColor};
     border-radius: 2px;
     line-height: 20px;
     font-size: 12px;
     height: 20px;
 
-    if size == "small" {
+    /* Variant colors */
+    &.variant-success {
+      background: #52c41a;
+      color: #fff;
+    }
+
+    &.variant-processing {
+      background: #1890ff;
+      color: #fff;
+    }
+
+    &.variant-error {
+      background: #ff4d4f;
+      color: #fff;
+    }
+
+    &.variant-warning {
+      background: #faad14;
+      color: #fff;
+    }
+
+    &.variant-info {
+      background: #1890ff;
+      color: #fff;
+    }
+
+    &.variant-default {
+      background: #ff4d4f;
+      color: #fff;
+    }
+
+    /* Size variants */
+    &.size-small {
       font-size: 11px;
       height: 18px;
       line-height: 18px;
       padding: 0 6px;
-    } else if size == "large" {
+    }
+
+    &.size-large {
       font-size: 14px;
       height: 24px;
       line-height: 24px;
       padding: 0 10px;
+    }
+
+    &.size-default {
+      /* Already defined above as base */
     }
   }
 
@@ -241,7 +346,20 @@ component Badge {
   fun render : Html {
     if standalone {
       /* Standalone badge (status/tag) */
-      <span::standaloneBadge>
+      <span::standaloneBadge
+        class={"variant-" + variant + " size-" + size}
+        style={
+          (if String.isNotEmpty(color) {
+            "background: " + color + ";"
+          } else {
+            ""
+          }) + (if textColor != "#fff" {
+            " color: " + textColor + ";"
+          } else {
+            ""
+          })
+        }
+      >
         {
           text
         }
@@ -255,9 +373,31 @@ component Badge {
           }
 
           if dot {
-            <span::dot style={getOffsetStyles()}/>
+            <span::dot
+              class={"variant-" + variant + " pos-" + position}
+              style={
+                getOffsetStyles() + (if String.isNotEmpty(color) {
+                  " background: " + color + ";"
+                } else {
+                  ""
+                })
+              }
+            />
           } else {
-            <span::badge style={getOffsetStyles()}>
+            <span::badge
+              class={"variant-" + variant + " pos-" + position + " size-" + size}
+              style={
+                getOffsetStyles() + (if String.isNotEmpty(color) {
+                  " background: " + color + ";"
+                } else {
+                  ""
+                }) + (if textColor != "#fff" {
+                  " color: " + textColor + ";"
+                } else {
+                  ""
+                })
+              }
+            >
               {
                 getDisplayCount()
               }
