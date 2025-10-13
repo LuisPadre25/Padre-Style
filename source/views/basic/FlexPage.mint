@@ -297,9 +297,7 @@ component FlexPage {
                   height="150px"
                   background="#f7f8fa"
                   borderRadius="8px"
-                >
-                  <div::demoBox>"Centered"</div>
-                </Flex>
+                ><div::demoBox>"Centered"</div></Flex>
               </div>,
             showReplay: false
           },
@@ -362,27 +360,21 @@ component FlexPage {
                     background="#07c160"
                     borderRadius="12px"
                     padding="20px"
-                  >
-                    <Text color="#ffffff">"Card 1"</Text>
-                  </Flex>
+                  ><Text color="#ffffff">"Card 1"</Text></Flex>
 
                   <Flex
                     flex="1"
                     background="#1989fa"
                     borderRadius="12px"
                     padding="20px"
-                  >
-                    <Text color="#ffffff">"Card 2"</Text>
-                  </Flex>
+                  ><Text color="#ffffff">"Card 2"</Text></Flex>
 
                   <Flex
                     flex="1"
                     background="#ff976a"
                     borderRadius="12px"
                     padding="20px"
-                  >
-                    <Text color="#ffffff">"Card 3"</Text>
-                  </Flex>
+                  ><Text color="#ffffff">"Card 3"</Text></Flex>
                 </Flex>
               </div>,
             showReplay: false
@@ -472,18 +464,14 @@ component FlexPage {
                           background="#e4e9f2"
                           borderRadius="8px"
                           padding="20px"
-                        >
-                          <Text>"Card 1"</Text>
-                        </Flex>
+                        ><Text>"Card 1"</Text></Flex>
 
                         <Flex
                           flex="1"
                           background="#e4e9f2"
                           borderRadius="8px"
                           padding="20px"
-                        >
-                          <Text>"Card 2"</Text>
-                        </Flex>
+                        ><Text>"Card 2"</Text></Flex>
                       </Flex>
                     </Flex>
                   </Flex>
@@ -497,7 +485,8 @@ component FlexPage {
         [
           {
             name: "Flex Properties",
-            description: "Pure flexbox component. ✅ Has: flex property, visual props (background, borderRadius), overflow. ❌ No: size fractions, offset, responsive breakpoints - use Columns for those.",
+            description:
+              "Pure flexbox component. ✅ Has: flex property, visual props (background, borderRadius), overflow. ❌ No: size fractions, offset, responsive breakpoints - use Columns for those.",
             type: "Component",
             defaultValue: ""
           },

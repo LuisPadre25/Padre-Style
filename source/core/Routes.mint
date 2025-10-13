@@ -159,6 +159,10 @@ routes {
     NavigationStore.setPageAndSection("dialog", "Action Components")
   }
 
+  /modal {
+    NavigationStore.setPageAndSection("modal", "Feedback Components")
+  }
+
   /codes {
     NavigationStore.setPageAndSection("codes", "Tools")
   }

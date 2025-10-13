@@ -515,7 +515,8 @@ component ColumnsPage {
         [
           {
             name: "Columns Properties",
-            description: "Grid container (uses <Columns> + <Column> children). ⚠️ No background/borderRadius props - use Flex for cards.",
+            description:
+              "Grid container (uses <Columns> + <Column> children). ⚠️ No background/borderRadius props - use Flex for cards.",
             type: "Component",
             defaultValue: ""
           },
@@ -553,13 +554,15 @@ component ColumnsPage {
           },
           {
             name: "Column Properties",
-            description: "Individual column properties. ✅ Has: size fractions, offset, responsive breakpoints. ❌ No: flex property - use Flex component for flex='1' growth.",
+            description:
+              "Individual column properties. ✅ Has: size fractions, offset, responsive breakpoints. ❌ No: flex property - use Flex component for flex='1' growth.",
             type: "Component",
             defaultValue: ""
           },
           {
             name: "size",
-            description: "Column size: '1'-'10' (10%-100%), 'auto', or 'custom'. Note: This is NOT the same as flex property.",
+            description:
+              "Column size: '1'-'10' (10%-100%), 'auto', or 'custom'. Note: This is NOT the same as flex property.",
             type: "String",
             defaultValue: "\"auto\""
           },

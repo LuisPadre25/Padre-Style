@@ -98,9 +98,7 @@ component ButtonPage {
             ripple={hasRipple}
             haptic={hasHaptic}
             onClick={handleButtonClick}
-          >
-            "Click Me"
-          </Button>
+          >"Click Me"</Button>
         </Flex>
       }
       controlsContent={
@@ -109,7 +107,10 @@ component ButtonPage {
           <div>
             <Heading level="4" margin="0 0 12px">"Variant"</Heading>
 
-            <select::selectBox onChange={handleVariantChange} value={selectedVariant}>
+            <select::selectBox
+              onChange={handleVariantChange}
+              value={selectedVariant}
+            >
               <option value="default">"Default"</option>
               <option value="primary">"Primary"</option>
               <option value="success">"Success"</option>
@@ -135,7 +136,10 @@ component ButtonPage {
           <div>
             <Heading level="4" margin="0 0 12px">"Shape"</Heading>
 
-            <select::selectBox onChange={handleShapeChange} value={selectedShape}>
+            <select::selectBox
+              onChange={handleShapeChange}
+              value={selectedShape}
+            >
               <option value="square">"Square"</option>
               <option value="rounded">"Rounded"</option>
               <option value="pill">"Pill"</option>
@@ -147,7 +151,10 @@ component ButtonPage {
           <div>
             <Heading level="4" margin="0 0 12px">"Elevation"</Heading>
 
-            <select::selectBox onChange={handleElevationChange} value={selectedElevation}>
+            <select::selectBox
+              onChange={handleElevationChange}
+              value={selectedElevation}
+            >
               <option value="none">"None"</option>
               <option value="raised">"Raised"</option>
               <option value="lifted">"Lifted"</option>
@@ -158,7 +165,11 @@ component ButtonPage {
           /* Plain toggle */
           <div>
             <label::checkboxLabel>
-              <input::checkbox type="checkbox" checked={isPlain} onChange={togglePlain}/>
+              <input::checkbox
+                type="checkbox"
+                checked={isPlain}
+                onChange={togglePlain}
+              />
 
               <Text>"Plain (Outline)"</Text>
             </label>
@@ -167,7 +178,11 @@ component ButtonPage {
           /* Block toggle */
           <div>
             <label::checkboxLabel>
-              <input::checkbox type="checkbox" checked={isBlock} onChange={toggleBlock}/>
+              <input::checkbox
+                type="checkbox"
+                checked={isBlock}
+                onChange={toggleBlock}
+              />
 
               <Text>"Block (Full Width)"</Text>
             </label>
@@ -179,7 +194,8 @@ component ButtonPage {
               <input::checkbox
                 type="checkbox"
                 checked={isLoading}
-                onChange={toggleLoading}/>
+                onChange={toggleLoading}
+              />
 
               <Text>"Loading"</Text>
             </label>
@@ -191,7 +207,8 @@ component ButtonPage {
               <input::checkbox
                 type="checkbox"
                 checked={hasRipple}
-                onChange={toggleRipple}/>
+                onChange={toggleRipple}
+              />
 
               <Text>"Ripple Effect"</Text>
             </label>
@@ -203,7 +220,8 @@ component ButtonPage {
               <input::checkbox
                 type="checkbox"
                 checked={hasHaptic}
-                onChange={toggleHaptic}/>
+                onChange={toggleHaptic}
+              />
 
               <Text>"Haptic Feedback"</Text>
             </label>
@@ -264,6 +282,7 @@ component ButtonPage {
                 <Button shape="square" variant="primary">"Square"</Button>
                 <Button shape="rounded" variant="primary">"Rounded"</Button>
                 <Button shape="pill" variant="primary">"Pill"</Button>
+
                 <Button
                   shape="circle"
                   variant="primary"
@@ -319,7 +338,12 @@ component ButtonPage {
               },
             previewContent:
               <Flex gap="12px" wrap={true}>
-                <Button variant="primary" loading={true} loadingText="Loading..."/>
+                <Button
+                  variant="primary"
+                  loading={true}
+                  loadingText="Loading..."
+                />
+
                 <Button variant="success" loading={true}>"Processing"</Button>
               </Flex>,
             showReplay: false
@@ -374,6 +398,7 @@ component ButtonPage {
             previewContent:
               <Flex gap="12px" wrap={true}>
                 <Button variant="primary" badge="5">"Messages"</Button>
+
                 <Button variant="success" badge="150" badgeMax={99}>
                   "Notifications"
                 </Button>

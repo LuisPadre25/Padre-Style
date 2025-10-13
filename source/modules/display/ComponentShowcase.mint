@@ -515,9 +515,11 @@ component ComponentShowcase {
     transform: translateX(-50%);
     cursor: pointer;
     transition: all 0.2s ease;
+
     box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.5),
                 inset 0 -2px 4px rgba(0, 0, 0, 0.1),
                 0 2px 8px rgba(0, 0, 0, 0.15);
+
     z-index: 10;
 
     &::before {
@@ -531,6 +533,7 @@ component ComponentShowcase {
 
     &:active {
       transform: translateX(-50%) scale(0.95);
+
       box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.15),
                   0 1px 4px rgba(0, 0, 0, 0.1);
     }
@@ -896,6 +899,7 @@ component ComponentShowcase {
   style desktopScreen {
     background: linear-gradient(135deg, rgba(245, 247, 250, 0.9) 0%, rgba(228, 233, 242, 0.9) 100%),
                 url('https://img.freepik.com/foto-gratis/hojas-otono-transparentes-vividas_23-2148239689.jpg');
+
     background-size: cover;
     background-position: center;
     border-radius: 8px;
@@ -1352,9 +1356,7 @@ component ComponentShowcase {
                 <div::mobileTabletLayout>
                   <div::tabletFrame>
                     /* Tablet Camera */
-                    <div::tabletCamera>
-                      <div::tabletCameraDot/>
-                    </div>
+                    <div::tabletCamera><div::tabletCameraDot/></div>
 
                     /* Tablet Status Bar (no notch) */
                     <div::tabletStatusBar>
@@ -1370,7 +1372,10 @@ component ComponentShowcase {
                     <div::safariTopBar>
                       <div::safariTopLeft>
                         <div::safariButton><Icon name="chevron-left" size="sm"/></div>
-                        <div::safariButton><Icon name="chevron-right" size="sm"/></div>
+
+                        <div::safariButton>
+                          <Icon name="chevron-right" size="sm"/>
+                        </div>
                       </div>
 
                       <div::safariUrlBar>

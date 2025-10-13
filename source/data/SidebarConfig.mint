@@ -331,6 +331,21 @@ module SidebarConfig {
           ]
       },
       {
+        id: "feedback",
+        title: "Feedback Components",
+        icon: "💬",
+        items:
+          [
+            {
+              id: "modal",
+              label: "Modal",
+              route: "/modal",
+              subtitle: "Advanced Modals",
+              badge: "NEW"
+            }
+          ]
+      },
+      {
         id: "display",
         title: "Display Components",
         icon: "🎨",

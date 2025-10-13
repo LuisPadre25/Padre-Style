@@ -45,7 +45,9 @@ component Flex {
     /* Width inteligente */
     if String.isNotEmpty(width) {
       width: #{width};
-    } else {
+    }
+
+    else {
       if String.isNotEmpty(flex) {
         width: auto;
       } else {

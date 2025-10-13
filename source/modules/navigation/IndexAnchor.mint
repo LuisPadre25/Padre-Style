@@ -103,6 +103,7 @@ component IndexAnchor {
     font-size: 14px;
     line-height: 32px;
     position: relative;
+
     z-index: #{if stickyActive {
       "10"
     } else {
