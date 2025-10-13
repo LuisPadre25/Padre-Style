@@ -118,6 +118,8 @@ component PageContent {
 
       "dialog" => <DialogPage/>
 
+      "modal" => <ModalPage/>
+
       "gestures" =>
         <>
           <Heading level="1" margin="0 0 30px">"Gestures Animations"</Heading>

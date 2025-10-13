@@ -28,13 +28,11 @@ component IndexBarPage {
   /* Event Handlers */
   fun handleSelect (event : IndexBarSelectEvent) : Promise(Void) {
     `console.log('onSelect called:', #{event.index}, 'count:', #{selectCount})`
-
     next { selectedIndex: event.index, selectCount: selectCount + 1 }
   }
 
   fun handleChange (event : IndexBarChangeEvent) : Promise(Void) {
     `console.log('onChange called:', #{event.index}, 'prev:', #{event.previousIndex})`
-
     next { activeIndex: event.index, previousIndex: event.previousIndex }
   }
 
@@ -325,7 +323,9 @@ component IndexBarPage {
 
   /* Render preview content */
   fun renderPreviewContent : Html {
-    <div style="width: 100%; height: 600px; overflow-y: auto; overflow-x: hidden; position: relative;">
+    <div
+      style="width: 100%; height: 600px; overflow-y: auto; overflow-x: hidden; position: relative;"
+    >
       <IndexBar
         indexList={
           if customIndexes {
@@ -385,7 +385,11 @@ component IndexBarPage {
                   }
                 >
                   if letter == activeIndex {
-                    <span style="color: #{highlightColor};">{"▶ "}</span>
+                    <span style="color: #{highlightColor};">
+                      {
+                        "▶ "
+                      }
+                    </span>
                   } else {
                     <></>
                   }

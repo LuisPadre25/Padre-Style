@@ -45,7 +45,8 @@ component Button {
   property badgeMax : Number = 99
 
   /* Events */
-  property onClick : Function(Html.Event, Promise(Void)) = (event : Html.Event) : Promise(Void) { Promise.never() }
+  property onClick : Function(Html.Event, Promise(Void)) =
+    (event : Html.Event) : Promise(Void) { Promise.never() }
 
   /* State */
   state rippleActive : Bool = false
@@ -66,24 +67,23 @@ component Button {
 
     /* Trigger ripple effect and call onClick */
     if ripple {
-      next
-        {
-          rippleX:
-            `
+      next {
+        rippleX:
+          `
             (() => {
               const rect = #{event}.currentTarget.getBoundingClientRect();
               return #{event}.clientX - rect.left;
             })()
             `,
-          rippleY:
-            `
+        rippleY:
+          `
             (() => {
               const rect = #{event}.currentTarget.getBoundingClientRect();
               return #{event}.clientY - rect.top;
             })()
             `,
-          rippleActive: true
-        }
+        rippleActive: true
+      }
     }
 
     onClick(event)
@@ -326,9 +326,7 @@ component Button {
   /* Render icon */
   fun renderIcon : Html {
     if !String.isEmpty(icon) && !loading {
-      <div::iconWrapper>
-        <Icon name={icon} size={iconSize} color={iconColor}/>
-      </div>
+      <div::iconWrapper><Icon name={icon} size={iconSize} color={iconColor}/></div>
     } else {
       <></>
     }
@@ -390,7 +388,9 @@ component Button {
   fun renderContent : Html {
     case iconPosition {
       "top" =>
-        <div style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
+        <div
+          style="display: flex; flex-direction: column; align-items: center; gap: 4px;"
+        >
           {
             renderIcon()
           }
@@ -403,7 +403,9 @@ component Button {
         </div>
 
       "bottom" =>
-        <div style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
+        <div
+          style="display: flex; flex-direction: column; align-items: center; gap: 4px;"
+        >
           <div>
             for child of children {
               child
@@ -477,7 +479,10 @@ component Button {
     >
       if ripple && rippleActive {
         <div::rippleEffect
-          style={"left: " + Number.toString(rippleX) + "px; top: " + Number.toString(rippleY) + "px;"}
+          style={
+            "left: " + Number.toString(rippleX) + "px; top: " + Number.toString(
+              rippleY) + "px;"
+          }
         />
       } else {
         <></>

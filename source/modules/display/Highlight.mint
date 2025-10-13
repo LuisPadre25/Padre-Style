@@ -274,7 +274,9 @@ component Highlight {
       padding: 0;
       border-radius: 0;
       font-weight: 700;
-    } else {
+    }
+
+    else {
       padding: 2px 4px;
       border-radius: 4px;
 

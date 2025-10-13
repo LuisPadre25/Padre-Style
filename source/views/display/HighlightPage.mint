@@ -2,6 +2,7 @@
 component HighlightPage {
   /* State for interactive controls */
   state selectedVariant : String = "primary"
+
   state selectedSize : String = "medium"
   state animatedEnabled : Bool = false
   state numberedEnabled : Bool = false
@@ -118,17 +119,15 @@ component HighlightPage {
 
   /* Example usage code */
   fun getUsageCode : String {
-    "<Highlight\n" + "  keywords={[\"time\", \"life\", \"answer\"]}\n" + "  sourceString=\"" + SAMPLE_TEXT + "\"\n" + "  variant=\"" + selectedVariant + "\"\n" + "  size=\"" + selectedSize + "\"\n" + "  animated={" + (
-      if animatedEnabled {
-        "true"
-      } else {
-        "false"
-      }) + "}\n" + "  numbered={" + (
-      if numberedEnabled {
-        "true"
-      } else {
-        "false"
-      }) + "}\n" + "/>"
+    "<Highlight\n" + "  keywords={[\"time\", \"life\", \"answer\"]}\n" + "  sourceString=\"" + SAMPLE_TEXT + "\"\n" + "  variant=\"" + selectedVariant + "\"\n" + "  size=\"" + selectedSize + "\"\n" + "  animated={" + (if animatedEnabled {
+      "true"
+    } else {
+      "false"
+    }) + "}\n" + "  numbered={" + (if numberedEnabled {
+      "true"
+    } else {
+      "false"
+    }) + "}\n" + "/>"
   }
 
   /* Render */
@@ -164,7 +163,10 @@ component HighlightPage {
           <div>
             <Heading level="4" margin="0 0 12px">"Variant"</Heading>
 
-            <select::selectBox onChange={handleVariantChange} value={selectedVariant}>
+            <select::selectBox
+              onChange={handleVariantChange}
+              value={selectedVariant}
+            >
               <option value="primary">"Primary"</option>
               <option value="success">"Success"</option>
               <option value="warning">"Warning"</option>
@@ -190,7 +192,8 @@ component HighlightPage {
               <input::checkbox
                 type="checkbox"
                 checked={animatedEnabled}
-                onChange={toggleAnimated}/>
+                onChange={toggleAnimated}
+              />
 
               <Text>"Animated"</Text>
             </label>
@@ -202,7 +205,8 @@ component HighlightPage {
               <input::checkbox
                 type="checkbox"
                 checked={numberedEnabled}
-                onChange={toggleNumbered}/>
+                onChange={toggleNumbered}
+              />
 
               <Text>"Numbered Matches"</Text>
             </label>
@@ -214,7 +218,8 @@ component HighlightPage {
               <input::checkbox
                 type="checkbox"
                 checked={caseSensitiveEnabled}
-                onChange={toggleCaseSensitive}/>
+                onChange={toggleCaseSensitive}
+              />
 
               <Text>"Case Sensitive"</Text>
             </label>
@@ -226,7 +231,8 @@ component HighlightPage {
               <input::checkbox
                 type="checkbox"
                 checked={matchWholeEnabled}
-                onChange={toggleMatchWhole}/>
+                onChange={toggleMatchWhole}
+              />
 
               <Text>"Match Whole Words"</Text>
             </label>
@@ -238,7 +244,8 @@ component HighlightPage {
               <input::checkbox
                 type="checkbox"
                 checked={highlightFirstOnly}
-                onChange={toggleHighlightFirst}/>
+                onChange={toggleHighlightFirst}
+              />
 
               <Text>"Highlight First Only"</Text>
             </label>
@@ -250,7 +257,8 @@ component HighlightPage {
               <input::checkbox
                 type="checkbox"
                 checked={textOnlyEnabled}
-                onChange={toggleTextOnly}/>
+                onChange={toggleTextOnly}
+              />
 
               <Text>"Text Only (No Background)"</Text>
             </label>
@@ -258,15 +266,14 @@ component HighlightPage {
 
           /* Max matches input */
           <div>
-            <Heading level="4" margin="0 0 12px">
-              "Max Matches (-1 = unlimited)"
-            </Heading>
+            <Heading level="4" margin="0 0 12px">"Max Matches (-1 = unlimited)"</Heading>
 
             <input::numberInput
               type="number"
               value={Number.toString(maxMatches)}
               onChange={handleMaxMatchesChange}
-              min="-1"/>
+              min="-1"
+            />
           </div>
         </Flex>
       }
@@ -283,10 +290,7 @@ component HighlightPage {
                 language: "mint"
               },
             previewContent:
-              <Highlight
-                keywords={["questions"]}
-                sourceString={SAMPLE_TEXT}
-              />,
+              <Highlight keywords={["questions"]} sourceString={SAMPLE_TEXT}/>,
             showReplay: false
           },
           {
@@ -527,7 +531,8 @@ component HighlightPage {
           },
           {
             name: "variant",
-            description: "Color variant (primary, success, warning, danger, info)",
+            description:
+              "Color variant (primary, success, warning, danger, info)",
             type: "String",
             defaultValue: "\"primary\""
           },
@@ -575,7 +580,8 @@ component HighlightPage {
           },
           {
             name: "maxMatches",
-            description: "Maximum number of matches to highlight (-1 = unlimited)",
+            description:
+              "Maximum number of matches to highlight (-1 = unlimited)",
             type: "Number",
             defaultValue: "-1"
           },
